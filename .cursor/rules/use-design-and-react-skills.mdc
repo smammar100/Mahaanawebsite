@@ -29,7 +29,7 @@ When building or modifying UI, React components, Next.js pages, or any frontend 
 
 - **Path:** `.cursor/rules/typography-typescale.mdc`
 - **Use when:** Building or modifying any UI, HTML, or frontend that uses headings or body text.
-- **Action:** Apply the typography rule: embed Outfit and Switzer in `<head>` as specified; use the heading typescale (H1–H12 in rem, Outfit, weight 600) for all headings and the body typescale (`.body-xl` … `.body-xx`, Switzer, weights 400/500/600/700) for body text; keep `html { font-size: 16px; }` as the base.
+- **Action:** Apply the typography rule: embed Outfit and Switzer in `<head>` as specified; use the responsive heading typescale (H1–H6 and .h7–.h12, Outfit, weight 600) for headings and the body typescale (`.body-xl` … `.body-xx`, Switzer, weights 400/500/600/700) for body text; prefer semantic `<h1>`–`<h6>` and `font-heading` / `font-body` as in the rule; base 16px with sm/lg scale from 768px.
 
 ## Workflow
 

@@ -11,7 +11,7 @@ export default function ServicesPage() {
       <section className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3" aria-label="Services list">
         {services.map((service, index) => (
           <article key={index} className="rounded-lg border border-zinc-200 dark:border-zinc-800 p-6">
-            <h2 className="h4 mb-3">{service.title}</h2>
+            <h3 className="h4 mb-3">{service.title}</h3>
             <p className="body-md text-zinc-600 dark:text-zinc-400">{service.description}</p>
           </article>
         ))}

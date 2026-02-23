@@ -1,11 +1,11 @@
 ---
-description: Outfit heading + Switzer body typescale (16px base); font embeds in head
+description: Outfit heading + Switzer body typescale; responsive sm (default) and lg (768px+)
 alwaysApply: true
 ---
 
 # Typography: Heading (Outfit) and Body (Switzer) typescale
 
-Base size: **16px = 1rem**. Set `font-size: 16px` on `html` so all rem values resolve correctly.
+The scale is **responsive**: **sm** (default, mobile) and **lg** (from `min-width: 768px`). Base size **16px = 1rem**. Variables live in `:root` in [src/app/globals.css](src/app/globals.css).
 
 ## 1. Embed in `<head>` (required)
 
@@ -17,79 +17,97 @@ Base size: **16px = 1rem**. Set `font-size: 16px` on `html` so all rem values re
 </style>
 ```
 
-Outfit utility class for headings (weight 600): e.g. `.outfit-heading { font-family: "Outfit", sans-serif; font-optical-sizing: auto; font-weight: 600; font-style: normal; }`. Use a descriptive class name; weight can be 100–900 as needed.
+Use Tailwind utility **`font-heading`** for heading family (weight 600), or `font-family: var(--font-heading);` in custom CSS.
 
-**Switzer (body):** In `<head>`, link the project’s Switzer CSS (e.g. `<link rel="stylesheet" href="path/to/switzer.css">`) or embed its `@font-face` rules. Ensure font files (woff2/woff/ttf) live at the paths referenced in that CSS. Set default body to `font-family: 'Switzer-Variable', 'Switzer-Regular', sans-serif;` (variable covers 100–900).
+**Switzer (body):** In `<head>`, embed the project’s `@font-face` rules (see [src/app/globals.css](src/app/globals.css)). Set default body to `font-family: var(--font-body);` (e.g. `'Switzer-Variable', 'Switzer-Regular', sans-serif`). Use Tailwind utility **`font-body`** when applying body family without the full scale.
 
 ## 2. Heading typescale
 
-Use **Outfit**, font-weight **600**, and these values for all headings. Map H7–H12 to classes (e.g. `.h7`–`.h12`) where semantic `h1`–`h6` are insufficient.
+Use **Outfit**, font-weight **600**. Semantic `<h1>`–`<h6>` and `<small>` get the scale from base CSS. Use **`font-heading`** when you need the heading family with a custom size.
+
+**Sm (default):**
 
 | Heading | font-size | line-height | letter-spacing |
 | ------- | --------- | ------------ | -------------- |
-| h1 | 4.5rem | 0.8 | -0.01em |
-| h2 | 4rem | 0.7 | -0.01em |
-| h3 | 3.5rem | 1.3 | -0.01em |
-| h4 | 3rem | 1.3 | -0.01em |
-| h5 | 2.625rem | 1.3 | -0.01em |
-| h6 | 2.5rem | 1.3 | -0.01em |
-| .h7 | 2.25rem | 1.3 | -0.01em |
-| .h8 | 2rem | 1.3 | -0.01em |
-| .h9 | 1.875rem | 1.3 | -0.01em |
-| .h10 | 1.75rem | 1.3 | -0.01em |
-| .h11 | 1.5rem | 1.3 | -0.01em |
-| .h12 | 1.25rem | 1.3 | -0.01em |
+| h1 | 32px | 1.3 | -0.01em |
+| h2 | 28px | 1.3 | -0.01em |
+| h3 | 26px | 1.3 | -0.01em |
+| h4 | 22px | 1.3 | -0.01em |
+| h5 | 20px | 1.3 | -0.01em |
+| h6 | 18px | 1.3 | -0.01em |
 
-All headings: `font-family: "Outfit", sans-serif;`
+**Lg (768px and up):**
 
-## 3. Body typescale
+| Heading | font-size | line-height | letter-spacing |
+| ------- | --------- | ------------ | -------------- |
+| h1 | 62px | 1.1 | -0.011em |
+| h2 | 48px | 1.1 | -0.011em |
+| h3 | 40px | 1.1 | -0.011em |
+| h4 | 32px | 1.1 | -0.011em |
+| h5 | 26px | 1.1 | -0.011em |
+| h6 | 20px | 1.1 | -0.011em |
 
-Use **Switzer** for body text. Each tier supports font-weight **400** (Regular), **500** (Medium), **600** (Semibold), **700** (Bold). Apply via classes `.body-xl`, `.body-lg`, `.body-md`, `.body-sm`, `.body-xs`, `.body-xx` with the appropriate `font-weight`.
+**Utility classes .h7–.h12** (unchanged sizes, use scale line-height/tracking): 2.25rem, 2rem, 1.875rem, 1.75rem, 1.5rem, 1.25rem.
 
-| Class | font-size | line-height | letter-spacing |
-| ----- | --------- | ----------- | -------------- |
-| .body-xl | 1.25rem | 1.3 | -0.017em |
-| .body-lg | 1.125rem | 1.3 | -0.02em |
-| .body-md | 1rem | 1.3 | -0.02em |
-| .body-sm | 0.875rem | 1.3 | -0.01em |
-| .body-xs | 0.75rem | 1.3 | -0.01em |
-| .body-xx | 0.625rem | 1.3 | -0.02em |
+## 3. Body and small
 
-All body: `font-family: 'Switzer-Variable', 'Switzer-Regular', sans-serif;`
+**Body:** 16px, line-height 1.6 (sm) / 1.5 (lg), letter-spacing 0. **Small:** 14px (sm) / 12px (lg).
 
-## 4. CSS reference (copy-paste)
+Use **`.body-xl`**, **`.body-lg`**, **`.body-md`**, **`.body-sm`**, **`.body-xs`**, **`.body-xx`** for body tiers (font sizes 1.25rem → 0.625rem); they use the scale’s line-height and letter-spacing. Weights 400, 500, 600, 700 as needed.
+
+## 4. Tailwind usage
+
+- Prefer semantic **`<h1>`–`<h6>`** and **`<small>`** so they pick up the responsive base styles.
+- Use **`font-heading`** and **`font-body`** when applying family without the full scale (e.g. custom text sizes).
+- Responsive behaviour is built into the base CSS; no need to add `md:` for heading/body sizes on elements.
+
+## 5. CSS reference (variable-based, in globals.css)
+
+Base typography uses `:root` variables and one `@media (min-width: 768px)` block. Summary:
 
 ```css
-html { font-size: 16px; }
-
-h1, h2, h3, h4, h5, h6, .h7, .h8, .h9, .h10, .h11, .h12 {
-  font-family: "Outfit", sans-serif;
-  font-weight: 600;
-  letter-spacing: -0.01em;
-}
-h1 { font-size: 4.5rem; line-height: 0.8; }
-h2 { font-size: 4rem; line-height: 0.7; }
-h3 { font-size: 3.5rem; line-height: 1.3; }
-h4 { font-size: 3rem; line-height: 1.3; }
-h5 { font-size: 2.625rem; line-height: 1.3; }
-h6 { font-size: 2.5rem; line-height: 1.3; }
-.h7 { font-size: 2.25rem; line-height: 1.3; }
-.h8 { font-size: 2rem; line-height: 1.3; }
-.h9 { font-size: 1.875rem; line-height: 1.3; }
-.h10 { font-size: 1.75rem; line-height: 1.3; }
-.h11 { font-size: 1.5rem; line-height: 1.3; }
-.h12 { font-size: 1.25rem; line-height: 1.3; }
+html { font-size: var(--text-base-sm); }
 
 body {
-  font-family: 'Switzer-Variable', 'Switzer-Regular', sans-serif;
-  font-size: 1rem;
-  line-height: 1.3;
-  letter-spacing: -0.02em;
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-body);
+  line-height: var(--line-height-body-sm);
+  font-size: var(--text-base-sm);
+  letter-spacing: var(--tracking-body-sm);
 }
-.body-xl { font-size: 1.25rem; line-height: 1.3; letter-spacing: -0.017em; }
-.body-lg { font-size: 1.125rem; line-height: 1.3; letter-spacing: -0.02em; }
-.body-md { font-size: 1rem; line-height: 1.3; letter-spacing: -0.02em; }
-.body-sm { font-size: 0.875rem; line-height: 1.3; letter-spacing: -0.01em; }
-.body-xs { font-size: 0.75rem; line-height: 1.3; letter-spacing: -0.01em; }
-.body-xx { font-size: 0.625rem; line-height: 1.3; letter-spacing: -0.02em; }
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-heading);
+  line-height: var(--line-height-heading-sm);
+  letter-spacing: var(--tracking-heading-sm);
+}
+h1 { font-size: var(--text-h1-sm); }
+h2 { font-size: var(--text-h2-sm); }
+h3 { font-size: var(--text-h3-sm); }
+h4 { font-size: var(--text-h4-sm); }
+h5 { font-size: var(--text-h5-sm); }
+h6 { font-size: var(--text-h6-sm); }
+small { font-size: var(--text-sm-sm); }
+
+@media (min-width: 768px) {
+  body {
+    font-size: var(--text-base-lg);
+    line-height: var(--line-height-body-lg);
+    letter-spacing: var(--tracking-body-lg);
+  }
+  h1, h2, h3, h4, h5, h6 {
+    line-height: var(--line-height-heading-lg);
+    letter-spacing: var(--tracking-heading-lg);
+  }
+  h1 { font-size: var(--text-h1-lg); }
+  h2 { font-size: var(--text-h2-lg); }
+  h3 { font-size: var(--text-h3-lg); }
+  h4 { font-size: var(--text-h4-lg); }
+  h5 { font-size: var(--text-h5-lg); }
+  h6 { font-size: var(--text-h6-lg); }
+  small { font-size: var(--text-sm-lg); }
+}
 ```
+
+`.body-xl` … `.body-xx` and `.h7` … `.h12` are defined in [src/app/globals.css](src/app/globals.css) using the same variables.

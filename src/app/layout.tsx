@@ -24,7 +24,7 @@ export default function RootLayout({
       <body className="min-h-screen antialiased flex flex-col w-full h-fit">
         <header className="border-b border-zinc-200 dark:border-zinc-800 w-full">
           <div className="page-container py-4 flex items-center justify-between">
-            <Link href="/" className="h6 text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground rounded">
+            <Link href="/" className="h6 font-heading text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground rounded">
               Mahaana
             </Link>
             <Nav />

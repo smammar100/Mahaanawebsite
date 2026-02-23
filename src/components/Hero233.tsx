@@ -32,27 +32,27 @@ const Hero233 = ({ className }: Hero233Props) => {
           </Button>
           <div className="relative max-w-4xl flex flex-col gap-6 leading-[1.05]">
             <div className="relative flex max-w-4xl items-start justify-start text-left">
-              <h4 className="relative z-10">
+              <h3 className="relative z-10">
                 <ScrollBlurText className="text-left text-black">
                   Your goals deserve a foundation. Your savings deserve to grow.
                 </ScrollBlurText>
-              </h4>
+              </h3>
               <div className="absolute z-[9] h-[105%] w-[85%] bg-background" />
             </div>
             <div className="relative flex max-w-4xl items-start justify-start text-left">
-              <h4 className="relative z-10">
+              <h3 className="relative z-10">
                 <ScrollBlurText className="text-left text-black">
                   Join a platform where capital is invested with purpose and integrity, moving us all forward, together.
                 </ScrollBlurText>
-              </h4>
+              </h3>
               <div className="absolute z-[9] h-[105%] w-[85%] bg-background" />
             </div>
             <div className="relative flex max-w-4xl items-start justify-start text-left">
-              <h4 className="relative z-10">
+              <h3 className="relative z-10">
                 <ScrollBlurText className="text-left text-black">
                   Mahaana making investing easier.
                 </ScrollBlurText>
-              </h4>
+              </h3>
               <div className="absolute z-[9] h-[105%] w-[85%] bg-background" />
             </div>
           </div>

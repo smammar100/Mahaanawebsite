@@ -2,12 +2,14 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import {
+  ArrowRight,
   ChevronDown,
   ChevronLeft,
   ChevronRight,
   ChevronUp,
   PlusCircle,
 } from "lucide-react";
+import Link from "next/link";
 import React, { useState } from "react";
 
 import { cn } from "@/lib/utils";
@@ -20,6 +22,7 @@ interface FeatureItem {
   title: string;
   description: string;
   icon?: string;
+  learnMoreHref?: string;
 }
 
 interface ControlsProps {
@@ -107,12 +110,20 @@ const FeatureCard = ({ feature, isActive, onClick }: FeatureCardProps) => {
               delay: 0.3,
               ease: "easeOut",
             }}
-            className="p-6 text-sm md:p-8 md:text-base"
+            className="p-6 md:p-8"
           >
             <p className="body-md">
               <span className="font-semibold">{feature.title}.</span>{" "}
               <span>{feature.description}</span>
             </p>
+            <div className="mt-4" onClick={(e) => e.stopPropagation()}>
+              <Button variant="link" className="gap-2 p-0 h-auto" asChild>
+                <Link href={feature.learnMoreHref ?? "#"}>
+                  Learn more about {feature.title}
+                  <ArrowRight className="size-4" />
+                </Link>
+              </Button>
+            </div>
           </motion.div>
         ) : (
           <motion.div
@@ -128,7 +139,7 @@ const FeatureCard = ({ feature, isActive, onClick }: FeatureCardProps) => {
               ease: "easeOut",
             }}
             className={cn(
-              "flex h-fit shrink-0 items-center gap-4 text-sm md:py-3.5 md:pr-6 md:pl-3 md:text-base",
+              "flex h-fit shrink-0 items-center gap-4 md:py-3.5 md:pr-6 md:pl-3",
               !isActive && "h-0 w-0 md:h-auto md:w-auto",
             )}
             style={{
@@ -288,6 +299,7 @@ const DEFAULT_FEATURES: FeatureItem[] = [
     description:
       "Build a foundation for your goals. Our retirement solutions help you save with purpose and grow your capital with integrity.",
     icon: "/images/retirement.svg",
+    learnMoreHref: "#",
   },
   {
     image: "/images/Save+.png",
@@ -295,6 +307,7 @@ const DEFAULT_FEATURES: FeatureItem[] = [
     description:
       "Move forward together with a platform where your savings are invested with clarity and care.",
     icon: "/images/save+.svg",
+    learnMoreHref: "#",
   },
 ];
 
@@ -369,7 +382,7 @@ const Feature270 = ({
     >
       <section className="h-fit w-full space-y-12 md:space-y-10">
         <div className="relative max-w-5xl space-y-4">
-          <h4 className="text-left">{heading}</h4>
+          <h3 className="text-left">{heading}</h3>
           <p className="body-lg text-left">{subheading}</p>
         </div>
         <div className="relative min-h-[70vh] w-full overflow-hidden rounded-3xl bg-white px-6 py-6 md:min-h-[70vh] md:px-8 md:py-8 lg:py-20">
