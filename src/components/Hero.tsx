@@ -24,7 +24,7 @@ export default function Hero() {
         <div className="max-w-xl w-full text-left">
           <h1
             id="hero-heading"
-            className="mb-4 text-white leading-[100%] tracking-[-1.5px]"
+            className="mb-4 text-white leading-[105%] tracking-[-1px]"
           >
             Changing the way Pakistani&apos;s invest
           </h1>

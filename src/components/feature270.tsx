@@ -36,7 +36,7 @@ const Controls = ({
   isNextDisabled,
 }: ControlsProps) => {
   return (
-    <div className="hidden flex-col items-start gap-8 lg:flex">
+    <div className="hidden flex-col items-start gap-4 lg:flex">
       <Button
         variant="outline"
         size="icon"
@@ -89,7 +89,7 @@ const FeatureCard = ({ feature, isActive, onClick }: FeatureCardProps) => {
           },
         }}
         style={{
-          borderRadius: "24px",
+          borderRadius: "16px",
         }}
         className="flex cursor-pointer items-start gap-4 overflow-hidden bg-white md:w-fit md:max-w-sm"
         onClick={onClick}
@@ -175,7 +175,7 @@ const FeaturesDesktop = ({
   isNextDisabled,
 }: FeaturesDesktopProps) => {
   return (
-    <div className="relative z-10 hidden items-start justify-start gap-8 md:flex">
+    <div className="relative z-10 hidden items-start justify-start gap-6 md:flex">
       <Controls
         handleNext={handleNext}
         handlePrevious={handlePrevious}
