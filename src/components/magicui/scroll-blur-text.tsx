@@ -5,6 +5,16 @@ import React, { useRef } from "react";
 
 import { cn } from "@/lib/utils";
 
+/** Offset type accepted by framer-motion useScroll. */
+type ScrollOffset = [
+  "start" | "end" | "center" | number
+    | `${number} ${number}` | `${number} start` | `${number} center` | `${number} end`
+    | `start ${number}` | `end ${number}` | `center ${number}`,
+  "start" | "end" | "center" | number
+    | `${number} ${number}` | `${number} start` | `${number} center` | `${number} end`
+    | `start ${number}` | `end ${number}` | `center ${number}`,
+];
+
 /**
  * Scroll-blur reveal text (inspired by Codrops ScrollBlurTypography effect 3).
  * Words reveal with blur → sharp and scale as they enter the viewport.
@@ -14,7 +24,7 @@ interface ScrollBlurTextProps {
   children: string;
   className?: string;
   /** Scroll offset: [start, end] as viewport progress. Default: element enters from bottom and reveals by ~40% viewport. */
-  offset?: [string, string];
+  offset?: ScrollOffset;
 }
 
 const WORD_STAGGER = 0.08;
