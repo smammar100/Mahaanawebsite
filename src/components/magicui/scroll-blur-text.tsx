@@ -98,7 +98,7 @@ function ScrollBlurWord({
 
   return (
     <motion.span
-      className="inline-block origin-center will-change-[transform,filter] leading-[48px] tracking-[-1px]"
+      className="inline-block origin-center will-change-[transform,filter] leading-[1.3]"
       style={{
         scaleX,
         scaleY,

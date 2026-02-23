@@ -22,37 +22,39 @@ const Hero233 = ({ className }: Hero233Props) => {
       )}
     >
       <div className="relative z-20 page-container">
-        <div className="flex flex-col items-start justify-start gap-4 bg-background pb-3 text-left leading-[36px] tracking-[-0.75px]">
+        <div className="flex flex-col items-start justify-start gap-2 bg-background pb-3 text-left">
           <Button
             variant="secondary"
-            className="text-md group mt-10 mb-10 flex w-fit items-center justify-center gap-3 rounded-full bg-muted/60 px-5 py-1 tracking-tight"
+            className="text-md group mt-10 mb-5 flex w-fit items-center justify-center gap-3 rounded-full bg-muted/60 px-5 py-1 tracking-tight"
           >
             <span className="size-2 rounded-full bg-foreground" />
             <span>Flexible Plan customized for you</span>
           </Button>
-          <div className="relative flex max-w-4xl items-start justify-start text-left text-5xl font-medium leading-[36px] tracking-[-0.75px] md:text-7xl">
-            <h4 className="relative z-10 leading-[36px] tracking-[-0.75px]">
-              <ScrollBlurText className="text-left text-black leading-[36px] tracking-[-0.75px]">
-                Your goals deserve a foundation. Your savings deserve to grow.
-              </ScrollBlurText>
-            </h4>
-            <div className="absolute z-[9] h-[105%] w-[85%] bg-background" />
-          </div>
-          <div className="relative flex max-w-4xl items-start justify-start text-left text-5xl font-medium leading-[36px] tracking-[-0.75px] md:text-7xl">
-            <h4 className="relative z-10 leading-[36px] tracking-[-0.75px]">
-              <ScrollBlurText className="text-left text-black leading-[36px] tracking-[-0.75px]">
-                Join a platform where capital is invested with purpose and integrity, moving us all forward, together.
-              </ScrollBlurText>
-            </h4>
-            <div className="absolute z-[9] h-[105%] w-[85%] bg-background" />
-          </div>
-          <div className="relative flex max-w-4xl items-start justify-start text-left text-5xl font-medium leading-[36px] tracking-[-0.75px] md:text-7xl">
-            <h4 className="relative z-10 leading-[36px] tracking-[-0.75px]">
-              <ScrollBlurText className="text-left text-black leading-[36px] tracking-[-0.75px]">
-                Mahaana making investing easier.
-              </ScrollBlurText>
-            </h4>
-            <div className="absolute z-[9] h-[105%] w-[85%] bg-background" />
+          <div className="relative max-w-4xl flex flex-col gap-6 leading-[1.05]">
+            <div className="relative flex max-w-4xl items-start justify-start text-left">
+              <h4 className="relative z-10">
+                <ScrollBlurText className="text-left text-black">
+                  Your goals deserve a foundation. Your savings deserve to grow.
+                </ScrollBlurText>
+              </h4>
+              <div className="absolute z-[9] h-[105%] w-[85%] bg-background" />
+            </div>
+            <div className="relative flex max-w-4xl items-start justify-start text-left">
+              <h4 className="relative z-10">
+                <ScrollBlurText className="text-left text-black">
+                  Join a platform where capital is invested with purpose and integrity, moving us all forward, together.
+                </ScrollBlurText>
+              </h4>
+              <div className="absolute z-[9] h-[105%] w-[85%] bg-background" />
+            </div>
+            <div className="relative flex max-w-4xl items-start justify-start text-left">
+              <h4 className="relative z-10">
+                <ScrollBlurText className="text-left text-black">
+                  Mahaana making investing easier.
+                </ScrollBlurText>
+              </h4>
+              <div className="absolute z-[9] h-[105%] w-[85%] bg-background" />
+            </div>
           </div>
         </div>
       </div>

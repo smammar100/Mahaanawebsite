@@ -368,11 +368,9 @@ const Feature270 = ({
       )}
     >
       <section className="h-fit w-full space-y-12 md:space-y-10">
-        <div className="relative max-w-5xl">
-          <h2 className="mb-4 text-left text-[48px] font-medium leading-[48px] tracking-[-1px]">
-            {heading}
-          </h2>
-          <p className="body-md text-left">{subheading}</p>
+        <div className="relative max-w-5xl space-y-4">
+          <h4 className="text-left">{heading}</h4>
+          <p className="body-lg text-left">{subheading}</p>
         </div>
         <div className="relative min-h-[70vh] w-full overflow-hidden rounded-3xl bg-white px-6 py-6 md:min-h-[70vh] md:px-8 md:py-8 lg:py-20">
           <FeaturesDesktop
