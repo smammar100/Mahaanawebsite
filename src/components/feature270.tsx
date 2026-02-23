@@ -19,6 +19,7 @@ interface FeatureItem {
   image: string;
   title: string;
   description: string;
+  icon?: string;
 }
 
 interface ControlsProps {
@@ -135,7 +136,17 @@ const FeatureCard = ({ feature, isActive, onClick }: FeatureCardProps) => {
               lineHeight: "normal",
             }}
           >
-            <PlusCircle strokeWidth={1.5} className="shrink-0" />
+            {feature.icon ? (
+              <img
+                src={feature.icon}
+                alt=""
+                className="size-6 shrink-0"
+                width={24}
+                height={24}
+              />
+            ) : (
+              <PlusCircle strokeWidth={1.5} className="shrink-0" />
+            )}
             <p className="body-md shrink-0 font-semibold">{feature.title}</p>
           </motion.div>
         )}
@@ -276,12 +287,14 @@ const DEFAULT_FEATURES: FeatureItem[] = [
     title: "Retirement",
     description:
       "Build a foundation for your goals. Our retirement solutions help you save with purpose and grow your capital with integrity.",
+    icon: "/images/retirement.svg",
   },
   {
     image: "/images/Save+.png",
     title: "Save+",
     description:
       "Move forward together with a platform where your savings are invested with clarity and care.",
+    icon: "/images/save+.svg",
   },
 ];
 
@@ -356,7 +369,7 @@ const Feature270 = ({
     >
       <section className="h-fit w-full space-y-12 md:space-y-10">
         <div className="relative max-w-5xl">
-          <h2 className="mb-4 text-left text-5xl font-medium leading-[105%] tracking-[-0.75px]">
+          <h2 className="mb-4 text-left text-[48px] font-medium leading-[48px] tracking-[-1px]">
             {heading}
           </h2>
           <p className="body-md text-left">{subheading}</p>
