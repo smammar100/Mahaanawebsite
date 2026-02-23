@@ -1,0 +1,95 @@
+---
+description: Outfit heading + Switzer body typescale (16px base); font embeds in head
+alwaysApply: true
+---
+
+# Typography: Heading (Outfit) and Body (Switzer) typescale
+
+Base size: **16px = 1rem**. Set `font-size: 16px` on `html` so all rem values resolve correctly.
+
+## 1. Embed in `<head>` (required)
+
+**Outfit (headings):** In the HTML `<head>` (or in a CSS file loaded by the root HTML), include:
+
+```html
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+</style>
+```
+
+Outfit utility class for headings (weight 600): e.g. `.outfit-heading { font-family: "Outfit", sans-serif; font-optical-sizing: auto; font-weight: 600; font-style: normal; }`. Use a descriptive class name; weight can be 100–900 as needed.
+
+**Switzer (body):** In `<head>`, link the project’s Switzer CSS (e.g. `<link rel="stylesheet" href="path/to/switzer.css">`) or embed its `@font-face` rules. Ensure font files (woff2/woff/ttf) live at the paths referenced in that CSS. Set default body to `font-family: 'Switzer-Variable', 'Switzer-Regular', sans-serif;` (variable covers 100–900).
+
+## 2. Heading typescale
+
+Use **Outfit**, font-weight **600**, and these values for all headings. Map H7–H12 to classes (e.g. `.h7`–`.h12`) where semantic `h1`–`h6` are insufficient.
+
+| Heading | font-size | line-height | letter-spacing |
+| ------- | --------- | ------------ | -------------- |
+| h1 | 4.5rem | 0.8 | -0.01em |
+| h2 | 4rem | 0.7 | -0.01em |
+| h3 | 3.5rem | 1.3 | -0.01em |
+| h4 | 3rem | 1.3 | -0.01em |
+| h5 | 2.625rem | 1.3 | -0.01em |
+| h6 | 2.5rem | 1.3 | -0.01em |
+| .h7 | 2.25rem | 1.3 | -0.01em |
+| .h8 | 2rem | 1.3 | -0.01em |
+| .h9 | 1.875rem | 1.3 | -0.01em |
+| .h10 | 1.75rem | 1.3 | -0.01em |
+| .h11 | 1.5rem | 1.3 | -0.01em |
+| .h12 | 1.25rem | 1.3 | -0.01em |
+
+All headings: `font-family: "Outfit", sans-serif;`
+
+## 3. Body typescale
+
+Use **Switzer** for body text. Each tier supports font-weight **400** (Regular), **500** (Medium), **600** (Semibold), **700** (Bold). Apply via classes `.body-xl`, `.body-lg`, `.body-md`, `.body-sm`, `.body-xs`, `.body-xx` with the appropriate `font-weight`.
+
+| Class | font-size | line-height | letter-spacing |
+| ----- | --------- | ----------- | -------------- |
+| .body-xl | 1.25rem | 1.3 | -0.017em |
+| .body-lg | 1.125rem | 1.3 | -0.02em |
+| .body-md | 1rem | 1.3 | -0.02em |
+| .body-sm | 0.875rem | 1.3 | -0.01em |
+| .body-xs | 0.75rem | 1.3 | -0.01em |
+| .body-xx | 0.625rem | 1.3 | -0.02em |
+
+All body: `font-family: 'Switzer-Variable', 'Switzer-Regular', sans-serif;`
+
+## 4. CSS reference (copy-paste)
+
+```css
+html { font-size: 16px; }
+
+h1, h2, h3, h4, h5, h6, .h7, .h8, .h9, .h10, .h11, .h12 {
+  font-family: "Outfit", sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+h1 { font-size: 4.5rem; line-height: 0.8; }
+h2 { font-size: 4rem; line-height: 0.7; }
+h3 { font-size: 3.5rem; line-height: 1.3; }
+h4 { font-size: 3rem; line-height: 1.3; }
+h5 { font-size: 2.625rem; line-height: 1.3; }
+h6 { font-size: 2.5rem; line-height: 1.3; }
+.h7 { font-size: 2.25rem; line-height: 1.3; }
+.h8 { font-size: 2rem; line-height: 1.3; }
+.h9 { font-size: 1.875rem; line-height: 1.3; }
+.h10 { font-size: 1.75rem; line-height: 1.3; }
+.h11 { font-size: 1.5rem; line-height: 1.3; }
+.h12 { font-size: 1.25rem; line-height: 1.3; }
+
+body {
+  font-family: 'Switzer-Variable', 'Switzer-Regular', sans-serif;
+  font-size: 1rem;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+}
+.body-xl { font-size: 1.25rem; line-height: 1.3; letter-spacing: -0.017em; }
+.body-lg { font-size: 1.125rem; line-height: 1.3; letter-spacing: -0.02em; }
+.body-md { font-size: 1rem; line-height: 1.3; letter-spacing: -0.02em; }
+.body-sm { font-size: 0.875rem; line-height: 1.3; letter-spacing: -0.01em; }
+.body-xs { font-size: 0.75rem; line-height: 1.3; letter-spacing: -0.01em; }
+.body-xx { font-size: 0.625rem; line-height: 1.3; letter-spacing: -0.02em; }
+```

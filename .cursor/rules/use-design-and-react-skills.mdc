@@ -1,0 +1,40 @@
+---
+description: Use project skills when building UI, React, or frontend features
+alwaysApply: true
+---
+
+# Use Design & React Skills When Building
+
+When building or modifying UI, React components, Next.js pages, or any frontend feature, **read and apply** these project skills so the work follows their guidelines:
+
+## 1. Web Design Guidelines
+
+- **Path:** `.agents/skills/web-design-guidelines/SKILL.md`
+- **Use when:** Building or reviewing UI, checking accessibility, auditing design/UX, or checking against best practices.
+- **Action:** Fetch the latest guidelines from the URL in the skill, then check your code against them. Output findings in `file:line` format as specified in the skill.
+
+## 2. UI/UX Pro Max
+
+- **Path:** `.agents/skills/ui-ux-pro-max/SKILL.md`
+- **Use when:** Designing UI, choosing palettes/typography, building components/pages, implementing accessibility, or reviewing UX.
+- **Action:** Read the skill and apply its styles, palettes, font pairings, and UX rules (accessibility, touch, performance, layout, etc.) to your implementation.
+
+## 3. Vercel React Best Practices
+
+- **Path:** `.agents/skills/vercel-react-best-practices/SKILL.md`
+- **Use when:** Writing or refactoring React/Next.js code, data fetching, or optimizing performance/bundle size.
+- **Action:** Follow the skill’s categories (waterfalls, bundle size, server/client performance, re-renders, rendering, JS performance) when writing or reviewing code.
+
+## 4. Typography typescale (Outfit + Switzer)
+
+- **Path:** `.cursor/rules/typography-typescale.mdc`
+- **Use when:** Building or modifying any UI, HTML, or frontend that uses headings or body text.
+- **Action:** Apply the typography rule: embed Outfit and Switzer in `<head>` as specified; use the heading typescale (H1–H12 in rem, Outfit, weight 600) for all headings and the body typescale (`.body-xl` … `.body-xx`, Switzer, weights 400/500/600/700) for body text; keep `html { font-size: 16px; }` as the base.
+
+## Workflow
+
+1. **Before implementing:** Read the relevant skill(s) for the kind of work (UI vs React vs both), and the typography rule when the work involves headings or body copy.
+2. **While building:** Apply the rules from those skills (accessibility, focus states, forms, typography typescale, React patterns, etc.).
+3. **After or during review:** For UI/design work, run the web-design-guidelines check (fetch guidelines, then review files) and address findings.
+
+Keep rules concise; prefer applying the skills’ own wording and examples over duplicating them here.
