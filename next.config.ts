@@ -1,7 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  // Hides the dev overlay indicator; nextjs-portal may still exist for error overlay
+  devIndicators: false,
 };
 
 export default nextConfig;

@@ -2,7 +2,7 @@
 
 export default function ContactPage() {
   return (
-    <div className="mx-auto max-w-5xl px-4 py-12 sm:px-6">
+    <div className="mx-auto max-w-5xl px-4 py-6 sm:px-6 sm:py-8 md:px-8 md:py-10 lg:px-12 lg:py-12 xl:px-16 xl:py-16">
       <h1 className="mb-8">Contact Us</h1>
       <section aria-labelledby="contact-heading">
         <h2 id="contact-heading" className="sr-only">

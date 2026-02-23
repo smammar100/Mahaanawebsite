@@ -6,7 +6,7 @@ export default function ServicesPage() {
   ];
 
   return (
-    <div className="mx-auto max-w-5xl px-4 py-12 sm:px-6">
+    <div className="mx-auto max-w-5xl px-4 py-6 sm:px-6 sm:py-8 md:px-8 md:py-10 lg:px-12 lg:py-12 xl:px-16 xl:py-16">
       <h1 className="mb-8">Our Services</h1>
       <section className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3" aria-label="Services list">
         {services.map((service, index) => (

@@ -15,18 +15,24 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="min-h-screen antialiased flex flex-col">
-        <header className="border-b border-zinc-200 dark:border-zinc-800">
-          <div className="mx-auto max-w-5xl px-4 py-4 sm:px-6 flex items-center justify-between">
+      <head>
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap"
+        />
+      </head>
+      <body className="min-h-screen antialiased flex flex-col w-full h-fit">
+        <header className="border-b border-zinc-200 dark:border-zinc-800 w-full">
+          <div className="page-container py-4 flex items-center justify-between">
             <Link href="/" className="h6 text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground rounded">
               Mahaana
             </Link>
             <Nav />
           </div>
         </header>
-        <main className="flex-1">{children}</main>
+        <main className="flex-1 w-full">{children}</main>
         <footer className="border-t border-zinc-200 dark:border-zinc-800 py-6">
-          <div className="mx-auto max-w-5xl px-4 sm:px-6">
+          <div className="page-container">
             <p className="body-sm text-zinc-600 dark:text-zinc-400">
               © {new Date().getFullYear()} Mahaana. All rights reserved.
             </p>
