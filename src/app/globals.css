@@ -71,6 +71,20 @@
   }
 }
 
+/* Orbiting circles animation (used by Magic UI orbiting-circles) */
+@keyframes orbit {
+  0% {
+    transform: translate(-50%, -50%) rotate(calc(var(--angle) * 1deg)) translateY(calc(var(--radius) * -1px)) rotate(calc(var(--angle) * -1deg));
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(calc(var(--angle) * 1deg + 360deg)) translateY(calc(var(--radius) * -1px)) rotate(calc((var(--angle) * -1deg) - 360deg));
+  }
+}
+.animate-orbit {
+  animation: orbit calc(var(--duration) * 1s) linear infinite;
+  animation-fill-mode: backwards;
+}
+
 /* Default background is white; dark mode can be added later via class if needed */
 
 /* Typography: responsive scale (sm default, lg from 768px) — uses :root vars */
