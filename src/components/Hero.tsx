@@ -7,20 +7,20 @@ export default function Hero() {
   return (
     <section
       aria-labelledby="hero-heading"
-      className="relative w-full h-[85vh] flex items-center overflow-hidden bg-zinc-900"
+      className="relative w-full h-[85vh] flex items-center lg:items-start overflow-hidden bg-zinc-900"
     >
-      {/* Background image */}
+      {/* Background image — shift down on lg/xl so subject isn't cropped at top */}
       <div
-        className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat bg-[url('/images/hero.png')]"
+        className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat bg-[url('/images/hero.png')] lg:[background-position:center_42%] xl:[background-position:center_40%] 2xl:[background-position:center_38%]"
         aria-hidden
       />
       <div
-        className="absolute inset-0 z-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent"
+        className="absolute inset-0 z-0 flex flex-col justify-center items-start bg-gradient-to-r from-black/70 via-black/40 to-transparent"
         aria-hidden
       />
 
-      {/* Content — same container as rest of page for alignment */}
-      <div className="relative z-10 page-container py-6 sm:py-8 md:py-10 lg:py-12 xl:py-16 2xl:py-16">
+      {/* Content — same container as rest of page for alignment; extra top padding to clear navbar (larger at lg/xl) */}
+      <div className="relative z-10 h-full flex flex-col justify-start items-start page-container pt-40 pb-6 sm:pt-24 sm:pb-8 md:pt-28 md:pb-10 lg:pt-28 lg:pb-12 xl:pt-32 xl:pb-16 2xl:pt-36 2xl:pb-16">
         <div className="max-w-xl w-full text-left">
           <h1
             id="hero-heading"

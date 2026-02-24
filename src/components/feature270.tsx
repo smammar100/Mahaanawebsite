@@ -376,14 +376,14 @@ const Feature270 = ({
   return (
     <div
       className={cn(
-        "bg-background page-container py-6 sm:py-8 md:py-10 lg:py-12 xl:py-16 2xl:py-16",
+        "bg-background page-container py-6 sm:py-8 md:py-16 lg:py-12 xl:py-16 2xl:py-16",
         className,
       )}
     >
       <section className="h-fit w-full space-y-12 md:space-y-10">
         <div className="relative max-w-5xl space-y-4">
-          <h3 className="text-left">{heading}</h3>
-          <p className="body-lg text-left">{subheading}</p>
+          <h2 className="font-heading text-left">{heading}</h2>
+          <p className="body-lg text-left text-muted-foreground">{subheading}</p>
         </div>
         <div className="relative min-h-[70vh] w-full overflow-hidden rounded-3xl bg-white px-6 py-6 md:min-h-[70vh] md:px-8 md:py-8 lg:py-20">
           <FeaturesDesktop

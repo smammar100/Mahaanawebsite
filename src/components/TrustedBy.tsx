@@ -17,12 +17,12 @@ export default function TrustedBy() {
           role="list"
           aria-label="Partner logos"
         >
-          <h3
+          <p
             id="trusted-by-heading"
-            className="body-xl font-body font-medium shrink-0 text-foreground"
+            className="body-lg shrink-0 text-foreground"
           >
             Trusted by the best
-          </h3>
+          </p>
           {PARTNER_LOGOS.map(({ src, alt }) => (
             <img
               key={alt}

@@ -82,12 +82,12 @@ const Feature254 = ({ className }: Feature254Props) => {
           className="absolute inset-0 flex flex-col items-center justify-center gap-4 pointer-events-none"
         >
           <div className="pointer-events-none absolute left-1/2 top-1/2 h-1/3 w-full max-w-2xl -translate-x-1/2 -translate-y-1/2 bg-background/80 blur-2xl" />
-          <h3 className="relative z-10 text-center text-5xl font-medium tracking-tighter sm:text-6xl">
+          <h2 className="relative z-10 font-heading text-center">
             Powered by people.
             <br />
             Secured by Mahaana.
-          </h3>
-          <p className="relative z-10 max-w-2xl text-center text-muted-foreground/70">
+          </h2>
+          <p className="body-lg relative z-10 max-w-2xl text-center text-muted-foreground">
             Over 25,000 Pakistanis are already growing their savings with purpose. Wealth building isn&apos;t a secret club anymore. Join the movement. Secure your tomorrow.
           </p>
           <div className="relative z-10 pointer-events-auto">
