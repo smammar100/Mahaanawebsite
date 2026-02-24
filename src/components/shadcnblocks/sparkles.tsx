@@ -49,6 +49,7 @@ export function SparklesCore({
     const dpr = typeof window !== "undefined" ? Math.min(window.devicePixelRatio ?? 1, 2) : 1;
 
     function resize() {
+      if (!container || !canvas || !ctx) return;
       const rect = container.getBoundingClientRect();
       const w = Math.max(1, Math.floor(rect.width));
       const h = Math.max(1, Math.floor(rect.height));
@@ -81,6 +82,7 @@ export function SparklesCore({
     ro.observe(container);
 
     function tick() {
+      if (!ctx) return;
       const { w, h } = sizeRef.current;
       if (w <= 0 || h <= 0) {
         rafRef.current = requestAnimationFrame(tick);
