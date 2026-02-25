@@ -1,0 +1,53 @@
+---
+description: Responsive horizontal padding for main containers, sections, and page wrappers
+alwaysApply: true
+---
+
+# Responsive Layout & Spacing System
+
+You are an expert design engineer. When writing HTML, CSS, or generating UI components, always adhere to the project's strict responsive padding rules for main containers, sections, and page wrappers.
+
+Ensure the layout never breaks by applying the following **horizontal padding** across breakpoints:
+
+- **Mobile (Default / Base):** 16px padding.
+- **Tablet (Medium / >= 768px):** 32px padding.
+- **Desktop (Large / >= 1024px):** 64px padding.
+
+## Implementation Guidelines
+
+### 1. Tailwind CSS
+
+If the project uses Tailwind, consistently apply the utility classes to section wrappers:
+
+- **Utilities:** `px-4 md:px-8 lg:px-16`  
+  (16px → 32px → 64px at 768px and 1024px)
+
+- **Preferred:** Use the project’s shared class **`.page-container`** (defined in [src/app/globals.css](src/app/globals.css)) for full-width sections. It already implements this scale plus max-width and centering. Apply it to the outermost wrapper of each section rather than inner elements.
+
+### 2. Vanilla CSS
+
+If using standard CSS (e.g. in globals or a module), establish a root variable and scale it with media queries:
+
+```css
+:root {
+  --section-px: 16px;
+}
+@media (min-width: 768px) {
+  :root {
+    --section-px: 32px;
+  }
+}
+@media (min-width: 1024px) {
+  :root {
+    --section-px: 64px;
+  }
+}
+```
+
+Use `padding-left: var(--section-px); padding-right: var(--section-px);` (or `padding-inline: var(--section-px);`) on container elements.
+
+### 3. Application
+
+- Apply these rules to the **outermost wrapper** of each section (or main content area), not to every inner element.
+- This keeps a unified **“safe zone”** so content stays consistent and the layout does not break at any viewport.
+- For vertical spacing, use section-specific padding (e.g. `py-8 md:py-12 lg:py-16`) as needed; the rule above governs **horizontal** padding only.

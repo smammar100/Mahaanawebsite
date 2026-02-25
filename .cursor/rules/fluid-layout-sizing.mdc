@@ -1,0 +1,12 @@
+---
+description: Fluid layout and sizing standards for structural dimensions and positioning
+alwaysApply: true
+---
+
+# Fluid Layout & Sizing Standards
+
+- **NEVER use fixed pixel values for structural layout dimensions.** (e.g. Do not use `w-[300px]`, `h-[500px]`, `width: 400px`, etc.).
+- **Content-Driven Heights:** Always let content, padding, and line-height dictate the height of an element. Default to `h-auto`. If an element must not shrink below a certain point, use `min-h-[value]` instead of a fixed height.
+- **Fluid Container Widths:** Use `w-full` and control the maximum expansion using `max-w-*` utility classes.
+- **Layout Systems over Magic Margins:** Rely strictly on CSS Grid and Flexbox for arranging elements. Use the `gap` property for spacing between items instead of applying margins to individual child elements.
+- **Mobile-First Absolute Positioning:** If an element must be absolute, ensure it cannot overflow the mobile viewport. Use safe insets on mobile (e.g. `inset-x-4`, `left-4 right-4`) and apply fixed or larger constraints only from `md:` breakpoints or higher.

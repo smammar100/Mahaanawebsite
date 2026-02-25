@@ -5,7 +5,7 @@ alwaysApply: true
 
 # Typography: Heading (Outfit) and Body (Switzer) typescale
 
-The scale is **responsive**: **sm** (default, mobile) and **lg** (from `min-width: 768px`). Base size **16px = 1rem**. Variables live in `:root` in [src/app/globals.css](src/app/globals.css).
+The scale is **responsive**: **sm** (default, mobile) and **lg** (from `min-width: 768px`). Base size **16px = 1rem**. Variables live in the design system [src/app/design-system/theme.css](src/app/design-system/theme.css) and [src/app/globals.css](src/app/globals.css). The design system defines `--font-display` (Outfit) and `--font-body` (Switzer); globals maps `--font-heading` to Outfit for compatibility.
 
 ## 1. Embed in `<head>` (required)
 

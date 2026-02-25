@@ -1,4 +1,7 @@
 @import "tailwindcss";
+@import "./design-system/theme.css";
+@import "./design-system/colors.css";
+@import "./design-system/typography.css";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
@@ -137,20 +140,24 @@ small { font-size: var(--text-sm-sm); }
 /* Body utility classes (backward compatible): use scale line-height/tracking */
 .body-xl, .body-lg, .body-md, .body-sm, .body-xs, .body-xx {
   font-family: var(--font-body);
-  line-height: var(--line-height-body-sm);
   letter-spacing: var(--tracking-body-sm);
 }
-.body-xl { font-size: 1.25rem; }
-.body-lg { font-size: 1.125rem; }
-.body-md { font-size: 1rem; }
-.body-sm { font-size: 0.875rem; }
-.body-xs { font-size: 0.75rem; }
-.body-xx { font-size: 0.625rem; }
+/* Paragraph copy on mobile: 0.875rem (14px), 140% line-height */
+.body-lg, .body-md {
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+.body-xl { font-size: 1.25rem; line-height: var(--line-height-body-sm); }
+.body-sm { font-size: 0.875rem; line-height: var(--line-height-body-sm); }
+.body-xs { font-size: 0.75rem; line-height: var(--line-height-body-sm); }
+.body-xx { font-size: 0.625rem; line-height: var(--line-height-body-sm); }
 @media (min-width: 768px) {
   .body-xl, .body-lg, .body-md, .body-sm, .body-xs, .body-xx {
     line-height: var(--line-height-body-lg);
     letter-spacing: var(--tracking-body-lg);
   }
+  .body-lg { font-size: 1.125rem; }
+  .body-md { font-size: 1rem; }
 }
 
 /* Heading utility classes .h7–.h12 (unchanged sizes, use scale line-height/tracking) */
@@ -199,14 +206,23 @@ small { font-size: var(--text-sm-sm); }
   .h6 { font-size: var(--text-h6-lg); }
 }
 
-/* Shared page container: 1280px max-width, 64px horizontal padding, centered */
+/* Shared page container: 1280px max-width, responsive horizontal padding, centered */
 .page-container {
   width: 100%;
   max-width: 1280px;
   margin-left: auto;
   margin-right: auto;
-  padding-left: 64px;
-  padding-right: 64px;
+  padding-inline: 16px;
+}
+@media (min-width: 768px) {
+  .page-container {
+    padding-inline: 32px;
+  }
+}
+@media (min-width: 1024px) {
+  .page-container {
+    padding-inline: 64px;
+  }
 }
 
 :root {

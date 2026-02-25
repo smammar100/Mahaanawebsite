@@ -1,0 +1,35 @@
+---
+description: Design system tokens and usage for colors, spacing, typography
+alwaysApply: true
+---
+
+# Design System (src/app/design-system/)
+
+Use the project design system for all UI. It provides tokens for colors, typography, spacing, radius, and shadows.
+
+## Files
+
+- **theme.css** – `@theme` block: fonts (Outfit/Switzer), spacing, radius, shadows, base colors (brand, gray, error, warning, success), semantic tokens (fg, bg, border, text).
+- **colors.css** – Theme variants: `.untitled-brand` (default purple), `.untitled-gray-light-mode`, `.untitled-error`, `.untitled-success`. Applied on `html`.
+- **typography.css** – Prose styles and heading/body scaling.
+
+## Color Tokens
+
+### Brand palette (default: purple)
+
+- **Scale:** `brand-25` … `brand-950` (e.g. `bg-brand-500`, `text-brand-600`)
+- **Semantic:** `fg-primary`, `fg-secondary`, `fg-tertiary`, `border-primary`, `border-secondary`, `bg-primary`, `bg-secondary`, `bg-brand-solid`
+
+### Shadcn compatibility
+
+- Use `background`, `foreground`, `muted`, `muted-foreground`, `border`, `primary`, `secondary`, `accent`, `destructive`, `ring` where shadcn expects them. These are mapped in `globals.css`.
+
+### Rules
+
+- **Prefer design tokens** – Use `bg-brand-500`, `text-fg-secondary`, `border-border`, etc., instead of `zinc-*`, raw hex, or `indigo-*` / `sky-*`.
+- **Use `.page-container`** for section wrappers (horizontal padding scale: 16px → 32px → 64px).
+- **Typography:** `font-heading` (Outfit) for headings, `font-body` (Switzer) for body. See [typography-typescale.mdc](typography-typescale.mdc).
+
+## Theme variants
+
+Add a class to `html` to change the brand palette: `untitled-brand`, `untitled-gray-light-mode`, `untitled-error`, `untitled-success`.

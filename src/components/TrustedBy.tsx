@@ -9,11 +9,11 @@ export default function TrustedBy() {
   return (
     <section
       aria-labelledby="trusted-by-heading"
-      className="w-full h-fit flex items-center border-b border-zinc-200 bg-background dark:border-zinc-800 overflow-x-auto pt-6 pb-6"
+      className="w-full h-fit flex items-center border-b border-border bg-background overflow-x-auto py-8 md:py-12 lg:py-16"
     >
       <div className="page-container min-w-0 flex flex-row items-center justify-center">
         <div
-          className="grid w-full max-w-full min-w-0 grid-cols-5 grid-rows-1 items-center justify-start gap-x-6 gap-y-0 sm:gap-x-8 md:gap-x-10"
+          className="grid w-full max-w-full min-w-0 grid-cols-2 grid-rows-1 items-center justify-start gap-4 sm:grid-cols-5 sm:gap-x-6 sm:gap-y-0 md:gap-x-8 lg:gap-x-10"
           role="list"
           aria-label="Partner logos"
         >
@@ -28,7 +28,7 @@ export default function TrustedBy() {
               key={alt}
               src={src}
               alt={alt}
-              className="h-10 w-auto max-w-[10rem] object-contain opacity-90 grayscale hover:opacity-100 hover:grayscale-0 transition-all"
+              className="h-10 w-auto max-w-40 object-contain opacity-90 grayscale hover:opacity-100 hover:grayscale-0 transition-all"
               width={150}
               height={40}
             />

@@ -1,0 +1,65 @@
+/**
+ * Design system theme variants.
+ * Apply a class to html (e.g. "untitled-brand") to switch the brand palette.
+ * Default: untitled-brand (purple) - matches base theme.
+ */
+
+.untitled-brand {
+    --color-brand-25: rgb(252 250 255);
+    --color-brand-50: rgb(249 245 255);
+    --color-brand-100: rgb(244 235 255);
+    --color-brand-200: rgb(233 215 254);
+    --color-brand-300: rgb(214 187 251);
+    --color-brand-400: rgb(182 146 246);
+    --color-brand-500: rgb(158 119 237);
+    --color-brand-600: rgb(127 86 217);
+    --color-brand-700: rgb(105 65 198);
+    --color-brand-800: rgb(83 56 158);
+    --color-brand-900: rgb(66 48 125);
+    --color-brand-950: rgb(44 28 95);
+}
+
+.untitled-gray-light-mode {
+    --color-brand-25: rgb(253 253 253);
+    --color-brand-50: rgb(250 250 250);
+    --color-brand-100: rgb(245 245 245);
+    --color-brand-200: rgb(233 234 235);
+    --color-brand-300: rgb(213 215 218);
+    --color-brand-400: rgb(164 167 174);
+    --color-brand-500: rgb(113 118 128);
+    --color-brand-600: rgb(83 88 98);
+    --color-brand-700: rgb(65 70 81);
+    --color-brand-800: rgb(37 43 55);
+    --color-brand-900: rgb(24 29 39);
+    --color-brand-950: rgb(10 13 18);
+}
+
+.untitled-error {
+    --color-brand-25: rgb(255 251 250);
+    --color-brand-50: rgb(254 243 242);
+    --color-brand-100: rgb(254 228 226);
+    --color-brand-200: rgb(254 205 202);
+    --color-brand-300: rgb(253 162 155);
+    --color-brand-400: rgb(249 112 102);
+    --color-brand-500: rgb(240 68 56);
+    --color-brand-600: rgb(217 45 32);
+    --color-brand-700: rgb(180 35 24);
+    --color-brand-800: rgb(145 32 24);
+    --color-brand-900: rgb(122 39 26);
+    --color-brand-950: rgb(85 22 12);
+}
+
+.untitled-success {
+    --color-brand-25: rgb(246 254 249);
+    --color-brand-50: rgb(236 253 243);
+    --color-brand-100: rgb(220 250 230);
+    --color-brand-200: rgb(171 239 198);
+    --color-brand-300: rgb(117 224 167);
+    --color-brand-400: rgb(71 205 137);
+    --color-brand-500: rgb(23 178 106);
+    --color-brand-600: rgb(7 148 85);
+    --color-brand-700: rgb(6 118 71);
+    --color-brand-800: rgb(8 93 58);
+    --color-brand-900: rgb(7 77 49);
+    --color-brand-950: rgb(5 51 33);
+}

@@ -33,15 +33,9 @@ const circle3Images = [
 const Feature254 = ({ className }: Feature254Props) => {
   return (
     <section className={cn("py-32", className)}>
-      <div className="relative flex w-full justify-center">
+      <div className="page-container relative flex w-full justify-center">
         {/* Orbiting circles container – explicit size so it doesn’t collapse when all children are absolute */}
-        <div
-          className="relative overflow-hidden"
-          style={{
-            width: "max(600px, min(620px, 90vw))",
-            height: "max(600px, min(620px, 90vw))",
-          }}
-        >
+        <div className="relative w-full max-w-[90vw] aspect-square overflow-hidden md:max-w-[38.75rem]">
             <OrbitingCircles iconSize={40} radius={130} speed={2} path={true}>
               {circle1Images.map((src, index) => (
                 <div

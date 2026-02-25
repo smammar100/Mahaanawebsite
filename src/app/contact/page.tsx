@@ -2,7 +2,7 @@
 
 export default function ContactPage() {
   return (
-    <div className="mx-auto max-w-5xl px-4 py-6 sm:px-6 sm:py-8 md:px-8 md:py-10 lg:px-12 lg:py-12 xl:px-16 xl:py-16">
+    <div className="page-container py-6 sm:py-8 md:py-10 lg:py-12">
       <h1 className="mb-8">Contact Us</h1>
       <section aria-labelledby="contact-heading">
         <h2 id="contact-heading" className="sr-only">
@@ -24,7 +24,7 @@ export default function ContactPage() {
               autoComplete="email"
               required
               aria-required="true"
-              className="w-full rounded border border-zinc-300 dark:border-zinc-600 bg-background px-3 py-2 body-md text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground"
+              className="w-full rounded border border-border bg-background px-3 py-2 body-md text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground"
             />
           </div>
           <div>
@@ -37,7 +37,7 @@ export default function ContactPage() {
               rows={4}
               required
               aria-required="true"
-              className="w-full rounded border border-zinc-300 dark:border-zinc-600 bg-background px-3 py-2 body-md text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground"
+              className="w-full rounded border border-border bg-background px-3 py-2 body-md text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground"
             />
           </div>
           <button

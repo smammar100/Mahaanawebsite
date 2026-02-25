@@ -25,7 +25,13 @@ When building or modifying UI, React components, Next.js pages, or any frontend 
 - **Use when:** Writing or refactoring React/Next.js code, data fetching, or optimizing performance/bundle size.
 - **Action:** Follow the skill’s categories (waterfalls, bundle size, server/client performance, re-renders, rendering, JS performance) when writing or reviewing code.
 
-## 4. Typography typescale (Outfit + Switzer)
+## 4. Design System (colors, tokens, spacing)
+
+- **Path:** `.cursor/rules/design-system.mdc`
+- **Use when:** Building or styling UI, choosing colors, borders, backgrounds, or section layout.
+- **Action:** Use design tokens (`bg-brand-*`, `text-fg-*`, `border-border`, etc.) instead of raw zinc/hex; use `.page-container` for section wrappers; follow theme variant usage.
+
+## 5. Typography typescale (Outfit + Switzer)
 
 - **Path:** `.cursor/rules/typography-typescale.mdc`
 - **Use when:** Building or modifying any UI, HTML, or frontend that uses headings or body text.

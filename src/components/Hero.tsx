@@ -7,7 +7,7 @@ export default function Hero() {
   return (
     <section
       aria-labelledby="hero-heading"
-      className="relative w-full h-[85vh] flex items-center lg:items-start overflow-hidden bg-zinc-900"
+      className="relative w-full min-h-[80vh] flex items-center lg:items-start overflow-hidden bg-gray-950"
     >
       {/* Background image — shift down on lg/xl so subject isn't cropped at top */}
       <div
@@ -78,7 +78,7 @@ export default function Hero() {
             <img
               src="/images/cdc-logo.png"
               alt="Central Depository Company"
-              className="h-8 w-auto max-w-[4rem] object-contain"
+              className="h-8 w-auto max-w-16 object-contain"
               width={32}
               height={32}
             />
