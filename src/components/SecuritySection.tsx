@@ -50,14 +50,14 @@ export default function SecuritySection() {
                 </span>
               </div>
             </div>
-            <h2
+            <h3
               id="section-heading"
-              className="font-heading text-center font-semibold text-white"
+              className="mx-auto max-w-[50ch] font-heading text-center font-semibold text-white"
             >
               Find the Perfect Way to Invest
-            </h2>
+            </h3>
           </div>
-          <p className="body-lg mx-auto max-w-[65ch] text-center font-body text-white/90">
+          <p className="body-md mx-auto max-w-[65ch] text-center font-body text-white/90">
             Everyone invests differently that&apos;s why Mahaana gives you
             options that fit your goals, lifestyle, and pace.
           </p>
@@ -77,12 +77,12 @@ export default function SecuritySection() {
                 />
               </div>
               <div className="flex flex-col gap-4">
-                <h4
+                <p
                   id="saveplus-heading"
-                  className="font-heading text-xl font-semibold text-white md:text-2xl"
+                  className="max-w-[50ch] body-lg font-semibold text-white"
                 >
                   High-yield savings, without the bank restrictions.
-                </h4>
+                </p>
                 <p className="body-md font-body text-white/80">
                   Protect your purchasing power and build your safety net. Save+
                   gives you access to institutional-level, low-risk funds that
@@ -134,12 +134,12 @@ export default function SecuritySection() {
                 />
               </div>
               <div className="flex flex-col gap-4">
-                <h4
+                <p
                   id="retirement-heading"
-                  className="font-heading text-xl font-semibold text-white md:text-2xl"
+                  className="max-w-[50ch] body-lg font-semibold text-white"
                 >
                   Build your future. Cut your tax bill by up to 20%.
-                </h4>
+                </p>
                 <p className="body-md font-body text-white/80">
                   Grow your long-term savings with a Shariah-compliant,
                   tax-efficient retirement plan. We build a personalized

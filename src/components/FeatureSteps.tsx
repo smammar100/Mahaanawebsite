@@ -81,11 +81,11 @@ export function FeatureSteps({
                   <h3 className="body-lg font-heading font-semibold text-foreground">
                     {feature.title ?? feature.step}
                   </h3>
-                  <p className="body-sm text-muted-foreground">{feature.content}</p>
+                  <p className="body-md text-muted-foreground">{feature.content}</p>
                   {feature.buttonLabel && index === currentFeature ? (
                     <motion.a
                       href={feature.buttonHref ?? "#"}
-                      className="mt-4 inline-flex w-fit items-center justify-center rounded-lg border-2 border-transparent bg-brand-500 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-brand-600 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2"
+                      className="btn-primary-cta mt-4 w-fit"
                       initial={{ opacity: 0, y: -8 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.3, ease: "easeOut" }}

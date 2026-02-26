@@ -47,12 +47,10 @@ export default function TestimonialSection() {
             </h2>
           </div>
           <a
-            className="mx-auto w-fit rounded-xl border-2 border-transparent bg-brand-500 px-6 py-4 text-white transition hover:bg-brand-600 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2"
+            className="btn-primary-cta mx-auto w-fit"
             href="#"
           >
-            <span className="body-lg font-semibold">
-              Open your Mahaana account
-            </span>
+            Open your Mahaana account
           </a>
         </div>
 

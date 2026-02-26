@@ -225,6 +225,11 @@ small { font-size: var(--text-sm-sm); }
   }
 }
 
+/* Primary CTA button - solid brand, consistent across sections */
+.btn-primary-cta {
+  @apply inline-flex min-h-[44px] items-center justify-center gap-2 rounded-lg border-2 border-transparent bg-brand-500 px-6 py-3 text-base font-semibold text-white transition-colors hover:bg-brand-600 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2;
+}
+
 :root {
   --radius: 0.625rem;
   --background: oklch(1 0 0);

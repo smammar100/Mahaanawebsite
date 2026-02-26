@@ -92,13 +92,13 @@ function Testimonial11({ className }: Testimonial11Props) {
       <div className="page-container flex flex-col gap-8 md:gap-12">
         <div className="flex flex-col gap-8 sm:flex-row sm:items-center sm:justify-between sm:gap-12 lg:gap-20">
           <div className="flex flex-1 flex-col gap-4">
-            <h2
+            <h3
               id="testimonials-heading"
-              className="font-heading font-semibold text-foreground"
+              className="max-w-[50ch] font-heading font-semibold text-foreground"
             >
               What our investors say
-            </h2>
-            <p className="body-lg max-w-[65ch] font-body text-muted-foreground">
+            </h3>
+            <p className="body-md max-w-[65ch] font-body text-muted-foreground">
               Thousands of Pakistanis trust Mahaana to grow their savings. Here
               is what they have to say about their experience.
             </p>
@@ -142,7 +142,7 @@ function Testimonial11({ className }: Testimonial11Props) {
               className="inline-block w-full rounded-lg border border-border bg-background p-4 md:p-6"
             >
               <div className="flex flex-col gap-4">
-                <p className="body-sm font-body text-foreground">
+                <p className="body-md font-body text-foreground">
                   &ldquo;{testimonial.text}&rdquo;
                 </p>
                 <div className="flex items-center gap-2 md:gap-3">
@@ -152,10 +152,10 @@ function Testimonial11({ className }: Testimonial11Props) {
                     className="size-8 shrink-0 rounded-full object-cover md:size-10"
                   />
                   <div>
-                    <p className="body-sm font-medium text-foreground">
+                    <p className="body-md font-medium text-foreground">
                       {testimonial.name}
                     </p>
-                    <p className="body-xs text-muted-foreground">
+                    <p className="body-md text-muted-foreground">
                       {testimonial.company}
                     </p>
                   </div>

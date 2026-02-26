@@ -52,12 +52,12 @@ const Feature132 = ({ className }: Feature132Props) => {
               Get started with Mahaana
             </span>
           </div>
-          <h2 className="font-heading text-left font-semibold text-foreground">
+          <h3 className="max-w-[50ch] font-heading text-left font-semibold text-foreground">
             Open your Mahaana account
             <br />
             in just less than 10 mins
-          </h2>
-          <p className="body-lg text-left text-muted-foreground">
+          </h3>
+          <p className="body-md max-w-[65ch] text-left text-muted-foreground">
             Investing your money shouldn&apos;t take weeks to figure out.
             <br />
             Here&apos;s what you can achieve with Mahaana from day one.

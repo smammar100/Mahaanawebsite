@@ -51,13 +51,13 @@ export default function SecurityPrioritySection() {
                 </span>
               </div>
               <div className="flex flex-col gap-5">
-                <h2
+                <h3
                   id="security-priority-heading"
-                  className="font-heading font-semibold text-foreground"
+                  className="max-w-[50ch] font-heading font-semibold text-foreground"
                 >
                   Your security is our #1 priority
-                </h2>
-                <p className="body-lg max-w-[65ch] font-body text-muted-foreground">
+                </h3>
+                <p className="body-md max-w-[65ch] font-body text-muted-foreground">
                   Every layer of Mahaana is engineered to meet the highest
                   standards of data protection and security
                 </p>
@@ -103,7 +103,7 @@ export default function SecurityPrioritySection() {
                       />
                         ) : null}
                     </div>
-                    <p className="body-sm font-body text-foreground">
+                    <p className="body-md font-body text-foreground">
                       {card.description}
                     </p>
                   </div>

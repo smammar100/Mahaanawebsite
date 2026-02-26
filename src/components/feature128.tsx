@@ -20,11 +20,11 @@ const Feature128 = ({ className }: Feature128Props) => {
                   What&apos;s Mahaana
                 </span>
               </div>
-              <h2 className="font-heading font-semibold text-foreground">
+              <h3 className="max-w-[50ch] font-heading font-semibold text-foreground">
                 Get to know Mahaana
-              </h2>
+              </h3>
             </div>
-            <p className="body-lg max-w-[75ch] font-body text-muted-foreground">
+            <p className="body-md max-w-[65ch] font-body text-muted-foreground">
               Skip the paperwork and start building your portfolio in minutes.
               Mahaana is designed to make Shariah-compliant investing accessible
               to everyone, right from your phone.

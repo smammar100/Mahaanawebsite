@@ -75,11 +75,11 @@ const Feature270 = ({ className }: Feature270Props) => {
                 Why Mahaana?
               </span>
             </div>
-            <h2 className="font-heading font-semibold text-foreground">
+            <h3 className="max-w-[50ch] font-heading font-semibold text-foreground">
               All in one, Shariah Compliant Investment Platform
-            </h2>
+            </h3>
           </div>
-          <p className="body-lg max-w-[75ch] font-body text-muted-foreground">
+          <p className="body-md max-w-[65ch] font-body text-muted-foreground">
             Our features are designed to be easy to use and integrate.
           </p>
         </div>
@@ -99,7 +99,7 @@ const Feature270 = ({ className }: Feature270Props) => {
                   />
                 </div>
                 <div className="flex flex-col gap-2">
-                  <p className="body-lg font-body font-medium text-foreground">
+                  <p className="body-lg font-body font-semibold text-foreground">
                     {feature.title}
                   </p>
                   <p className="body-md font-body text-muted-foreground">

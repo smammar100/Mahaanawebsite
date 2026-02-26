@@ -102,21 +102,21 @@ export default function CTASection() {
                   </div>
                 ))}
               </div>
-              <span className="body-sm font-medium text-fg-secondary">
+              <span className="body-sm font-medium text-muted-foreground">
                 20K+ users
               </span>
             </div>
 
             <div className="flex flex-col gap-6">
-              <h2
+              <h3
                 id="cta-heading"
-                className="font-heading text-foreground"
+                className="max-w-[50ch] font-heading text-foreground"
               >
                 Unlock your pathway
                 <br />
                 to financial freedom
-              </h2>
-              <p className="body-lg max-w-[400px] text-fg-secondary">
+              </h3>
+              <p className="body-md max-w-[65ch] text-muted-foreground">
                 Thousands of Pakistanis are already growing their savings daily.
                 Your turn starts now.
               </p>

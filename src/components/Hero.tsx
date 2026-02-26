@@ -28,7 +28,7 @@ export default function Hero() {
           >
             Changing the way Pakistani&apos;s invest
           </h1>
-          <p className="body-lg mb-8 max-w-md font-normal text-white/80">
+          <p className="body-md mb-8 max-w-md font-normal text-white/80">
             For ambitious dreamers who believe in saving smarter, spending wisely, and rising together
           </p>
 
