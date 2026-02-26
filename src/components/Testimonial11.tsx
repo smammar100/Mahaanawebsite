@@ -92,6 +92,11 @@ function Testimonial11({ className }: Testimonial11Props) {
       <div className="page-container flex flex-col gap-8 md:gap-12">
         <div className="flex flex-col gap-8 sm:flex-row sm:items-center sm:justify-between sm:gap-12 lg:gap-20">
           <div className="flex flex-1 flex-col gap-4">
+            <div className="w-fit rounded-2xl bg-brand-50 px-2 py-0.5">
+              <span className="body-xs font-medium text-brand-700">
+                Reviews
+              </span>
+            </div>
             <h3
               id="testimonials-heading"
               className="max-w-[50ch] font-heading font-semibold text-foreground"

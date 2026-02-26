@@ -116,7 +116,7 @@ export default function CTASection() {
                 <br />
                 to financial freedom
               </h3>
-              <p className="body-md max-w-[65ch] text-muted-foreground">
+              <p className="body-md w-full text-muted-foreground">
                 Thousands of Pakistanis are already growing their savings daily.
                 Your turn starts now.
               </p>
