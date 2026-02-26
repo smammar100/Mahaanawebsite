@@ -64,7 +64,7 @@ export default function Footer() {
 
   return (
     <footer id="footer" className="w-full border-t border-border bg-background pb-0">
-      <div className="page-container flex flex-col py-8 md:flex-row md:items-center md:justify-between md:py-12 lg:py-16">
+      <div className="page-container flex flex-col py-8 md:flex-row md:items-center md:justify-between md:py-16 lg:py-16">
         <div className="flex max-w-xs flex-col items-start justify-start gap-y-5">
           <Link
             href="/"

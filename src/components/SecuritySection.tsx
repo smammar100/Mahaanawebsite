@@ -1,10 +1,9 @@
 "use client";
 
-import { Check } from "lucide-react";
+import { Check, ChevronRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 const savePlusChecklist = [
@@ -36,8 +35,9 @@ function CheckIcon({ className }: { className?: string }) {
 export default function SecuritySection() {
   return (
     <section
+      id="security"
       aria-labelledby="section-heading"
-      className="w-full bg-gradient-to-b from-brand-800 to-brand-950 py-8 md:py-12 lg:py-16"
+      className="w-full bg-gradient-to-b from-brand-800 to-brand-950 py-8 md:py-16 lg:py-16"
     >
       <div className="page-container flex flex-col gap-14">
         {/* Header - Figma 2627-4801 */}
@@ -99,13 +99,13 @@ export default function SecuritySection() {
                 </li>
               ))}
             </ul>
-            <Button
-              variant="outline"
-              asChild
-              className="w-fit border-brand-600 bg-brand-600 text-white hover:bg-brand-700 hover:border-brand-700"
+            <Link
+              href="/save-plus"
+              className="inline-flex min-h-[44px] w-fit items-center gap-2 body-md font-medium text-white transition-colors hover:text-white/90 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
             >
-              <Link href="/save-plus">Learn more</Link>
-            </Button>
+              Learn more about Mahaana Save+
+              <ChevronRight className="size-5 shrink-0" aria-hidden />
+            </Link>
           </div>
           <div className="relative w-full shrink-0 lg:min-h-0 lg:w-1/2">
             <div className="relative aspect-[4/3] w-full overflow-hidden rounded-lg border border-border bg-muted shadow-[0px_32px_64px_-12px_rgba(16,24,40,0.14)] lg:aspect-auto lg:h-full">
@@ -156,13 +156,13 @@ export default function SecuritySection() {
                 </li>
               ))}
             </ul>
-            <Button
-              variant="outline"
-              asChild
-              className="w-fit border-brand-600 bg-brand-600 text-white hover:bg-brand-700 hover:border-brand-700"
+            <Link
+              href="/services#retirement"
+              className="inline-flex min-h-[44px] w-fit items-center gap-2 body-md font-medium text-white transition-colors hover:text-white/90 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
             >
-              <Link href="/services#retirement">Learn more</Link>
-            </Button>
+              Learn more about Mahaana retirement
+              <ChevronRight className="size-5 shrink-0" aria-hidden />
+            </Link>
           </div>
           <div className="relative w-full shrink-0 lg:min-h-0 lg:w-1/2">
             <div className="relative aspect-[4/3] w-full overflow-hidden rounded-lg border border-border bg-muted shadow-[0px_32px_64px_-12px_rgba(16,24,40,0.14)] lg:aspect-auto lg:h-full">

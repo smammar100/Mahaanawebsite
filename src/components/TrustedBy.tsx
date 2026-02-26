@@ -9,7 +9,7 @@ export default function TrustedBy() {
   return (
     <section
       aria-labelledby="trusted-by-heading"
-      className="w-full h-fit flex items-center border-b border-border bg-background overflow-x-auto py-8 md:py-12 lg:py-16"
+      className="w-full h-fit flex items-center border-b border-border bg-background overflow-x-auto py-6"
     >
       <div className="page-container min-w-0 flex flex-row items-center justify-center">
         <div

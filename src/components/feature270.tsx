@@ -63,7 +63,7 @@ const Feature270 = ({ className }: Feature270Props) => {
   return (
     <section
       className={cn(
-        "w-full bg-background py-8 md:py-12 lg:py-16",
+        "w-full bg-background py-8 md:py-16 lg:py-16",
         className,
       )}
     >

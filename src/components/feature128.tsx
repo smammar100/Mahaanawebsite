@@ -10,7 +10,7 @@ interface Feature128Props {
 
 const Feature128 = ({ className }: Feature128Props) => {
   return (
-    <section className={cn("w-full py-8 md:py-12 lg:py-16", className)}>
+    <section className={cn("w-full py-8 md:py-16 lg:py-16", className)}>
       <div className="page-container">
         <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:gap-20">
           <div className="flex min-w-0 flex-1 flex-col gap-4">

@@ -28,7 +28,7 @@ export default function CTASection() {
   return (
     <section
       aria-labelledby="cta-heading"
-      className="relative w-full overflow-hidden py-8 md:py-12 lg:py-16"
+      className="relative w-full overflow-hidden py-8 md:py-16 lg:py-16"
     >
       {/* Floating images - hidden on mobile */}
       <div className="pointer-events-none absolute inset-0 hidden md:block">
@@ -103,7 +103,7 @@ export default function CTASection() {
                 ))}
               </div>
               <span className="body-sm font-medium text-fg-secondary">
-                10K+ active users
+                20K+ users
               </span>
             </div>
 
