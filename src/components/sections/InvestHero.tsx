@@ -1,11 +1,19 @@
+"use client";
+
 import Image from "next/image";
+import { motion } from "motion/react";
 import { Container } from "@/components/layout/Container";
 import { TextRegular, TextSmall } from "@/components/ui/Typography";
 import { Button } from "@/components/base/buttons/button";
+import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
 
 export function InvestHero() {
   return (
-    <section
+    <motion.section
+      initial="hidden"
+      whileInView="visible"
+      viewport={sectionViewport}
+      variants={sectionFadeInUp}
       className="relative h-[90vh] min-h-[90vh] overflow-hidden"
       aria-labelledby="invest-hero-heading"
     >
@@ -105,6 +113,6 @@ export function InvestHero() {
         className="absolute bottom-0 left-0 h-px w-full pointer-events-none"
         aria-hidden
       />
-    </section>
+    </motion.section>
   );
 }

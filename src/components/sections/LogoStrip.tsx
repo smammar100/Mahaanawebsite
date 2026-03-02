@@ -1,5 +1,9 @@
+"use client";
+
 import Image from "next/image";
+import { motion } from "motion/react";
 import { Container } from "@/components/layout/Container";
+import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
 
 const defaultLogos = [
   { src: "/images/invest/VEF%20logo.png", alt: "VEF" },
@@ -14,7 +18,11 @@ interface LogoStripProps {
 
 export function LogoStrip({ logos = defaultLogos }: LogoStripProps) {
   return (
-    <section
+    <motion.section
+      initial="hidden"
+      whileInView="visible"
+      viewport={sectionViewport}
+      variants={sectionFadeInUp}
       className="flex flex-col items-center justify-center bg-surface-bg py-4"
       aria-label="Trusted by regulatory bodies and custodians"
     >
@@ -36,6 +44,6 @@ export function LogoStrip({ logos = defaultLogos }: LogoStripProps) {
           ))}
         </div>
       </Container>
-    </section>
+    </motion.section>
   );
 }

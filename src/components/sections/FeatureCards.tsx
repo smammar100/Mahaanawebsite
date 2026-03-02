@@ -3,6 +3,7 @@
 import { motion } from "motion/react";
 import { useState } from "react";
 import { Container } from "@/components/layout/Container";
+import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
 import { H2, TextLarge, TextRegular } from "@/components/ui/Typography";
 import { Button } from "@/components/base/buttons/button";
 import { cx } from "@/utils/cx";
@@ -42,7 +43,11 @@ const features = [
 
 export function FeatureCards() {
   return (
-    <section
+    <motion.section
+      initial="hidden"
+      whileInView="visible"
+      viewport={sectionViewport}
+      variants={sectionFadeInUp}
       className="border-t border-surface-stroke py-8 sm:py-10 md:py-12 lg:py-14 xl:py-16 pb-28"
       aria-labelledby="feature-cards-heading"
     >
@@ -104,7 +109,7 @@ export function FeatureCards() {
           ))}
         </div>
       </Container>
-    </section>
+    </motion.section>
   );
 }
 

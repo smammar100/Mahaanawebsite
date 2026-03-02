@@ -1,9 +1,11 @@
 "use client";
 
+import { motion } from "motion/react";
 import { Container } from "@/components/layout/Container";
 import { PhoneMockup } from "@/components/ui/PhoneMockup";
 import { AppStoreButton, GooglePlayButton } from "@/components/base/buttons/app-store-buttons";
 import { cx } from "@/utils/cx";
+import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
 
 const PLACEHOLDER_PHONE_1 =
   "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-phone-1.svg";
@@ -18,7 +20,11 @@ interface DownloadSectionProps {
 
 export function DownloadSection({ className }: DownloadSectionProps) {
   return (
-    <section
+    <motion.section
+      initial="hidden"
+      whileInView="visible"
+      viewport={sectionViewport}
+      variants={sectionFadeInUp}
       className={cx(
         "border-t border-surface-stroke py-8 sm:py-10 md:py-12 lg:py-14 xl:py-16",
         className
@@ -62,6 +68,6 @@ export function DownloadSection({ className }: DownloadSectionProps) {
           </div>
         </div>
       </Container>
-    </section>
+    </motion.section>
   );
 }

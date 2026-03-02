@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Zap,
   LineChartUp01,
@@ -6,8 +8,10 @@ import {
   Sliders01,
   Wallet01,
 } from "@untitledui/icons";
+import { motion } from "motion/react";
 import { Container } from "@/components/layout/Container";
 import { TextLarge, TextRegular } from "@/components/ui/Typography";
+import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
 
 const features = [
   {
@@ -44,7 +48,11 @@ const features = [
 
 export function WhyMahaanaTrade() {
   return (
-    <section
+    <motion.section
+      initial="hidden"
+      whileInView="visible"
+      viewport={sectionViewport}
+      variants={sectionFadeInUp}
       className="border-t border-surface-stroke py-8 sm:py-10 md:py-12 lg:py-14 xl:py-16"
       aria-labelledby="why-mahaana-heading"
     >
@@ -98,6 +106,6 @@ export function WhyMahaanaTrade() {
           })}
         </div>
       </Container>
-    </section>
+    </motion.section>
   );
 }

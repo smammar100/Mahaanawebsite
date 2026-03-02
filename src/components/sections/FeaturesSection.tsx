@@ -1,7 +1,9 @@
 "use client";
 
 import { CheckCircle } from "@untitledui/icons";
+import { motion } from "motion/react";
 import { Container } from "@/components/layout/Container";
+import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
 import {
   H2,
   H4,
@@ -109,7 +111,11 @@ function FeatureBlock({
 
 export function FeaturesSection() {
   return (
-    <section
+    <motion.section
+      initial="hidden"
+      whileInView="visible"
+      viewport={sectionViewport}
+      variants={sectionFadeInUp}
       className="border-t border-surface-stroke py-8 sm:py-10 md:py-12 lg:py-14 xl:py-16"
       style={{ background: "linear-gradient(180deg, #443087 0%, #30225F 100%)" }}
       aria-labelledby="features-heading"
@@ -157,6 +163,6 @@ export function FeaturesSection() {
           />
         </div>
       </Container>
-    </section>
+    </motion.section>
   );
 }

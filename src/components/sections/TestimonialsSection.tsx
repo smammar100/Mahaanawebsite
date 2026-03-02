@@ -4,8 +4,10 @@ import { useMemo, useRef } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import AutoScroll from "embla-carousel-auto-scroll";
 import { ChevronRight, Star01, Zap } from "@untitledui/icons";
+import { motion } from "motion/react";
 
 import { Container } from "@/components/layout/Container";
+import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
 import { TextMedium, TextRegular, TextSmall } from "@/components/ui/Typography";
 import { cx } from "@/utils/cx";
 
@@ -79,7 +81,11 @@ export function TestimonialsSection({ className }: TestimonialsSectionProps) {
   );
 
   return (
-    <section
+    <motion.section
+      initial="hidden"
+      whileInView="visible"
+      viewport={sectionViewport}
+      variants={sectionFadeInUp}
       className={cx(
         "border-t border-surface-stroke py-8 sm:py-10 md:py-12 lg:py-14 xl:py-16",
         className
@@ -179,6 +185,6 @@ export function TestimonialsSection({ className }: TestimonialsSectionProps) {
           </div>
         </div>
       </Container>
-    </section>
+    </motion.section>
   );
 }

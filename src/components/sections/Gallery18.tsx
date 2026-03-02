@@ -5,8 +5,10 @@ import { Autoplay, EffectCards } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/effect-cards";
+import { motion } from "motion/react";
 
 import { cx } from "@/utils/cx";
+import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
 
 interface Gallery18Props {
   className?: string;
@@ -59,7 +61,13 @@ const swiperCssCompact = `
 
 export function Gallery18({ className, size = "default" }: Gallery18Props) {
   return (
-    <div className={cx("relative w-full", className)}>
+    <motion.div
+      initial="hidden"
+      whileInView="visible"
+      viewport={sectionViewport}
+      variants={sectionFadeInUp}
+      className={cx("relative w-full", className)}
+    >
       <style>{swiperCssDefault}</style>
       {size === "compact" && <style>{swiperCssCompact}</style>}
       <Swiper
@@ -91,6 +99,6 @@ export function Gallery18({ className, size = "default" }: Gallery18Props) {
           </SwiperSlide>
         ))}
       </Swiper>
-    </div>
+    </motion.div>
   );
 }

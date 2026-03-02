@@ -2,7 +2,9 @@
 
 import Image from "next/image";
 import { ArrowRight } from "@untitledui/icons";
+import { motion } from "motion/react";
 import { Container } from "@/components/layout/Container";
+import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
 import { Button } from "@/components/base/buttons/button";
 import { TextRegular, TextSmall } from "@/components/ui/Typography";
 import { cx } from "@/utils/cx";
@@ -35,7 +37,11 @@ interface BlogSectionProps {
 
 export function BlogSection({ className }: BlogSectionProps) {
   return (
-    <section
+    <motion.section
+      initial="hidden"
+      whileInView="visible"
+      viewport={sectionViewport}
+      variants={sectionFadeInUp}
       className={cx(
         "border-t border-surface-stroke py-8 sm:py-10 md:py-12 lg:py-14 xl:py-16",
         className
@@ -154,6 +160,6 @@ export function BlogSection({ className }: BlogSectionProps) {
           </div>
         </div>
       </Container>
-    </section>
+    </motion.section>
   );
 }

@@ -1,8 +1,12 @@
+"use client";
+
 import Image from "next/image";
 import { ChevronRight, Fingerprint03, PasscodeLock } from "@untitledui/icons";
+import { motion } from "motion/react";
 import { Container } from "@/components/layout/Container";
 import { TextRegular } from "@/components/ui/Typography";
 import { cx } from "@/utils/cx";
+import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
 
 interface ComplianceSectionProps {
   className?: string;
@@ -41,7 +45,11 @@ const securityCards = [
 
 export function ComplianceSection({ className }: ComplianceSectionProps) {
   return (
-    <section
+    <motion.section
+      initial="hidden"
+      whileInView="visible"
+      viewport={sectionViewport}
+      variants={sectionFadeInUp}
       className={cx(
         "border-t border-surface-stroke py-8 sm:py-10 md:py-12 lg:py-14 xl:py-16",
         className
@@ -126,6 +134,6 @@ export function ComplianceSection({ className }: ComplianceSectionProps) {
           </div>
         </div>
       </Container>
-    </section>
+    </motion.section>
   );
 }

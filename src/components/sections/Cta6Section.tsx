@@ -1,8 +1,10 @@
 "use client";
 
+import { motion } from "motion/react";
 import { Container } from "@/components/layout/Container";
 import { CallToAction1 } from "@/components/ui/call-to-action-1";
 import { cx } from "@/utils/cx";
+import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
 
 interface Cta6SectionProps {
   className?: string;
@@ -10,7 +12,11 @@ interface Cta6SectionProps {
 
 export function Cta6Section({ className }: Cta6SectionProps) {
   return (
-    <section
+    <motion.section
+      initial="hidden"
+      whileInView="visible"
+      viewport={sectionViewport}
+      variants={sectionFadeInUp}
       className={cx(
         "overflow-x-hidden py-14",
         className
@@ -28,6 +34,6 @@ export function Cta6Section({ className }: Cta6SectionProps) {
           }
         />
       </Container>
-    </section>
+    </motion.section>
   );
 }
