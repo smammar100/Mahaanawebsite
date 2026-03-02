@@ -27,6 +27,7 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 interface ProjectionSectionProps {
+  hasData: boolean;
   data: ProjectionRow[];
   fireTarget: number;
   retirementAge: number | null;
@@ -37,6 +38,7 @@ interface ProjectionSectionProps {
 }
 
 export function ProjectionSection({
+  hasData,
   data,
   fireTarget,
   retirementAge,
@@ -96,7 +98,13 @@ export function ProjectionSection({
           </button>
         </div>
 
-        {activeTab === "chart" ? (
+        {!hasData ? (
+          <div className="flex h-56 flex-col items-center justify-center rounded-lg border border-surface-stroke bg-surface-bg p-6 text-center sm:h-64 lg:h-80">
+            <p className="text-small text-text-tertiary">
+              Enter your details above to see the chart
+            </p>
+          </div>
+        ) : activeTab === "chart" ? (
           <>
             <div className="h-56 w-full min-w-0 sm:h-64 lg:h-80">
               <div className="h-full bg-white p-6">

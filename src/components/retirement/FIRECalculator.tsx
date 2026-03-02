@@ -11,9 +11,9 @@ import { StrategyCard } from "./StrategyCard";
 
 export function FIRECalculator() {
   const [currentAge, setCurrentAge] = useState(30);
-  const [currentSavings, setCurrentSavings] = useState(20000);
-  const [monthlyContrib, setMonthlyContrib] = useState(1000);
-  const [annualSpending, setAnnualSpending] = useState(40000);
+  const [currentSavings, setCurrentSavings] = useState(0);
+  const [monthlyContrib, setMonthlyContrib] = useState(0);
+  const [annualSpending, setAnnualSpending] = useState(0);
   const [lifeExpectancy, setLifeExpectancy] = useState(90);
   const [profileId, setProfileId] = useState("balanced");
 
@@ -36,6 +36,9 @@ export function FIRECalculator() {
       profileId,
     ]
   );
+
+  const hasData =
+    (currentSavings > 0 || monthlyContrib > 0) && annualSpending > 0;
 
   return (
     <Container className="max-w-[1080px]">
@@ -64,6 +67,7 @@ export function FIRECalculator() {
       <div className="mt-4 space-y-4 pb-4">
         <div className="w-screen relative left-1/2 -translate-x-1/2">
           <ResultsBar
+            hasData={hasData}
             yearsToFire={result.yearsToFire}
             monthsToFire={result.monthsToFire}
             reachable={result.reachable}
@@ -71,6 +75,7 @@ export function FIRECalculator() {
           />
         </div>
         <ProjectionSection
+          hasData={hasData}
           data={result.data}
           fireTarget={result.fireTarget}
           retirementAge={result.retirementAge}
