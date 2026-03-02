@@ -56,8 +56,9 @@ export function BlogSection({ className }: BlogSectionProps) {
           </h2>
           <div className="mt-4 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <TextRegular className="text-text-tertiary text-small sm:text-regular max-w-xl">
-              Exploring cutting-edge technologies shaping tomorrow&apos;s digital
-              landscape
+              Exploring cutting-edge technologies
+              <br />
+              shaping tomorrow&apos;s digital landscape
             </TextRegular>
             <Button
               color="secondary"
@@ -73,7 +74,7 @@ export function BlogSection({ className }: BlogSectionProps) {
         {/* Content grid */}
         <div className="flex flex-col items-stretch gap-16 md:flex-row">
           {/* Main featured post */}
-          <article className="flex h-full min-h-0 flex-col">
+          <article className="flex h-full min-h-0 flex-col" style={{ height: "100%" }}>
             <div className="relative w-full aspect-video overflow-hidden rounded-2xl">
               <Image
                 src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-8-wide.svg"
@@ -123,7 +124,7 @@ export function BlogSection({ className }: BlogSectionProps) {
             {DATA.map((post, index) => (
               <article
                 key={index}
-                className="flex items-start gap-4 border-b border-surface-stroke pb-6 last:border-b-0 last:pb-0"
+                className="flex items-start gap-4 border-b border-surface-stroke pb-2 last:border-b-0 last:pb-0"
               >
                 <div className="relative w-[29%] shrink-0 aspect-video sm:w-[23%]">
                   <Image

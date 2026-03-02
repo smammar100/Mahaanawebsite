@@ -123,7 +123,7 @@ export function TestimonialsSection({ className }: TestimonialsSectionProps) {
         </div>
 
         {/* Carousel */}
-        <div className="relative -mx-4 sm:-mx-6 md:-mx-8 lg:-mx-12 xl:-mx-16 overflow-hidden">
+        <div className="relative -mx-16 overflow-hidden">
           {/* Gradient fade overlays */}
           <div
             className="pointer-events-none absolute top-0 bottom-0 left-0 z-10 w-24 sm:w-36 bg-gradient-to-r from-surface-bg to-transparent"
@@ -136,7 +136,7 @@ export function TestimonialsSection({ className }: TestimonialsSectionProps) {
 
           <div
             ref={emblaRef}
-            className="overflow-hidden px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 [--overflow:clip]"
+            className="overflow-hidden px-16 [--overflow:clip]"
           >
             <div className="flex gap-4 sm:gap-6" role="list">
               {testimonials.map((testimonial, index) => (

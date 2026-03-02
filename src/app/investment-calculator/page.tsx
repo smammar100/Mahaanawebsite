@@ -14,7 +14,7 @@ export default function InvestmentCalculatorPage() {
   return (
     <div className="bg-surface-bg">
       <section className="pt-12 pb-8 sm:pt-14 sm:pb-10">
-        <Container className="text-center">
+        <Container className="text-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16">
           <H1
             className="text-text-primary text-[28px] sm:text-[36px] lg:text-[48px]"
             weight="extrabold"

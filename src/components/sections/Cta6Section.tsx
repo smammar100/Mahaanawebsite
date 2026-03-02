@@ -12,7 +12,7 @@ export function Cta6Section({ className }: Cta6SectionProps) {
   return (
     <section
       className={cx(
-        "overflow-x-hidden py-6",
+        "overflow-x-hidden py-14",
         className
       )}
     >

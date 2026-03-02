@@ -15,7 +15,7 @@ export default function RetirementCalculatorPage() {
     <div className="bg-surface-bg">
       {/* Section 1 — Hero */}
       <section className="pt-[52px] pb-9">
-        <Container className="text-center">
+        <Container className="text-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16">
           <H1 className="text-text-primary" weight="extrabold">
             FIRE calculator
           </H1>
