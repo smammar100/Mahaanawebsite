@@ -10,7 +10,7 @@ export const GooglePlayButton = ({ size = "md", ...props }: AnchorHTMLAttributes
             href="#"
             {...props}
             className={cx(
-                "rounded-[7px] bg-black ring-1 ring-surface-stroke ring-inset focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-system-brand",
+                "w-fit rounded-[7px] bg-black ring-1 ring-surface-stroke ring-inset focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-system-brand",
                 props.className,
             )}
         >
@@ -236,7 +236,7 @@ export const AppStoreButton = ({ size = "md", ...props }: AnchorHTMLAttributes<H
             href="#"
             {...props}
             className={cx(
-                "rounded-[7px] bg-black ring-1 ring-surface-stroke ring-inset focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-system-brand",
+                "w-fit rounded-[7px] bg-black ring-1 ring-surface-stroke ring-inset focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-system-brand",
                 props.className,
             )}
         >

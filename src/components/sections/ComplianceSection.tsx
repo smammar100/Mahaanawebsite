@@ -25,9 +25,9 @@ const securityCards = [
     alt: "CDC",
     text: (
       <>
-        Custodians Central Depository Company
+        Custodians Central Depository
         <br />
-        (CDC)
+        Company (CDC)
       </>
     ),
   },
