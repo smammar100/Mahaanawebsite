@@ -22,7 +22,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className="antialiased flex min-h-screen flex-col overflow-x-hidden">
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
           <Header />
           <main className="flex-1 pt-[calc(4.5rem+env(safe-area-inset-top,0px))]">{children}</main>
           <Footer />
