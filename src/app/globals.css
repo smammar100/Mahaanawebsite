@@ -1,0 +1,191 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+/*
+  Switzer is self-hosted. Add @font-face blocks for each weight (300–800)
+  pointing to /fonts/Switzer-[Weight].woff2
+  Download from fontshare.com/fonts/switzer
+*/
+@font-face {
+  font-family: 'Switzer';
+  src: url('/fonts/Switzer-Light.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Switzer';
+  src: url('/fonts/Switzer-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Switzer';
+  src: url('/fonts/Switzer-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Switzer';
+  src: url('/fonts/Switzer-Semibold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Switzer';
+  src: url('/fonts/Switzer-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Switzer';
+  src: url('/fonts/Switzer-Extrabold.woff2') format('woff2');
+  font-weight: 800;
+  font-style: normal;
+}
+
+@theme {
+  /* ── Layout ───────────────────────────────────────────── */
+  --header-height: 4.5rem;
+
+  /* ── Breakpoints ───────────────────────────────────────── */
+  --breakpoint-xs: 320px;
+  --breakpoint-sm: 512px;
+  --breakpoint-md: 600px;
+  --breakpoint-lg: 800px;
+  --breakpoint-xl: 1100px;
+  --breakpoint-2xl: 1400px;
+  --breakpoint-3xl: 1920px;
+
+  /* ── Fonts ─────────────────────────────────────────────── */
+  --font-heading: 'Outfit', sans-serif;
+  --font-body: 'Switzer', sans-serif;
+
+  /* ── Font sizes ─────────────────────────────────────────── */
+  --text-tiny: 0.75rem;
+  --text-small: 0.875rem;
+  --text-regular: 1rem;
+  --text-medium: 1.125rem;
+  --text-large: 1.25rem;
+  --text-tagline: 1rem;
+  --text-h6: 1.125rem;
+  --text-h5: 1.25rem;
+  --text-h4: 1.5rem;
+  --text-h3: 2.5rem;
+  --text-h2: 3rem;
+  --text-h1: 3.5rem;
+
+  /* ── Letter spacing ─────────────────────────────────────── */
+  --tracking-heading: -2%;
+
+  /* ── Primitive colors ───────────────────────────────────── */
+  --color-gray-100: #f2f2f0;
+  --color-gray-200: #dcdde4;
+  --color-gray-300: #a3a4b5;
+  --color-gray-400: #67697c;
+  --color-gray-600: #292a36;
+  --color-gray-700: #20212b;
+  --color-gray-800: #16171f;
+  --color-gray-900: #010109;
+
+  --color-primary-100: #e7dcff;
+  --color-primary-150: #d0bafe;
+  --color-primary-200: #7042d2;
+  --color-primary-300: #8952fd;
+  --color-primary-400: #251051;
+
+  /* Tooltip (used by base tooltip component) */
+  --color-primary-solid: #16171f;
+  --color-tooltip-supporting-text: #a3a4b5;
+  --color-bg-primary-solid: #16171f;
+
+  --color-success-100: #e9fbf0;
+  --color-success-150: #d3f6e0;
+  --color-success-200: #1caa50;
+  --color-success-300: #23d464;
+  --color-success-400: #0b401e;
+
+  --color-warning-100: #fff7f0;
+  --color-warning-150: #fee8d2;
+  --color-warning-200: #d59455;
+  --color-warning-300: #fbb26a;
+  --color-warning-400: #88592c;
+
+  --color-error-100: #fdd8e1;
+  --color-error-150: #fcc5d2;
+  --color-error-200: #c73154;
+  --color-error-300: #f53d68;
+  --color-error-400: #521221;
+
+  --color-info-100: #d4d6fa;
+  --color-info-150: #a9aef5;
+  --color-info-200: #181f8b;
+  --color-info-300: #202ab9;
+  --color-info-400: #080a2e;
+
+  --color-coral-100: #ffe5e0;
+  --color-coral-150: #ffccc1;
+  --color-coral-200: #d86750;
+  --color-coral-300: #ff7e64;
+  --color-coral-400: #632114;
+
+  --color-teal-100: #dafbfb;
+  --color-teal-150: #b5f7f7;
+  --color-teal-200: #39bebe;
+  --color-teal-300: #47eaea;
+  --color-teal-400: #0f3636;
+
+  /* ── Semantic tokens (light mode defaults) ──────────────── */
+  --color-text-primary: #010109;
+  --color-text-secondary: #292a36;
+  --color-text-tertiary: #67697c;
+  --color-surface-bg: #ffffff;
+  --color-surface-card: #f2f2f0;
+  --color-surface-stroke: #dcdde4;
+  --color-system-brand: #7042d2;
+  --color-system-error: #c73154;
+  --color-system-success: #1caa50;
+  --color-system-warning: #d59455;
+  --color-system-info: #181f8b;
+
+  /* ── Chart (ShadCN / FIRE projection) ──────────────────── */
+  --chart-1: #84a344;  /* portfolio */
+  --chart-2: #8b5cf6;  /* contributions */
+  --chart-3: #6366f1;  /* initial */
+  --chart-4: #166534;  /* goal */
+  --chart-5: #67697c;  /* spare */
+}
+
+/* ── Dark mode overrides ────────────────────────────────────── */
+.dark {
+  --color-text-primary: #f2f2f0;
+  --color-text-secondary: #a3a4b5;
+  --color-text-tertiary: #67697c;
+  --color-surface-bg: #16171f;
+  --color-surface-card: #010109;
+  --color-surface-stroke: #67697c;
+  --color-system-brand: #d0bafe;
+  --color-system-error: #f53d68;
+  --color-system-success: #23d464;
+  --color-system-warning: #fbb26a;
+  --color-system-info: #202ab9;
+}
+
+/* ── Base styles ────────────────────────────────────────────── */
+@layer base {
+  html, body {
+    font-family: var(--font-body);
+    background-color: var(--color-surface-bg);
+    color: var(--color-text-primary);
+    overflow-x: hidden;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    letter-spacing: var(--tracking-heading);
+  }
+}
+
+/* Recharts axis label – avoid layout issues */
+.recharts-text.recharts-label {
+  height: fit-content;
+}

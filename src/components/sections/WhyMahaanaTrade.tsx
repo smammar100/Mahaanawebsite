@@ -1,0 +1,103 @@
+import {
+  Zap,
+  LineChartUp01,
+  MoonStar,
+  ShieldTick,
+  Sliders01,
+  Wallet01,
+} from "@untitledui/icons";
+import { Container } from "@/components/layout/Container";
+import { TextLarge, TextRegular } from "@/components/ui/Typography";
+
+const features = [
+  {
+    icon: Zap,
+    title: "Fast, paperless onboarding",
+    desc: "Open an account in under 10 minutes. No paperwork, no branches.",
+  },
+  {
+    icon: LineChartUp01,
+    title: "Earn daily, grow steadily",
+    desc: "Your savings grow every day with consistent daily returns.",
+  },
+  {
+    icon: MoonStar,
+    title: "Fully shariah-compliant",
+    desc: "We invest only in 100% Shariah compliant products. We are also endorsed by Al Hilal",
+  },
+  {
+    icon: ShieldTick,
+    title: "Data & Fund protection",
+    desc: "Bank-grade encryption, CDC custody, and SECP regulation at your back.",
+  },
+  {
+    icon: Wallet01,
+    title: "Instant liquidity",
+    desc: "Withdraw your funds anytime with no lock-in periods. Your money, your control.",
+  },
+  {
+    icon: Sliders01,
+    title: "Smart Portfolio Rebalancing",
+    desc: "We optimize your portfolio to keep it aligned with your goals.",
+  },
+];
+
+export function WhyMahaanaTrade() {
+  return (
+    <section
+      className="border-t border-surface-stroke py-8 sm:py-10 md:py-12 lg:py-14 xl:py-16"
+      aria-labelledby="why-mahaana-heading"
+    >
+      <Container className="flex flex-col gap-6 sm:gap-8 lg:gap-10">
+        {/* Header */}
+        <div className="flex flex-col items-start justify-start gap-4">
+          <div className="flex flex-col gap-2">
+            <p className="font-body text-small font-semibold uppercase tracking-wide text-system-brand">
+              Why MAHAANA
+            </p>
+            <h2
+              id="why-mahaana-heading"
+              className="font-heading text-[2.25rem] font-semibold leading-[120%] tracking-heading text-text-primary lg:text-h2 w-full max-w-full"
+            >
+              All in one, Shariah Compliant
+              <br />
+              Investment Platform
+            </h2>
+          </div>
+          <TextRegular className="flex-1 text-text-secondary lg:max-w-md">
+            Mahaana Save+ helps you earn daily returns on your money locked in
+            zero or minimal returns your bank account offers.
+          </TextRegular>
+        </div>
+
+        {/* Cards grid */}
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
+          {features.map((feature, index) => {
+            const Icon = feature.icon;
+            return (
+              <div
+                key={index}
+                className="flex flex-col gap-6 rounded-2xl border border-surface-stroke p-6"
+              >
+                <div className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-primary-100 p-2">
+                  <Icon className="size-6 text-primary-200" aria-hidden />
+                </div>
+                <div className="flex flex-col gap-2">
+                  <TextLarge
+                    weight="semibold"
+                    className="text-text-primary"
+                  >
+                    {feature.title}
+                  </TextLarge>
+                  <TextRegular className="text-text-tertiary">
+                    {feature.desc}
+                  </TextRegular>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </Container>
+    </section>
+  );
+}
