@@ -92,7 +92,7 @@ export function Header() {
 
   return (
     <header className={`fixed top-0 left-0 right-0 z-[10000000] w-full pt-[env(safe-area-inset-top)] ${headerClasses}`}>
-      <Container className={`py-3 sm:py-4 lg:!px-4 ${textClasses}`}>
+      <Container className={`py-3 sm:py-4 ${textClasses}`}>
         <div className="flex items-center justify-between gap-4 lg:gap-8">
           {/* Logo */}
           <Link

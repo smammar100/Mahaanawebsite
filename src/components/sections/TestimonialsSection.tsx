@@ -123,7 +123,7 @@ export function TestimonialsSection({ className }: TestimonialsSectionProps) {
         </div>
 
         {/* Carousel */}
-        <div className="relative -mx-4 sm:-mx-6 lg:-mx-8 overflow-hidden">
+        <div className="relative -mx-4 sm:-mx-6 md:-mx-8 lg:-mx-12 xl:-mx-16 overflow-hidden">
           {/* Gradient fade overlays */}
           <div
             className="pointer-events-none absolute top-0 bottom-0 left-0 z-10 w-24 sm:w-36 bg-gradient-to-r from-surface-bg to-transparent"

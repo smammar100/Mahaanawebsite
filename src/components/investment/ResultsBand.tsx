@@ -1,5 +1,6 @@
 "use client";
 
+import { Container } from "@/components/layout/Container";
 import { fmt } from "@/lib/formatters";
 import { INVESTMENT_CURRENCY } from "@/lib/investmentConfig";
 import { cx } from "@/utils/cx";
@@ -44,7 +45,7 @@ export function ResultsBand({
 
   return (
     <section className="w-full py-6">
-      <div className="mx-auto max-w-[680px] px-4 text-center">
+      <Container className="max-w-[680px] text-center">
         <p className="text-sm font-semibold uppercase tracking-wide text-text-tertiary">
           After {years} year{years === 1 ? "" : "s"} at {rate}% p.a.
         </p>
@@ -75,7 +76,7 @@ export function ResultsBand({
             </div>
           ))}
         </div>
-      </div>
+      </Container>
     </section>
   );
 }

@@ -16,7 +16,7 @@ export function Cta6Section({ className }: Cta6SectionProps) {
         className
       )}
     >
-      <Container className="lg:px-6 xl:px-6">
+      <Container>
         <CallToAction1
           badgeText="Join community of 20K+ investors"
           headline={

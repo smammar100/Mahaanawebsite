@@ -1,5 +1,6 @@
 "use client";
 
+import { Container } from "@/components/layout/Container";
 import { TextSmall } from "@/components/ui/Typography";
 import { formatYearsMonths } from "@/lib/formatters";
 
@@ -25,12 +26,12 @@ export function ResultsBar({
 
   return (
     <section className="w-full py-4">
-      <div className="mx-auto max-w-[680px] px-4 text-center">
+      <Container className="max-w-[680px] text-center">
         <p className="font-heading text-4xl font-extrabold tracking-heading text-text-primary sm:text-5xl lg:text-6xl">
           {primaryText}
         </p>
         <TextSmall className="mt-3 text-text-tertiary">{subtitleText}</TextSmall>
-      </div>
+      </Container>
     </section>
   );
 }

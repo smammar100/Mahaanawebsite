@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { calculateFIRE, type FIREResult } from "@/lib/calculations";
 import { RISK_PROFILES } from "@/lib/riskProfiles";
+import { Container } from "@/components/layout/Container";
 import { ProjectionSection } from "./ProjectionSection";
 import { ResultsBar } from "./ResultsBar";
 import { SituationCard } from "./SituationCard";
@@ -37,7 +38,7 @@ export function FIRECalculator() {
   );
 
   return (
-    <div className="mx-auto w-full max-w-[1080px] px-4 sm:px-6 lg:px-6">
+    <Container className="max-w-[1080px]">
       <div className="flex flex-col gap-6 lg:grid lg:grid-cols-2 lg:gap-0 lg:rounded-2xl lg:border lg:border-surface-stroke lg:bg-surface-card lg:shadow-sm lg:overflow-hidden">
         <SituationCard
           className="lg:rounded-l-2xl lg:rounded-r-none lg:border-0 lg:border-r lg:border-surface-stroke"
@@ -86,6 +87,6 @@ export function FIRECalculator() {
         This calculator is for educational purposes only and does not constitute
         financial advice.
       </p>
-    </div>
+    </Container>
   );
 }

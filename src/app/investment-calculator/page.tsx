@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 export default function InvestmentCalculatorPage() {
   return (
     <div className="bg-surface-bg">
-      <section className="pt-12 pb-8 sm:pt-14 sm:pb-10 px-4">
+      <section className="pt-12 pb-8 sm:pt-14 sm:pb-10">
         <Container className="text-center">
           <H1
             className="text-text-primary text-[28px] sm:text-[36px] lg:text-[48px]"

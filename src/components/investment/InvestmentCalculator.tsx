@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useInvestmentCalculation } from "@/hooks/useInvestmentCalculation";
+import { Container } from "@/components/layout/Container";
 import { InputCard } from "@/components/investment/InputCard";
 import { SummaryCard } from "@/components/investment/SummaryCard";
 import { ResultsBand } from "@/components/investment/ResultsBand";
@@ -27,7 +28,7 @@ export function InvestmentCalculator() {
   });
 
   return (
-    <div className="mx-auto w-full max-w-[1080px] px-4 sm:px-6 lg:px-6">
+    <Container className="max-w-[1080px]">
       <div className="flex flex-col gap-6 lg:grid lg:grid-cols-2 lg:gap-0 lg:rounded-2xl lg:border lg:border-surface-stroke lg:bg-surface-card lg:shadow-sm lg:overflow-hidden">
         <InputCard
           className="lg:rounded-l-2xl lg:rounded-r-none lg:border-0 lg:border-r lg:border-surface-stroke"
@@ -164,6 +165,6 @@ export function InvestmentCalculator() {
         All projections are for illustrative purposes. This calculator is for
         educational purposes only and does not constitute financial advice.
       </p>
-    </div>
+    </Container>
   );
 }
