@@ -18,7 +18,7 @@ export function Cta6Section({ className }: Cta6SectionProps) {
       viewport={sectionViewport}
       variants={sectionFadeInUp}
       className={cx(
-        "overflow-x-hidden py-14",
+        "overflow-x-hidden pt-0 pb-14",
         className
       )}
     >

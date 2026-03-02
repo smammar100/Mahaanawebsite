@@ -85,7 +85,7 @@ export function WhyMahaanaTrade() {
             return (
               <div
                 key={index}
-                className="flex flex-col gap-6 rounded-2xl border border-surface-stroke p-6"
+                className="flex flex-col gap-6 rounded-2xl border border-surface-stroke bg-[#f8f8f7] p-6 dark:bg-surface-card"
               >
                 <div className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-primary-100 p-2">
                   <Icon className="size-6 text-primary-200" aria-hidden />
