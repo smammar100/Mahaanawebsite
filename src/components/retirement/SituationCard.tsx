@@ -1,19 +1,29 @@
 "use client";
 
 import { Input } from "@/components/ui/Input";
-import { H4, TextSmall } from "@/components/ui/Typography";
-import { SliderInput } from "./SliderInput";
+import { Field, FieldLabel } from "@/components/ui/Field";
+import { H4 } from "@/components/ui/Typography";
 import { Tooltip, TooltipTrigger } from "@/components/base/tooltip/tooltip";
+import { INVESTMENT_CURRENCY } from "@/lib/investmentConfig";
 import { cx } from "@/utils/cx";
+
+const numberInputClass =
+  "py-3 text-base [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none";
 
 interface SituationCardProps {
   className?: string;
+  /** Same 4 fields as Investment calculator */
+  initial: number;
+  onInitialChange: (v: number) => void;
+  monthly: number;
+  onMonthlyChange: (v: number) => void;
+  rate: number;
+  onRateChange: (v: number) => void;
+  years: number;
+  onYearsChange: (v: number) => void;
+  /** Retirement-specific */
   age: number;
   onAgeChange: (v: number) => void;
-  currentSavings: number;
-  onCurrentSavingsChange: (v: number) => void;
-  monthlyContrib: number;
-  onMonthlyContribChange: (v: number) => void;
   annualSpending: number;
   onAnnualSpendingChange: (v: number) => void;
   lifeExpectancy: number;
@@ -48,12 +58,16 @@ function FieldRow({
 
 export function SituationCard({
   className,
+  initial,
+  onInitialChange,
+  monthly,
+  onMonthlyChange,
+  rate,
+  onRateChange,
+  years,
+  onYearsChange,
   age,
   onAgeChange,
-  currentSavings,
-  onCurrentSavingsChange,
-  monthlyContrib,
-  onMonthlyContribChange,
   annualSpending,
   onAnnualSpendingChange,
   lifeExpectancy,
@@ -62,58 +76,104 @@ export function SituationCard({
   return (
     <div
       className={cx(
-        "rounded-2xl border border-surface-stroke bg-surface-card p-8 md:p-10",
+        "rounded-2xl border border-surface-stroke bg-surface-card p-6 sm:p-8 lg:p-10",
         className
       )}
     >
       <p className="text-[11px] font-bold uppercase tracking-widest text-system-brand">
-        TODAY
+        YOUR DETAILS
       </p>
-      <H4 className="mt-1 font-bold text-text-primary">Your situation</H4>
+      <h2 className="mt-1 font-heading text-2xl font-bold tracking-heading text-text-primary lg:text-3xl mb-6 sm:mb-8">
+        Your investment
+      </h2>
 
-      <div className="mt-6 space-y-4">
-        <FieldRow label="Age">
-          <Input
-            type="number"
-            min={18}
-            max={80}
-            value={age || ""}
-            onChange={(e) => onAgeChange(Number(e.target.value) || 0)}
-          />
-        </FieldRow>
-        <FieldRow
-          label="Current savings"
-          tooltip="Total amount you have saved or invested today."
-        >
-          <Input
-            type="number"
-            min={0}
-            value={currentSavings || ""}
-            onChange={(e) =>
-              onCurrentSavingsChange(Number(e.target.value) || 0)
-            }
-          />
-        </FieldRow>
-        <FieldRow
-          label="Saving monthly"
-          tooltip="Amount you contribute to savings or investments each month."
-        >
-          <Input
-            type="number"
-            min={0}
-            value={monthlyContrib || ""}
-            onChange={(e) =>
-              onMonthlyContribChange(Number(e.target.value) || 0)
-            }
-          />
-        </FieldRow>
+      {/* Same 4 fields as Investment calculator – units in labels */}
+      <div className="space-y-4">
+        <div className="flex flex-col gap-2 lg:flex-row lg:items-center">
+          <FieldLabel className="lg:w-48 lg:shrink-0">
+            Initial Investment Amount ({INVESTMENT_CURRENCY})
+          </FieldLabel>
+          <Field className="min-w-0 flex-1">
+            <Input
+              type="number"
+              min={0}
+              placeholder="0"
+              value={String(initial ?? "")}
+              onChange={(value) => onInitialChange(Number(value) || 0)}
+              className={numberInputClass}
+            />
+          </Field>
+        </div>
+
+        <div className="flex flex-col gap-2 lg:flex-row lg:items-center">
+          <div className="lg:w-48 lg:shrink-0 space-y-0.5">
+            <FieldLabel className="block">Monthly Contribution ({INVESTMENT_CURRENCY})</FieldLabel>
+            <span className="text-tiny text-text-tertiary">Optional</span>
+          </div>
+          <Field className="min-w-0 flex-1">
+            <Input
+              type="number"
+              min={0}
+              placeholder="0"
+              value={String(monthly ?? "")}
+              onChange={(value) => onMonthlyChange(Number(value) || 0)}
+              className={numberInputClass}
+            />
+          </Field>
+        </div>
+
+        <div className="flex flex-col gap-2 lg:flex-row lg:items-center">
+          <FieldLabel className="lg:w-48 lg:shrink-0">
+            Estimated Rate of Return (%)
+          </FieldLabel>
+          <Field className="min-w-0 flex-1">
+            <Input
+              type="number"
+              min={0}
+              max={100}
+              step={0.1}
+              placeholder="0"
+              value={String(rate ?? "")}
+              onChange={(value) => onRateChange(Number(value) || 0)}
+              className={numberInputClass}
+            />
+          </Field>
+        </div>
+
+        <div className="flex flex-col gap-2 lg:flex-row lg:items-center">
+          <FieldLabel className="lg:w-48 lg:shrink-0">
+            Years to Grow (yrs)
+          </FieldLabel>
+          <Field className="min-w-0 flex-1">
+            <Input
+              type="number"
+              min={1}
+              max={100}
+              placeholder="0"
+              value={String(years ?? "")}
+              onChange={(value) => onYearsChange(Number(value) || 0)}
+              className={numberInputClass}
+            />
+          </Field>
+        </div>
       </div>
 
-      <div className="mt-4 border-t border-surface-stroke pt-4">
+      {/* Retirement section */}
+      <div className="mt-6 border-t border-surface-stroke pt-6">
         <p className="text-tiny uppercase tracking-wider text-text-tertiary">
           RETIREMENT
         </p>
+        <H4 className="mt-1 font-bold text-text-primary">Your retirement</H4>
         <div className="mt-4 space-y-4">
+          <FieldRow label="Current age">
+            <Input
+              type="number"
+              min={18}
+              max={80}
+              value={String(age ?? "")}
+              onChange={(value) => onAgeChange(Number(value) || 0)}
+            />
+          </FieldRow>
           <FieldRow
             label="Annual spending"
             tooltip="Expected annual spending in retirement (today's value)."
@@ -121,9 +181,9 @@ export function SituationCard({
             <Input
               type="number"
               min={0}
-              value={annualSpending || ""}
-              onChange={(e) =>
-                onAnnualSpendingChange(Number(e.target.value) || 0)
+              value={String(annualSpending ?? "")}
+              onChange={(value) =>
+                onAnnualSpendingChange(Number(value) || 0)
               }
             />
           </FieldRow>

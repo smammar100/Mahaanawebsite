@@ -10,9 +10,11 @@ import { SituationCard } from "./SituationCard";
 import { StrategyCard } from "./StrategyCard";
 
 export function FIRECalculator() {
+  const [initial, setInitial] = useState(0);
+  const [monthly, setMonthly] = useState(0);
+  const [rate, setRate] = useState(0);
+  const [years, setYears] = useState(0);
   const [currentAge, setCurrentAge] = useState(30);
-  const [currentSavings, setCurrentSavings] = useState(0);
-  const [monthlyContrib, setMonthlyContrib] = useState(0);
   const [annualSpending, setAnnualSpending] = useState(0);
   const [lifeExpectancy, setLifeExpectancy] = useState(90);
   const [profileId, setProfileId] = useState("balanced");
@@ -21,16 +23,16 @@ export function FIRECalculator() {
     () =>
       calculateFIRE({
         currentAge,
-        currentSavings,
-        monthlyContrib,
+        currentSavings: initial,
+        monthlyContrib: monthly,
         annualSpending,
         lifeExpectancy,
         profileId,
       }),
     [
       currentAge,
-      currentSavings,
-      monthlyContrib,
+      initial,
+      monthly,
       annualSpending,
       lifeExpectancy,
       profileId,
@@ -38,19 +40,23 @@ export function FIRECalculator() {
   );
 
   const hasData =
-    (currentSavings > 0 || monthlyContrib > 0) && annualSpending > 0;
+    (initial > 0 || monthly > 0) && annualSpending > 0;
 
   return (
     <Container className="max-w-[1080px]">
       <div className="flex flex-col gap-6 lg:grid lg:grid-cols-2 lg:gap-0 lg:rounded-2xl lg:border lg:border-surface-stroke lg:bg-surface-card lg:shadow-sm lg:overflow-hidden">
         <SituationCard
           className="lg:rounded-l-2xl lg:rounded-r-none lg:border-0 lg:border-r lg:border-surface-stroke"
+          initial={initial}
+          onInitialChange={setInitial}
+          monthly={monthly}
+          onMonthlyChange={setMonthly}
+          rate={rate}
+          onRateChange={setRate}
+          years={years}
+          onYearsChange={setYears}
           age={currentAge}
           onAgeChange={setCurrentAge}
-          currentSavings={currentSavings}
-          onCurrentSavingsChange={setCurrentSavings}
-          monthlyContrib={monthlyContrib}
-          onMonthlyContribChange={setMonthlyContrib}
           annualSpending={annualSpending}
           onAnnualSpendingChange={setAnnualSpending}
           lifeExpectancy={lifeExpectancy}
@@ -80,8 +86,8 @@ export function FIRECalculator() {
           fireTarget={result.fireTarget}
           retirementAge={result.retirementAge}
           currentAge={currentAge}
-          currentSavings={currentSavings}
-          monthlyContrib={monthlyContrib}
+          currentSavings={initial}
+          monthlyContrib={monthly}
           effectiveRate={result.effectiveRate}
         />
       </div>

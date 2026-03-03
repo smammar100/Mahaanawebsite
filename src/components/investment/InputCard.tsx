@@ -5,48 +5,8 @@ import { Field, FieldLabel } from "@/components/ui/Field";
 import { INVESTMENT_CURRENCY } from "@/lib/investmentConfig";
 import { cx } from "@/utils/cx";
 
-const inputBaseClass =
+const numberInputClass =
   "py-3 text-base [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none";
-
-function InputWithAdornment({
-  leftAdornment,
-  rightAdornment,
-  className,
-  ...props
-}: React.ComponentProps<typeof Input> & {
-  leftAdornment?: React.ReactNode;
-  rightAdornment?: React.ReactNode;
-}) {
-  return (
-    <div className="relative flex w-full">
-      {leftAdornment && (
-        <span
-          className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-sm font-semibold text-text-tertiary"
-          aria-hidden
-        >
-          {leftAdornment}
-        </span>
-      )}
-      {rightAdornment && (
-        <span
-          className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-sm font-semibold text-text-tertiary"
-          aria-hidden
-        >
-          {rightAdornment}
-        </span>
-      )}
-      <Input
-        className={cx(
-          inputBaseClass,
-          leftAdornment ? "pl-10" : "pl-4",
-          rightAdornment ? "pr-10" : "pr-4",
-          className
-        )}
-        {...props}
-      />
-    </div>
-  );
-}
 
 interface InputCardProps {
   className?: string;
@@ -88,68 +48,68 @@ export function InputCard({
       <div className="space-y-4">
         <div className="flex flex-col gap-2 lg:flex-row lg:items-center">
           <FieldLabel className="lg:w-48 lg:shrink-0">
-            Initial Investment Amount
+            Initial Investment Amount ({INVESTMENT_CURRENCY})
           </FieldLabel>
           <Field className="min-w-0 flex-1">
-            <InputWithAdornment
+            <Input
               type="number"
               min={0}
               placeholder="0"
-              value={initial || ""}
-              onChange={(e) => onInitialChange(Number(e.target.value) || 0)}
-              leftAdornment={INVESTMENT_CURRENCY}
+              value={String(initial ?? "")}
+              onChange={(value) => onInitialChange(Number(value) || 0)}
+              className={numberInputClass}
             />
           </Field>
         </div>
 
         <div className="flex flex-col gap-2 lg:flex-row lg:items-center">
           <div className="lg:w-48 lg:shrink-0 space-y-0.5">
-            <FieldLabel className="block">Monthly Contribution</FieldLabel>
+            <FieldLabel className="block">Monthly Contribution ({INVESTMENT_CURRENCY})</FieldLabel>
             <span className="text-tiny text-text-tertiary">Optional</span>
           </div>
           <Field className="min-w-0 flex-1">
-            <InputWithAdornment
+            <Input
               type="number"
               min={0}
               placeholder="0"
-              value={monthly || ""}
-              onChange={(e) => onMonthlyChange(Number(e.target.value) || 0)}
-              leftAdornment={INVESTMENT_CURRENCY}
+              value={String(monthly ?? "")}
+              onChange={(value) => onMonthlyChange(Number(value) || 0)}
+              className={numberInputClass}
             />
           </Field>
         </div>
 
         <div className="flex flex-col gap-2 lg:flex-row lg:items-center">
           <FieldLabel className="lg:w-48 lg:shrink-0">
-            Estimated Rate of Return
+            Estimated Rate of Return (%)
           </FieldLabel>
           <Field className="min-w-0 flex-1">
-            <InputWithAdornment
+            <Input
               type="number"
               min={0}
               max={100}
               step={0.1}
               placeholder="0"
-              value={rate || ""}
-              onChange={(e) => onRateChange(Number(e.target.value) || 0)}
-              rightAdornment="%"
+              value={String(rate ?? "")}
+              onChange={(value) => onRateChange(Number(value) || 0)}
+              className={numberInputClass}
             />
           </Field>
         </div>
 
         <div className="flex flex-col gap-2 lg:flex-row lg:items-center">
           <FieldLabel className="lg:w-48 lg:shrink-0">
-            Years to Grow
+            Years to Grow (yrs)
           </FieldLabel>
           <Field className="min-w-0 flex-1">
-            <InputWithAdornment
+            <Input
               type="number"
               min={1}
               max={100}
               placeholder="0"
-              value={years || ""}
-              onChange={(e) => onYearsChange(Number(e.target.value) || 0)}
-              rightAdornment="yrs"
+              value={String(years ?? "")}
+              onChange={(value) => onYearsChange(Number(value) || 0)}
+              className={numberInputClass}
             />
           </Field>
         </div>

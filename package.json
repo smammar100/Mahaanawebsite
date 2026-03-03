@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
+    "@react-stately/utils": "^3.11.0",
     "@react-three/fiber": "^9.5.0",
     "@untitledui/icons": "^0.0.21",
     "embla-carousel-auto-scroll": "^8.6.0",

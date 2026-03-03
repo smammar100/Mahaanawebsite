@@ -8,7 +8,6 @@ import { SummaryCard } from "@/components/investment/SummaryCard";
 import { ResultsBand } from "@/components/investment/ResultsBand";
 import { ProjectionChart } from "@/components/investment/ProjectionChart";
 import { ProjectionTable } from "@/components/investment/ProjectionTable";
-import { Button } from "@/components/base/buttons/button";
 import { fmt } from "@/lib/formatters";
 import { CHART_COLORS, INVESTMENT_CURRENCY } from "@/lib/investmentConfig";
 import { cx } from "@/utils/cx";
@@ -146,13 +145,6 @@ export function InvestmentCalculator() {
                     Initial {fmt(initial, INVESTMENT_CURRENCY)}
                   </span>
                 </div>
-                <div className="flex-1" />
-                <Button
-                  size="sm"
-                  className="rounded-full bg-primary-100 px-4 py-1.5 text-sm font-semibold text-system-brand hover:bg-primary-150"
-                >
-                  Share
-                </Button>
               </div>
             </>
           ) : (
