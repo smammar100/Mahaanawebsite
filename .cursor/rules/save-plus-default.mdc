@@ -1,0 +1,14 @@
+---
+description: Default all page-level changes to the Retirement page unless another page is specified
+alwaysApply: true
+---
+
+# Retirement Page as Default for Changes
+
+When the user asks for changes to "this page," "the page," or does not specify which page, **apply changes to the Retirement page**:
+
+- **Route:** http://localhost:3000/retirement
+- **Page component:** `src/app/retirement/page.tsx`
+- **New sections/components** for this page should live under `src/app/retirement/` or `src/components/` and be used only by the Retirement page unless reuse is needed elsewhere.
+
+If the user explicitly names another page (e.g. MICF, home, retirement calculator), apply changes there instead.

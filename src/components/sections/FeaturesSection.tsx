@@ -148,7 +148,7 @@ export function FeaturesSection() {
             description="Protect your purchasing power and build your safety net. Save+ gives you access to institutional-level, low-risk funds that deliver steady growth, all with the flexibility to access your money whenever you need it."
             features={savePlusFeatures}
             cta="Learn more about Save+"
-            ctaHref="#save-plus"
+            ctaHref="/retirement"
             imageSrc="/images/invest/Save+.png"
           />
           <FeatureBlock

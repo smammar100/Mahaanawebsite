@@ -1,0 +1,113 @@
+"use client";
+
+import Image from "next/image";
+import { motion } from "motion/react";
+import { Container } from "@/components/layout/Container";
+import { H1, H2, TextMedium } from "@/components/ui/Typography";
+import { Button } from "@/components/base/buttons/button";
+import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
+import { cx } from "@/utils/cx";
+
+const FUND_HERO_TABS = [
+  { id: "overview", label: "Overview" },
+  { id: "performance", label: "Performance" },
+  { id: "portfolio", label: "Portfolio" },
+  { id: "fund-literature", label: "Fund literature" },
+] as const;
+
+interface FundHeroProps {
+  shortTitle: string;
+  fullTitle: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+  showPartners?: boolean;
+}
+
+export function FundHero({
+  shortTitle,
+  fullTitle,
+  ctaLabel = "Open retirement account",
+  ctaHref = "#open-account",
+  showPartners = true,
+}: FundHeroProps) {
+  return (
+    <motion.section
+      initial="hidden"
+      whileInView="visible"
+      viewport={sectionViewport}
+      variants={sectionFadeInUp}
+      className={cx(
+        "relative overflow-hidden bg-surface-bg",
+        "pt-8 pb-6 sm:pt-10 sm:pb-8 lg:pt-16 lg:pb-14"
+      )}
+      aria-labelledby="fund-hero-heading"
+    >
+      <Container className="flex flex-col gap-8 px-4 sm:px-6 md:px-8 lg:px-16 sm:gap-10 lg:gap-14">
+        <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:gap-16 xl:gap-20">
+          <div className="flex flex-col gap-6 lg:max-w-[340px]">
+            <H1
+              id="fund-hero-heading"
+              className="text-[2rem] text-text-primary sm:text-[2.5rem] lg:text-h1"
+              weight="semibold"
+            >
+              {shortTitle}
+            </H1>
+            <Button
+              href={ctaHref}
+              className="w-full rounded-xl bg-system-brand px-6 py-3 text-base font-semibold text-white hover:opacity-90 sm:w-auto"
+            >
+              {ctaLabel}
+            </Button>
+          </div>
+
+          <div className="flex min-w-0 flex-1 flex-col gap-6">
+            <H2
+              className="text-xl text-text-primary sm:text-2xl lg:text-h2"
+              weight="semibold"
+            >
+              {fullTitle}
+            </H2>
+            {showPartners && (
+              <div className="flex flex-col gap-4">
+                <TextMedium
+                  weight="bold"
+                  className="uppercase tracking-wide text-system-brand"
+                >
+                  WITH OUR PARTNERS
+                </TextMedium>
+                <div className="relative h-12 w-[108px] sm:w-[140px]">
+                  <Image
+                    src="/images/invest/partners-igi-vitality.png"
+                    alt="Partner logos"
+                    fill
+                    className="object-contain object-left"
+                    sizes="140px"
+                  />
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+
+        <div
+          className="flex min-h-[44px] flex-wrap justify-center gap-1 rounded-full bg-surface-card p-1"
+          role="tablist"
+          aria-label="Fund sections"
+        >
+          {FUND_HERO_TABS.map((tab) => (
+            <a
+              key={tab.id}
+              href={`#${tab.id}`}
+              role="tab"
+              className={cx(
+                "flex min-h-[40px] min-w-0 flex-1 items-center justify-center rounded-full px-4 py-3 text-center font-body text-base font-medium text-text-tertiary transition-colors hover:bg-white hover:text-text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-system-brand sm:min-h-[44px]"
+              )}
+            >
+              {tab.label}
+            </a>
+          ))}
+        </div>
+      </Container>
+    </motion.section>
+  );
+}

@@ -44,8 +44,10 @@ export function Header() {
   const pathname = usePathname()
   const [scrolledPastHero, setScrolledPastHero] = useState(false)
 
+  const isHeroPage = pathname === '/' || pathname === '/retirement'
+
   useEffect(() => {
-    if (pathname != null && pathname !== '/') {
+    if (pathname != null && !isHeroPage) {
       setScrolledPastHero(true)
       return
     }
@@ -67,7 +69,7 @@ export function Header() {
       clearTimeout(timeoutId)
       observer?.disconnect()
     }
-  }, [pathname])
+  }, [pathname, isHeroPage])
 
   useEffect(() => {
     if (mobileMenuOpen) {
@@ -81,11 +83,11 @@ export function Header() {
   }, [mobileMenuOpen])
 
   const headerClasses =
-    pathname === '/' && scrolledPastHero
+    isHeroPage && scrolledPastHero
       ? 'bg-transparent border-b border-transparent transition-colors duration-200'
       : 'bg-surface-bg border-b border-surface-stroke transition-colors duration-200'
 
-  const isTransparent = pathname === '/' && scrolledPastHero
+  const isTransparent = isHeroPage && scrolledPastHero
   const textClasses = isTransparent
     ? 'text-gray-100'
     : 'text-gray-900'
