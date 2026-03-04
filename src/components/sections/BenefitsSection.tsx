@@ -64,7 +64,7 @@ const benefitsCards = [
       "Build a solid financial foundation for retirement",
     ],
     hasRiskButtons: false,
-    image: "/images/invest/20-percent-tax.png",
+    image: "/images/invest/A.png",
   },
   {
     label: "DIVERSIFIED BY EXPERTS",
@@ -87,7 +87,7 @@ const benefitsCards = [
       "Steady growth toward the retirement you deserve",
     ],
     hasRiskButtons: false,
-    image: "/images/invest/Focused.png",
+    image: "/images/invest/B.png",
   },
   {
     label: "INVEST WITH PROTECTION",
@@ -99,7 +99,7 @@ const benefitsCards = [
       "Trusted insurance protection",
     ],
     hasRiskButtons: false,
-    image: "/images/invest/Partnership.png",
+    image: "/images/invest/C.png",
   },
 ];
 
@@ -158,7 +158,7 @@ function BenefitsCard({
       >
         <div className="flex min-h-[200px] flex-1 flex-col lg:min-h-0">
           {hasRiskButtons ? (
-            <div className="flex min-h-[400px] w-full flex-col gap-3 rounded-xl border border-surface-stroke bg-surface-card overflow-hidden p-3 sm:p-4">
+            <div className="flex min-h-[400px] w-full flex-col gap-3 rounded-xl overflow-hidden p-3 sm:p-4">
               <div
                 className="flex flex-wrap gap-1.5"
                 role="group"
@@ -211,14 +211,14 @@ function BenefitsCard({
               </div>
             </div>
           ) : image ? (
-            <div className="flex h-[400px] min-h-0 w-full flex-col gap-0 rounded-xl border border-surface-stroke bg-surface-card overflow-hidden">
+            <div className="flex w-full flex-col gap-0 rounded-xl border border-surface-stroke bg-surface-card overflow-hidden aspect-video">
               <div className="relative h-full min-h-0 w-full rounded-xl overflow-hidden bg-surface-bg">
                 <Image
                 src={image}
                 alt=""
-                width={245}
-                height={205}
-                className="h-full w-full rounded-xl object-contain"
+                width={640}
+                height={360}
+                className="h-full w-full rounded-xl object-cover"
               />
             </div>
             </div>
