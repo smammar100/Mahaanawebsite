@@ -189,3 +189,11 @@
 .recharts-text.recharts-label {
   height: fit-content;
 }
+
+/* Recharts chart container – use fit-content height so chart doesn't stretch */
+.recharts-wrapper {
+  height: fit-content !important;
+}
+.recharts-surface {
+  height: fit-content !important;
+}

@@ -56,50 +56,27 @@ const ALLOCATION_COLORS: Record<AssetName, string> = {
 const benefitsCards = [
   {
     label: "SAVE TAX, SAVE MORE",
-    headline: "Unlock tax savings for your future",
-    body: "According to VPS Rules 2005, Mahaana Retirement offers up to a 20% tax credit on your contributions, reducing your monthly tax liability. This unique benefit allows you to save more while building a solid financial foundation for retirement.",
+    headline: "Get better profit rates than what banks offer",
+    body: "Grow your savings with a Save+ account. Mahaana Save+ secures your money during volatile times while earning nearly 1.5x than the leading banks.*",
     items: [
       "Up to 20% tax credit on contributions",
       "Reduce your monthly tax liability",
       "Build a solid financial foundation for retirement",
     ],
     hasRiskButtons: false,
-    image: "/images/invest/A.png",
-  },
-  {
-    label: "DIVERSIFIED BY EXPERTS",
-    headline: "Expert built, curated portfolios",
-    body: "We've curated diversified portfolios with different risk/return profiles ranging from conservative to growth to fit your risk appetite & goals.",
-    items: [
-      "Curated risk/return profiles",
-      "Conservative to growth options",
-      "Fit your risk appetite and goals",
-    ],
-    hasRiskButtons: true,
+    image: "/images/invest/D.png",
   },
   {
     label: "RETIREMENT, SIMPLIFIED",
-    headline: "Stay focused with Mahaana Retirement",
-    body: "With Mahaana Retirement, your long-term goals get dedicated attention. Our focused approach ensures a clear, simplified financial strategy that grows your wealth steadily toward the retirement you deserve.",
+    headline: "Save with Purpose using Save+ Pots",
+    body: "Create dedicated pots for every goal from Umrah to a rainy day fund. Each pot earns daily returns, helping you stay organized while growing your money faster than a regular savings account.",
     items: [
       "Dedicated attention to long-term goals",
       "Clear, simplified financial strategy",
       "Steady growth toward the retirement you deserve",
     ],
     hasRiskButtons: false,
-    image: "/images/invest/B.png",
-  },
-  {
-    label: "INVEST WITH PROTECTION",
-    headline: "Your retirement account in partnership with IGI Life Insurance",
-    body: "Mahaana Wealth partners with IGI Life Insurance to bring you a comprehensive retirement solution that combines expert investment management with trusted insurance protection.",
-    items: [
-      "Partnership with IGI Life Insurance",
-      "Expert investment management",
-      "Trusted insurance protection",
-    ],
-    hasRiskButtons: false,
-    image: "/images/invest/C.png",
+    image: "/images/invest/E.png",
   },
 ];
 
@@ -156,7 +133,12 @@ function BenefitsCard({
         aria-hidden={!hasRiskButtons}
         aria-label={hasRiskButtons ? "Risk profile allocation" : undefined}
       >
-        <div className="flex min-h-[200px] flex-1 flex-col justify-center items-center lg:min-h-0">
+        <div
+          className={cx(
+            "flex min-h-[200px] flex-1 flex-col lg:min-h-0",
+            hasRiskButtons ? "justify-center items-center" : "min-h-0"
+          )}
+        >
           {hasRiskButtons ? (
             <div className="flex min-h-[400px] w-full flex-col gap-3 rounded-xl overflow-visible p-3 sm:p-4">
               <div
@@ -211,8 +193,8 @@ function BenefitsCard({
               </div>
             </div>
           ) : image ? (
-            <div className="flex w-full flex-col gap-0 rounded-xl border border-surface-stroke bg-surface-card overflow-hidden aspect-video">
-              <div className="relative h-full min-h-0 w-full rounded-xl overflow-hidden bg-surface-bg">
+            <div className="flex min-h-0 flex-1 w-full flex-col gap-0 rounded-xl border border-surface-stroke bg-surface-card overflow-hidden">
+              <div className="relative h-full min-h-0 w-full flex-1 rounded-xl overflow-hidden bg-surface-bg">
                 <Image
                 src={image}
                 alt=""

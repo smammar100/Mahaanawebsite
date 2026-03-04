@@ -1,5 +1,24 @@
-import { redirect } from "next/navigation";
+import type { Metadata } from "next";
+import { BenefitsSection } from "@/components/sections/BenefitsSection";
+import { Cta6Section } from "@/components/sections/Cta6Section";
+import { FAQSavePlusSection } from "@/components/sections/FAQSavePlusSection";
+import { SavePlusHero } from "@/components/sections/SavePlusHero";
+import { WhySavePlusSection } from "@/components/sections/WhySavePlusSection";
+
+export const metadata: Metadata = {
+  title: "Save+ | Mahaana",
+  description:
+    "Save more with Mahaana Save+. Build your safety net with institutional-level, low-risk funds and access your money whenever you need it.",
+};
 
 export default function SavePlusPage() {
-  redirect("/retirement");
+  return (
+    <div className="-mt-[calc(4.5rem+env(safe-area-inset-top,0px))] bg-surface-bg">
+      <SavePlusHero />
+      <WhySavePlusSection />
+      <BenefitsSection />
+      <FAQSavePlusSection />
+      <Cta6Section />
+    </div>
+  );
 }

@@ -1,0 +1,85 @@
+"use client";
+
+import { File02, LineChartUp01, ShieldTick } from "@untitledui/icons";
+import { motion } from "motion/react";
+import { Container } from "@/components/layout/Container";
+import { H2, TextLarge, TextRegular } from "@/components/ui/Typography";
+import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
+
+const features = [
+  {
+    icon: File02,
+    title: "Fast, Paperless Onboarding",
+    desc: "Sign up in minutes with zero paperwork or complicated steps.",
+  },
+  {
+    icon: LineChartUp01,
+    title: "Earn Daily, Grow Steadily",
+    desc: "Your savings grow every day with consistent daily returns.",
+  },
+  {
+    icon: ShieldTick,
+    title: "Fully Shariah-Compliant",
+    desc: "Fully aligned with Islamic principles, certified by SECP & Renowned Shariah Advisors.",
+  },
+];
+
+export function WhySavePlusSection() {
+  return (
+    <motion.section
+      initial="hidden"
+      whileInView="visible"
+      viewport={sectionViewport}
+      variants={sectionFadeInUp}
+      className="border-t border-surface-stroke py-8 sm:py-10 md:py-12 lg:py-14 xl:py-16"
+      aria-labelledby="why-save-plus-heading"
+    >
+      <Container className="flex flex-col justify-center gap-6 px-4 sm:px-6 md:px-8 lg:px-16">
+        <div className="flex flex-col justify-start gap-6 lg:items-start lg:gap-2">
+          <div className="flex flex-col justify-start items-start gap-6 min-w-0">
+            <p className="font-body text-small font-semibold uppercase tracking-wide text-system-brand">
+              WHY MAHAANA SAVE+
+            </p>
+            <H2
+              id="why-save-plus-heading"
+              className="font-heading text-[2rem] font-semibold leading-[1.2] tracking-heading text-text-primary sm:text-[2.25rem] lg:text-h2 max-w-[600px]"
+            >
+              Why Mahaana Save+
+            </H2>
+          </div>
+          <TextRegular className="flex-1 text-text-secondary lg:max-w-[600px] lg:pb-1">
+            Mahaana Save+ helps you earn daily returns on your money locked in
+            zero or minimal returns your bank account offers.
+          </TextRegular>
+        </div>
+
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
+          {features.map((feature, index) => {
+            const Icon = feature.icon;
+            return (
+              <div
+                key={index}
+                className="flex flex-col gap-6 rounded-2xl border border-surface-stroke bg-[#f8f8f7] p-6 dark:bg-surface-card"
+              >
+                <div className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-primary-100 p-2">
+                  <Icon className="size-6 text-primary-200" aria-hidden />
+                </div>
+                <div className="flex flex-col gap-2">
+                  <TextLarge
+                    weight="semibold"
+                    className="text-text-primary text-[1.25rem] leading-7"
+                  >
+                    {feature.title}
+                  </TextLarge>
+                  <TextRegular className="text-text-tertiary">
+                    {feature.desc}
+                  </TextRegular>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </Container>
+    </motion.section>
+  );
+}

@@ -3,7 +3,6 @@ import { BenefitsSection } from "@/components/sections/BenefitsSection";
 import { Cta6Section } from "@/components/sections/Cta6Section";
 import { FAQSection } from "@/components/sections/FAQSection";
 import { RetirementHero } from "@/components/sections/RetirementHero";
-import { TaxCreditTableSection } from "@/components/sections/TaxCreditTableSection";
 import { WhyRetirementSection } from "@/components/sections/WhyRetirementSection";
 
 export const metadata: Metadata = {
@@ -18,7 +17,6 @@ export default function RetirementPage() {
       <RetirementHero />
       <WhyRetirementSection />
       <BenefitsSection />
-      <TaxCreditTableSection />
       <FAQSection />
       <Cta6Section />
     </div>
