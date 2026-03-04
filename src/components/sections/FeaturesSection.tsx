@@ -7,7 +7,6 @@ import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
 import {
   H2,
   H4,
-  TextLarge,
   TextRegular,
 } from "@/components/ui/Typography";
 import { Button } from "@/components/base/buttons/button";
@@ -134,10 +133,6 @@ export function FeaturesSection() {
           >
             Find the perfect ways to Invest
           </H2>
-          <TextLarge className="text-gray-100/95 max-w-[30rem]">
-            Everyone invests differently — that&apos;s why Mahaana gives you
-            options that fit your goals, lifestyle, and pace.
-          </TextLarge>
         </div>
 
         {/* Feature blocks */}
