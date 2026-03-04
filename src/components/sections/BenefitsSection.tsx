@@ -5,7 +5,7 @@ import { motion } from "motion/react";
 import Image from "next/image";
 import { Cell, LabelList, Pie, PieChart, ResponsiveContainer } from "recharts";
 import { Container } from "@/components/layout/Container";
-import { H2, TextRegular } from "@/components/ui/Typography";
+import { H3, TextRegular } from "@/components/ui/Typography";
 import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
 import { cx } from "@/utils/cx";
 
@@ -137,12 +137,12 @@ function BenefitsCard({
     >
       {/* Content column: headline, list — 50% on lg */}
       <div className="flex min-w-0 w-full flex-col lg:w-1/2 lg:flex-[1_1_0%] justify-center items-start">
-        <H2
+        <H3
           id={index === 0 ? "benefits-heading" : undefined}
           className="font-heading text-[1.75rem] font-semibold leading-[1.2] tracking-heading text-text-primary sm:text-[2rem] lg:text-[2.25rem]"
         >
           {headline}
-        </H2>
+        </H3>
         {body && (
           <TextRegular className="mt-4 text-text-secondary">
             {body}
@@ -156,9 +156,9 @@ function BenefitsCard({
         aria-hidden={!hasRiskButtons}
         aria-label={hasRiskButtons ? "Risk profile allocation" : undefined}
       >
-        <div className="flex min-h-[200px] flex-1 flex-col lg:min-h-0">
+        <div className="flex min-h-[200px] flex-1 flex-col justify-center items-center lg:min-h-0">
           {hasRiskButtons ? (
-            <div className="flex min-h-[400px] w-full flex-col gap-3 rounded-xl overflow-hidden p-3 sm:p-4">
+            <div className="flex min-h-[400px] w-full flex-col gap-3 rounded-xl overflow-visible p-3 sm:p-4">
               <div
                 className="flex flex-wrap gap-1.5"
                 role="group"
@@ -180,9 +180,9 @@ function BenefitsCard({
                   </button>
                 ))}
               </div>
-              <div className="min-h-[320px] min-w-0 flex-1 w-full sm:min-h-[360px]">
+              <div className="min-h-[320px] min-w-0 flex-1 w-full overflow-visible sm:min-h-[360px]">
                 <ResponsiveContainer width="100%" height="100%">
-                  <PieChart>
+                  <PieChart margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
                     <Pie
                       data={allocationDataWithLabels}
                       dataKey="value"
@@ -202,8 +202,8 @@ function BenefitsCard({
                       ))}
                       <LabelList
                         dataKey="label"
-                        position="outside"
-                        className="fill-text-secondary font-body text-tiny"
+                        position="inside"
+                        className="fill-text-primary font-body text-small font-medium"
                       />
                     </Pie>
                   </PieChart>
