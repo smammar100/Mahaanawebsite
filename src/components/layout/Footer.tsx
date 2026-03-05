@@ -121,7 +121,7 @@ export function Footer() {
             <NavColumn
               heading="Products"
               links={[
-                { href: "/retirement-calculator", label: "Retirement" },
+                { href: "/save-plus", label: "Save+" },
                 { href: "/retirement", label: "Retirement" },
               ]}
             />
@@ -142,13 +142,7 @@ export function Footer() {
                 ]}
               />
               <NavColumn
-                heading={
-                  <>
-                    Investor
-                    <br />
-                    Education
-                  </>
-                }
+                heading="Investor Education"
                 links={[
                   { href: "#", label: "Articles" },
                   { href: "#", label: "Help Center" },

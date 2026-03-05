@@ -3,11 +3,156 @@
 import { useState } from "react";
 import { motion } from "motion/react";
 import Image from "next/image";
-import { Cell, LabelList, Pie, PieChart, ResponsiveContainer } from "recharts";
+import { Cell, Label, LabelList, Pie, PieChart, ResponsiveContainer, Sector } from "recharts";
+import type { PieSectorDataItem } from "recharts/types/polar/Pie";
 import { Container } from "@/components/layout/Container";
 import { H3, TextRegular } from "@/components/ui/Typography";
+import {
+  type ChartConfig,
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "@/components/ui/chart";
 import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
 import { cx } from "@/utils/cx";
+
+/** Risk profile tabs and allocation data for the portfolio pie chart. */
+const PORTFOLIO_TABS = [
+  "Conservative",
+  "Low risk",
+  "Balanced",
+  "Medium risk",
+  "Aggressive",
+] as const;
+
+const PORTFOLIO_ALLOCATION: Record<string, { name: string; value: number; fill: string }[]> = {
+  Conservative: [{ name: "Money Market", value: 100, fill: "#14b8a6" }],
+  "Low risk": [
+    { name: "Money Market", value: 70, fill: "#14b8a6" },
+    { name: "Debt", value: 30, fill: "#f59e0b" },
+  ],
+  Balanced: [
+    { name: "Money Market", value: 40, fill: "#14b8a6" },
+    { name: "Debt", value: 30, fill: "#f59e0b" },
+    { name: "Equity", value: 30, fill: "#6366f1" },
+  ],
+  "Medium risk": [
+    { name: "Money Market", value: 20, fill: "#14b8a6" },
+    { name: "Debt", value: 30, fill: "#f59e0b" },
+    { name: "Equity", value: 50, fill: "#6366f1" },
+  ],
+  Aggressive: [
+    { name: "Equity", value: 90, fill: "#6366f1" },
+    { name: "Debt", value: 10, fill: "#f59e0b" },
+  ],
+};
+
+const portfolioChartConfig = {
+  value: { label: "Value" },
+  "Money Market": { label: "Money Market", color: "#14b8a6" },
+  Debt: { label: "Debt", color: "#f59e0b" },
+  Equity: { label: "Equity", color: "#6366f1" },
+} satisfies ChartConfig;
+
+function PortfolioPieChartTooltip({
+  active,
+  payload,
+}: {
+  active?: boolean;
+  payload?: ReadonlyArray<{ name: string; value: number; payload: { name: string; value: number } }>;
+}) {
+  if (!active || !payload?.length) return null;
+  const item = payload[0];
+  const name = item.payload?.name ?? item.name;
+  const value = item.value;
+  return (
+    <div className="rounded-lg border border-surface-stroke bg-white px-2.5 py-1.5 shadow-lg dark:bg-surface-card dark:border-surface-stroke">
+      <p className="text-[11px] font-medium text-text-primary sm:text-tiny">
+        {name}: {value}%
+      </p>
+    </div>
+  );
+}
+
+function PortfolioPieChart() {
+  const [selectedTab, setSelectedTab] = useState<string>(PORTFOLIO_TABS[0]);
+  const pieData = PORTFOLIO_ALLOCATION[selectedTab] ?? PORTFOLIO_ALLOCATION.Conservative;
+  const activeIndex = 0;
+  const id = "benefits-portfolio-pie";
+
+  return (
+    <div className="w-full max-w-xl rounded-xl border border-surface-stroke bg-surface-card p-4">
+      <div
+        className="mb-4 grid grid-cols-3 grid-rows-1 gap-1.5"
+        role="tablist"
+        aria-label="Risk profile"
+      >
+        {PORTFOLIO_TABS.map((tab) => (
+          <button
+            key={tab}
+            type="button"
+            role="tab"
+            aria-selected={selectedTab === tab}
+            onClick={() => setSelectedTab(tab)}
+            className={cx(
+              "rounded-lg px-2.5 py-1.5 font-body text-tiny font-medium transition-colors sm:px-3 sm:py-2 sm:text-small",
+              selectedTab === tab
+                ? "bg-primary-200 text-white dark:bg-system-brand dark:text-white"
+                : "bg-gray-100 text-text-primary hover:bg-gray-200 dark:bg-gray-700 dark:text-text-primary dark:hover:bg-gray-600"
+            )}
+          >
+            {tab}
+          </button>
+        ))}
+      </div>
+      <ChartContainer
+        className="mx-auto aspect-square w-full max-w-[280px]"
+        config={portfolioChartConfig}
+        id={id}
+      >
+        <PieChart>
+          <ChartTooltip content={<PortfolioPieChartTooltip />} cursor={false} />
+          <Pie
+            activeIndex={activeIndex}
+            activeShape={({ outerRadius = 0, ...props }: PieSectorDataItem) => (
+              <g>
+                <Sector {...props} outerRadius={outerRadius + 10} />
+                <Sector
+                  {...props}
+                  innerRadius={outerRadius + 12}
+                  outerRadius={outerRadius + 25}
+                />
+              </g>
+            )}
+            data={pieData}
+            dataKey="value"
+            innerRadius={60}
+            nameKey="name"
+            strokeWidth={5}
+          >
+            <Label
+              content={({ viewBox }) => {
+                if (viewBox && "cx" in viewBox && "cy" in viewBox) {
+                  return (
+                    <text
+                      dominantBaseline="middle"
+                      textAnchor="middle"
+                      x={viewBox.cx}
+                      y={viewBox.cy}
+                      className="fill-text-tertiary text-[11px] sm:text-xs"
+                    >
+                      Portfolio
+                    </text>
+                  );
+                }
+              }}
+            />
+          </Pie>
+        </PieChart>
+      </ChartContainer>
+    </div>
+  );
+}
 
 /** Risk profiles for the allocation doughnut chart (card with hasRiskButtons). */
 const RISK_ALLOCATION_OPTIONS = [
@@ -56,27 +201,43 @@ const ALLOCATION_COLORS: Record<AssetName, string> = {
 const benefitsCards = [
   {
     label: "SAVE TAX, SAVE MORE",
-    headline: "Get better profit rates than what banks offer",
-    body: "Grow your savings with a Save+ account. Mahaana Save+ secures your money during volatile times while earning nearly 1.5x than the leading banks.*",
+    headline: "Unlock tax savings for your future",
+    body: "According to VPS Rules 2005, Mahaana Retirement offers up to a 20% tax credit on your contributions, reducing your monthly tax liability. This unique benefit allows you to save more while building a solid financial foundation for retirement.",
     items: [
       "Up to 20% tax credit on contributions",
       "Reduce your monthly tax liability",
       "Build a solid financial foundation for retirement",
     ],
     hasRiskButtons: false,
-    image: "/images/invest/D.png",
+    image: "/images/invest/A.png",
   },
   {
     label: "RETIREMENT, SIMPLIFIED",
-    headline: "Save with Purpose using Save+ Pots",
-    body: "Create dedicated pots for every goal from Umrah to a rainy day fund. Each pot earns daily returns, helping you stay organized while growing your money faster than a regular savings account.",
+    headline: "Stay focused with Mahaana Retirement",
+    body: "With Mahaana Retirement, your long-term goals get dedicated attention. Our focused approach ensures a clear, simplified financial strategy that grows your wealth steadily toward the retirement you deserve.",
     items: [
       "Dedicated attention to long-term goals",
       "Clear, simplified financial strategy",
       "Steady growth toward the retirement you deserve",
     ],
     hasRiskButtons: false,
-    image: "/images/invest/E.png",
+    image: "/images/invest/B.png",
+  },
+  {
+    label: "PLACEHOLDER",
+    headline: "Your retirement account in partnership with IGI Life Insurance",
+    body: "Mahaana Wealth partners with IGI Life Insurance to bring you a comprehensive retirement solution that combines expert investment management with trusted insurance protection.",
+    items: ["Benefit one", "Benefit two", "Benefit three"],
+    hasRiskButtons: false,
+    image: "/images/invest/C.png",
+  },
+  {
+    label: "PLACEHOLDER",
+    headline: "Expert built, curated portfolios",
+    body: "We've curated diversified portfolios with different risk/return profiles ranging from conservative to growth to fit your risk appetite & goals.",
+    items: ["Benefit one", "Benefit two", "Benefit three"],
+    hasRiskButtons: false,
+    showPortfolioChart: true,
   },
 ];
 
@@ -87,6 +248,7 @@ function BenefitsCard({
   imageFirst,
   index,
   image,
+  showPortfolioChart,
 }: {
   headline: string;
   body: string;
@@ -94,6 +256,7 @@ function BenefitsCard({
   imageFirst: boolean;
   index: number;
   image?: string;
+  showPortfolioChart?: boolean;
 }) {
   const [selectedRisk, setSelectedRisk] = useState<string>(RISK_ALLOCATION_OPTIONS[0]);
 
@@ -192,6 +355,10 @@ function BenefitsCard({
                 </ResponsiveContainer>
               </div>
             </div>
+          ) : showPortfolioChart ? (
+            <div className="flex min-h-0 flex-1 w-full flex-col items-center justify-center rounded-xl">
+              <PortfolioPieChart />
+            </div>
           ) : image ? (
             <div className="flex min-h-0 flex-1 w-full flex-col gap-0 rounded-xl border border-surface-stroke bg-surface-card overflow-hidden">
               <div className="relative h-full min-h-0 w-full flex-1 rounded-xl overflow-hidden bg-surface-bg">
@@ -233,6 +400,7 @@ export function BenefitsSection() {
             imageFirst={index % 2 === 1}
             index={index}
             image={card.image}
+            showPortfolioChart={card.showPortfolioChart}
           />
         ))}
       </Container>
