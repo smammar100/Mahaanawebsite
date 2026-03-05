@@ -3,8 +3,7 @@
 import { useState } from "react";
 import { motion } from "motion/react";
 import Image from "next/image";
-import { Cell, Label, LabelList, Pie, PieChart, ResponsiveContainer, Sector } from "recharts";
-import type { PieSectorDataItem } from "recharts/types/polar/Pie";
+import { Cell, Label, LabelList, Pie, PieChart, ResponsiveContainer } from "recharts";
 import { Container } from "@/components/layout/Container";
 import { H3, TextRegular } from "@/components/ui/Typography";
 import {
@@ -88,7 +87,6 @@ function PortfolioPieChartTooltip({
 function PortfolioPieChart() {
   const [selectedTab, setSelectedTab] = useState<string>(PORTFOLIO_TABS[0]);
   const pieData = PORTFOLIO_ALLOCATION[selectedTab] ?? PORTFOLIO_ALLOCATION.Conservative;
-  const activeIndex = 0;
   const id = "benefits-portfolio-pie";
 
   return (
@@ -124,17 +122,6 @@ function PortfolioPieChart() {
         <PieChart>
           <ChartTooltip content={<PortfolioPieChartTooltip />} cursor={false} />
           <Pie
-            activeIndex={activeIndex}
-            activeShape={({ outerRadius = 0, ...props }: PieSectorDataItem) => (
-              <g>
-                <Sector {...props} outerRadius={outerRadius + 10} />
-                <Sector
-                  {...props}
-                  innerRadius={outerRadius + 12}
-                  outerRadius={outerRadius + 25}
-                />
-              </g>
-            )}
             data={pieData}
             dataKey="value"
             innerRadius={60}
