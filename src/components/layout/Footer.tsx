@@ -128,9 +128,9 @@ export function Footer() {
             <NavColumn
               heading="Funds"
               links={[
-                { href: "#", label: "MICF" },
-                { href: "#", label: "MIIETF" },
-                { href: "#", label: "MIIRF" },
+                { href: "/micf", label: "MICF" },
+                { href: "/miietf", label: "MIIETF" },
+                { href: "/miirf", label: "MIIRF" },
               ]}
             />
             <div className="flex flex-col gap-4">
@@ -152,6 +152,7 @@ export function Footer() {
             <NavColumn
               heading="About"
               links={[
+                { href: "/about", label: "About" },
                 { href: "#", label: "Reviews" },
                 { href: "#", label: "Careers" },
                 { href: "#", label: "Legal" },
