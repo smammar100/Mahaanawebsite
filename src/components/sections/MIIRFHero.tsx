@@ -1,0 +1,121 @@
+"use client";
+
+import { useState } from "react";
+import { motion } from "motion/react";
+import { Container } from "@/components/layout/Container";
+import { Button } from "@/components/base/buttons/button";
+import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
+import { cx } from "@/utils/cx";
+
+const MIIRF_HERO_TABS = [
+  { id: "overview", label: "Overview" },
+  { id: "performance", label: "Performance" },
+  { id: "fund-literature", label: "Fund literature" },
+] as const;
+
+const TAB_TO_SECTION_ID: Record<(typeof MIIRF_HERO_TABS)[number]["id"], string> = {
+  overview: "miirf-overview-section-heading",
+  performance: "miirf-performance-section-heading",
+  "fund-literature": "miirf-fund-literature-section-heading",
+};
+
+/** Partner logos asset from Figma (IGI Life + Vitality). Host locally when final. */
+const PARTNER_LOGOS_SRC =
+  "https://www.figma.com/api/mcp/asset/229414a9-6381-4633-a665-35150b056c55";
+
+export function MIIRFHero() {
+  const [selectedTab, setSelectedTab] = useState<(typeof MIIRF_HERO_TABS)[number]["id"]>("overview");
+
+  function handleTabClick(tabId: (typeof MIIRF_HERO_TABS)[number]["id"]) {
+    setSelectedTab(tabId);
+    const sectionId = TAB_TO_SECTION_ID[tabId];
+    document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  return (
+    <motion.section
+      initial="hidden"
+      whileInView="visible"
+      viewport={sectionViewport}
+      variants={sectionFadeInUp}
+      className="relative overflow-hidden bg-surface-bg pt-[120px] pb-10"
+      aria-labelledby="miirf-hero-heading"
+    >
+      <Container className="flex flex-col gap-12 px-4 sm:px-6 md:px-8 lg:gap-[88px] lg:px-12 xl:px-16">
+        {/* Content row: left (title + CTA) | right (subtitle + partners) */}
+        <div className="flex flex-col gap-10 lg:flex-row lg:items-start lg:gap-20 xl:gap-[80px]">
+          {/* Left: MIIRF title + CTA */}
+          <div className="flex max-w-[550px] flex-col gap-6">
+            <h1
+              id="miirf-hero-heading"
+              className={cx(
+                "font-heading font-extrabold tracking-heading",
+                "bg-gradient-to-b from-[#443087] to-[#30225f] bg-clip-text text-transparent",
+                "text-[2.5rem] leading-[1.1] sm:text-5xl sm:leading-[68px] lg:text-[4.375rem] xl:text-[70px] xl:leading-[68px] xl:tracking-[-2.625px]"
+              )}
+            >
+              MIIRF
+            </h1>
+            <Button
+              href="/retirement"
+              size="lg"
+              color="primary"
+              className="w-fit rounded-xl px-6 py-3 text-base font-semibold"
+            >
+              Open retirement account
+            </Button>
+          </div>
+
+          {/* Right: full name + WITH OUR PARTNERS + logos */}
+          <div className="flex min-w-0 flex-1 flex-col gap-6 justify-start items-end">
+            <h2
+              className={cx(
+                "font-heading font-medium tracking-heading text-text-primary text-right",
+                "text-3xl leading-tight sm:text-4xl lg:text-5xl lg:leading-[60px] xl:text-[56px] xl:leading-[60px] xl:tracking-[-1.12px]"
+              )}
+            >
+              Mahaana Islamic IGI Retirement Fund
+            </h2>
+            <div className="flex flex-wrap items-center gap-4">
+              <p className="font-body text-base font-bold uppercase tracking-wide text-system-brand">
+                With our partners
+              </p>
+              <div className="relative h-12 w-[108px] shrink-0">
+                <img
+                  src={PARTNER_LOGOS_SRC}
+                  alt="IGI Life and Vitality partner logos"
+                  className="h-full w-full object-contain object-left"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Tab bar — sticky, matches Figma pill style */}
+        <div
+          className="sticky top-[calc(4.5rem+env(safe-area-inset-top,0px))] z-10 flex w-full min-h-[44px] flex-wrap justify-center gap-1 rounded-full bg-gray-100 p-1 sm:flex-nowrap sm:overflow-x-auto sm:snap-x sm:snap-mandatory"
+          role="tablist"
+          aria-label="Fund sections"
+        >
+          {MIIRF_HERO_TABS.map((tab) => (
+            <button
+              key={tab.id}
+              type="button"
+              role="tab"
+              aria-selected={selectedTab === tab.id}
+              onClick={() => handleTabClick(tab.id)}
+              className={cx(
+                "min-h-[44px] min-w-0 flex-1 snap-center rounded-full px-5 py-3 text-center font-body text-base font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-system-brand",
+                selectedTab === tab.id
+                  ? "bg-white text-text-primary shadow-sm"
+                  : "text-text-tertiary hover:bg-white/80 hover:text-text-primary"
+              )}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
+      </Container>
+    </motion.section>
+  );
+}
