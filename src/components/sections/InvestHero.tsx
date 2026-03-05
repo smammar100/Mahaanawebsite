@@ -91,7 +91,7 @@ export function InvestHero() {
                   weight="medium"
                   className="text-gray-100"
                 >
-                  Custodians
+                  Custodians CDC
                 </TextSmall>
                 <Image
                   src="/images/invest/CDC%20logo.svg"
