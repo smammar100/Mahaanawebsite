@@ -16,6 +16,17 @@ import {
 import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
 import { cx } from "@/utils/cx";
 
+/** Shape of one benefits card for the section (used by retirement and save-plus pages). */
+export interface BenefitsCardItem {
+  label: string;
+  headline: string;
+  body: string;
+  items: string[];
+  hasRiskButtons: boolean;
+  image?: string;
+  showPortfolioChart?: boolean;
+}
+
 /** Risk profile tabs and allocation data for the portfolio pie chart. */
 const PORTFOLIO_TABS = [
   "Conservative",
@@ -198,49 +209,6 @@ const ALLOCATION_COLORS: Record<AssetName, string> = {
   Equity: "#6366f1",
 };
 
-const benefitsCards = [
-  {
-    label: "SAVE TAX, SAVE MORE",
-    headline: "Unlock tax savings for your future",
-    body: "According to VPS Rules 2005, Mahaana Retirement offers up to a 20% tax credit on your contributions, reducing your monthly tax liability. This unique benefit allows you to save more while building a solid financial foundation for retirement.",
-    items: [
-      "Up to 20% tax credit on contributions",
-      "Reduce your monthly tax liability",
-      "Build a solid financial foundation for retirement",
-    ],
-    hasRiskButtons: false,
-    image: "/images/invest/A.png",
-  },
-  {
-    label: "RETIREMENT, SIMPLIFIED",
-    headline: "Stay focused with Mahaana Retirement",
-    body: "With Mahaana Retirement, your long-term goals get dedicated attention. Our focused approach ensures a clear, simplified financial strategy that grows your wealth steadily toward the retirement you deserve.",
-    items: [
-      "Dedicated attention to long-term goals",
-      "Clear, simplified financial strategy",
-      "Steady growth toward the retirement you deserve",
-    ],
-    hasRiskButtons: false,
-    image: "/images/invest/B.png",
-  },
-  {
-    label: "PLACEHOLDER",
-    headline: "Your retirement account in partnership with IGI Life Insurance",
-    body: "Mahaana Wealth partners with IGI Life Insurance to bring you a comprehensive retirement solution that combines expert investment management with trusted insurance protection.",
-    items: ["Benefit one", "Benefit two", "Benefit three"],
-    hasRiskButtons: false,
-    image: "/images/invest/C.png",
-  },
-  {
-    label: "PLACEHOLDER",
-    headline: "Expert built, curated portfolios",
-    body: "We've curated diversified portfolios with different risk/return profiles ranging from conservative to growth to fit your risk appetite & goals.",
-    items: ["Benefit one", "Benefit two", "Benefit three"],
-    hasRiskButtons: false,
-    showPortfolioChart: true,
-  },
-];
-
 function BenefitsCard({
   headline,
   body,
@@ -380,7 +348,7 @@ function BenefitsCard({
   );
 }
 
-export function BenefitsSection() {
+export function BenefitsSection({ cards }: { cards: BenefitsCardItem[] }) {
   return (
     <motion.section
       initial="hidden"
@@ -391,7 +359,7 @@ export function BenefitsSection() {
       aria-labelledby="benefits-heading"
     >
       <Container className="flex flex-col gap-16 px-4 sm:px-6 md:px-8 lg:px-16">
-        {benefitsCards.map((card, index) => (
+        {cards.map((card, index) => (
           <BenefitsCard
             key={index}
             headline={card.headline}

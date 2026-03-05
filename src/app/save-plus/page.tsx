@@ -4,6 +4,7 @@ import { Cta6Section } from "@/components/sections/Cta6Section";
 import { FAQSavePlusSection } from "@/components/sections/FAQSavePlusSection";
 import { SavePlusHero } from "@/components/sections/SavePlusHero";
 import { WhySavePlusSection } from "@/components/sections/WhySavePlusSection";
+import { savePlusBenefitsCards } from "./benefitsCards";
 
 export const metadata: Metadata = {
   title: "Save+ | Mahaana",
@@ -16,7 +17,7 @@ export default function SavePlusPage() {
     <div className="-mt-[calc(4.5rem+env(safe-area-inset-top,0px))] bg-surface-bg">
       <SavePlusHero />
       <WhySavePlusSection />
-      <BenefitsSection />
+      <BenefitsSection cards={savePlusBenefitsCards} />
       <FAQSavePlusSection />
       <Cta6Section />
     </div>

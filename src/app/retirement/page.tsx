@@ -4,6 +4,7 @@ import { Cta6Section } from "@/components/sections/Cta6Section";
 import { FAQSection } from "@/components/sections/FAQSection";
 import { RetirementHero } from "@/components/sections/RetirementHero";
 import { WhyRetirementSection } from "@/components/sections/WhyRetirementSection";
+import { retirementBenefitsCards } from "./benefitsCards";
 
 export const metadata: Metadata = {
   title: "Retirement | Mahaana",
@@ -16,7 +17,7 @@ export default function RetirementPage() {
     <div className="-mt-[calc(4.5rem+env(safe-area-inset-top,0px))] bg-surface-bg">
       <RetirementHero />
       <WhyRetirementSection />
-      <BenefitsSection />
+      <BenefitsSection cards={retirementBenefitsCards} />
       <FAQSection />
       <Cta6Section />
     </div>
