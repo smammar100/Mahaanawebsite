@@ -17,9 +17,9 @@ interface CallToAction1Props {
 }
 
 const defaultAvatars = [
-  "https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=50",
-  "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=50",
-  "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=50&h=50&auto=format&fit=crop",
+  "/images/testimonials/avatar-1.jpg",
+  "/images/testimonials/avatar-2.jpg",
+  "/images/testimonials/avatar-3.jpg",
 ];
 
 export function CallToAction1({

@@ -15,42 +15,42 @@ const testimonials = [
   {
     name: "Alice Johnson",
     role: "CEO & Founder",
-    avatar: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/avatar-1.webp",
+    avatar: "/images/testimonials/testimonial-avatar-1.webp",
     content:
       "This platform has revolutionized the way we manage projects. It is incredibly user-friendly and efficient.",
   },
   {
     name: "David Lee",
     role: "CTO",
-    avatar: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/avatar-2.webp",
+    avatar: "/images/testimonials/testimonial-avatar-2.webp",
     content:
       "I have been impressed with the seamless integration and functionality. It has made our tech operations much smoother.",
   },
   {
     name: "Mark Thompson",
     role: "COO",
-    avatar: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/avatar-3.webp",
+    avatar: "/images/testimonials/testimonial-avatar-3.webp",
     content:
       "Managing our day-to-day tasks has never been easier. The interface is intuitive and saves us a lot of time.",
   },
   {
     name: "Emily Carter",
     role: "Tech Lead",
-    avatar: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/avatar-4.webp",
+    avatar: "/images/testimonials/testimonial-avatar-4.webp",
     content:
       "The tools provided have significantly improved our team's workflow and collaboration. Highly recommend it!",
   },
   {
     name: "Sophia Turner",
     role: "Designer",
-    avatar: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/avatar-5.webp",
+    avatar: "/images/testimonials/testimonial-avatar-5.webp",
     content:
       "From a design perspective, the flexibility and ease of use are outstanding. This has become an indispensable tool for our team.",
   },
   {
     name: "James Wilson",
     role: "Developer",
-    avatar: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/avatar-6.webp",
+    avatar: "/images/testimonials/testimonial-avatar-6.webp",
     content:
       "As a developer, I appreciate the robust features and simplicity. It has streamlined our processes considerably.",
   },

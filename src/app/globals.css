@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
+/* Outfit is loaded via next/font in layout.tsx with display: swap */
 @import "tailwindcss";
 @custom-variant dark (&:where(.dark, .dark *));
 
@@ -12,36 +12,42 @@
   src: url('/fonts/Switzer-Light.woff2') format('woff2');
   font-weight: 300;
   font-style: normal;
+  font-display: swap;
 }
 @font-face {
   font-family: 'Switzer';
   src: url('/fonts/Switzer-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
+  font-display: swap;
 }
 @font-face {
   font-family: 'Switzer';
   src: url('/fonts/Switzer-Medium.woff2') format('woff2');
   font-weight: 500;
   font-style: normal;
+  font-display: swap;
 }
 @font-face {
   font-family: 'Switzer';
   src: url('/fonts/Switzer-Semibold.woff2') format('woff2');
   font-weight: 600;
   font-style: normal;
+  font-display: swap;
 }
 @font-face {
   font-family: 'Switzer';
   src: url('/fonts/Switzer-Bold.woff2') format('woff2');
   font-weight: 700;
   font-style: normal;
+  font-display: swap;
 }
 @font-face {
   font-family: 'Switzer';
   src: url('/fonts/Switzer-Extrabold.woff2') format('woff2');
   font-weight: 800;
   font-style: normal;
+  font-display: swap;
 }
 
 @theme {
@@ -58,7 +64,7 @@
   --breakpoint-3xl: 1920px;
 
   /* ── Fonts ─────────────────────────────────────────────── */
-  --font-heading: 'Outfit', sans-serif;
+  --font-heading: var(--font-outfit, 'Outfit', sans-serif);
   --font-body: 'Switzer', sans-serif;
 
   /* ── Font sizes ─────────────────────────────────────────── */

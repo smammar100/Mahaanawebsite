@@ -1,12 +1,13 @@
 "use client";
 
+import Image from "next/image";
 import { CheckCircle } from "@untitledui/icons";
 import { motion } from "motion/react";
 import { Container } from "@/components/layout/Container";
 import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
 import {
   H2,
-  H4,
+  H3,
   TextRegular,
 } from "@/components/ui/Typography";
 import { Button } from "@/components/base/buttons/button";
@@ -72,9 +73,9 @@ function FeatureBlock({
           <p className="font-body text-small font-bold uppercase tracking-wide text-primary-150 mb-2">
             {badge}
           </p>
-          <H4 className="font-heading text-gray-100 text-[1.75rem] sm:text-[1.875rem] lg:text-h4 leading-[1.3] tracking-heading mb-4">
+          <H3 className="font-heading text-gray-100 text-[1.75rem] sm:text-[1.875rem] lg:text-h4 leading-[1.3] tracking-heading mb-4">
             {title}
-          </H4>
+          </H3>
           <TextRegular className="text-gray-100 text-[1.125rem] leading-7 max-w-xl mb-6">
             {description}
           </TextRegular>
@@ -96,10 +97,13 @@ function FeatureBlock({
         {/* Image */}
         <div className="flex flex-1 min-w-0 order-1 lg:order-2">
           <div className="relative w-full h-full min-h-[280px] sm:min-h-[320px] lg:min-h-0 rounded-[10px] overflow-hidden shadow-[0px_32px_64px_-12px_rgba(16,24,40,0.14)] border border-gray-200">
-            <img
+            <Image
               src={imageSrc}
               alt=""
-              className="absolute inset-0 w-full h-full object-cover object-center rounded-[10px]"
+              fill
+              loading="lazy"
+              sizes="(max-width: 768px) 100vw, 50vw"
+              className="object-cover object-center rounded-[10px]"
             />
           </div>
         </div>

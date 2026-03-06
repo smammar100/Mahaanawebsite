@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "motion/react";
 import { useState } from "react";
 import { Container } from "@/components/layout/Container";
@@ -81,11 +82,13 @@ export function FeatureCards() {
               >
                 <div className="flex min-h-full flex-1 flex-col">
                   <div className={`flex shrink-0 items-center justify-center overflow-hidden rounded-xl bg-surface-bg ${feature.imageOrder}`}>
-                    <img
+                    <Image
                       src={feature.image}
                       alt=""
-                      width={800}
-                      height={500}
+                      width={400}
+                      height={400}
+                      loading="lazy"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 400px"
                       className="h-[200px] w-full rounded-xl object-contain"
                     />
                   </div>

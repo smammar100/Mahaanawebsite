@@ -1,12 +1,56 @@
 import type { Metadata, Viewport } from "next";
+import { Outfit } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import StructuredData from "@/components/StructuredData";
+
+const outfit = Outfit({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-outfit",
+  weight: ["300", "400", "500", "600", "700", "800"],
+});
 
 export const metadata: Metadata = {
-  title: "Mahaana",
-  description: "Mahaana - Responsive Next.js website",
+  metadataBase: new URL("https://mahaana.netlify.app"),
+  title: "Mahaana — Changing the way Pakistanis Invest",
+  description:
+    "Mahaana is Pakistan's leading SECP-licensed, Shariah-compliant investment platform. Earn daily returns, plan your retirement, and grow your wealth — starting from PKR 5,000.",
+  keywords: [
+    "investment pakistan",
+    "shariah compliant investment",
+    "mahaana",
+    "mutual funds",
+    "retirement planning",
+    "SECP licensed",
+    "daily returns",
+  ],
+  openGraph: {
+    title: "Mahaana — Changing the way Pakistanis Invest",
+    description:
+      "Pakistan's #1 SECP-licensed, Shariah-compliant investment platform. Earn daily returns, cut your tax bill by 20%, and invest from PKR 5,000.",
+    type: "website",
+    url: "https://mahaana.netlify.app/",
+    siteName: "Mahaana",
+    images: [
+      {
+        url: "/images/invest/hero-bg.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Mahaana Investment Platform",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Mahaana — Changing the way Pakistanis Invest",
+    description:
+      "Pakistan's #1 SECP-licensed investment platform. Earn daily, save smart, retire rich.",
+  },
+  robots: { index: true, follow: true },
+  alternates: { canonical: "https://mahaana.netlify.app/" },
 };
 
 export const viewport: Viewport = {
@@ -20,11 +64,36 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning className={outfit.variable}>
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preconnect"
+          href="https://deifkwefumgah.cloudfront.net"
+          crossOrigin="anonymous"
+        />
+      </head>
       <body className="antialiased flex min-h-screen flex-col overflow-x-hidden">
+        <StructuredData />
+        <a
+          href="#main-content"
+          className="sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[10000002] focus:w-auto focus:h-auto focus:overflow-visible focus:bg-purple-600 focus:text-white focus:px-4 focus:py-2 focus:rounded focus:[clip:auto] focus:whitespace-normal"
+        >
+          Skip to main content
+        </a>
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
           <Header />
-          <main className="flex-1 pt-[calc(4.5rem+env(safe-area-inset-top,0px))]">{children}</main>
+          <main
+            id="main-content"
+            className="flex-1 pt-[calc(4.5rem+env(safe-area-inset-top,0px))]"
+          >
+            {children}
+          </main>
           <Footer />
         </ThemeProvider>
       </body>
