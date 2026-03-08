@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/metadata";
 import { BenefitsSection } from "@/components/sections/BenefitsSection";
 import { Cta6Section } from "@/components/sections/Cta6Section";
 import { FAQSavePlusSection } from "@/components/sections/FAQSavePlusSection";
@@ -6,11 +7,12 @@ import { SavePlusHero } from "@/components/sections/SavePlusHero";
 import { WhySavePlusSection } from "@/components/sections/WhySavePlusSection";
 import { savePlusBenefitsCards } from "./benefitsCards";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "Save+ | Mahaana",
   description:
     "Save more with Mahaana Save+. Build your safety net with institutional-level, low-risk funds and access your money whenever you need it.",
-};
+  path: "save-plus",
+});
 
 export default function SavePlusPage() {
   return (

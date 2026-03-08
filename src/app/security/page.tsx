@@ -1,24 +1,24 @@
-import { AnimatedSection } from "@/components/ui/AnimatedSection";
-import { Container } from "@/components/layout/Container";
-import { H1, TextRegular } from "@/components/ui/Typography";
+import type { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/metadata";
+import { ComplianceSection } from "@/components/sections/ComplianceSection";
+import { Cta6Section } from "@/components/sections/Cta6Section";
+import { SecurityBenefitsSection } from "@/components/sections/SecurityBenefitsSection";
+import { SecurityHero } from "@/components/sections/SecurityHero";
 
-export const metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "Security | Mahaana",
-  description: "Learn about Mahaana security practices and how we protect your data.",
-};
+  description:
+    "Learn how Mahaana keeps your investments safe — SECP-licensed, CDC custody, two-factor authentication, and bank-grade encryption. Your security is our #1 priority.",
+  path: "security",
+});
 
 export default function SecurityPage() {
   return (
-    <div className="bg-surface-bg">
-      <AnimatedSection className="py-12 sm:py-16 lg:py-24">
-        <Container>
-          <H1 className="text-text-primary">Security</H1>
-          <TextRegular className="mt-4 max-w-prose text-text-secondary">
-            Your security is our priority. This page will contain information about
-            our security practices, compliance, and how we protect your account and data.
-          </TextRegular>
-        </Container>
-      </AnimatedSection>
+    <div className="-mt-[calc(4.5rem+env(safe-area-inset-top,0px))] bg-surface-bg">
+      <SecurityHero />
+      <ComplianceSection />
+      <SecurityBenefitsSection />
+      <Cta6Section />
     </div>
   );
 }

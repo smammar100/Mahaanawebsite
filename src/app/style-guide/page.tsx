@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/metadata";
 import { Container } from "@/components/layout/Container";
 import {
   H1,
@@ -24,6 +26,14 @@ import {
 } from "@/components/base/buttons/app-store-buttons-outline";
 import { IconButtonsShowcase } from "./IconButtonsShowcase";
 import { breakpoints } from "@/lib/breakpoints";
+
+export const metadata: Metadata = buildPageMetadata({
+  title: "Style Guide | Mahaana",
+  description:
+    "Mahaana design system — typography, colors, breakpoints, and UI components.",
+  path: "style-guide",
+  noIndex: true,
+});
 
 const buttonVariants = [
   { color: "primary" as const, label: "Primary" },

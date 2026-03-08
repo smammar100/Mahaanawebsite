@@ -70,7 +70,7 @@ export function WhyRetirementSection() {
                 <div className="flex flex-col gap-2">
                   <TextLarge
                     weight="semibold"
-                    className="text-text-primary text-[1.25rem] leading-7"
+                    className="text-text-primary"
                   >
                     {feature.title}
                   </TextLarge>

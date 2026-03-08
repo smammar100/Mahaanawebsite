@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/metadata";
 import { Cta6Section } from "@/components/sections/Cta6Section";
 import { MIIETFFAQSection } from "@/components/sections/MIIETFFAQSection";
 import { MIIETFHero } from "@/components/sections/MIIETFHero";
@@ -8,11 +9,11 @@ import { MIIETFDistributionsSection } from "@/components/sections/MIIETFDistribu
 import { MIIETFFundLiteratureSection } from "@/components/sections/MIIETFFundLiteratureSection";
 import { MIIETFPortfolioSection } from "@/components/sections/MIIETFPortfolioSection";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "MIIETF | Mahaana",
-  description:
-    "Discover MIIETF with Mahaana. More details coming soon.",
-};
+  description: "Discover MIIETF with Mahaana. More details coming soon.",
+  path: "miietf",
+});
 
 export default function MIIETFPage() {
   return (

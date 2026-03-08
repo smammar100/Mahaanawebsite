@@ -78,7 +78,7 @@ export function FeatureCards() {
               <PinContainer
                 href={feature.href}
                 containerClassName="block h-full w-full"
-                className="flex h-full flex-col rounded-2xl border border-surface-stroke bg-surface-card p-4"
+                className="flex h-full flex-col rounded-2xl border border-surface-stroke bg-[#f8f8f7] p-6 dark:bg-surface-card"
               >
                 <div className="flex min-h-full flex-1 flex-col">
                   <div className={`flex shrink-0 items-center justify-center overflow-hidden rounded-xl bg-surface-bg ${feature.imageOrder}`}>

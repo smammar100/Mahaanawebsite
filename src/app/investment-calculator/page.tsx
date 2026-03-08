@@ -1,15 +1,17 @@
 import type { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/metadata";
 import { InvestmentCalculator } from "@/components/investment/InvestmentCalculator";
 import { Cta6Section } from "@/components/sections/Cta6Section";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { Container } from "@/components/layout/Container";
 import { H1, TextMedium } from "@/components/ui/Typography";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "Investment Calculator | Mahaana",
   description:
     "See how your money grows over time with compound return. Enter your details to project your future value.",
-};
+  path: "investment-calculator",
+});
 
 export default function InvestmentCalculatorPage() {
   return (

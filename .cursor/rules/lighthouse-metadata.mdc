@@ -1,0 +1,31 @@
+---
+description: Apply Lighthouse/performance metadata to every page and new pages
+alwaysApply: true
+---
+
+# Lighthouse & Performance Metadata
+
+**Every page** (including new pages) must use the shared metadata helper for SEO and Lighthouse:
+
+1. **Import and use `buildPageMetadata`** from `@/lib/metadata`:
+   ```ts
+   import type { Metadata } from "next";
+   import { buildPageMetadata } from "@/lib/metadata";
+
+   export const metadata: Metadata = buildPageMetadata({
+     title: "Page Title | Mahaana",
+     description: "Short, unique meta description for the page.",
+     path: "route-path",  // e.g. "about", "retirement-calculator" — empty string for home
+     noIndex: true,       // optional: use for internal-only pages (e.g. style-guide)
+   });
+   ```
+
+2. **Path**: Use the URL path without leading slash (e.g. `"save-plus"`, `"miietf"`). Use `path: ""` only for the home page.
+
+3. **New pages**: When adding a new route, always add `export const metadata` using `buildPageMetadata` so the page gets:
+   - Meta description (Lighthouse SEO)
+   - Open Graph and Twitter card
+   - Canonical URL
+   - Correct robots (index/follow unless `noIndex: true`)
+
+4. **Reference**: `src/lib/metadata.ts` exports `buildPageMetadata` and `SITE_URL`.

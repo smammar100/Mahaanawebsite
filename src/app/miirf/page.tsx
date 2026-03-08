@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/metadata";
 import { Cta6Section } from "@/components/sections/Cta6Section";
 import { MIIRFFAQSection } from "@/components/sections/MIIRFFAQSection";
 import { MIIRFHero } from "@/components/sections/MIIRFHero";
@@ -7,11 +8,11 @@ import { MIIRFPerformanceSection } from "@/components/sections/MIIRFPerformanceS
 import { MIIRFFundLiteratureSection } from "@/components/sections/MIIRFFundLiteratureSection";
 import { MIIRFSubfundsSection } from "@/components/sections/MIIRFSubfundsSection";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "MIIRF | Mahaana",
-  description:
-    "Discover MIIRF with Mahaana. More details coming soon.",
-};
+  description: "Discover MIIRF with Mahaana. More details coming soon.",
+  path: "miirf",
+});
 
 export default function MIIRFPage() {
   return (

@@ -157,7 +157,7 @@ export function Footer() {
                 { href: "#", label: "Careers" },
                 { href: "#", label: "Legal" },
                 { href: "#", label: "Investor Relations" },
-                { href: "#", label: "Security" },
+                { href: "/security", label: "Security" },
                 { href: "#", label: "Sitemap" },
                 { href: "#", label: "Back to top" },
               ]}

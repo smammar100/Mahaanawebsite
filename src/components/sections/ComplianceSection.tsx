@@ -1,10 +1,9 @@
 "use client";
 
-import Image from "next/image";
-import { ChevronRight, Fingerprint03, PasscodeLock } from "@untitledui/icons";
+import { File02, Target04, Zap } from "@untitledui/icons";
 import { motion } from "motion/react";
 import { Container } from "@/components/layout/Container";
-import { TextRegular } from "@/components/ui/Typography";
+import { H2, TextLarge, TextRegular } from "@/components/ui/Typography";
 import { cx } from "@/utils/cx";
 import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
 
@@ -14,124 +13,89 @@ interface ComplianceSectionProps {
 
 const securityCards = [
   {
-    type: "image" as const,
-    image: "/images/invest/SECP%20logo%20color.svg",
-    alt: "SECP",
-    text: "Licensed by Security Exchange Commission Pakistan (SECP)",
+    icon: Zap,
+    title: "Regulated by SECP",
+    description:
+      "We operate under strict investor protection laws as a licensed financial services provider regulated by the SECP.",
   },
   {
-    type: "image" as const,
-    image: "/images/invest/CDC%20color.svg",
-    alt: "CDC",
-    text: (
-      <>
-        Custodians Central Depository
-        <br />
-        Company (CDC)
-      </>
-    ),
+    icon: File02,
+    title: "Assets safeguarded with CDC",
+    description:
+      "Your investments are securely held in your name with Pakistan's licensed central securities custodian, the CDC.",
   },
   {
-    type: "icon" as const,
-    icon: Fingerprint03,
-    text: "2FA adds an extra layer of security to safeguard your account.",
+    icon: Target04,
+    title: "Secure transactions",
+    description:
+      "No cash handling, your payments go directly to the CDC through verified and secure banking channels.",
   },
   {
-    type: "icon" as const,
-    icon: PasscodeLock,
-    text: "Custom security. Bank-grade encryption. 24/7 protection from fraud.",
+    icon: Target04,
+    title: "We can't touch your funds",
+    description:
+      "Mahaana never holds your money. You remain in full control of your investments at all times.",
   },
-];
+] as const;
 
 export function ComplianceSection({ className }: ComplianceSectionProps) {
   return (
     <motion.section
+      id="compliance"
       initial="hidden"
       whileInView="visible"
       viewport={sectionViewport}
       variants={sectionFadeInUp}
       className={cx(
-        "border-t border-surface-stroke py-8 sm:py-10 md:py-12 lg:py-14 xl:py-16",
+        "w-full border-t border-surface-stroke py-8 sm:py-10 md:py-12 lg:py-14 xl:py-16",
         className
       )}
       aria-labelledby="compliance-heading"
     >
-      <Container className="flex flex-col gap-6 sm:gap-8 lg:gap-10">
-        <div className="grid gap-6 sm:gap-8 lg:gap-12 lg:grid-cols-2">
-          {/* Left column - content */}
-          <div className="flex flex-col gap-5">
-            <p className="font-body text-small font-semibold uppercase tracking-wide text-system-brand">
-              Why MAHAANA
-            </p>
-            <h2
+      <Container className="flex flex-col gap-8 px-4 sm:gap-10 sm:px-6 md:px-8 lg:gap-14 lg:px-12 xl:px-16">
+        <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,520px)] lg:gap-10 xl:gap-20">
+          <div className="min-w-0">
+            <H2
               id="compliance-heading"
-              className="font-heading text-[2rem] font-semibold leading-[120%] tracking-heading text-text-primary sm:text-[2.5rem] lg:text-h2"
+              className="max-w-[600px] text-[2.5rem] leading-[1.15] tracking-heading sm:text-[3rem] lg:text-[3.5rem]"
             >
-              Your security is our #1 priority
-            </h2>
-            <TextRegular className="text-text-secondary text-[1.125rem] leading-7">
-              Your funds are securely held with the Central Depository Company
-              (CDC) and can only be withdrawn to your bank account. We&apos;re
-              SECP-licensed, MUFAP members, and supported by reputable local and
-              global sponsors with a top investment team.
-            </TextRegular>
-            <a
-              href="#compliance"
-              className="flex items-center gap-1 font-body text-medium font-semibold text-system-brand transition-colors hover:text-primary-300 w-fit"
-            >
-              Learn more about Mahaana security
-              <ChevronRight className="mt-0.5 size-5 shrink-0" aria-hidden />
-            </a>
+              How we keep your money safe
+            </H2>
           </div>
+          <TextRegular className="min-w-0 text-text-secondary sm:text-[1.125rem] sm:leading-8 lg:max-w-[520px]">
+            Your financial security is our top priority. By partnering with
+            CDC, we provide a secure environment for your investments. With
+            CDC&apos;s robust security protocols and Mahaana&apos;s transparent
+            processes, you can be confident that your money is in safe hands.
+          </TextRegular>
+        </div>
 
-          {/* Right column - security cards 2x2 grid */}
-          <div
-            className={cx(
-              "grid grid-cols-2 gap-0 overflow-hidden rounded-2xl",
-              "min-h-[150px] sm:min-h-[171px]"
-            )}
-          >
-            {securityCards.map((card, index) => (
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+          {securityCards.map((card) => {
+            const Icon = card.icon;
+
+            return (
               <div
-                key={index}
-                className={cx(
-                  "flex flex-1 flex-col items-center justify-between gap-0 bg-[#F2F2F0] p-3 sm:p-4 min-h-[150px] sm:min-h-[171px]",
-                  // 2x2 grid corners
-                  index === 0 && "rounded-tl-2xl",
-                  index === 1 && "rounded-tr-2xl",
-                  index === 2 && "rounded-bl-2xl",
-                  index === 3 && "rounded-br-2xl"
-                )}
+                key={card.title}
+                className="flex flex-col gap-6 rounded-2xl border border-surface-stroke bg-[#f8f8f7] p-6 dark:bg-surface-card"
               >
-                <div
-                  className={cx(
-                    "flex flex-1 flex-col items-center justify-center",
-                    card.type === "image" ? "h-[52px] min-h-[52px] w-fit" : "h-fit min-h-0 w-full"
-                  )}
-                >
-                  {card.type === "image" ? (
-                    <div className="flex h-[52px] w-full flex-shrink-0 items-center justify-center">
-                      <Image
-                        src={card.image}
-                        alt={card.alt}
-                        width={52}
-                        height={52}
-                        className="h-8 w-auto object-contain sm:h-[52px]"
-                      />
-                    </div>
-                  ) : (
-                    <card.icon
-                      className="size-8 shrink-0 text-text-primary sm:size-10"
-                      aria-hidden
-                    />
-                  )}
+                <div className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-primary-100 p-2">
+                  <Icon className="size-6 text-primary-200" aria-hidden />
                 </div>
-                <p className="font-body text-small leading-5 text-text-primary text-center shrink-0">
-                  {card.text}
-                </p>
+                <div className="flex min-w-0 flex-col gap-2">
+                  <TextLarge
+                    weight="semibold"
+                    className="text-text-primary"
+                  >
+                    {card.title}
+                  </TextLarge>
+                  <TextRegular className="text-text-tertiary">
+                    {card.description}
+                  </TextRegular>
+                </div>
               </div>
-            ))}
-          </div>
+            );
+          })}
         </div>
       </Container>
     </motion.section>

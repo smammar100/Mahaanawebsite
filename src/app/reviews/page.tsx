@@ -1,11 +1,14 @@
+import type { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/metadata";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { Container } from "@/components/layout/Container";
 import { H1, TextRegular } from "@/components/ui/Typography";
 
-export const metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "Reviews | Mahaana",
   description: "See what our users say about Mahaana.",
-};
+  path: "reviews",
+});
 
 export default function ReviewsPage() {
   return (

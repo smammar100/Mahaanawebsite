@@ -1,15 +1,17 @@
 import type { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/metadata";
 import { FIRECalculator } from "@/components/retirement/FIRECalculator";
 import { Cta6Section } from "@/components/sections/Cta6Section";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { Container } from "@/components/layout/Container";
 import { H1, TextMedium } from "@/components/ui/Typography";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "Retirement Calculator | Mahaana",
   description:
     "Calculate your path to Financial Independence, Retire Early (FIRE) with our free FIRE calculator. Plan your retirement savings and track your progress.",
-};
+  path: "retirement-calculator",
+});
 
 export default function RetirementCalculatorPage() {
   return (

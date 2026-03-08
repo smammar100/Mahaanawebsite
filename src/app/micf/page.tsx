@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/metadata";
 import { Cta6Section } from "@/components/sections/Cta6Section";
 import { MICFFAQSection } from "@/components/sections/MICFFAQSection";
 import { MICFHero } from "@/components/sections/MICFHero";
@@ -8,11 +9,11 @@ import { MICFDistributionsSection } from "@/components/sections/MICFDistribution
 import { MICFFundLiteratureSection } from "@/components/sections/MICFFundLiteratureSection";
 import { MICFPortfolioSection } from "@/components/sections/MICFPortfolioSection";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "MICF | Mahaana",
-  description:
-    "Discover MICF with Mahaana. More details coming soon.",
-};
+  description: "Discover MICF with Mahaana. More details coming soon.",
+  path: "micf",
+});
 
 export default function MICFPage() {
   return (
