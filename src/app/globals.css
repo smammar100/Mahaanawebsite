@@ -179,11 +179,18 @@
 
 /* ── Base styles ────────────────────────────────────────────── */
 @layer base {
-  html, body {
+  html {
     font-family: var(--font-body);
     background-color: var(--color-surface-bg);
     color: var(--color-text-primary);
     overflow-x: hidden;
+    overflow-y: auto;
+  }
+  body {
+    font-family: var(--font-body);
+    background-color: var(--color-surface-bg);
+    color: var(--color-text-primary);
+    overflow: visible;
   }
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-heading);
@@ -202,4 +209,22 @@
 }
 .recharts-surface {
   height: fit-content !important;
+}
+
+/* Gradient shimmer for text (e.g. culture section heading) */
+@keyframes gradient-shimmer {
+  0% { background-position: 200% center; }
+  100% { background-position: -200% center; }
+}
+.text-gradient-shimmer {
+  background: linear-gradient(
+    90deg,
+    #9333ea 0%,
+    #9333ea 35%,
+    #c084fc 50%,
+    #9333ea 65%,
+    #9333ea 100%
+  );
+  background-size: 200% 100%;
+  animation: gradient-shimmer 2.5s ease-in-out infinite;
 }

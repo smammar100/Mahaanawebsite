@@ -1,49 +1,38 @@
-"use client";
-
-import Image from "next/image";
-import { motion } from "motion/react";
 import { Container } from "@/components/layout/Container";
-import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
 
-const defaultLogos = [
+const LOGOS = [
   { src: "/images/invest/VEF%20logo.png", alt: "VEF" },
-  { src: "/images/invest/YC%20logo.jpg", alt: "YC" },
-  { src: "/images/invest/Sparklabs%20logo.png", alt: "Sparklabs" },
-  { src: "/images/invest/IGI%20logo.png", alt: "IGI" },
+  { src: "/images/invest/YC%20logo.jpg", alt: "Y Combinator" },
+  { src: "/images/invest/Sparklabs%20logo.png", alt: "SparkLabs" },
+  { src: "/images/invest/partners-igi-vitality.png", alt: "IGI Life and Vitality" },
 ];
 
-interface LogoStripProps {
-  logos?: Array<{ src: string; alt: string }>;
-}
-
-export function LogoStrip({ logos = defaultLogos }: LogoStripProps) {
+export function LogoStrip() {
   return (
-    <motion.section
-      initial="hidden"
-      whileInView="visible"
-      viewport={sectionViewport}
-      variants={sectionFadeInUp}
-      className="flex flex-col items-center justify-center bg-surface-bg py-4"
-      aria-label="Trusted by regulatory bodies and custodians"
+    <section
+      className="flex min-h-[120px] flex-col items-center justify-center bg-surface-bg py-0"
+      aria-label="Backed by leading investors and partners"
     >
-      <Container className="flex items-center">
-        <div className="grid h-full w-full max-w-full grid-cols-2 place-items-center gap-x-4 gap-y-2 sm:grid-cols-4 sm:gap-x-6 sm:gap-y-0">
-          {logos.map((logo, index) => (
+      <Container className="flex flex-col items-center px-0">
+        <div className="grid w-full max-w-full grid-cols-2 place-items-center gap-x-6 gap-y-6 sm:grid-cols-4 sm:gap-x-8 sm:gap-y-0">
+          {LOGOS.map((logo, index) => (
             <div
               key={`${logo.src}-${index}`}
-              className="flex h-full max-h-16 w-full max-w-[161px] items-center justify-center overflow-hidden py-1"
+              className="flex max-h-16 min-h-[48px] w-full max-w-[180px] items-center justify-center py-1"
             >
-              <Image
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
                 src={logo.src}
                 alt={logo.alt}
-                width={161}
+                width={180}
                 height={64}
-                className="h-7 w-auto max-h-full max-w-[161px] object-contain object-center sm:h-9 lg:h-12"
+                className="h-8 w-auto max-h-16 max-w-[180px] object-contain object-center opacity-90 sm:h-10 lg:h-12"
+                loading="lazy"
               />
             </div>
           ))}
         </div>
       </Container>
-    </motion.section>
+    </section>
   );
 }

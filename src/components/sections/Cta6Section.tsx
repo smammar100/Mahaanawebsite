@@ -8,9 +8,13 @@ import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
 
 interface Cta6SectionProps {
   className?: string;
+  headline?: React.ReactNode;
+  badgeText?: string;
+  ctaText?: string;
+  ctaHref?: string;
 }
 
-export function Cta6Section({ className }: Cta6SectionProps) {
+export function Cta6Section({ className, headline, badgeText, ctaText, ctaHref }: Cta6SectionProps) {
   return (
     <motion.section
       initial="hidden"
@@ -24,14 +28,10 @@ export function Cta6Section({ className }: Cta6SectionProps) {
     >
       <Container>
         <CallToAction1
-          badgeText="Join community of 20K+ investors"
-          headline={
-            <>
-              We're changing the way Pakistanis Save
-              <br className="hidden md:block" />
-              & Invest every day
-            </>
-          }
+          badgeText={badgeText}
+          headline={headline}
+          ctaText={ctaText}
+          ctaHref={ctaHref}
         />
       </Container>
     </motion.section>

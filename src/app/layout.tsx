@@ -78,7 +78,7 @@ export default function RootLayout({
           crossOrigin="anonymous"
         />
       </head>
-      <body className="antialiased flex min-h-screen flex-col overflow-x-hidden">
+      <body className="antialiased flex min-h-screen flex-col">
         <StructuredData />
         <a
           href="#main-content"

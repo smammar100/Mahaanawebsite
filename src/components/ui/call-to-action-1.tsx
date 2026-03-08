@@ -2,6 +2,7 @@
 
 import dynamic from "next/dynamic";
 import { AppStoreButton, GooglePlayButton } from "@/components/base/buttons/app-store-buttons";
+import { Button } from "@/components/base/buttons/button";
 import { H2 } from "@/components/ui/Typography";
 import { cx } from "@/utils/cx";
 
@@ -14,6 +15,9 @@ interface CallToAction1Props {
   className?: string;
   badgeText?: string;
   headline?: React.ReactNode;
+  /** When provided with ctaHref, shows a single CTA button instead of app store buttons */
+  ctaText?: string;
+  ctaHref?: string;
 }
 
 const defaultAvatars = [
@@ -27,11 +31,13 @@ export function CallToAction1({
   badgeText = "Join community of 20K+ investors",
   headline = (
     <>
-      We're changing the way Pakistanis Save
-      <br className="hidden md:block" />
-      & Invest every day
+      We're changing the way
+      <br />
+      Pakistanis Save & Invest every day
     </>
   ),
+  ctaText,
+  ctaHref,
 }: CallToAction1Props) {
   return (
     <div
@@ -69,13 +75,21 @@ export function CallToAction1({
             {badgeText}
           </p>
         </div>
-        <H2 className="mt-5 max-w-xl text-[2rem] font-semibold leading-tight text-gray-100 sm:text-[2.5rem] sm:leading-[1.2] lg:text-h2">
+        <H2 className="mt-5 max-w-3xl text-[2rem] font-semibold leading-tight text-gray-100 sm:text-[2.5rem] sm:leading-[1.2] lg:text-h2">
           {headline}
         </H2>
-        <div className="mt-6 flex flex-col justify-center gap-3 sm:mt-8 sm:flex-row sm:gap-4">
-          <AppStoreButton size="lg" className="shrink-0" />
-          <GooglePlayButton size="lg" className="shrink-0" />
-        </div>
+        {ctaText && ctaHref ? (
+          <div className="mt-6 sm:mt-8">
+            <Button href={ctaHref} color="secondary" size="xl" className="bg-white text-primary-200 hover:bg-gray-100">
+              {ctaText}
+            </Button>
+          </div>
+        ) : (
+          <div className="mt-6 flex flex-col justify-center gap-3 sm:mt-8 sm:flex-row sm:gap-4">
+            <AppStoreButton size="lg" className="shrink-0" />
+            <GooglePlayButton size="lg" className="shrink-0" />
+          </div>
+        )}
       </div>
     </div>
   );

@@ -58,9 +58,11 @@ const testimonials = [
 
 interface TestimonialsSectionProps {
   className?: string;
+  /** Link for "View all testimonials". Defaults to #testimonials. */
+  viewAllHref?: string;
 }
 
-export function TestimonialsSection({ className }: TestimonialsSectionProps) {
+export function TestimonialsSection({ className, viewAllHref = "#testimonials" }: TestimonialsSectionProps) {
   const plugin = useRef(
     AutoScroll({
       startDelay: 500,
@@ -120,7 +122,7 @@ export function TestimonialsSection({ className }: TestimonialsSectionProps) {
             Pakistanis who trust Mahaana to secure their financial future.
           </TextRegular>
           <a
-            href="#testimonials"
+            href={viewAllHref}
             className="flex items-center gap-1 font-body text-medium font-semibold text-system-brand transition-colors hover:text-primary-300"
           >
             View all testimonials
