@@ -44,7 +44,7 @@ export function RetirementHero() {
               {/* Headline - same typography as InvestHero */}
               <h1
                 id="retirement-hero-heading"
-                className="max-w-[592px] font-heading text-[2.5rem] font-semibold leading-[1.2] tracking-heading text-gray-100 sm:text-[3rem] lg:text-[3.5rem]"
+                className="max-w-[592px] font-heading text-[2.5rem] font-semibold leading-[1.2] tracking-heading text-white sm:text-[3rem] lg:text-[3.5rem]"
               >
                 Introducing
                 <br aria-hidden />
@@ -52,7 +52,7 @@ export function RetirementHero() {
               </h1>
 
               {/* Subtext - same as InvestHero (TextRegular, max-w-[446px]) */}
-              <TextRegular className="max-w-[446px] text-gray-100">
+              <TextRegular className="max-w-[446px] text-white">
                 Turn your retirement dreams into reality with Mahaana and enjoy
                 up to 20% tax savings along the way.
               </TextRegular>

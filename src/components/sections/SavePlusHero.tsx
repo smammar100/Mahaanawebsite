@@ -43,12 +43,12 @@ export function SavePlusHero() {
             <div className="flex flex-col items-start gap-4">
               <h1
                 id="save-plus-hero-heading"
-                className="max-w-[592px] font-heading text-[2.5rem] font-semibold leading-[1.2] tracking-heading text-gray-100 sm:text-[3rem] lg:text-[3.5rem]"
+                className="max-w-[592px] font-heading text-[2.5rem] font-semibold leading-[1.2] tracking-heading text-white sm:text-[3rem] lg:text-[3.5rem]"
               >
                 Your Savings Account, You wished your bank could offer
               </h1>
 
-              <TextRegular className="max-w-[446px] text-gray-100">
+              <TextRegular className="max-w-[446px] text-white">
                 The smart alternative to your traditional bank account, offering
                 daily shariah compliant returns.
               </TextRegular>

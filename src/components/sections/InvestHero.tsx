@@ -40,13 +40,13 @@ export function InvestHero() {
             <div className="flex flex-col gap-4">
               <h1
                 id="invest-hero-heading"
-                className="font-heading text-[2.5rem] font-semibold leading-[1.2] tracking-heading text-gray-100 sm:text-[3rem] lg:text-[3.5rem] max-w-[592px]"
+                className="font-heading text-[2.5rem] font-semibold leading-[1.2] tracking-heading text-white sm:text-[3rem] lg:text-[3.5rem] max-w-[592px]"
               >
                 Changing the way Pakistani&apos;s invest
               </h1>
 
               <TextRegular
-              className="max-w-[446px] text-gray-100"
+              className="max-w-[446px] text-white"
             >
               For ambitious dreamers who believe in saving smarter, spending
               wisely, and rising together
@@ -70,7 +70,7 @@ export function InvestHero() {
               <div className="flex items-center gap-2">
                 <TextSmall
                   weight="medium"
-                  className="text-gray-100"
+                  className="text-white"
                 >
                   Licensed by SECP
                 </TextSmall>
@@ -83,13 +83,13 @@ export function InvestHero() {
                 />
               </div>
               <div
-                className="h-4 w-px bg-gray-300"
+                className="h-4 w-px bg-white/40"
                 role="presentation"
               />
               <div className="flex items-center gap-2">
                 <TextSmall
                   weight="medium"
-                  className="text-gray-100"
+                  className="text-white"
                 >
                   Custodians CDC
                 </TextSmall>

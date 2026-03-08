@@ -125,7 +125,7 @@ export function Header() {
                       className={cx(
                         'h-auto bg-transparent px-2.5 font-body font-medium text-base tracking-[-0.24px]',
                         isTransparent
-                          ? 'text-gray-100 text-text-tertiary hover:text-gray-100'
+                          ? 'text-white hover:text-white'
                           : 'text-text-primary text-text-tertiary hover:text-system-brand'
                       )}
                     >
@@ -158,9 +158,7 @@ export function Header() {
                                       href={link.href}
                                       className={cx(
                                         'group/link flex flex-row items-center gap-2 rounded-lg px-3 py-2 font-body text-small font-medium transition-colors',
-                                        isTransparent
-                                          ? 'text-gray-100 hover:text-gray-100'
-                                          : 'text-text-primary hover:text-system-brand'
+                                        'text-black hover:text-system-brand'
                                       )}
                                     >
                                       <div className="flex min-w-0 flex-col gap-0.5">
