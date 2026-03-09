@@ -22,7 +22,7 @@ export function Cta6Section({ className, headline, badgeText, ctaText, ctaHref }
       viewport={sectionViewport}
       variants={sectionFadeInUp}
       className={cx(
-        "overflow-x-hidden pt-16 pb-16",
+        "overflow-x-hidden py-8 sm:py-12 lg:py-16",
         className
       )}
     >

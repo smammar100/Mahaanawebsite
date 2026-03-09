@@ -42,7 +42,7 @@ export function CallToAction1({
   return (
     <div
       className={cx(
-        "relative flex min-h-[280px] flex-col items-center justify-center overflow-hidden rounded-xl p-6 text-center text-white sm:p-8 md:p-10 lg:p-12",
+        "relative flex min-h-[280px] flex-col items-center justify-center overflow-hidden rounded-xl py-8 px-4 text-center text-white sm:p-8 md:p-10 lg:p-12",
         className
       )}
     >

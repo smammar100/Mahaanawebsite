@@ -38,7 +38,7 @@ export function FundHero({
       variants={sectionFadeInUp}
       className={cx(
         "relative overflow-hidden bg-surface-bg",
-        "pt-8 pb-6 sm:pt-10 sm:pb-8 lg:pt-16 lg:pb-14"
+        "py-8 sm:pt-10 sm:pb-8 lg:pt-16 lg:pb-14"
       )}
       aria-labelledby="fund-hero-heading"
     >

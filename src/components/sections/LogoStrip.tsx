@@ -10,10 +10,10 @@ const LOGOS = [
 export function LogoStrip() {
   return (
     <section
-      className="flex min-h-[120px] flex-col items-center justify-center bg-surface-bg py-0"
+      className="flex min-h-[120px] flex-col items-center justify-center bg-surface-bg py-8 sm:py-0"
       aria-label="Backed by leading investors and partners"
     >
-      <Container className="flex flex-col items-center px-0">
+      <Container className="flex flex-col items-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16">
         <div className="grid w-full max-w-full grid-cols-2 place-items-center gap-x-6 gap-y-6 sm:grid-cols-4 sm:gap-x-8 sm:gap-y-0">
           {LOGOS.map((logo, index) => (
             <div

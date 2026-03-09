@@ -16,7 +16,7 @@ export function AboutMissionSection() {
       whileInView="visible"
       viewport={sectionViewport}
       variants={sectionFadeInUp}
-      className="w-full bg-surface-bg py-12 sm:py-16 lg:py-16"
+      className="w-full bg-surface-bg py-8 sm:py-12 lg:py-16"
       aria-labelledby="about-mission-heading"
     >
       <Container className="px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16">

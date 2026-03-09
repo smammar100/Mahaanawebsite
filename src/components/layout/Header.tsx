@@ -6,8 +6,11 @@ import { usePathname } from 'next/navigation';
 import Image from 'next/image';
 import { Container } from './Container';
 import { Button } from '@/components/base/buttons/button';
+import { AppStoreButton, GooglePlayButton } from '@/components/base/buttons/app-store-buttons';
 import { ButtonUtility } from '@/components/base/buttons/button-utility';
 import { navDropdowns, type NavDropdownConfig } from './navConfig';
+import { ChevronDown } from '@untitledui/icons';
+import { motion } from 'motion/react';
 import { cx } from '@/utils/cx';
 import {
   NavigationMenu,
@@ -21,6 +24,22 @@ import { Sheet, SheetContent, SheetTitle } from '@/components/ui/sheet';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
 const MOBILE_BREAKPOINT_PX = 800; // lg in theme
+
+const menuStaggerContainer = {
+  hidden: {},
+  visible: {
+    transition: { staggerChildren: 0.05, delayChildren: 0.08 },
+  },
+} as const;
+
+const menuStaggerItem = {
+  hidden: { opacity: 0, y: -8 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.25, ease: [0.25, 0.1, 0.25, 1] },
+  },
+} as const;
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -257,101 +276,113 @@ export function Header() {
         <SheetContent
           side="top"
           aria-describedby={undefined}
+          hideOverlay
           className={cx(
-            'inset-0 z-[9999999] h-dvh w-full overflow-hidden border-0 bg-surface-bg pt-[3.9375rem] [&>button]:hidden'
+            'inset-0 z-[10000003] flex min-h-dvh w-full flex-col gap-0 overflow-hidden overflow-x-hidden border-0 p-4 [&>button]:hidden',
+            '!bg-white bg-[#ffffff]'
           )}
+          style={{ backgroundColor: '#ffffff' }}
         >
-          <div className="flex h-full flex-col overflow-y-auto pt-10 pb-20">
+          <motion.div
+            className="flex min-h-full flex-1 flex-col gap-0 overflow-y-auto overflow-x-hidden bg-white pb-8"
+            style={{ backgroundColor: '#ffffff' }}
+            initial="hidden"
+            animate={mobileMenuOpen ? 'visible' : 'hidden'}
+            variants={menuStaggerContainer}
+          >
             <div className="absolute -m-px h-px w-px overflow-hidden border-0 p-0 text-nowrap whitespace-nowrap [clip:rect(0,0,0,0)]">
               <SheetTitle className="text-primary">
                 Mobile Navigation
               </SheetTitle>
             </div>
-            <Container className="flex flex-col gap-6">
-              <div className="flex flex-col gap-4">
-                <Button
-                  href="/login"
-                  color="primary"
-                  size="md"
-                  className="rounded-xl"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  Login
-                </Button>
-                <div className="flex gap-2">
-                  <ButtonUtility
-                    href="#"
-                    icon={
-                      <Image
-                        src="/images/navbar/Apple-logo.png"
-                        alt=""
-                        width={20}
-                        height={20}
-                        className="size-5 [&_img]:size-5"
-                      />
-                    }
-                    tooltip="Download on App Store"
-                    color="secondary"
-                    className="size-9 rounded-xl"
-                  />
-                  <ButtonUtility
-                    href="#"
-                    icon={
-                      <Image
-                        src="/images/navbar/Playstore-logo.png"
-                        alt=""
-                        width={18}
-                        height={20}
-                        className="size-5 [&_img]:size-5"
-                      />
-                    }
-                    tooltip="Get it on Google Play"
-                    color="secondary"
-                    className="size-10 rounded-xl sm:size-9"
-                  />
-                </div>
-              </div>
-              <Accordion type="multiple" className="w-full">
+            {/* 1. Menu header: logo + close */}
+            <motion.div className="mb-2 flex items-center justify-between border-b border-[#f0f0f0] pb-4" variants={menuStaggerItem}>
+              <Link
+                href="/"
+                className="shrink-0"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <Image
+                  src="/images/invest/Logo.svg"
+                  alt="Mahaana"
+                  width={146}
+                  height={24}
+                  className="h-6 w-auto"
+                />
+              </Link>
+              <button
+                type="button"
+                aria-label="Close menu"
+                className="flex size-10 items-center justify-center rounded-lg text-gray-600 transition-colors hover:bg-gray-100 hover:text-gray-900"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <svg className="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                  <path d="M18 6L6 18M6 6l12 12" />
+                </svg>
+              </button>
+            </motion.div>
+            {/* 2–5. Nav items: Products, Resources, Company with chevrons */}
+            <motion.div variants={menuStaggerItem}>
+              <Accordion type="multiple" className="w-full bg-white" style={{ backgroundColor: '#ffffff' }}>
                 {navDropdowns.map((config, index) => (
                   <AccordionItem
                     key={config.label}
                     value={`nav-${index}`}
-                    className="border-b-0"
+                    className="border-b border-[#f5f5f5]"
                   >
                     <AccordionTrigger
-                      className={cx(
-                        'h-[3.75rem] items-center p-0 px-4 font-body text-base font-normal leading-[3.75] hover:bg-surface-card hover:no-underline',
-                        isTransparent
-                          ? 'text-gray-100'
-                          : 'text-text-secondary hover:text-text-primary'
-                      )}
+                      className="w-full cursor-pointer border-b border-[#f0f0f0] py-4 text-base font-medium text-[#1a1a1a] hover:bg-gray-50 hover:no-underline [&[data-state=open]>svg]:rotate-180"
                     >
-                      {config.label}
+                      <span>{config.label}</span>
+                      <ChevronDown className="size-5 shrink-0 text-[#aaaaaa] transition-transform duration-200 [&[data-state=open]>svg]:rotate-180" aria-hidden />
                     </AccordionTrigger>
                     <AccordionContent className="max-h-[60dvh] overflow-x-auto">
-                      {config.sections.flatMap((section) =>
-                        section.links.map((link) => (
-                          <Link
-                            key={link.href}
-                            href={link.href}
-                            className={cx(
-                              'flex h-12 items-center gap-2 rounded-lg px-4 font-body text-small font-medium transition-colors',
-                              isTransparent
-                                ? 'text-gray-100 hover:bg-surface-card hover:text-gray-100'
-                                : 'text-text-secondary hover:bg-surface-card hover:text-text-primary'
-                            )}
-                            onClick={() => setMobileMenuOpen(false)}
-                          >
-                            {link.label}
-                          </Link>
-                        ))
-                      )}
+                      {config.sections.map((section, sectionIndex) => (
+                        <div key={section.heading || `s-${sectionIndex}`}>
+                          {section.heading ? (
+                            <div className="px-4 pt-3 pb-1 font-body text-tiny font-semibold uppercase tracking-wide text-system-brand">
+                              {section.heading}
+                            </div>
+                          ) : null}
+                          {section.links.map((link) => (
+                            <Link
+                              key={link.href}
+                              href={link.href}
+                              className="block py-3 px-4 font-body text-small font-medium text-[#1a1a1a] transition-colors hover:bg-gray-50"
+                              onClick={() => setMobileMenuOpen(false)}
+                            >
+                              {link.label}
+                            </Link>
+                          ))}
+                        </div>
+                      ))}
                     </AccordionContent>
                   </AccordionItem>
                 ))}
               </Accordion>
-            </Container>
-          </div>
+            </motion.div>
+            {/* 6. Divider */}
+            <motion.div className="border-b border-[#f0f0f0]" variants={menuStaggerItem} />
+            {/* 7. App store row */}
+            <motion.div className="mb-4 mt-6 flex gap-3" variants={menuStaggerItem}>
+              <AppStoreButton href="#" className="min-w-0 flex-1 shrink-0" />
+              <GooglePlayButton href="#" className="min-w-0 flex-1 shrink-0" />
+            </motion.div>
+            {/* 8. Divider */}
+            <motion.div className="border-b border-[#f0f0f0]" variants={menuStaggerItem} />
+            {/* 9. Login at bottom (mt-auto) */}
+            <motion.div className="mt-auto pt-6" variants={menuStaggerItem}>
+              <Button
+                href="/login"
+                color="primary"
+                size="md"
+                className="w-full !rounded-[10px] !border-0 !py-3.5 !bg-[#6B2FD9] text-[15px] font-semibold text-white"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Login
+              </Button>
+            </motion.div>
+          </motion.div>
         </SheetContent>
       </Sheet>
     </>

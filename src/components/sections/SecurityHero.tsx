@@ -41,7 +41,7 @@ export function SecurityHero() {
           )}
         >
           {/* Left column: content — equal width on desktop */}
-          <div className="flex min-w-0 flex-1 flex-col justify-center gap-8 p-6 sm:p-8 md:py-10 md:pr-10 md:pl-0 lg:gap-10 lg:pr-12 lg:py-12 xl:pr-20 xl:py-16">
+          <div className="flex min-w-0 flex-1 flex-col justify-center gap-8 py-8 px-4 sm:p-8 md:py-10 md:pr-10 md:pl-0 lg:gap-10 lg:pr-12 lg:py-12 xl:pr-20 xl:py-16">
             <div className="flex flex-col gap-4">
               <h1
                 id="security-hero-heading"

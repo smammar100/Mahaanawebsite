@@ -198,6 +198,12 @@
   }
 }
 
+@media (max-width: 768px) {
+  body {
+    overflow-x: hidden;
+  }
+}
+
 /* Recharts axis label – avoid layout issues */
 .recharts-text.recharts-label {
   height: fit-content;
