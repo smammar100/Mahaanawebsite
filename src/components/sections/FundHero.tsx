@@ -90,7 +90,7 @@ export function FundHero({
         </div>
 
         <div
-          className="flex min-h-[44px] flex-wrap justify-center gap-1 rounded-full bg-surface-card p-1"
+          className="fund-tab-list flex min-h-[44px] w-full max-w-full flex-nowrap overflow-x-auto snap-x snap-mandatory justify-center gap-1 rounded-full bg-surface-card p-1"
           role="tablist"
           aria-label="Fund sections"
         >
@@ -100,7 +100,7 @@ export function FundHero({
               href={`#${tab.id}`}
               role="tab"
               className={cx(
-                "flex min-h-[40px] min-w-0 flex-1 items-center justify-center rounded-full px-4 py-3 text-center font-body text-base font-medium text-text-tertiary transition-colors hover:bg-white hover:text-text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-system-brand sm:min-h-[44px]"
+                "flex min-h-[40px] shrink-0 snap-start items-center justify-center whitespace-nowrap rounded-full px-4 py-3 text-center font-body text-base font-medium text-text-tertiary transition-colors hover:bg-white hover:text-text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-system-brand sm:min-h-[44px]"
               )}
             >
               {tab.label}

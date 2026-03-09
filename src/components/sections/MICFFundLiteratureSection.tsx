@@ -52,7 +52,7 @@ export function MICFFundLiteratureSection() {
       whileInView="visible"
       viewport={sectionViewport}
       variants={sectionFadeInUp}
-      className="relative overflow-hidden bg-surface-bg py-8 sm:py-12 lg:py-16"
+      className="relative min-w-0 overflow-x-visible overflow-y-clip bg-surface-bg py-8 sm:py-12 lg:py-16"
       aria-labelledby="micf-fund-literature-section-heading"
     >
       <Container className="flex flex-col gap-10 px-4 sm:px-6 md:px-8 lg:gap-10 lg:px-12 xl:px-16">
@@ -67,7 +67,7 @@ export function MICFFundLiteratureSection() {
         <div className="flex flex-col gap-6 sm:gap-6">
           {/* Tab bar */}
           <div
-            className="flex w-full min-h-[44px] flex-wrap justify-center gap-1 rounded-full bg-gray-100 p-1.5 sm:flex-nowrap sm:overflow-x-auto sm:snap-x sm:snap-mandatory"
+            className="fund-tab-list flex w-full min-h-[44px] max-w-full flex-nowrap overflow-x-auto snap-x snap-mandatory justify-start gap-1 rounded-full bg-gray-100 p-1.5"
             role="tablist"
             aria-label="Fund literature categories"
           >
@@ -79,7 +79,7 @@ export function MICFFundLiteratureSection() {
                 aria-selected={activeTab === tab.id}
                 onClick={() => setActiveTab(tab.id)}
                 className={cx(
-                  "min-h-[44px] min-w-0 flex-1 snap-center rounded-full px-5 py-3 text-center font-body text-base transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-system-brand sm:px-5",
+                  "min-h-[44px] shrink-0 snap-start rounded-full px-5 py-3 text-center font-body text-base whitespace-nowrap transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-system-brand",
                   activeTab === tab.id
                     ? "bg-white border border-white text-text-primary font-semibold shadow-sm"
                     : "font-medium text-text-tertiary hover:bg-white/80 hover:text-text-primary"

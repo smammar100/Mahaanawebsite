@@ -202,6 +202,17 @@
   body {
     overflow-x: hidden;
   }
+
+  /* Fund tab bars: horizontal scroll, hide scrollbar, touch scroll */
+  .fund-tab-list {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .fund-tab-list::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 /* Recharts axis label – avoid layout issues */

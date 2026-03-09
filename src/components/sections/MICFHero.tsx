@@ -146,9 +146,9 @@ export function MICFHero() {
           </div>
         </div>
 
-        {/* Tab bar — sticky, tabs evenly distributed */}
+        {/* Tab bar — sticky, tabs horizontally scrollable on mobile */}
         <div
-          className="sticky top-[calc(4.5rem+env(safe-area-inset-top,0px))] z-10 flex w-full min-h-[44px] flex-wrap justify-center gap-1 rounded-full bg-gray-100 p-1.5 sm:flex-nowrap sm:overflow-x-auto sm:snap-x sm:snap-mandatory"
+          className="fund-tab-list sticky top-[calc(4.5rem+env(safe-area-inset-top,0px))] z-10 flex w-full min-h-[44px] max-w-full flex-nowrap overflow-x-auto snap-x snap-mandatory gap-1 rounded-full bg-gray-100 p-1.5"
           role="tablist"
           aria-label="Fund sections"
         >
@@ -160,7 +160,7 @@ export function MICFHero() {
               aria-selected={selectedTab === tab.id}
               onClick={() => handleTabClick(tab.id)}
               className={cx(
-                "min-h-[44px] min-w-0 flex-1 snap-center rounded-full px-4 py-3 text-center font-body text-base font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-system-brand sm:px-5",
+                "min-h-[44px] shrink-0 snap-start rounded-full px-4 py-3 text-center font-body text-base font-medium whitespace-nowrap transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-system-brand sm:px-5",
                 selectedTab === tab.id
                   ? "bg-white text-text-primary shadow-sm"
                   : "text-text-tertiary hover:bg-white/80 hover:text-text-primary"
