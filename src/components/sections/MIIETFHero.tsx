@@ -148,7 +148,7 @@ export function MIIETFHero() {
 
         {/* Tab bar — sticky, tabs horizontally scrollable on mobile */}
         <div
-          className="fund-tab-list sticky top-[calc(4.5rem+env(safe-area-inset-top,0px))] z-10 flex w-full min-h-[44px] max-w-full flex-nowrap overflow-x-auto snap-x snap-mandatory gap-1 rounded-full bg-gray-100 p-1.5"
+          className="fund-tab-list sticky top-[calc(4.5rem+env(safe-area-inset-top,0px))] z-10 flex w-full min-h-[44px] max-w-full flex-nowrap justify-start overflow-x-auto snap-x snap-mandatory gap-1 rounded-full bg-gray-100 p-1.5"
           role="tablist"
           aria-label="Fund sections"
         >

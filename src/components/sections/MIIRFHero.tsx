@@ -67,17 +67,17 @@ export function MIIRFHero() {
           </div>
 
           {/* Right: full name + WITH OUR PARTNERS + logos */}
-          <div className="flex min-w-0 flex-1 flex-col gap-6 justify-start items-end">
+          <div className="flex min-w-0 flex-1 flex-col gap-6 justify-start items-start lg:items-end">
             <h2
               className={cx(
-                "font-heading font-medium tracking-heading text-text-primary text-right",
+                "font-heading font-medium tracking-heading text-text-primary text-left lg:text-right",
                 "text-3xl leading-tight sm:text-4xl lg:text-5xl lg:leading-[60px] xl:text-[56px] xl:leading-[60px] xl:tracking-[-1.12px]"
               )}
             >
               Mahaana Islamic IGI Retirement Fund
             </h2>
-            <div className="flex flex-wrap items-center gap-4">
-              <p className="font-body text-base font-bold uppercase tracking-wide text-system-brand">
+            <div className="flex flex-wrap items-start justify-start gap-4 lg:items-center">
+              <p className="font-body text-base font-bold uppercase tracking-wide text-left text-system-brand">
                 With our partners
               </p>
               <div className="relative h-12 w-[108px] shrink-0">
@@ -93,7 +93,7 @@ export function MIIRFHero() {
 
         {/* Tab bar — sticky, horizontally scrollable on mobile */}
         <div
-          className="fund-tab-list sticky top-[calc(4.5rem+env(safe-area-inset-top,0px))] z-10 flex w-full min-h-[44px] max-w-full flex-nowrap overflow-x-auto snap-x snap-mandatory gap-1 rounded-full bg-gray-100 p-1"
+          className="fund-tab-list sticky top-[calc(4.5rem+env(safe-area-inset-top,0px))] z-10 flex w-full min-h-[44px] max-w-full flex-nowrap justify-start overflow-x-auto snap-x snap-mandatory gap-1 rounded-full bg-gray-100 p-1"
           role="tablist"
           aria-label="Fund sections"
         >

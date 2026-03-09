@@ -90,7 +90,7 @@ export function FundHero({
         </div>
 
         <div
-          className="fund-tab-list flex min-h-[44px] w-full max-w-full flex-nowrap overflow-x-auto snap-x snap-mandatory justify-center gap-1 rounded-full bg-surface-card p-1"
+          className="fund-tab-list flex min-h-[44px] w-full max-w-full flex-nowrap justify-start overflow-x-auto snap-x snap-mandatory gap-1 rounded-full bg-surface-card p-1"
           role="tablist"
           aria-label="Fund sections"
         >
