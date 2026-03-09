@@ -24,7 +24,7 @@ const features = [
     number: "Step 2",
     title: "Fund your account",
     description:
-      "Invest as low as PKR 5,000 to open your Mahaana Investment account",
+      "Invest as low as PKR5,000 to open your Mahaana account.",
     image: "/images/invest/Step 2.png",
     imageOrder: "order-2",
     contentOrder: "order-1",
@@ -49,10 +49,10 @@ export function FeatureCards() {
       whileInView="visible"
       viewport={sectionViewport}
       variants={sectionFadeInUp}
-      className="border-t border-surface-stroke py-8 sm:py-10 md:py-12 lg:py-14 xl:py-16 pb-28"
+      className="border-t border-surface-stroke py-8 sm:py-10 md:py-12 lg:py-14 xl:py-16 pb-32"
       aria-labelledby="feature-cards-heading"
     >
-      <Container className="flex flex-col gap-6 sm:gap-8 lg:gap-10">
+      <Container className="flex flex-col gap-12 sm:gap-16 lg:gap-20">
         {/* Header */}
         <div className="flex flex-col items-start gap-4">
           <div className="flex flex-col items-start" style={{ gap: '0.5rem' }}>
@@ -72,7 +72,7 @@ export function FeatureCards() {
         </div>
 
         {/* Cards grid */}
-        <div className="grid h-fit grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3">
+        <div className="grid h-fit grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3 pb-16">
           {features.map((feature, index) => (
             <div key={index} className="w-full">
               <PinContainer

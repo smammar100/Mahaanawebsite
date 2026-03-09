@@ -6,28 +6,49 @@ import { motion } from "motion/react";
 import { Container } from "@/components/layout/Container";
 import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
 import { Button } from "@/components/base/buttons/button";
-import { TextRegular, TextSmall } from "@/components/ui/Typography";
-import { cx } from "@/utils/cx";
+import { H2, TextRegular, TextSmall } from "@/components/ui/Typography";
+import { cn } from "@/lib/utils";
 
-interface DataItem {
+interface BlogPost {
   title: string;
-  content: string;
+  excerpt: string;
+  authorName: string;
+  authorImageUrl: string;
+  readTime: string;
+  imageUrl: string;
+  href: string;
 }
 
-const DATA: DataItem[] = [
+const BLOG_POSTS: BlogPost[] = [
   {
-    title: "Cloud Computing",
-    content:
-      "Exploring cost-effective cloud migration patterns and multi-cloud management",
+    title: "How to build a successful brand and business online in 2024",
+    excerpt:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    authorName: "John Doe",
+    authorImageUrl: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/avatar-4.webp",
+    readTime: "10 Min Read",
+    imageUrl: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-8-wide.svg",
+    href: "#",
   },
   {
-    title: "Cybersecurity",
-    content:
-      "Implementing adaptive security frameworks for distributed workforces",
+    title: "The difference between UI and UX and how to design for both",
+    excerpt:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    authorName: "Jane Doe",
+    authorImageUrl: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/avatar-1.webp",
+    readTime: "14 Min Read",
+    imageUrl: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-8-wide.svg",
+    href: "#",
   },
   {
-    title: "IoT",
-    content: "Reducing latency in smart city deployments through fog computing",
+    title: "Optimizing your website for SEO and getting more traffic",
+    excerpt:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    authorName: "Jane Smith",
+    authorImageUrl: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/avatar-3.webp",
+    readTime: "9 Min Read",
+    imageUrl: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-8-wide.svg",
+    href: "#",
   },
 ];
 
@@ -42,122 +63,81 @@ export function BlogSection({ className }: BlogSectionProps) {
       whileInView="visible"
       viewport={sectionViewport}
       variants={sectionFadeInUp}
-      className={cx(
+      className={cn(
         "border-t border-surface-stroke py-8 sm:py-10 md:py-12 lg:py-14 xl:py-16",
         className
       )}
       aria-labelledby="blog-heading"
     >
-      <Container className="flex flex-col gap-6 sm:gap-8 lg:gap-10">
-        {/* Header */}
-        <div className="mb-0">
-          <p className="font-body text-small font-semibold uppercase tracking-wide text-system-brand">
-            Blog
-          </p>
-          <h2
-            id="blog-heading"
-            className="font-heading text-[2rem] font-semibold leading-[120%] tracking-heading text-text-primary sm:text-[2.5rem] lg:text-h2 mt-2"
-          >
-            Tech Insights
-          </h2>
-          <div className="mt-4 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <TextRegular className="text-text-tertiary text-small sm:text-regular max-w-xl">
-              Exploring cutting-edge technologies
-              <br />
-              shaping tomorrow&apos;s digital landscape
-            </TextRegular>
-            <Button
-              color="secondary"
-              size="md"
-              iconTrailing={ArrowRight}
-              className="w-fit shrink-0 sm:ml-auto"
-            >
-              Read More
-            </Button>
+      <Container className="flex flex-col gap-12 sm:gap-16 lg:gap-10">
+        {/* Header - left aligned, eyebrow matches other sections */}
+        <div className="flex flex-col items-start">
+          <div className="flex flex-col items-start" style={{ gap: "0.5rem" }}>
+            <p className="font-body text-small font-semibold uppercase tracking-wide text-system-brand">
+              Our Blogs
+            </p>
+            <H2 id="blog-heading" className="text-text-primary w-full max-w-3xl">
+              Discover the latest trends
+            </H2>
           </div>
+          <TextRegular className="mt-4 max-w-2xl text-text-tertiary">
+            Explore our blog for insightful articles, personal reflections and ideas that inspire
+            action on the topics you care about.
+          </TextRegular>
+          <Button href="#" color="secondary" size="md" iconTrailing={ArrowRight} className="mt-6 w-fit">
+            View All Blogs
+          </Button>
         </div>
 
-        {/* Content grid */}
-        <div className="flex flex-col items-stretch gap-16 md:flex-row">
-          {/* Main featured post */}
-          <article className="flex h-full min-h-0 flex-col" style={{ height: "100%" }}>
-            <div className="relative w-full aspect-video overflow-hidden rounded-2xl">
-              <Image
-                src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-8-wide.svg"
-                alt="Next-Gen AI: Transforming Business Operations"
-                fill
-                className="object-cover"
-                sizes="(max-width: 768px) 100vw, 50vw"
-              />
-            </div>
-            <h3 className="font-heading text-xl font-semibold leading-[120%] tracking-heading text-text-primary sm:text-2xl lg:text-3xl mt-4">
-              Next-Gen AI: Transforming Business Operations
-            </h3>
-            <div className="mt-6 flex items-center justify-between gap-4 sm:mt-8">
-              <div className="flex items-center gap-3 sm:gap-4">
-                <div className="relative h-8 w-8 shrink-0 overflow-hidden rounded-lg sm:h-12 sm:w-12">
+        {/* Cards grid */}
+        <div className="grid gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {BLOG_POSTS.map((post, index) => (
+            <a
+              key={index}
+              href={post.href}
+              className="rounded-xl border border-surface-stroke bg-[#f8f8f7] transition-colors hover:border-gray-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-system-brand dark:bg-surface-card"
+            >
+              <div className="p-2">
+                <div className="relative aspect-video w-full overflow-hidden rounded-lg">
                   <Image
-                    src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/avatar-1.webp"
-                    alt="Sarah Johnson"
+                    src={post.imageUrl}
+                    alt=""
                     fill
                     className="object-cover"
-                    sizes="48px"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   />
-                </div>
-                <div className="flex flex-col">
-                  <TextSmall weight="medium" className="text-text-primary">
-                    Sarah Johnson
-                  </TextSmall>
-                  <TextSmall className="text-text-tertiary text-tiny sm:text-small">
-                    AI Researcher
-                  </TextSmall>
                 </div>
               </div>
-              <Button
-                href="#"
-                color="tertiary"
-                size="sm"
-                iconTrailing={ArrowRight}
-                className="shrink-0"
-              >
-                Read More
-              </Button>
-            </div>
-          </article>
-
-          {/* Secondary posts list */}
-          <div className="flex h-full min-h-0 flex-col gap-4">
-            {DATA.map((post, index) => (
-              <article
-                key={index}
-                className="flex items-start gap-4 border-b border-surface-stroke pb-2 last:border-b-0 last:pb-0"
-              >
-                <div className="relative w-[29%] shrink-0 aspect-video sm:w-[23%]">
-                  <Image
-                    src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-8-wide.svg"
-                    alt={post.title}
-                    fill
-                    className="rounded-lg object-cover"
-                    sizes="(max-width: 640px) 25vw, 20vw"
-                  />
+              <div className="px-3 pt-2 pb-4 min-w-0">
+                <h3 className="mb-1 font-body text-large font-semibold leading-[150%] text-text-primary line-clamp-2">
+                  {post.title}
+                </h3>
+                <TextSmall className="line-clamp-2 text-text-tertiary">
+                  {post.excerpt}
+                </TextSmall>
+                <div className="my-5 border-t border-surface-stroke" aria-hidden />
+                <div className="flex items-center justify-between gap-4">
+                  <div className="flex min-w-0 items-center gap-3">
+                    <div className="relative size-9 shrink-0 overflow-hidden rounded-full ring-1 ring-input">
+                      <Image
+                        src={post.authorImageUrl}
+                        alt=""
+                        fill
+                        className="object-cover"
+                        sizes="36px"
+                      />
+                    </div>
+                    <TextSmall weight="medium" className="truncate text-text-primary">
+                      {post.authorName}
+                    </TextSmall>
+                  </div>
+                  <span className="shrink-0 rounded-full bg-gray-100 px-2 py-0.5 font-body text-tiny font-medium text-text-tertiary">
+                    {post.readTime}
+                  </span>
                 </div>
-                <div className="flex flex-1 min-w-0 flex-col gap-3">
-                  <TextRegular className="text-text-primary text-small leading-relaxed sm:text-regular">
-                    {post.content}
-                  </TextRegular>
-                  <Button
-                    href="#"
-                    color="tertiary"
-                    size="sm"
-                    iconTrailing={ArrowRight}
-                    className="w-fit"
-                  >
-                    Read More
-                  </Button>
-                </div>
-              </article>
-            ))}
-          </div>
+              </div>
+            </a>
+          ))}
         </div>
       </Container>
     </motion.section>

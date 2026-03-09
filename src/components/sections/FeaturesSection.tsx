@@ -119,7 +119,7 @@ export function FeaturesSection() {
       whileInView="visible"
       viewport={sectionViewport}
       variants={sectionFadeInUp}
-      className="border-t border-surface-stroke py-8 sm:py-10 md:py-12 lg:py-14 xl:py-16"
+      className="border-t border-surface-stroke pt-16 pb-8 sm:pb-10 md:pb-12 lg:pb-14 xl:pb-16"
       style={{ background: "linear-gradient(180deg, #443087 0%, #30225F 100%)" }}
       aria-labelledby="features-heading"
     >

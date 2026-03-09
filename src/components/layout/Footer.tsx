@@ -21,8 +21,8 @@ function NavColumn({
       <h3
         className={
           subheading
-            ? "font-body text-tiny font-semibold uppercase tracking-wide text-text-secondary"
-            : "font-heading text-small font-semibold tracking-heading text-text-primary"
+            ? "font-body text-tiny font-semibold uppercase tracking-wide text-text-secondary max-[768px]:text-xs max-[768px]:font-bold max-[768px]:uppercase max-[768px]:tracking-[0.08em] max-[768px]:text-[#1a1a1a] max-[768px]:mb-3 md:mb-0"
+            : "font-heading text-small font-semibold tracking-heading text-text-primary max-[768px]:text-xs max-[768px]:font-bold max-[768px]:uppercase max-[768px]:tracking-[0.08em] max-[768px]:text-[#1a1a1a] max-[768px]:mb-3 md:mb-0"
         }
       >
         {heading}
@@ -32,7 +32,7 @@ function NavColumn({
           <li key={label}>
             <Link
               href={href}
-              className="font-body text-small text-text-tertiary transition-colors hover:text-text-primary"
+              className="font-body text-small text-text-tertiary transition-colors hover:text-text-primary max-[768px]:block max-[768px]:text-sm max-[768px]:font-normal max-[768px]:text-[#666666] max-[768px]:py-1 max-[768px]:leading-[1.5]"
             >
               {label}
             </Link>
@@ -116,24 +116,28 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Right: 4-column nav grid */}
-          <div className="grid flex-1 grid-cols-1 items-start gap-4 md:grid-cols-2 xl:grid-cols-4">
-            <NavColumn
-              heading="Products"
-              links={[
-                { href: "/save-plus", label: "Save+" },
-                { href: "/retirement", label: "Retirement" },
-              ]}
-            />
-            <NavColumn
-              heading="Funds"
-              links={[
-                { href: "/micf", label: "MICF" },
-                { href: "/miietf", label: "MIIETF" },
-                { href: "/miirf", label: "MIIRF" },
-              ]}
-            />
-            <div className="flex flex-col gap-4">
+          {/* Right: 5-column nav grid (2 cols on mobile) */}
+          <div className="grid flex-1 grid-cols-2 items-start gap-4 max-[768px]:gap-0 max-[768px]:[&>:nth-child(odd)]:border-r max-[768px]:[&>:nth-child(odd)]:border-[#f0f0f0] md:grid-cols-2 xl:grid-cols-4">
+            <div className="max-[768px]:border-b max-[768px]:border-[#f0f0f0] max-[768px]:pt-5 max-[768px]:pr-4 max-[768px]:pb-5 max-[768px]:pl-0 md:border-0 md:p-0">
+              <NavColumn
+                heading="Products"
+                links={[
+                  { href: "/save-plus", label: "Save+" },
+                  { href: "/retirement", label: "Retirement" },
+                ]}
+              />
+            </div>
+            <div className="max-[768px]:border-b max-[768px]:border-[#f0f0f0] max-[768px]:pt-5 max-[768px]:pr-4 max-[768px]:pb-5 max-[768px]:pl-0 md:border-0 md:p-0">
+              <NavColumn
+                heading="Funds"
+                links={[
+                  { href: "/micf", label: "MICF" },
+                  { href: "/miietf", label: "MIIETF" },
+                  { href: "/miirf", label: "MIIRF" },
+                ]}
+              />
+            </div>
+            <div className="max-[768px]:border-b max-[768px]:border-[#f0f0f0] max-[768px]:pt-5 max-[768px]:pr-4 max-[768px]:pb-5 max-[768px]:pl-0 md:border-0 md:p-0">
               <NavColumn
                 heading="Tools"
                 links={[
@@ -141,6 +145,8 @@ export function Footer() {
                   { href: "/investment-calculator", label: "Savings Calculator" },
                 ]}
               />
+            </div>
+            <div className="max-[768px]:border-b max-[768px]:border-[#f0f0f0] max-[768px]:pt-5 max-[768px]:pr-4 max-[768px]:pb-5 max-[768px]:pl-0 md:border-0 md:p-0">
               <NavColumn
                 heading="Investor Education"
                 links={[
@@ -149,19 +155,21 @@ export function Footer() {
                 ]}
               />
             </div>
-            <NavColumn
-              heading="About"
-              links={[
-                { href: "/about", label: "About" },
-                { href: "/security", label: "Security" },
-                { href: "#", label: "Reviews" },
-                { href: "#", label: "Careers" },
-                { href: "#", label: "Legal" },
-                { href: "#", label: "Investor Relations" },
-                { href: "#", label: "Sitemap" },
-                { href: "#", label: "Back to top" },
-              ]}
-            />
+            <div className="max-[768px]:border-b max-[768px]:border-[#f0f0f0] max-[768px]:pt-5 max-[768px]:pr-4 max-[768px]:pb-5 max-[768px]:pl-0 md:border-0 md:p-0">
+              <NavColumn
+                heading="About"
+                links={[
+                  { href: "/about", label: "About" },
+                  { href: "/security", label: "Security" },
+                  { href: "#", label: "Reviews" },
+                  { href: "#", label: "Careers" },
+                  { href: "#", label: "Legal" },
+                  { href: "#", label: "Investor Relations" },
+                  { href: "#", label: "Sitemap" },
+                  { href: "#", label: "Back to top" },
+                ]}
+              />
+            </div>
           </div>
         </div>
 
