@@ -1,32 +1,15 @@
 "use client";
 
-import {
-  Area,
-  AreaChart,
-  CartesianGrid,
-  XAxis,
-  YAxis,
-} from "recharts";
 import { motion } from "motion/react";
 import { Container } from "@/components/layout/Container";
+import { HighchartsPerformanceChart } from "@/components/ui/HighchartsPerformanceChart";
 import { H2, TextMedium, TextSmall } from "@/components/ui/Typography";
-import {
-  type ChartConfig,
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-} from "@/components/ui/chart";
 import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
 
 const CHART_COLORS = {
   micf: "var(--color-info-200)",
   benchmark: "var(--color-teal-200)",
 } as const;
-
-const chartConfig = {
-  micf: { label: "MICF", color: CHART_COLORS.micf },
-  benchmark: { label: "Benchmark", color: CHART_COLORS.benchmark },
-} satisfies ChartConfig;
 
 const performanceChartData = [
   { date: "Apr 2023", micf: 0, benchmark: 0 },
@@ -91,80 +74,26 @@ export function MICFPerformanceSection() {
               role="img"
               aria-label="Performance chart: MICF and Benchmark cumulative returns from April 2023 to January 2026"
             >
-              <ChartContainer config={chartConfig} className="h-full">
-                <AreaChart
-                  accessibilityLayer
-                  data={performanceChartData}
-                  margin={{ top: 10, right: 12, left: -20, bottom: 8 }}
-                >
-                  <CartesianGrid
-                    strokeDasharray="3 3"
-                    stroke="var(--color-surface-stroke)"
-                    vertical={false}
-                  />
-                  <XAxis
-                    axisLine={false}
-                    dataKey="date"
-                    tickLine={false}
-                    tickMargin={8}
-                    tick={{ fontSize: 12, fill: "var(--color-text-secondary)" }}
-                    tickFormatter={(value) => value}
-                  />
-                  <YAxis
-                    axisLine={false}
-                    tickLine={false}
-                    tickMargin={8}
-                    tickCount={6}
-                    domain={[0, 50]}
-                    tick={{ fontSize: 12, fill: "var(--color-text-secondary)" }}
-                    tickFormatter={(value) => `${value}%`}
-                  />
-                  <ChartTooltip
-                    content={
-                      <ChartTooltipContent
-                        formatter={(value) => `${Number(value).toFixed(2)}%`}
-                      />
-                    }
-                    cursor={false}
-                  />
-                  <Area
-                    type="natural"
-                    dataKey="micf"
-                    fill={CHART_COLORS.micf}
-                    fillOpacity={0.4}
-                    stroke={CHART_COLORS.micf}
-                    strokeWidth={2}
-                  />
-                  <Area
-                    type="natural"
-                    dataKey="benchmark"
-                    fill={CHART_COLORS.benchmark}
-                    fillOpacity={0.4}
-                    stroke={CHART_COLORS.benchmark}
-                    strokeWidth={2}
-                  />
-                </AreaChart>
-              </ChartContainer>
-            </div>
-            <div className="mt-4 flex flex-wrap items-center justify-center gap-4 pl-0 sm:pl-9 lg:pl-12">
-              {(["micf", "benchmark"] as const).map((key) => (
-                <div
-                  key={key}
-                  className="flex items-center gap-2"
-                >
-                  <span
-                    className="h-3.5 w-3.5 shrink-0 rounded"
-                    style={{ backgroundColor: CHART_COLORS[key] }}
-                    aria-hidden
-                  />
-                  <TextMedium
-                    weight="semibold"
-                    className="text-text-primary text-sm"
-                  >
-                    {chartConfig[key].label}
-                  </TextMedium>
-                </div>
-              ))}
+              <HighchartsPerformanceChart
+                title="Performance"
+                subtitle="Cumulative returns. April 2023 to January 2026."
+                categories={performanceChartData.map((d) => d.date)}
+                series={[
+                  {
+                    name: "MICF",
+                    data: performanceChartData.map((d) => d.micf),
+                    color: CHART_COLORS.micf,
+                  },
+                  {
+                    name: "Benchmark",
+                    data: performanceChartData.map((d) => d.benchmark),
+                    color: CHART_COLORS.benchmark,
+                  },
+                ]}
+                ariaLabel="Performance chart: MICF and Benchmark cumulative returns from April 2023 to January 2026"
+                chartType="line"
+                valueSuffix="%"
+              />
             </div>
           </div>
 

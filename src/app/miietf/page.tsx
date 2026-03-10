@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { buildPageMetadata } from "@/lib/metadata";
+import { getFaqByProduct, getFundDocuments } from "@/lib/sanity/fetch";
 import { Cta6Section } from "@/components/sections/Cta6Section";
 import { MIIETFFAQSection } from "@/components/sections/MIIETFFAQSection";
 import { MIIETFHero } from "@/components/sections/MIIETFHero";
@@ -15,7 +16,16 @@ export const metadata: Metadata = buildPageMetadata({
   path: "miietf",
 });
 
-export default function MIIETFPage() {
+export default async function MIIETFPage() {
+  const [faqItems, fundDocs] = await Promise.all([
+    getFaqByProduct("miietf"),
+    getFundDocuments("miietf"),
+  ]);
+  const documents = fundDocs.map((d) => ({
+    title: d.title ?? "",
+    fileUrl: d.fileUrl ?? null,
+    category: d.category ?? "",
+  }));
   return (
     <div className="-mt-[calc(4.5rem+env(safe-area-inset-top,0px))] bg-surface-bg">
       <MIIETFHero />
@@ -23,8 +33,8 @@ export default function MIIETFPage() {
       <MIIETFPerformanceSection />
       <MIIETFPortfolioSection />
       <MIIETFDistributionsSection />
-      <MIIETFFundLiteratureSection />
-      <MIIETFFAQSection />
+      <MIIETFFundLiteratureSection documents={documents} />
+      <MIIETFFAQSection items={faqItems} />
       <Cta6Section />
     </div>
   );

@@ -43,8 +43,40 @@ function ArrowUpRightIcon({ className }: { className?: string }) {
   );
 }
 
-export function MICFFundLiteratureSection() {
+export function MICFFundLiteratureSection({
+  documents,
+}: {
+  documents?: { title: string; fileUrl: string | null; category: string }[];
+}) {
   const [activeTab, setActiveTab] = useState<TabId>("general");
+
+  const byCategory: Record<TabId, { title: string; href: string }[]> = {
+    general: GENERAL_DOCUMENTS.map((d) => ({ title: d.title, href: d.href })),
+    "fund-manager-reports": [],
+    "shariah-compliance": [],
+    "financial-statements": [],
+  };
+  if (documents?.length) {
+    const catMap: Record<TabId, { title: string; href: string }[]> = {
+      general: [],
+      "fund-manager-reports": [],
+      "shariah-compliance": [],
+      "financial-statements": [],
+    };
+    documents.forEach((d) => {
+      if (d.category in catMap && d.title) {
+        catMap[d.category as TabId].push({
+          title: d.title,
+          href: d.fileUrl ?? "#",
+        });
+      }
+    });
+    FUND_LITERATURE_TABS.forEach((tab) => {
+      if (catMap[tab.id].length) byCategory[tab.id] = catMap[tab.id];
+    });
+  }
+  const tabDocs = byCategory[activeTab];
+  const hasDocs = tabDocs.length > 0;
 
   return (
     <motion.section
@@ -90,16 +122,16 @@ export function MICFFundLiteratureSection() {
             ))}
           </div>
 
-          {/* Document list — General tab content */}
+          {/* Document list — per tab */}
           {activeTab === "general" && (
             <div className="overflow-x-auto rounded-2xl border border-surface-stroke bg-white">
               <div className="min-w-0 w-full">
-                {GENERAL_DOCUMENTS.map((doc, index) => (
+                {byCategory.general.map((doc, index) => (
                   <div
-                    key={doc.title}
+                    key={doc.title + index}
                     className={cx(
                       "flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between px-4 py-5 sm:px-6",
-                      index < GENERAL_DOCUMENTS.length - 1 &&
+                      index < byCategory.general.length - 1 &&
                         "border-b border-surface-stroke"
                     )}
                   >
@@ -121,9 +153,37 @@ export function MICFFundLiteratureSection() {
               </div>
             </div>
           )}
-
-          {/* Placeholder for other tabs — same card layout, empty or future content */}
-          {activeTab !== "general" && (
+          {activeTab !== "general" && hasDocs && (
+            <div className="overflow-x-auto rounded-2xl border border-surface-stroke bg-white">
+              <div className="min-w-0 w-full">
+                {tabDocs.map((doc, index) => (
+                  <div
+                    key={doc.title + index}
+                    className={cx(
+                      "flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between px-4 py-5 sm:px-6",
+                      index < tabDocs.length - 1 &&
+                        "border-b border-surface-stroke"
+                    )}
+                  >
+                    <TextMedium
+                      weight="semibold"
+                      className="text-text-primary text-base"
+                    >
+                      {doc.title}
+                    </TextMedium>
+                    <a
+                      href={doc.href}
+                      className="flex items-center justify-end gap-1 font-body text-base font-semibold text-system-brand hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-system-brand"
+                    >
+                      Download report
+                      <ArrowUpRightIcon className="h-6 w-6 shrink-0 text-system-brand" />
+                    </a>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+          {activeTab !== "general" && !hasDocs && (
             <div className="overflow-x-auto rounded-2xl border border-surface-stroke bg-white px-4 py-8 sm:px-6 text-center">
               <TextMedium weight="medium" className="text-text-tertiary">
                 No documents in this category yet.

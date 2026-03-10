@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { buildPageMetadata } from "@/lib/metadata";
+import { getFaqByProduct, getFundDocuments } from "@/lib/sanity/fetch";
 import { Cta6Section } from "@/components/sections/Cta6Section";
 import { MICFFAQSection } from "@/components/sections/MICFFAQSection";
 import { MICFHero } from "@/components/sections/MICFHero";
@@ -15,7 +16,16 @@ export const metadata: Metadata = buildPageMetadata({
   path: "micf",
 });
 
-export default function MICFPage() {
+export default async function MICFPage() {
+  const [faqItems, fundDocs] = await Promise.all([
+    getFaqByProduct("micf"),
+    getFundDocuments("micf"),
+  ]);
+  const documents = fundDocs.map((d) => ({
+    title: d.title ?? "",
+    fileUrl: d.fileUrl ?? null,
+    category: d.category ?? "",
+  }));
   return (
     <div className="-mt-[calc(4.5rem+env(safe-area-inset-top,0px))] bg-surface-bg">
       <MICFHero />
@@ -23,8 +33,8 @@ export default function MICFPage() {
       <MICFPerformanceSection />
       <MICFPortfolioSection />
       <MICFDistributionsSection />
-      <MICFFundLiteratureSection />
-      <MICFFAQSection />
+      <MICFFundLiteratureSection documents={documents} />
+      <MICFFAQSection items={faqItems} />
       <Cta6Section />
     </div>
   );

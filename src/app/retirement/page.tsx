@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { buildPageMetadata } from "@/lib/metadata";
+import { getFaqByProduct } from "@/lib/sanity/fetch";
 import { BenefitsSection } from "@/components/sections/BenefitsSection";
 import { Cta6Section } from "@/components/sections/Cta6Section";
 import { FAQSection } from "@/components/sections/FAQSection";
@@ -14,13 +15,14 @@ export const metadata: Metadata = buildPageMetadata({
   path: "retirement",
 });
 
-export default function RetirementPage() {
+export default async function RetirementPage() {
+  const faqItems = await getFaqByProduct("retirement");
   return (
     <div className="-mt-[calc(4.5rem+env(safe-area-inset-top,0px))] bg-surface-bg">
       <RetirementHero />
       <WhyRetirementSection />
       <BenefitsSection cards={retirementBenefitsCards} />
-      <FAQSection />
+      <FAQSection items={faqItems} />
       <Cta6Section />
     </div>
   );

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { buildPageMetadata } from "@/lib/metadata";
+import { getLatestBlogPosts } from "@/lib/sanity/fetch";
 import { BlogSection } from "@/components/sections/BlogSection";
 import { Cta6Section } from "@/components/sections/Cta6Section";
 import { ComplianceSection } from "@/components/sections/ComplianceSection";
@@ -17,7 +18,9 @@ export const metadata: Metadata = buildPageMetadata({
   path: "",
 });
 
-export default function Home() {
+export default async function Home() {
+  const blogPosts = await getLatestBlogPosts();
+
   return (
     <div className="-mt-[calc(4.5rem+env(safe-area-inset-top,0px))] bg-surface-bg">
       <InvestHero />
@@ -27,7 +30,7 @@ export default function Home() {
       <FeaturesSection />
       <TestimonialsSection />
       <ComplianceSection />
-      <BlogSection />
+      <BlogSection posts={blogPosts} />
       <Cta6Section />
     </div>
   );

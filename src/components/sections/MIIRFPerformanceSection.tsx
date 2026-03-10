@@ -1,21 +1,9 @@
 "use client";
 
-import {
-  CartesianGrid,
-  Line,
-  LineChart,
-  XAxis,
-  YAxis,
-} from "recharts";
 import { motion } from "motion/react";
 import { Container } from "@/components/layout/Container";
-import { H2, TextMedium } from "@/components/ui/Typography";
-import {
-  type ChartConfig,
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-} from "@/components/ui/chart";
+import { HighchartsPerformanceChart } from "@/components/ui/HighchartsPerformanceChart";
+import { H2 } from "@/components/ui/Typography";
 import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
 
 const CHART_COLORS = {
@@ -25,16 +13,6 @@ const CHART_COLORS = {
   mediumRisk: "var(--color-warning-200)",
   aggressive: "var(--color-primary-200)",
 } as const;
-
-const chartConfig = {
-  conservative: { label: "Conservative", color: CHART_COLORS.conservative },
-  lowRisk: { label: "Low Risk", color: CHART_COLORS.lowRisk },
-  balanced: { label: "Balanced", color: CHART_COLORS.balanced },
-  mediumRisk: { label: "Medium Risk", color: CHART_COLORS.mediumRisk },
-  aggressive: { label: "Aggressive", color: CHART_COLORS.aggressive },
-} satisfies ChartConfig;
-
-const RISK_PROFILE_KEYS = ["conservative", "lowRisk", "balanced", "mediumRisk", "aggressive"] as const;
 
 const performanceChartData = [
   { date: "Apr 2023", conservative: 0, lowRisk: 0, balanced: 0, mediumRisk: 0, aggressive: 0 },
@@ -74,99 +52,41 @@ export function MIIRFPerformanceSection() {
             role="img"
             aria-label="Performance chart: Conservative, Low Risk, Balanced, Medium Risk, and Aggressive cumulative returns from April 2023 to January 2026"
           >
-            <ChartContainer config={chartConfig} className="h-full">
-              <LineChart
-                accessibilityLayer
-                data={performanceChartData}
-                margin={{ top: 10, right: 12, left: -20, bottom: 8 }}
-              >
-                <CartesianGrid
-                  strokeDasharray="3 3"
-                  stroke="var(--color-surface-stroke)"
-                  vertical={false}
-                />
-                <XAxis
-                  axisLine={false}
-                  dataKey="date"
-                  tickLine={false}
-                  tickMargin={8}
-                  tick={{ fontSize: 12, fill: "var(--color-text-secondary)" }}
-                  tickFormatter={(value) => value}
-                />
-                <YAxis
-                  axisLine={false}
-                  tickLine={false}
-                  tickMargin={8}
-                  tickCount={6}
-                  domain={[0, 50]}
-                  tick={{ fontSize: 12, fill: "var(--color-text-secondary)" }}
-                  tickFormatter={(value) => `${value}%`}
-                />
-                <ChartTooltip
-                  content={
-                    <ChartTooltipContent
-                      formatter={(value) => `${Number(value).toFixed(2)}%`}
-                    />
-                  }
-                  cursor={false}
-                />
-                <Line
-                  type="natural"
-                  dataKey="conservative"
-                  stroke={CHART_COLORS.conservative}
-                  strokeWidth={2}
-                  dot={false}
-                />
-                <Line
-                  type="natural"
-                  dataKey="lowRisk"
-                  stroke={CHART_COLORS.lowRisk}
-                  strokeWidth={2}
-                  dot={false}
-                />
-                <Line
-                  type="natural"
-                  dataKey="balanced"
-                  stroke={CHART_COLORS.balanced}
-                  strokeWidth={2}
-                  dot={false}
-                />
-                <Line
-                  type="natural"
-                  dataKey="mediumRisk"
-                  stroke={CHART_COLORS.mediumRisk}
-                  strokeWidth={2}
-                  dot={false}
-                />
-                <Line
-                  type="natural"
-                  dataKey="aggressive"
-                  stroke={CHART_COLORS.aggressive}
-                  strokeWidth={2}
-                  dot={false}
-                />
-              </LineChart>
-            </ChartContainer>
-          </div>
-          <div className="mt-4 flex flex-wrap items-center justify-center gap-4 pl-0 sm:pl-9 lg:pl-12">
-            {RISK_PROFILE_KEYS.map((key) => (
-              <div
-                key={key}
-                className="flex items-center gap-2"
-              >
-                <span
-                  className="h-3.5 w-3.5 shrink-0 rounded"
-                  style={{ backgroundColor: CHART_COLORS[key] }}
-                  aria-hidden
-                />
-                <TextMedium
-                  weight="semibold"
-                  className="text-text-primary text-sm"
-                >
-                  {chartConfig[key].label}
-                </TextMedium>
-              </div>
-            ))}
+            <HighchartsPerformanceChart
+              title="Performance"
+              subtitle="Cumulative returns by risk profile. April 2023 to January 2026."
+              categories={performanceChartData.map((d) => d.date)}
+              series={[
+                {
+                  name: "Conservative",
+                  data: performanceChartData.map((d) => d.conservative),
+                  color: CHART_COLORS.conservative,
+                },
+                {
+                  name: "Low Risk",
+                  data: performanceChartData.map((d) => d.lowRisk),
+                  color: CHART_COLORS.lowRisk,
+                },
+                {
+                  name: "Balanced",
+                  data: performanceChartData.map((d) => d.balanced),
+                  color: CHART_COLORS.balanced,
+                },
+                {
+                  name: "Medium Risk",
+                  data: performanceChartData.map((d) => d.mediumRisk),
+                  color: CHART_COLORS.mediumRisk,
+                },
+                {
+                  name: "Aggressive",
+                  data: performanceChartData.map((d) => d.aggressive),
+                  color: CHART_COLORS.aggressive,
+                },
+              ]}
+              ariaLabel="Performance chart: Conservative, Low Risk, Balanced, Medium Risk, and Aggressive cumulative returns from April 2023 to January 2026"
+              chartType="line"
+              valueSuffix="%"
+            />
           </div>
         </div>
       </Container>

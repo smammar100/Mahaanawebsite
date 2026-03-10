@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { buildPageMetadata } from "@/lib/metadata";
+import { getFaqByProduct } from "@/lib/sanity/fetch";
 import { BenefitsSection } from "@/components/sections/BenefitsSection";
 import { Cta6Section } from "@/components/sections/Cta6Section";
 import { FAQSavePlusSection } from "@/components/sections/FAQSavePlusSection";
@@ -14,13 +15,14 @@ export const metadata: Metadata = buildPageMetadata({
   path: "save-plus",
 });
 
-export default function SavePlusPage() {
+export default async function SavePlusPage() {
+  const faqItems = await getFaqByProduct("save-plus");
   return (
     <div className="-mt-[calc(4.5rem+env(safe-area-inset-top,0px))] bg-surface-bg">
       <SavePlusHero />
       <WhySavePlusSection />
       <BenefitsSection cards={savePlusBenefitsCards} />
-      <FAQSavePlusSection />
+      <FAQSavePlusSection items={faqItems} />
       <Cta6Section />
     </div>
   );

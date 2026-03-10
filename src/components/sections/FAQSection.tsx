@@ -66,7 +66,13 @@ const FAQ_ITEMS: { question: string; answer: string }[] = [
   },
 ];
 
-export function FAQSection() {
+export function FAQSection({
+  items,
+}: {
+  /** FAQ items from Sanity; falls back to hardcoded list when empty or undefined. */
+  items?: { question: string; answer: string }[];
+}) {
+  const list = items?.length ? items : FAQ_ITEMS;
   return (
     <motion.section
       initial="hidden"
@@ -111,7 +117,7 @@ export function FAQSection() {
           {/* Right column: FAQ accordion */}
           <div className="min-w-0 flex-1 lg:max-w-[480px]">
             <div className="divide-y divide-surface-stroke">
-              {FAQ_ITEMS.map((item, index) => (
+              {list.map((item, index) => (
                 <details
                   key={index}
                   className="group py-4 first:pt-0 last:pb-0"

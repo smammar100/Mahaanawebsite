@@ -19,7 +19,7 @@ interface BlogPost {
   href: string;
 }
 
-const BLOG_POSTS: BlogPost[] = [
+const BLOG_POSTS_FALLBACK: BlogPost[] = [
   {
     title: "How to build a successful brand and business online in 2024",
     excerpt:
@@ -54,9 +54,12 @@ const BLOG_POSTS: BlogPost[] = [
 
 interface BlogSectionProps {
   className?: string;
+  /** Posts from Sanity; falls back to hardcoded list when empty or undefined. */
+  posts?: BlogPost[];
 }
 
-export function BlogSection({ className }: BlogSectionProps) {
+export function BlogSection({ className, posts }: BlogSectionProps) {
+  const list = posts?.length ? posts : BLOG_POSTS_FALLBACK;
   return (
     <motion.section
       initial="hidden"
@@ -84,14 +87,14 @@ export function BlogSection({ className }: BlogSectionProps) {
             Explore our blog for insightful articles, personal reflections and ideas that inspire
             action on the topics you care about.
           </TextRegular>
-          <Button href="#" color="secondary" size="md" iconTrailing={ArrowRight} className="mt-6 w-fit">
+            <Button href="/investor-education" color="secondary" size="md" iconTrailing={ArrowRight} className="mt-6 w-fit">
             View All Blogs
           </Button>
         </div>
 
         {/* Cards grid */}
         <div className="grid gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {BLOG_POSTS.map((post, index) => (
+          {list.map((post, index) => (
             <a
               key={index}
               href={post.href}

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { buildPageMetadata } from "@/lib/metadata";
+import { getFaqByProduct, getFundDocuments } from "@/lib/sanity/fetch";
 import { Cta6Section } from "@/components/sections/Cta6Section";
 import { MIIRFFAQSection } from "@/components/sections/MIIRFFAQSection";
 import { MIIRFHero } from "@/components/sections/MIIRFHero";
@@ -14,15 +15,24 @@ export const metadata: Metadata = buildPageMetadata({
   path: "miirf",
 });
 
-export default function MIIRFPage() {
+export default async function MIIRFPage() {
+  const [faqItems, fundDocs] = await Promise.all([
+    getFaqByProduct("miirf"),
+    getFundDocuments("miirf"),
+  ]);
+  const documents = fundDocs.map((d) => ({
+    title: d.title ?? "",
+    fileUrl: d.fileUrl ?? null,
+    category: d.category ?? "",
+  }));
   return (
     <div className="-mt-[calc(4.5rem+env(safe-area-inset-top,0px))] bg-surface-bg">
       <MIIRFHero />
       <MIIRFOverviewSection />
       <MIIRFSubfundsSection />
       <MIIRFPerformanceSection />
-      <MIIRFFundLiteratureSection />
-      <MIIRFFAQSection />
+      <MIIRFFundLiteratureSection documents={documents} />
+      <MIIRFFAQSection items={faqItems} />
       <Cta6Section />
     </div>
   );

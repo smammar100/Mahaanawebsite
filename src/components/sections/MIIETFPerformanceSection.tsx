@@ -1,21 +1,9 @@
 "use client";
 
-import {
-  Area,
-  AreaChart,
-  CartesianGrid,
-  XAxis,
-  YAxis,
-} from "recharts";
 import { motion } from "motion/react";
 import { Container } from "@/components/layout/Container";
+import { HighchartsPerformanceChart } from "@/components/ui/HighchartsPerformanceChart";
 import { H2, TextMedium, TextSmall } from "@/components/ui/Typography";
-import {
-  type ChartConfig,
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-} from "@/components/ui/chart";
 import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
 
 const CHART_COLORS = {
@@ -23,12 +11,6 @@ const CHART_COLORS = {
   benchmark: "var(--color-teal-200)",
   km130: "var(--color-error-200)",
 } as const;
-
-const chartConfig = {
-  miietf: { label: "MIIETF", color: CHART_COLORS.miietf },
-  benchmark: { label: "Benchmark", color: CHART_COLORS.benchmark },
-  km130: { label: "KM130", color: CHART_COLORS.km130 },
-} satisfies ChartConfig;
 
 const performanceChartData = [
   { date: "Apr 2023", miietf: 0, benchmark: 0, km130: 0 },
@@ -103,88 +85,31 @@ export function MIIETFPerformanceSection() {
               role="img"
               aria-label="Performance chart: MIIETF, Benchmark, and KM130 cumulative returns from April 2023 to January 2026"
             >
-              <ChartContainer config={chartConfig} className="h-full">
-                <AreaChart
-                  accessibilityLayer
-                  data={performanceChartData}
-                  margin={{ top: 10, right: 12, left: -20, bottom: 8 }}
-                >
-                  <CartesianGrid
-                    strokeDasharray="3 3"
-                    stroke="var(--color-surface-stroke)"
-                    vertical={false}
-                  />
-                  <XAxis
-                    axisLine={false}
-                    dataKey="date"
-                    tickLine={false}
-                    tickMargin={8}
-                    tick={{ fontSize: 12, fill: "var(--color-text-secondary)" }}
-                    tickFormatter={(value) => value}
-                  />
-                  <YAxis
-                    axisLine={false}
-                    tickLine={false}
-                    tickMargin={8}
-                    tickCount={6}
-                    domain={[0, 50]}
-                    tick={{ fontSize: 12, fill: "var(--color-text-secondary)" }}
-                    tickFormatter={(value) => `${value}%`}
-                  />
-                  <ChartTooltip
-                    content={
-                      <ChartTooltipContent
-                        formatter={(value) => `${Number(value).toFixed(2)}%`}
-                      />
-                    }
-                    cursor={false}
-                  />
-                  <Area
-                    type="natural"
-                    dataKey="miietf"
-                    fill={CHART_COLORS.miietf}
-                    fillOpacity={0.4}
-                    stroke={CHART_COLORS.miietf}
-                    strokeWidth={2}
-                  />
-                  <Area
-                    type="natural"
-                    dataKey="benchmark"
-                    fill={CHART_COLORS.benchmark}
-                    fillOpacity={0.4}
-                    stroke={CHART_COLORS.benchmark}
-                    strokeWidth={2}
-                  />
-                  <Area
-                    type="natural"
-                    dataKey="km130"
-                    fill={CHART_COLORS.km130}
-                    fillOpacity={0.4}
-                    stroke={CHART_COLORS.km130}
-                    strokeWidth={2}
-                  />
-                </AreaChart>
-              </ChartContainer>
-            </div>
-            <div className="mt-4 flex flex-wrap items-center justify-center gap-4 pl-0 sm:pl-9 lg:pl-12">
-              {(["miietf", "benchmark", "km130"] as const).map((key) => (
-                <div
-                  key={key}
-                  className="flex items-center gap-2"
-                >
-                  <span
-                    className="h-3.5 w-3.5 shrink-0 rounded"
-                    style={{ backgroundColor: CHART_COLORS[key] }}
-                    aria-hidden
-                  />
-                  <TextMedium
-                    weight="semibold"
-                    className="text-text-primary text-sm"
-                  >
-                    {chartConfig[key].label}
-                  </TextMedium>
-                </div>
-              ))}
+              <HighchartsPerformanceChart
+                title="Performance"
+                subtitle="Cumulative returns. April 2023 to January 2026."
+                categories={performanceChartData.map((d) => d.date)}
+                series={[
+                  {
+                    name: "MIIETF",
+                    data: performanceChartData.map((d) => d.miietf),
+                    color: CHART_COLORS.miietf,
+                  },
+                  {
+                    name: "Benchmark",
+                    data: performanceChartData.map((d) => d.benchmark),
+                    color: CHART_COLORS.benchmark,
+                  },
+                  {
+                    name: "KM130",
+                    data: performanceChartData.map((d) => d.km130),
+                    color: CHART_COLORS.km130,
+                  },
+                ]}
+                ariaLabel="Performance chart: MIIETF, Benchmark, and KM130 cumulative returns from April 2023 to January 2026"
+                chartType="line"
+                valueSuffix="%"
+              />
             </div>
           </div>
 
