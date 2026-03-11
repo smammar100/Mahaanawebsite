@@ -16,6 +16,12 @@ export const metadata: Metadata = buildPageMetadata({
   path: "miietf",
 });
 
+/** Always fetch fresh fund documents from Sanity (no static cache). */
+export const revalidate = 0;
+
+/** Force server render on every request so fund documents are never stale. */
+export const dynamic = "force-dynamic";
+
 export default async function MIIETFPage() {
   const [faqItems, fundDocs] = await Promise.all([
     getFaqByProduct("miietf"),
@@ -25,6 +31,7 @@ export default async function MIIETFPage() {
     title: d.title ?? "",
     fileUrl: d.fileUrl ?? null,
     category: d.category ?? "",
+    publishDate: d.publishDate ?? null,
   }));
   return (
     <div className="-mt-[calc(4.5rem+env(safe-area-inset-top,0px))] bg-surface-bg">

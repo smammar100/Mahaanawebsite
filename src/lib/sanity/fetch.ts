@@ -125,6 +125,7 @@ export interface FundDocumentForSection {
   title: string;
   fileUrl: string | null;
   category: string;
+  publishDate: string | null;
 }
 
 /** Fetch fund documents for a fund (MICF, MIIETF, MIIRF), ordered by publishDate desc. */
@@ -139,12 +140,25 @@ export async function getFundDocuments(
       fund,
     })) as SanityFundDocument[] | null;
     if (!Array.isArray(raw)) return [];
-    return raw.map((d) => ({
+    const result = raw.map((d) => ({
       title: d.title ?? "",
       fileUrl: d.fileUrl ?? null,
       category: d.category ?? "",
+      publishDate: d.publishDate ?? null,
     }));
-  } catch {
+    if (process.env.NODE_ENV === "development" && result.length === 0) {
+      console.warn(
+        `getFundDocuments("${fund}"): no documents returned. Check NEXT_PUBLIC_SANITY_PROJECT_ID, NEXT_PUBLIC_SANITY_DATASET, and SANITY_API_READ_TOKEN (if dataset is private).`
+      );
+    }
+    if (process.env.NODE_ENV === "development" && result.length > 0) {
+      console.log(`getFundDocuments("${fund}"): ${result.length} document(s) returned.`);
+    }
+    return result;
+  } catch (e) {
+    if (process.env.NODE_ENV === "development") {
+      console.error("getFundDocuments failed:", e);
+    }
     return [];
   }
 }

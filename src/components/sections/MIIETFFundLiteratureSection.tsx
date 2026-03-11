@@ -24,9 +24,18 @@ const GENERAL_DOCUMENTS = [
 const FALLBACK_DOCUMENTS: Record<TabId, { title: string; href: string }[]> = {
   general: GENERAL_DOCUMENTS.map((d) => ({ title: d.title, href: d.href })),
   "fund-manager-reports": [],
-  "shariah-compliance": [],
-  "financial-statements": [],
+  "shariah-compliance": [
+    { title: "Shariah compliance report", href: "#" },
+  ],
+  "financial-statements": [
+    { title: "Annual financial statements", href: "#" },
+  ],
 };
+
+const isDocumentUrl = (href: string) => /^https?:\/\//i.test(href);
+
+const downloadReportClassName =
+  "flex items-center justify-end gap-1 font-body text-base font-semibold text-system-brand hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-system-brand";
 
 function ArrowUpRightIcon({ className }: { className?: string }) {
   return (
@@ -53,11 +62,17 @@ function ArrowUpRightIcon({ className }: { className?: string }) {
 export function MIIETFFundLiteratureSection({
   documents,
 }: {
-  documents?: { title: string; fileUrl: string | null; category: string }[];
+  documents?: {
+    title: string;
+    fileUrl: string | null;
+    category: string;
+    publishDate?: string | null;
+  }[];
 }) {
   const [activeTab, setActiveTab] = useState<TabId>("general");
 
-  const sanityByCategory: Record<TabId, { title: string; href: string }[]> = {
+  type DocEntry = { title: string; href: string; publishDate?: string | null };
+  const sanityByCategory: Record<TabId, DocEntry[]> = {
     general: [],
     "fund-manager-reports": [],
     "shariah-compliance": [],
@@ -69,18 +84,22 @@ export function MIIETFFundLiteratureSection({
         sanityByCategory[d.category as TabId].push({
           title: d.title,
           href: d.fileUrl ?? "#",
+          publishDate: d.publishDate ?? null,
         });
       }
     });
   }
+  const fundManagerReportsSorted = [...sanityByCategory["fund-manager-reports"]].sort(
+    (a, b) => (b.publishDate ?? "").localeCompare(a.publishDate ?? "")
+  );
   const byCategory: Record<TabId, { title: string; href: string }[]> = {
     general:
       sanityByCategory.general.length > 0
         ? sanityByCategory.general
         : FALLBACK_DOCUMENTS.general,
     "fund-manager-reports":
-      sanityByCategory["fund-manager-reports"].length > 0
-        ? sanityByCategory["fund-manager-reports"]
+      fundManagerReportsSorted.length > 0
+        ? fundManagerReportsSorted
         : FALLBACK_DOCUMENTS["fund-manager-reports"],
     "shariah-compliance":
       sanityByCategory["shariah-compliance"].length > 0
@@ -157,15 +176,22 @@ export function MIIETFFundLiteratureSection({
                     >
                       {doc.title}
                     </TextMedium>
-                    <a
-                      href={doc.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center justify-end gap-1 font-body text-base font-semibold text-system-brand hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-system-brand"
-                    >
-                      Download report
-                      <ArrowUpRightIcon className="h-6 w-6 shrink-0 text-system-brand" />
-                    </a>
+                    {isDocumentUrl(doc.href) ? (
+                      <a
+                        href={doc.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={downloadReportClassName}
+                      >
+                        Download report
+                        <ArrowUpRightIcon className="h-6 w-6 shrink-0 text-system-brand" />
+                      </a>
+                    ) : (
+                      <span className={downloadReportClassName}>
+                        Download report
+                        <ArrowUpRightIcon className="h-6 w-6 shrink-0 text-system-brand" />
+                      </span>
+                    )}
                   </div>
                 ))}
               </div>
@@ -189,15 +215,22 @@ export function MIIETFFundLiteratureSection({
                     >
                       {doc.title}
                     </TextMedium>
-                    <a
-                      href={doc.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center justify-end gap-1 font-body text-base font-semibold text-system-brand hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-system-brand"
-                    >
-                      Download report
-                      <ArrowUpRightIcon className="h-6 w-6 shrink-0 text-system-brand" />
-                    </a>
+                    {isDocumentUrl(doc.href) ? (
+                      <a
+                        href={doc.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={downloadReportClassName}
+                      >
+                        Download report
+                        <ArrowUpRightIcon className="h-6 w-6 shrink-0 text-system-brand" />
+                      </a>
+                    ) : (
+                      <span className={downloadReportClassName}>
+                        Download report
+                        <ArrowUpRightIcon className="h-6 w-6 shrink-0 text-system-brand" />
+                      </span>
+                    )}
                   </div>
                 ))}
               </div>

@@ -9,7 +9,6 @@ import { cx } from "@/utils/cx";
 
 const FUND_LITERATURE_TABS = [
   { id: "general", label: "General" },
-  { id: "fund-manager-reports", label: "Fund manager reports" },
   { id: "shariah-compliance", label: "Shariah compliance" },
   { id: "financial-statements", label: "Financial statements" },
 ] as const;
@@ -23,10 +22,14 @@ const GENERAL_DOCUMENTS = [
 
 const FALLBACK_DOCUMENTS: Record<TabId, { title: string; href: string }[]> = {
   general: GENERAL_DOCUMENTS.map((d) => ({ title: d.title, href: d.href })),
-  "fund-manager-reports": [],
   "shariah-compliance": [],
   "financial-statements": [],
 };
+
+const isDocumentUrl = (href: string) => /^https?:\/\//i.test(href);
+
+const downloadReportClassName =
+  "flex items-center justify-end gap-1 font-body text-base font-semibold text-system-brand hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-system-brand";
 
 function ArrowUpRightIcon({ className }: { className?: string }) {
   return (
@@ -59,7 +62,6 @@ export function MICFFundLiteratureSection({
 
   const sanityByCategory: Record<TabId, { title: string; href: string }[]> = {
     general: [],
-    "fund-manager-reports": [],
     "shariah-compliance": [],
     "financial-statements": [],
   };
@@ -78,10 +80,6 @@ export function MICFFundLiteratureSection({
       sanityByCategory.general.length > 0
         ? sanityByCategory.general
         : FALLBACK_DOCUMENTS.general,
-    "fund-manager-reports":
-      sanityByCategory["fund-manager-reports"].length > 0
-        ? sanityByCategory["fund-manager-reports"]
-        : FALLBACK_DOCUMENTS["fund-manager-reports"],
     "shariah-compliance":
       sanityByCategory["shariah-compliance"].length > 0
         ? sanityByCategory["shariah-compliance"]
@@ -157,15 +155,22 @@ export function MICFFundLiteratureSection({
                     >
                       {doc.title}
                     </TextMedium>
-                    <a
-                      href={doc.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center justify-end gap-1 font-body text-base font-semibold text-system-brand hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-system-brand"
-                    >
-                      Download report
-                      <ArrowUpRightIcon className="h-6 w-6 shrink-0 text-system-brand" />
-                    </a>
+                    {isDocumentUrl(doc.href) ? (
+                      <a
+                        href={doc.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={downloadReportClassName}
+                      >
+                        Download report
+                        <ArrowUpRightIcon className="h-6 w-6 shrink-0 text-system-brand" />
+                      </a>
+                    ) : (
+                      <span className={downloadReportClassName}>
+                        Download report
+                        <ArrowUpRightIcon className="h-6 w-6 shrink-0 text-system-brand" />
+                      </span>
+                    )}
                   </div>
                 ))}
               </div>
@@ -189,15 +194,22 @@ export function MICFFundLiteratureSection({
                     >
                       {doc.title}
                     </TextMedium>
-                    <a
-                      href={doc.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center justify-end gap-1 font-body text-base font-semibold text-system-brand hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-system-brand"
-                    >
-                      Download report
-                      <ArrowUpRightIcon className="h-6 w-6 shrink-0 text-system-brand" />
-                    </a>
+                    {isDocumentUrl(doc.href) ? (
+                      <a
+                        href={doc.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={downloadReportClassName}
+                      >
+                        Download report
+                        <ArrowUpRightIcon className="h-6 w-6 shrink-0 text-system-brand" />
+                      </a>
+                    ) : (
+                      <span className={downloadReportClassName}>
+                        Download report
+                        <ArrowUpRightIcon className="h-6 w-6 shrink-0 text-system-brand" />
+                      </span>
+                    )}
                   </div>
                 ))}
               </div>

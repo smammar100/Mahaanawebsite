@@ -50,6 +50,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "@types/three": "^0.183.1",
+    "adm-zip": "^0.5.16",
     "csv-parse": "^6.1.0",
     "dotenv": "^17.3.1",
     "eslint": "^9",
