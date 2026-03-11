@@ -15,7 +15,7 @@ const features = [
     title: "Answer few questions",
     description:
       "Fill out your details in less than 10 mins and get onboarded",
-    image: "/images/invest/Step 1.png",
+    image: "/images/invest/Step%201.webp",
     imageOrder: "order-1",
     contentOrder: "order-2",
     href: "#open-account",
@@ -25,7 +25,7 @@ const features = [
     title: "Fund your account",
     description:
       "Invest as low as PKR5,000 to open your Mahaana account.",
-    image: "/images/invest/Step 2.png",
+    image: "/images/invest/Step%202.webp",
     imageOrder: "order-2",
     contentOrder: "order-1",
     href: "#open-account",
@@ -35,7 +35,7 @@ const features = [
     title: "Watch your savings grow",
     description:
       "Watch your investments work for you while we do the heavy lifting",
-    image: "/images/invest/Step 3.png",
+    image: "/images/invest/Step%203.webp",
     imageOrder: "order-1",
     contentOrder: "order-2",
     href: "#open-account",

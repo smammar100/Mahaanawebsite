@@ -21,9 +21,9 @@ interface CallToAction1Props {
 }
 
 const defaultAvatars = [
-  "/images/testimonials/avatar-1.jpg",
-  "/images/testimonials/avatar-2.jpg",
-  "/images/testimonials/avatar-3.jpg",
+  "/images/testimonials/avatar-1.webp",
+  "/images/testimonials/avatar-2.webp",
+  "/images/testimonials/avatar-3.webp",
 ];
 
 export function CallToAction1({

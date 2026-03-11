@@ -245,3 +245,18 @@
   background-size: 200% 100%;
   animation: gradient-shimmer 2.5s ease-in-out infinite;
 }
+
+/* Lighthouse: CSS-only entrance animation (replaces motion/framer-motion for simple fade-in-up) */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-fadeInUp {
+  animation: fadeInUp 0.6s ease-out forwards;
+}

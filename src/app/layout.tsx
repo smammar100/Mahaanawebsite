@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     siteName: "Mahaana",
     images: [
       {
-        url: "/images/invest/hero-bg.jpg",
+        url: "/images/invest/hero-bg.webp",
         width: 1200,
         height: 630,
         alt: "Mahaana Investment Platform",

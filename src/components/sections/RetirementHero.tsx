@@ -22,7 +22,7 @@ export function RetirementHero() {
     >
       {/* Background image */}
       <Image
-        src="/images/invest/Retirement.png"
+        src="/images/invest/Retirement.webp"
         alt="Person planning retirement with Mahaana"
         fill
         priority

@@ -8,6 +8,8 @@ const nextConfig: NextConfig = {
       "lucide-react",
       "react-icons",
       "@heroicons/react",
+      "motion",
+      "@radix-ui/react-icons",
     ],
   },
   images: {

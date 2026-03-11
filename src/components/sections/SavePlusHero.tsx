@@ -22,7 +22,7 @@ export function SavePlusHero() {
     >
       {/* Background image */}
       <Image
-        src="/images/invest/Save+.png"
+        src="/images/invest/Save+.webp"
         alt="Mahaana Save+ savings and growth"
         fill
         priority

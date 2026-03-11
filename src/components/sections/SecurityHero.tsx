@@ -96,7 +96,7 @@ export function SecurityHero() {
           {/* Right column: visual — equal width on desktop */}
           <div className="relative flex min-h-[280px] min-w-0 flex-1 items-center justify-center overflow-hidden rounded-2xl bg-[#fafafa] p-6 sm:min-h-[320px] sm:p-8 lg:h-fit lg:min-h-0 lg:w-fit lg:flex-none lg:p-10">
             <Image
-              src="/images/invest/Card.png"
+              src="/images/invest/Card.webp"
               alt="Security card illustration"
               width={426}
               height={400}

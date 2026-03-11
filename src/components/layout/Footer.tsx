@@ -224,7 +224,7 @@ export function Footer() {
         {/* SECP banner */}
         <div className="pb-6 sm:pb-8">
           <Image
-            src="/images/invest/SECP%20banner.jpg"
+            src="/images/invest/SECP%20banner.webp"
             alt="SECP regulatory banner"
             width={1100}
             height={120}

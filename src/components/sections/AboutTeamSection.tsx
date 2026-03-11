@@ -11,19 +11,19 @@ const TEAM = [
   {
     name: "Muhammad Shamoon Tariq",
     title: "CFA, FDP Chief Executive Officer & Founder",
-    image: "/images/invest/Shamoon.png",
+    image: "/images/invest/Shamoon.webp",
     linkedinUrl: undefined as string | undefined,
   },
   {
     name: "Mubashir Zuberi",
     title: "CFA Chief Investment Officer",
-    image: "/images/invest/Mubashir.png",
+    image: "/images/invest/Mubashir.webp",
     linkedinUrl: undefined as string | undefined,
   },
   {
     name: "Zeeshan Shabbir Abbasi",
     title: "BSc Chief Technology Officer",
-    image: "/images/invest/Zeeshan.png",
+    image: "/images/invest/Zeeshan.webp",
     linkedinUrl: undefined as string | undefined,
   },
 ];

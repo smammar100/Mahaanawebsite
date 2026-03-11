@@ -13,7 +13,7 @@ export function InvestHero() {
     >
       {/* Background image */}
       <Image
-        src="/images/invest/hero-bg.jpg"
+        src="/images/invest/hero-bg.webp"
         alt="Person enjoying a meal while managing investments on their phone"
         fill
         priority

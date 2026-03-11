@@ -78,7 +78,7 @@ export function MIIRFHero() {
               </p>
               <div className="relative h-12 w-[108px] shrink-0">
                 <img
-                  src="/images/invest/IGI%20Life%20Logo.png"
+                  src="/images/invest/IGI%20Life%20Logo.webp"
                   alt="IGI Life and Vitality partner logos"
                   className="h-full w-full object-contain object-left"
                 />

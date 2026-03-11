@@ -11,7 +11,7 @@ export const retirementBenefitsCards: BenefitsCardItem[] = [
       "Build a solid financial foundation for retirement",
     ],
     hasRiskButtons: false,
-    image: "/images/invest/A.png",
+    image: "/images/invest/A.webp",
   },
   {
     label: "RETIREMENT, SIMPLIFIED",
@@ -23,7 +23,7 @@ export const retirementBenefitsCards: BenefitsCardItem[] = [
       "Steady growth toward the retirement you deserve",
     ],
     hasRiskButtons: false,
-    image: "/images/invest/B.png",
+    image: "/images/invest/B.webp",
   },
   {
     label: "PLACEHOLDER",
@@ -31,7 +31,7 @@ export const retirementBenefitsCards: BenefitsCardItem[] = [
     body: "Mahaana Wealth partners with IGI Life Insurance to bring you a comprehensive retirement solution that combines expert investment management with trusted insurance protection.",
     items: ["Benefit one", "Benefit two", "Benefit three"],
     hasRiskButtons: false,
-    image: "/images/invest/C.png",
+    image: "/images/invest/C.webp",
   },
   {
     label: "PLACEHOLDER",

@@ -12,17 +12,17 @@ const NEWS_ITEMS = [
   {
     title: "PSX formally marks listing of Mahaana Islamic Index ETF in gong ceremony",
     href: "/investor-education",
-    image: "/images/invest/hero-bg.jpg",
+    image: "/images/invest/hero-bg.webp",
   },
   {
     title: "PACRA Assigns Initial Stability Rating to Mahaana Islamic Cash Fund",
     href: "/investor-education",
-    image: "/images/invest/hero-bg.jpg",
+    image: "/images/invest/hero-bg.webp",
   },
   {
     title: "PSX lists Mahaana Islamic Index Exchange Traded Fund (MIIETF)",
     href: "/investor-education",
-    image: "/images/invest/hero-bg.jpg",
+    image: "/images/invest/hero-bg.webp",
   },
 ];
 

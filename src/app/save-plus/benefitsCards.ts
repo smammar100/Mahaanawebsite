@@ -11,7 +11,7 @@ export const savePlusBenefitsCards: BenefitsCardItem[] = [
       "Build a solid financial foundation for retirement",
     ],
     hasRiskButtons: false,
-    image: "/images/invest/D.png",
+    image: "/images/invest/D.webp",
   },
   {
     label: "RETIREMENT, SIMPLIFIED",
@@ -23,6 +23,6 @@ export const savePlusBenefitsCards: BenefitsCardItem[] = [
       "Steady growth toward the retirement you deserve",
     ],
     hasRiskButtons: false,
-    image: "/images/invest/E.png",
+    image: "/images/invest/E.webp",
   },
 ];

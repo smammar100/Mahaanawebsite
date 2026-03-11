@@ -1,10 +1,10 @@
 import { Container } from "@/components/layout/Container";
 
 const LOGOS = [
-  { src: "/images/invest/VEF%20logo.png", alt: "VEF" },
+  { src: "/images/invest/VEF%20logo.webp", alt: "VEF" },
   { src: "/images/invest/y-combinator-seeklogo.webp", alt: "Y Combinator" },
-  { src: "/images/invest/Sparklabs%20logo.png", alt: "SparkLabs" },
-  { src: "/images/invest/IGI%20Life%20Logo.png", alt: "IGI Life and Vitality" },
+  { src: "/images/invest/Sparklabs%20logo.webp", alt: "SparkLabs" },
+  { src: "/images/invest/IGI%20Life%20Logo.webp", alt: "IGI Life and Vitality" },
 ];
 
 export function LogoStrip() {

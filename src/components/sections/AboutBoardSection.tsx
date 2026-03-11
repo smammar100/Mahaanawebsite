@@ -11,25 +11,25 @@ const BOARD = [
   {
     name: "David Nangle",
     title: "CEO, Vostok Emerging Finance, Sweden",
-    image: "/images/invest/David.png",
+    image: "/images/invest/David.webp",
     linkedinUrl: undefined as string | undefined,
   },
   {
     name: "Osman Nasir",
     title: "Ex-CEO, Pakistan Software Export Board (PSEB)",
-    image: "/images/invest/Osman.png",
+    image: "/images/invest/Osman.webp",
     linkedinUrl: undefined as string | undefined,
   },
   {
     name: "Mattias Martinsson",
     title: "Founder, Tundra Fonder",
-    image: "/images/invest/Mattias.png",
+    image: "/images/invest/Mattias.webp",
     linkedinUrl: undefined as string | undefined,
   },
   {
     name: "Cecilia Seddigh",
     title: "Board member, Tundra Fonder",
-    image: "/images/invest/Cecilia.png",
+    image: "/images/invest/Cecilia.webp",
     linkedinUrl: undefined as string | undefined,
   },
 ];

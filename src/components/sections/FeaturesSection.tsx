@@ -148,7 +148,7 @@ export function FeaturesSection() {
             features={savePlusFeatures}
             cta="Learn more about Save+"
             ctaHref="/retirement"
-            imageSrc="/images/invest/Save+.png"
+            imageSrc="/images/invest/Save+.webp"
           />
           <FeatureBlock
             badge="MAHAANA RETIREMENT"
@@ -157,7 +157,7 @@ export function FeaturesSection() {
             features={retirementFeatures}
             cta="Learn more about Retirement"
             ctaHref="#retirement"
-            imageSrc="/images/invest/Retirement.png"
+            imageSrc="/images/invest/Retirement.webp"
             imageFirst
           />
         </div>

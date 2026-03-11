@@ -85,7 +85,7 @@ export function SecurityBenefitsSection({
             <div className="flex w-full justify-center lg:justify-end">
               <div className="w-full max-w-[600px] overflow-hidden rounded-[2rem] bg-[#fafafa]">
                 <Image
-                  src="/images/invest/flow%20chart.png"
+                  src="/images/invest/flow%20chart.webp"
                   alt="Flow chart illustrating how Mahaana, CDC, and the market protect client assets."
                   width={600}
                   height={640}

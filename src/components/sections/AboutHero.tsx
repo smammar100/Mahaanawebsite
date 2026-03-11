@@ -7,7 +7,7 @@ import { H1 } from "@/components/ui/Typography";
 import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
 
 const HEADLINE = "We are transforming how Pakistanis invest.";
-const HERO_IMAGE_SRC = "/images/invest/hero-bg.jpg";
+const HERO_IMAGE_SRC = "/images/invest/hero-bg.webp";
 
 export function AboutHero() {
   return (
