@@ -27,7 +27,8 @@ export function LogoStrip() {
                 width={180}
                 height={64}
                 className="h-8 w-auto max-h-16 max-w-[180px] object-contain object-center opacity-90 sm:h-10 lg:h-12"
-                loading="lazy"
+                loading="eager"
+                fetchPriority="high"
               />
             </div>
           ))}

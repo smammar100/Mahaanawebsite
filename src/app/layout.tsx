@@ -73,7 +73,6 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning className={`${outfit.variable} ${dmSans.variable}`}>
       <head>
         <link rel="preload" href="/images/invest/Logo.svg" as="image" />
-        <link rel="preload" href="/images/invest/hero-bg.jpg" as="image" />
       </head>
       <body className="antialiased flex min-h-screen flex-col">
         <StructuredData />

@@ -1,14 +1,22 @@
 import type { Metadata } from "next";
+import dynamic from "next/dynamic";
 import { buildPageMetadata } from "@/lib/metadata";
 import { getFaqByProduct, getFundDocuments } from "@/lib/sanity/fetch";
 import { Cta6Section } from "@/components/sections/Cta6Section";
 import { MICFFAQSection } from "@/components/sections/MICFFAQSection";
 import { MICFHero } from "@/components/sections/MICFHero";
 import { MICFOverviewSection } from "@/components/sections/MICFOverviewSection";
-import { MICFPerformanceSection } from "@/components/sections/MICFPerformanceSection";
 import { MICFDistributionsSection } from "@/components/sections/MICFDistributionsSection";
 import { MICFFundLiteratureSection } from "@/components/sections/MICFFundLiteratureSection";
-import { MICFPortfolioSection } from "@/components/sections/MICFPortfolioSection";
+
+const MICFPerformanceSection = dynamic(
+  () => import("@/components/sections/MICFPerformanceSection").then((m) => ({ default: m.MICFPerformanceSection })),
+  { ssr: true }
+);
+const MICFPortfolioSection = dynamic(
+  () => import("@/components/sections/MICFPortfolioSection").then((m) => ({ default: m.MICFPortfolioSection })),
+  { ssr: true }
+);
 
 export const metadata: Metadata = buildPageMetadata({
   title: "MICF | Mahaana",

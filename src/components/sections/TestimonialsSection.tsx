@@ -158,6 +158,7 @@ export function TestimonialsSection({ className, viewAllHref = "#testimonials" }
                       <img
                         src={testimonial.avatar}
                         alt=""
+                        loading="lazy"
                         className="size-14 shrink-0 rounded-full border border-surface-stroke object-cover"
                       />
                       <div className="flex flex-col">

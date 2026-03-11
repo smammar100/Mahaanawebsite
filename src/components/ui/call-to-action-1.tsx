@@ -68,6 +68,7 @@ export function CallToAction1({
                 className="size-6 shrink-0 rounded-full border-2 border-white object-cover sm:size-7"
                 src={src}
                 alt=""
+                loading="lazy"
               />
             ))}
           </div>

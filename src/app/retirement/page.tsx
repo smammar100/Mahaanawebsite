@@ -1,12 +1,17 @@
 import type { Metadata } from "next";
+import dynamic from "next/dynamic";
 import { buildPageMetadata } from "@/lib/metadata";
 import { getFaqByProduct } from "@/lib/sanity/fetch";
-import { BenefitsSection } from "@/components/sections/BenefitsSection";
 import { Cta6Section } from "@/components/sections/Cta6Section";
 import { FAQSection } from "@/components/sections/FAQSection";
 import { RetirementHero } from "@/components/sections/RetirementHero";
 import { WhyRetirementSection } from "@/components/sections/WhyRetirementSection";
 import { retirementBenefitsCards } from "./benefitsCards";
+
+const BenefitsSection = dynamic(
+  () => import("@/components/sections/BenefitsSection").then((m) => ({ default: m.BenefitsSection })),
+  { ssr: true }
+);
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Retirement | Mahaana",

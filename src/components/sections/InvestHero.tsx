@@ -80,6 +80,7 @@ export function InvestHero() {
                   width={40}
                   height={40}
                   className="h-8 w-auto object-contain"
+                  priority
                 />
               </div>
               <div
@@ -99,6 +100,7 @@ export function InvestHero() {
                   width={33}
                   height={37}
                   className="h-8 w-auto object-contain"
+                  priority
                 />
               </div>
             </div>

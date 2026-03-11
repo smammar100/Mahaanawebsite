@@ -1,14 +1,22 @@
 import type { Metadata } from "next";
+import nextDynamic from "next/dynamic";
 import { buildPageMetadata } from "@/lib/metadata";
 import { getFaqByProduct, getFundDocuments } from "@/lib/sanity/fetch";
 import { Cta6Section } from "@/components/sections/Cta6Section";
 import { MIIETFFAQSection } from "@/components/sections/MIIETFFAQSection";
 import { MIIETFHero } from "@/components/sections/MIIETFHero";
 import { MIIETFOverviewSection } from "@/components/sections/MIIETFOverviewSection";
-import { MIIETFPerformanceSection } from "@/components/sections/MIIETFPerformanceSection";
 import { MIIETFDistributionsSection } from "@/components/sections/MIIETFDistributionsSection";
 import { MIIETFFundLiteratureSection } from "@/components/sections/MIIETFFundLiteratureSection";
-import { MIIETFPortfolioSection } from "@/components/sections/MIIETFPortfolioSection";
+
+const MIIETFPerformanceSection = nextDynamic(
+  () => import("@/components/sections/MIIETFPerformanceSection").then((m) => ({ default: m.MIIETFPerformanceSection })),
+  { ssr: true }
+);
+const MIIETFPortfolioSection = nextDynamic(
+  () => import("@/components/sections/MIIETFPortfolioSection").then((m) => ({ default: m.MIIETFPortfolioSection })),
+  { ssr: true }
+);
 
 export const metadata: Metadata = buildPageMetadata({
   title: "MIIETF | Mahaana",
