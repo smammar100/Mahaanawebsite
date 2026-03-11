@@ -9,7 +9,7 @@ import { cx } from "@/utils/cx";
 
 const FUND_LITERATURE_TABS = [
   { id: "general", label: "General" },
-  { id: "shariah-compliance", label: "Shariah compliance" },
+  { id: "fund-manager-reports", label: "Fund manager reports" },
   { id: "financial-statements", label: "Financial statements" },
 ] as const;
 
@@ -22,7 +22,7 @@ const GENERAL_DOCUMENTS = [
 
 const FALLBACK_DOCUMENTS: Record<TabId, { title: string; href: string }[]> = {
   general: GENERAL_DOCUMENTS.map((d) => ({ title: d.title, href: d.href })),
-  "shariah-compliance": [],
+  "fund-manager-reports": [],
   "financial-statements": [],
 };
 
@@ -56,13 +56,19 @@ function ArrowUpRightIcon({ className }: { className?: string }) {
 export function MIIRFFundLiteratureSection({
   documents,
 }: {
-  documents?: { title: string; fileUrl: string | null; category: string }[];
+  documents?: {
+    title: string;
+    fileUrl: string | null;
+    category: string;
+    publishDate?: string | null;
+  }[];
 }) {
   const [activeTab, setActiveTab] = useState<TabId>("general");
 
-  const sanityByCategory: Record<TabId, { title: string; href: string }[]> = {
+  type DocEntry = { title: string; href: string; publishDate?: string | null };
+  const sanityByCategory: Record<TabId, DocEntry[]> = {
     general: [],
-    "shariah-compliance": [],
+    "fund-manager-reports": [],
     "financial-statements": [],
   };
   if (documents?.length) {
@@ -71,19 +77,23 @@ export function MIIRFFundLiteratureSection({
         sanityByCategory[d.category as TabId].push({
           title: d.title,
           href: d.fileUrl ?? "#",
+          publishDate: d.publishDate ?? null,
         });
       }
     });
   }
+  const fundManagerReportsSorted = [...sanityByCategory["fund-manager-reports"]].sort(
+    (a, b) => (b.publishDate ?? "").localeCompare(a.publishDate ?? "")
+  );
   const byCategory: Record<TabId, { title: string; href: string }[]> = {
     general:
       sanityByCategory.general.length > 0
         ? sanityByCategory.general
         : FALLBACK_DOCUMENTS.general,
-    "shariah-compliance":
-      sanityByCategory["shariah-compliance"].length > 0
-        ? sanityByCategory["shariah-compliance"]
-        : FALLBACK_DOCUMENTS["shariah-compliance"],
+    "fund-manager-reports":
+      fundManagerReportsSorted.length > 0
+        ? fundManagerReportsSorted
+        : FALLBACK_DOCUMENTS["fund-manager-reports"],
     "financial-statements":
       sanityByCategory["financial-statements"].length > 0
         ? sanityByCategory["financial-statements"]

@@ -24,6 +24,7 @@ export default async function MIIRFPage() {
     title: d.title ?? "",
     fileUrl: d.fileUrl ?? null,
     category: d.category ?? "",
+    publishDate: d.publishDate ?? null,
   }));
   return (
     <div className="-mt-[calc(4.5rem+env(safe-area-inset-top,0px))] bg-surface-bg">
