@@ -77,7 +77,7 @@ export function FundHero({
                 </TextMedium>
                 <div className="relative h-12 w-[108px] sm:w-[140px]">
                   <Image
-                    src="/images/invest/partners-igi-vitality.png"
+                    src="/images/invest/IGI%20Life%20Logo.png"
                     alt="Partner logos"
                     fill
                     className="object-contain object-left"

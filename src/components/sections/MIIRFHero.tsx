@@ -19,10 +19,6 @@ const TAB_TO_SECTION_ID: Record<(typeof MIIRF_HERO_TABS)[number]["id"], string> 
   "fund-literature": "miirf-fund-literature-section-heading",
 };
 
-/** Partner logos asset from Figma (IGI Life + Vitality). Host locally when final. */
-const PARTNER_LOGOS_SRC =
-  "https://www.figma.com/api/mcp/asset/229414a9-6381-4633-a665-35150b056c55";
-
 export function MIIRFHero() {
   const [selectedTab, setSelectedTab] = useState<(typeof MIIRF_HERO_TABS)[number]["id"]>("overview");
 
@@ -82,7 +78,7 @@ export function MIIRFHero() {
               </p>
               <div className="relative h-12 w-[108px] shrink-0">
                 <img
-                  src={PARTNER_LOGOS_SRC}
+                  src="/images/invest/IGI%20Life%20Logo.png"
                   alt="IGI Life and Vitality partner logos"
                   className="h-full w-full object-contain object-left"
                 />
