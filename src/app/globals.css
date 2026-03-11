@@ -1,12 +1,10 @@
 /* Outfit is loaded via next/font in layout.tsx with display: swap */
+/* Body font: DM Sans via next/font (layout) to avoid /fonts/ 404s. To restore Switzer, add woff2 files to public/fonts/ and uncomment @font-face below. */
 @import "tailwindcss";
 @custom-variant dark (&:where(.dark, .dark *));
 
 /*
-  Switzer is self-hosted. Add @font-face blocks for each weight (300–800)
-  pointing to /fonts/Switzer-[Weight].woff2
-  Download from fontshare.com/fonts/switzer
-*/
+  Switzer (optional): Uncomment when public/fonts/*.woff2 exist. See public/fonts/README.md.
 @font-face {
   font-family: 'Switzer';
   src: url('/fonts/Switzer-Light.woff2') format('woff2');
@@ -49,6 +47,7 @@
   font-style: normal;
   font-display: swap;
 }
+*/
 
 @theme {
   /* ── Layout ───────────────────────────────────────────── */
@@ -65,7 +64,8 @@
 
   /* ── Fonts ─────────────────────────────────────────────── */
   --font-heading: var(--font-outfit, 'Outfit', sans-serif);
-  --font-body: 'Switzer', sans-serif;
+  /* Body: next/font DM_Sans sets --font-body-sans on html */
+  --font-body: var(--font-body-sans, ui-sans-serif, system-ui, sans-serif);
 
   /* ── Font sizes ─────────────────────────────────────────── */
   --text-tiny: 0.75rem;
