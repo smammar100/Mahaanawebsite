@@ -2,6 +2,14 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   trailingSlash: false,
+  experimental: {
+    optimizePackageImports: [
+      "@untitledui/icons",
+      "lucide-react",
+      "react-icons",
+      "@heroicons/react",
+    ],
+  },
   images: {
     remotePatterns: [
       {

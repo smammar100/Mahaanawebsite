@@ -2,12 +2,8 @@ import type { Metadata } from "next";
 import nextDynamic from "next/dynamic";
 import { buildPageMetadata } from "@/lib/metadata";
 import { getFaqByProduct, getFundDocuments } from "@/lib/sanity/fetch";
-import { Cta6Section } from "@/components/sections/Cta6Section";
-import { MIIETFFAQSection } from "@/components/sections/MIIETFFAQSection";
 import { MIIETFHero } from "@/components/sections/MIIETFHero";
 import { MIIETFOverviewSection } from "@/components/sections/MIIETFOverviewSection";
-import { MIIETFDistributionsSection } from "@/components/sections/MIIETFDistributionsSection";
-import { MIIETFFundLiteratureSection } from "@/components/sections/MIIETFFundLiteratureSection";
 
 const MIIETFPerformanceSection = nextDynamic(
   () => import("@/components/sections/MIIETFPerformanceSection").then((m) => ({ default: m.MIIETFPerformanceSection })),
@@ -15,6 +11,22 @@ const MIIETFPerformanceSection = nextDynamic(
 );
 const MIIETFPortfolioSection = nextDynamic(
   () => import("@/components/sections/MIIETFPortfolioSection").then((m) => ({ default: m.MIIETFPortfolioSection })),
+  { ssr: true }
+);
+const MIIETFDistributionsSection = nextDynamic(
+  () => import("@/components/sections/MIIETFDistributionsSection").then((m) => ({ default: m.MIIETFDistributionsSection })),
+  { ssr: true }
+);
+const MIIETFFundLiteratureSection = nextDynamic(
+  () => import("@/components/sections/MIIETFFundLiteratureSection").then((m) => ({ default: m.MIIETFFundLiteratureSection })),
+  { ssr: true }
+);
+const MIIETFFAQSection = nextDynamic(
+  () => import("@/components/sections/MIIETFFAQSection").then((m) => ({ default: m.MIIETFFAQSection })),
+  { ssr: true }
+);
+const Cta6Section = nextDynamic(
+  () => import("@/components/sections/Cta6Section").then((m) => ({ default: m.Cta6Section })),
   { ssr: true }
 );
 

@@ -2,7 +2,7 @@ import { Container } from "@/components/layout/Container";
 
 const LOGOS = [
   { src: "/images/invest/VEF%20logo.png", alt: "VEF" },
-  { src: "/images/invest/y-combinator-seeklogo.png", alt: "Y Combinator" },
+  { src: "/images/invest/y-combinator-seeklogo.webp", alt: "Y Combinator" },
   { src: "/images/invest/Sparklabs%20logo.png", alt: "SparkLabs" },
   { src: "/images/invest/IGI%20Life%20Logo.png", alt: "IGI Life and Vitality" },
 ];
@@ -27,8 +27,7 @@ export function LogoStrip() {
                 width={180}
                 height={64}
                 className="h-8 w-auto max-h-16 max-w-[180px] object-contain object-center opacity-90 sm:h-10 lg:h-12"
-                loading="eager"
-                fetchPriority="high"
+                loading="lazy"
               />
             </div>
           ))}

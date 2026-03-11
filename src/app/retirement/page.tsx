@@ -2,14 +2,23 @@ import type { Metadata } from "next";
 import dynamic from "next/dynamic";
 import { buildPageMetadata } from "@/lib/metadata";
 import { getFaqByProduct } from "@/lib/sanity/fetch";
-import { Cta6Section } from "@/components/sections/Cta6Section";
-import { FAQSection } from "@/components/sections/FAQSection";
 import { RetirementHero } from "@/components/sections/RetirementHero";
-import { WhyRetirementSection } from "@/components/sections/WhyRetirementSection";
 import { retirementBenefitsCards } from "./benefitsCards";
 
+const WhyRetirementSection = dynamic(
+  () => import("@/components/sections/WhyRetirementSection").then((m) => ({ default: m.WhyRetirementSection })),
+  { ssr: true }
+);
 const BenefitsSection = dynamic(
   () => import("@/components/sections/BenefitsSection").then((m) => ({ default: m.BenefitsSection })),
+  { ssr: true }
+);
+const FAQSection = dynamic(
+  () => import("@/components/sections/FAQSection").then((m) => ({ default: m.FAQSection })),
+  { ssr: true }
+);
+const Cta6Section = dynamic(
+  () => import("@/components/sections/Cta6Section").then((m) => ({ default: m.Cta6Section })),
   { ssr: true }
 );
 

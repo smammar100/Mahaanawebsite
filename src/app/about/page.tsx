@@ -1,15 +1,41 @@
 import type { Metadata } from "next";
+import dynamic from "next/dynamic";
 import { buildPageMetadata } from "@/lib/metadata";
 import { AboutHero } from "@/components/sections/AboutHero";
-import { AboutCultureSection } from "@/components/sections/AboutCultureSection";
-import { AboutMissionSection } from "@/components/sections/AboutMissionSection";
-import { AboutValuesSection } from "@/components/sections/AboutValuesSection";
-import { AboutTeamSection } from "@/components/sections/AboutTeamSection";
-import { AboutBoardSection } from "@/components/sections/AboutBoardSection";
-import { AboutNewsSection } from "@/components/sections/AboutNewsSection";
 import { LogoStrip } from "@/components/sections/LogoStrip";
-import { TestimonialsSection } from "@/components/sections/TestimonialsSection";
-import { Cta6Section } from "@/components/sections/Cta6Section";
+
+const AboutCultureSection = dynamic(
+  () => import("@/components/sections/AboutCultureSection").then((m) => ({ default: m.AboutCultureSection })),
+  { ssr: true }
+);
+const AboutMissionSection = dynamic(
+  () => import("@/components/sections/AboutMissionSection").then((m) => ({ default: m.AboutMissionSection })),
+  { ssr: true }
+);
+const AboutValuesSection = dynamic(
+  () => import("@/components/sections/AboutValuesSection").then((m) => ({ default: m.AboutValuesSection })),
+  { ssr: true }
+);
+const AboutTeamSection = dynamic(
+  () => import("@/components/sections/AboutTeamSection").then((m) => ({ default: m.AboutTeamSection })),
+  { ssr: true }
+);
+const AboutBoardSection = dynamic(
+  () => import("@/components/sections/AboutBoardSection").then((m) => ({ default: m.AboutBoardSection })),
+  { ssr: true }
+);
+const AboutNewsSection = dynamic(
+  () => import("@/components/sections/AboutNewsSection").then((m) => ({ default: m.AboutNewsSection })),
+  { ssr: true }
+);
+const TestimonialsSection = dynamic(
+  () => import("@/components/sections/TestimonialsSection").then((m) => ({ default: m.TestimonialsSection })),
+  { ssr: true }
+);
+const Cta6Section = dynamic(
+  () => import("@/components/sections/Cta6Section").then((m) => ({ default: m.Cta6Section })),
+  { ssr: true }
+);
 
 export const metadata: Metadata = buildPageMetadata({
   title: "About Us | Mahaana",

@@ -58,19 +58,27 @@ const BlurText: React.FC<BlurTextProps> = ({
   const [inView, setInView] = useState(false);
   const ref = useRef<HTMLParagraphElement>(null);
 
+  const observerRef = useRef<IntersectionObserver | null>(null);
+
   useEffect(() => {
-    if (!ref.current) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setInView(true);
-          observer.unobserve(ref.current as Element);
-        }
-      },
-      { threshold, rootMargin }
-    );
-    observer.observe(ref.current);
-    return () => observer.disconnect();
+    const id = setTimeout(() => {
+      if (!ref.current) return;
+      observerRef.current = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting && ref.current) {
+            setInView(true);
+            observerRef.current?.unobserve(ref.current);
+          }
+        },
+        { threshold, rootMargin }
+      );
+      observerRef.current.observe(ref.current);
+    }, 0);
+    return () => {
+      clearTimeout(id);
+      observerRef.current?.disconnect();
+      observerRef.current = null;
+    };
   }, [threshold, rootMargin]);
 
   const defaultFrom = useMemo(
