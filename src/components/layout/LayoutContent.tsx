@@ -1,13 +1,8 @@
 "use client";
 
-import dynamic from "next/dynamic";
 import { usePathname } from "next/navigation";
+import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
-
-const Header = dynamic(
-  () => import("@/components/layout/Header").then((m) => ({ default: m.Header })),
-  { ssr: true }
-);
 
 export function LayoutContent({
   children,
