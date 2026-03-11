@@ -6,8 +6,9 @@ import {
   investorEducationBySlugQuery,
   investorEducationSlugsQuery,
   latestInvestorEducationsQuery,
+  fundDocumentsQuery,
 } from "./queries";
-import type { SanityInvestorEducation } from "./types";
+import type { SanityInvestorEducation, SanityFundDocument } from "./types";
 
 export interface BlogPostForSection {
   title: string;
@@ -120,9 +121,30 @@ export async function getFaqByProduct(
 
 export type FundId = "micf" | "miietf" | "miirf";
 
-/** Stub: Fund documents no longer in Sanity; returns empty array. */
-export async function getFundDocuments(_fund: FundId): Promise<
-  { title?: string | null; fileUrl?: string | null; category?: string | null }[]
-> {
-  return [];
+export interface FundDocumentForSection {
+  title: string;
+  fileUrl: string | null;
+  category: string;
+}
+
+/** Fetch fund documents for a fund (MICF, MIIETF, MIIRF), ordered by publishDate desc. */
+export async function getFundDocuments(
+  fund: FundId
+): Promise<FundDocumentForSection[]> {
+  const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
+  if (!projectId) return [];
+
+  try {
+    const raw = (await sanityClient.fetch(fundDocumentsQuery, {
+      fund,
+    })) as SanityFundDocument[] | null;
+    if (!Array.isArray(raw)) return [];
+    return raw.map((d) => ({
+      title: d.title ?? "",
+      fileUrl: d.fileUrl ?? null,
+      category: d.category ?? "",
+    }));
+  } catch {
+    return [];
+  }
 }

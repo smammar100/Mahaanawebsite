@@ -73,3 +73,15 @@ export const latestInvestorEducationsQuery = `
     authorName
   }
 `;
+
+/** Fund documents by fund (micf | miietf | miirf), ordered by publishDate desc. */
+export const fundDocumentsQuery = `
+  *[_type == "fundDocument" && fund == $fund] | order(publishDate desc) {
+    _id,
+    title,
+    "fileUrl": file.asset->url,
+    fund,
+    category,
+    publishDate
+  }
+`;

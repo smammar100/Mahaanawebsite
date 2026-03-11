@@ -15,3 +15,12 @@ export interface SanityInvestorEducation {
   readingTime?: string | null;
   authorName?: string | null;
 }
+
+export interface SanityFundDocument {
+  _id: string;
+  title: string | null;
+  fileUrl: string | null;
+  fund: string | null;
+  category: string | null;
+  publishDate: string | null;
+}

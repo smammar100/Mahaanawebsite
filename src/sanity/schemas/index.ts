@@ -1,3 +1,5 @@
-import { investorEducationType } from "./investorEducation";
+import { fundDocumentType } from "./fundDocument";
 
-export const schemaTypes = [investorEducationType];
+export const schemaTypes: import("sanity").SchemaTypeDefinition[] = [
+  fundDocumentType,
+];

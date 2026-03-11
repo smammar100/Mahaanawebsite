@@ -46,6 +46,12 @@ export async function POST(request: NextRequest) {
       if (slug) revalidatePath(`/investor-education/${slug}`);
     }
 
+    if (_type === "fundDocument") {
+      revalidatePath("/micf");
+      revalidatePath("/miietf");
+      revalidatePath("/miirf");
+    }
+
     for (const path of pathsToRevalidate) {
       revalidatePath(path);
     }

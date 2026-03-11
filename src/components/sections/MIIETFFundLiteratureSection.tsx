@@ -21,6 +21,13 @@ const GENERAL_DOCUMENTS = [
   { title: "Offering Document", href: "#" },
 ] as const;
 
+const FALLBACK_DOCUMENTS: Record<TabId, { title: string; href: string }[]> = {
+  general: GENERAL_DOCUMENTS.map((d) => ({ title: d.title, href: d.href })),
+  "fund-manager-reports": [],
+  "shariah-compliance": [],
+  "financial-statements": [],
+};
+
 function ArrowUpRightIcon({ className }: { className?: string }) {
   return (
     <svg
@@ -50,31 +57,40 @@ export function MIIETFFundLiteratureSection({
 }) {
   const [activeTab, setActiveTab] = useState<TabId>("general");
 
-  const byCategory: Record<TabId, { title: string; href: string }[]> = {
-    general: GENERAL_DOCUMENTS.map((d) => ({ title: d.title, href: d.href })),
+  const sanityByCategory: Record<TabId, { title: string; href: string }[]> = {
+    general: [],
     "fund-manager-reports": [],
     "shariah-compliance": [],
     "financial-statements": [],
   };
   if (documents?.length) {
-    const catMap: Record<TabId, { title: string; href: string }[]> = {
-      general: [],
-      "fund-manager-reports": [],
-      "shariah-compliance": [],
-      "financial-statements": [],
-    };
     documents.forEach((d) => {
-      if (d.category in catMap && d.title) {
-        catMap[d.category as TabId].push({
+      if (d.category in sanityByCategory && d.title) {
+        sanityByCategory[d.category as TabId].push({
           title: d.title,
           href: d.fileUrl ?? "#",
         });
       }
     });
-    FUND_LITERATURE_TABS.forEach((tab) => {
-      if (catMap[tab.id].length) byCategory[tab.id] = catMap[tab.id];
-    });
   }
+  const byCategory: Record<TabId, { title: string; href: string }[]> = {
+    general:
+      sanityByCategory.general.length > 0
+        ? sanityByCategory.general
+        : FALLBACK_DOCUMENTS.general,
+    "fund-manager-reports":
+      sanityByCategory["fund-manager-reports"].length > 0
+        ? sanityByCategory["fund-manager-reports"]
+        : FALLBACK_DOCUMENTS["fund-manager-reports"],
+    "shariah-compliance":
+      sanityByCategory["shariah-compliance"].length > 0
+        ? sanityByCategory["shariah-compliance"]
+        : FALLBACK_DOCUMENTS["shariah-compliance"],
+    "financial-statements":
+      sanityByCategory["financial-statements"].length > 0
+        ? sanityByCategory["financial-statements"]
+        : FALLBACK_DOCUMENTS["financial-statements"],
+  };
   const tabDocs = byCategory[activeTab];
   const hasDocs = tabDocs.length > 0;
 
@@ -143,6 +159,8 @@ export function MIIETFFundLiteratureSection({
                     </TextMedium>
                     <a
                       href={doc.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="flex items-center justify-end gap-1 font-body text-base font-semibold text-system-brand hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-system-brand"
                     >
                       Download report
@@ -173,6 +191,8 @@ export function MIIETFFundLiteratureSection({
                     </TextMedium>
                     <a
                       href={doc.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="flex items-center justify-end gap-1 font-body text-base font-semibold text-system-brand hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-system-brand"
                     >
                       Download report
