@@ -93,7 +93,7 @@ export function MIIRFHero() {
 
         {/* Tab bar — sticky, horizontally scrollable on mobile */}
         <div
-          className="fund-tab-list sticky top-[calc(4.5rem+env(safe-area-inset-top,0px))] z-10 flex w-full min-h-[44px] max-w-full flex-nowrap justify-start overflow-x-auto snap-x snap-mandatory gap-1 rounded-full bg-gray-100 p-1"
+          className="fund-tab-list sticky top-[calc(4.5rem+env(safe-area-inset-top,0px))] z-10 flex w-full min-h-[44px] max-w-full flex-nowrap justify-start overflow-x-auto snap-x snap-mandatory gap-1 rounded-full bg-gray-100 p-1.5 sm:justify-between"
           role="tablist"
           aria-label="Fund sections"
         >
@@ -105,7 +105,7 @@ export function MIIRFHero() {
               aria-selected={selectedTab === tab.id}
               onClick={() => handleTabClick(tab.id)}
               className={cx(
-                "min-h-[44px] shrink-0 snap-start rounded-full px-5 py-3 text-center font-body text-base font-medium whitespace-nowrap transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-system-brand",
+                "min-h-[44px] shrink-0 snap-start rounded-full px-4 py-3 text-center font-body text-base font-medium whitespace-nowrap transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-system-brand sm:flex-1 sm:min-w-0 sm:px-5",
                 selectedTab === tab.id
                   ? "bg-white text-text-primary shadow-sm"
                   : "text-text-tertiary hover:bg-white/80 hover:text-text-primary"

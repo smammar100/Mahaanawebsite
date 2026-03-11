@@ -113,7 +113,7 @@ export function MIIRFFundLiteratureSection({
         <div className="flex flex-col gap-6 sm:gap-6">
           {/* Tab bar */}
           <div
-            className="fund-tab-list flex w-full min-h-[44px] max-w-full flex-nowrap overflow-x-auto snap-x snap-mandatory justify-start gap-1 rounded-full bg-gray-100 p-1.5"
+            className="fund-tab-list flex w-full min-h-[44px] max-w-full flex-nowrap overflow-x-auto snap-x snap-mandatory justify-start gap-1 rounded-full bg-gray-100 p-1.5 sm:justify-between"
             role="tablist"
             aria-label="Fund literature categories"
           >
@@ -125,7 +125,7 @@ export function MIIRFFundLiteratureSection({
                 aria-selected={activeTab === tab.id}
                 onClick={() => setActiveTab(tab.id)}
                 className={cx(
-                  "min-h-[44px] shrink-0 snap-start rounded-full px-5 py-3 text-center font-body text-base whitespace-nowrap transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-system-brand",
+                  "min-h-[44px] shrink-0 snap-start rounded-full px-4 py-3 text-center font-body text-base whitespace-nowrap transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-system-brand sm:flex-1 sm:min-w-0 sm:px-5",
                   activeTab === tab.id
                     ? "bg-white border border-white text-text-primary font-semibold shadow-sm"
                     : "font-medium text-text-tertiary hover:bg-white/80 hover:text-text-primary"
