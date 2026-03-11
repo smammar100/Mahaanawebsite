@@ -2,8 +2,12 @@ import type { Metadata } from "next";
 import dynamic from "next/dynamic";
 import { buildPageMetadata } from "@/lib/metadata";
 import { getLatestBlogPosts } from "@/lib/sanity/fetch";
-import { InvestHero } from "@/components/sections/InvestHero";
 import { LogoStrip } from "@/components/sections/LogoStrip";
+
+const InvestHero = dynamic(
+  () => import("@/components/sections/InvestHero").then((m) => ({ default: m.InvestHero })),
+  { ssr: true }
+);
 
 const WhyMahaanaTrade = dynamic(
   () => import("@/components/sections/WhyMahaanaTrade").then((m) => m.WhyMahaanaTrade),
