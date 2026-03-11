@@ -2,15 +2,15 @@
 
 import Image from "next/image";
 import { CheckCircle } from "@untitledui/icons";
-import { motion } from "motion/react";
 import { Container } from "@/components/layout/Container";
-import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
 import {
   H2,
   H3,
   TextRegular,
 } from "@/components/ui/Typography";
 import { Button } from "@/components/base/buttons/button";
+import { useInView } from "@/hooks/useInView";
+import { cx } from "@/utils/cx";
 
 const savePlusFeatures = [
   "Build wealth securely with low-risk, optimized funds",
@@ -113,13 +113,14 @@ function FeatureBlock({
 }
 
 export function FeaturesSection() {
+  const { ref, isVisible } = useInView(0.15);
   return (
-    <motion.section
-      initial="hidden"
-      whileInView="visible"
-      viewport={sectionViewport}
-      variants={sectionFadeInUp}
-      className="border-t border-surface-stroke pt-16 pb-8 sm:pb-10 md:pb-12 lg:pb-14 xl:pb-16"
+    <section
+      ref={ref}
+      className={cx(
+        "section-fade-in-up border-t border-surface-stroke pt-16 pb-8 sm:pb-10 md:pb-12 lg:pb-14 xl:pb-16",
+        isVisible && "visible"
+      )}
       style={{ background: "linear-gradient(180deg, #443087 0%, #30225F 100%)" }}
       aria-labelledby="features-heading"
     >
@@ -162,6 +163,6 @@ export function FeaturesSection() {
           />
         </div>
       </Container>
-    </motion.section>
+    </section>
   );
 }

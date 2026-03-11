@@ -4,11 +4,10 @@ import { useMemo, useRef } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import AutoScroll from "embla-carousel-auto-scroll";
 import { ChevronRight, Star01, Zap } from "@untitledui/icons";
-import { motion } from "motion/react";
 
 import { Container } from "@/components/layout/Container";
-import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
 import { TextMedium, TextRegular, TextSmall } from "@/components/ui/Typography";
+import { useInView } from "@/hooks/useInView";
 import { cx } from "@/utils/cx";
 
 const testimonials = [
@@ -82,14 +81,13 @@ export function TestimonialsSection({ className, viewAllHref = "#testimonials" }
     plugins
   );
 
+  const { ref, isVisible } = useInView(0.15);
   return (
-    <motion.section
-      initial="hidden"
-      whileInView="visible"
-      viewport={sectionViewport}
-      variants={sectionFadeInUp}
+    <section
+      ref={ref}
       className={cx(
-        "border-t border-surface-stroke py-8 sm:py-10 md:py-12 lg:py-14 xl:py-16",
+        "section-fade-in-up border-t border-surface-stroke py-8 sm:py-10 md:py-12 lg:py-14 xl:py-16",
+        isVisible && "visible",
         className
       )}
       aria-labelledby="testimonials-heading"
@@ -188,6 +186,6 @@ export function TestimonialsSection({ className, viewAllHref = "#testimonials" }
           </div>
         </div>
       </Container>
-    </motion.section>
+    </section>
   );
 }

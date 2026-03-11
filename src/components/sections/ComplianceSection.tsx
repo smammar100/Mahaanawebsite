@@ -1,11 +1,10 @@
 "use client";
 
 import { File02, Target04, Zap } from "@untitledui/icons";
-import { motion } from "motion/react";
 import { Container } from "@/components/layout/Container";
 import { H2, TextLarge, TextRegular } from "@/components/ui/Typography";
+import { useInView } from "@/hooks/useInView";
 import { cx } from "@/utils/cx";
-import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
 
 interface ComplianceSectionProps {
   className?: string;
@@ -39,15 +38,14 @@ const securityCards = [
 ] as const;
 
 export function ComplianceSection({ className }: ComplianceSectionProps) {
+  const { ref, isVisible } = useInView(0.15);
   return (
-    <motion.section
+    <section
+      ref={ref}
       id="compliance"
-      initial="hidden"
-      whileInView="visible"
-      viewport={sectionViewport}
-      variants={sectionFadeInUp}
       className={cx(
-        "w-full border-t border-surface-stroke py-8 sm:py-10 md:py-12 lg:py-14 xl:py-16",
+        "section-fade-in-up w-full border-t border-surface-stroke py-8 sm:py-10 md:py-12 lg:py-14 xl:py-16",
+        isVisible && "visible",
         className
       )}
       aria-labelledby="compliance-heading"
@@ -98,6 +96,6 @@ export function ComplianceSection({ className }: ComplianceSectionProps) {
           })}
         </div>
       </Container>
-    </motion.section>
+    </section>
   );
 }

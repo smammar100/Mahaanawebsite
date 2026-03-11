@@ -1,12 +1,11 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "motion/react";
 import { useState } from "react";
 import { Container } from "@/components/layout/Container";
-import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
 import { H2, TextLarge, TextRegular } from "@/components/ui/Typography";
 import { Button } from "@/components/base/buttons/button";
+import { useInView } from "@/hooks/useInView";
 import { cx } from "@/utils/cx";
 
 const features = [
@@ -43,13 +42,14 @@ const features = [
 ];
 
 export function FeatureCards() {
+  const { ref, isVisible } = useInView(0.15);
   return (
-    <motion.section
-      initial="hidden"
-      whileInView="visible"
-      viewport={sectionViewport}
-      variants={sectionFadeInUp}
-      className="border-t border-surface-stroke py-8 sm:py-10 md:py-12 lg:py-14 xl:py-16 pb-32"
+    <section
+      ref={ref}
+      className={cx(
+        "section-fade-in-up border-t border-surface-stroke py-8 sm:py-10 md:py-12 lg:py-14 xl:py-16 pb-32",
+        isVisible && "visible"
+      )}
       aria-labelledby="feature-cards-heading"
     >
       <Container className="flex flex-col gap-12 sm:gap-16 lg:gap-20">
@@ -112,7 +112,7 @@ export function FeatureCards() {
           ))}
         </div>
       </Container>
-    </motion.section>
+    </section>
   );
 }
 
@@ -175,7 +175,7 @@ interface PinPerspectiveProps {
 
 function PinPerspective({ href }: PinPerspectiveProps) {
   return (
-    <motion.div className="pointer-events-none z-[60] flex h-80 w-96 items-center justify-center opacity-0 transition duration-500 group-hover/pin:opacity-100 [&>[data-clickable]]:pointer-events-auto">
+    <div className="pointer-events-none z-[60] flex h-80 w-96 items-center justify-center opacity-0 transition duration-500 group-hover/pin:opacity-100 [&>[data-clickable]]:pointer-events-auto">
       <div className="inset-0 -mt-7 h-full w-full flex-none">
         <div className="absolute inset-x-0 top-0 flex justify-center" data-clickable>
           <Button
@@ -195,31 +195,22 @@ function PinPerspective({ href }: PinPerspectiveProps) {
           }}
           className="absolute left-1/2 top-1/2 mt-4 ml-[0.09375rem] -translate-x-1/2 -translate-y-1/2"
         >
-          <motion.div
-            initial={{ opacity: 0, scale: 0, x: "-50%", y: "-50%" }}
-            animate={{ opacity: [0, 1, 0.5, 0], scale: 1, z: 0 }}
-            transition={{ duration: 6, repeat: Infinity, delay: 0 }}
-            className="absolute left-1/2 top-1/2 h-[11.25rem] w-[11.25rem] rounded-[50%] bg-primary-300/[0.08] shadow-[0_8px_16px_rgb(0_0_0/0.4)]"
+          <div
+            className="pin-ripple-circle absolute left-1/2 top-1/2 h-[11.25rem] w-[11.25rem] -translate-x-1/2 -translate-y-1/2 rounded-[50%] bg-primary-300/[0.08] shadow-[0_8px_16px_rgb(0_0_0/0.4)]"
           />
-          <motion.div
-            initial={{ opacity: 0, scale: 0, x: "-50%", y: "-50%" }}
-            animate={{ opacity: [0, 1, 0.5, 0], scale: 1, z: 0 }}
-            transition={{ duration: 6, repeat: Infinity, delay: 2 }}
-            className="absolute left-1/2 top-1/2 h-[11.25rem] w-[11.25rem] rounded-[50%] bg-primary-300/[0.08] shadow-[0_8px_16px_rgb(0_0_0/0.4)]"
+          <div
+            className="pin-ripple-circle absolute left-1/2 top-1/2 h-[11.25rem] w-[11.25rem] -translate-x-1/2 -translate-y-1/2 rounded-[50%] bg-primary-300/[0.08] shadow-[0_8px_16px_rgb(0_0_0/0.4)]"
           />
-          <motion.div
-            initial={{ opacity: 0, scale: 0, x: "-50%", y: "-50%" }}
-            animate={{ opacity: [0, 1, 0.5, 0], scale: 1, z: 0 }}
-            transition={{ duration: 6, repeat: Infinity, delay: 4 }}
-            className="absolute left-1/2 top-1/2 h-[11.25rem] w-[11.25rem] rounded-[50%] bg-primary-300/[0.08] shadow-[0_8px_16px_rgb(0_0_0/0.4)]"
+          <div
+            className="pin-ripple-circle absolute left-1/2 top-1/2 h-[11.25rem] w-[11.25rem] -translate-x-1/2 -translate-y-1/2 rounded-[50%] bg-primary-300/[0.08] shadow-[0_8px_16px_rgb(0_0_0/0.4)]"
           />
         </div>
 
-        <motion.div className="absolute bottom-1/2 right-1/2 h-20 w-px translate-y-[14px] bg-gradient-to-b from-transparent to-primary-300 blur-[2px] group-hover/pin:h-40" />
-        <motion.div className="absolute bottom-1/2 right-1/2 h-20 w-px translate-y-[14px] bg-gradient-to-b from-transparent to-primary-300 group-hover/pin:h-40" />
-        <motion.div className="absolute bottom-1/2 right-1/2 z-40 h-[4px] w-[4px] translate-x-[1.5px] translate-y-[14px] rounded-full bg-primary-200 blur-[3px]" />
-        <motion.div className="absolute bottom-1/2 right-1/2 z-40 h-[2px] w-[2px] translate-x-[0.5px] translate-y-[14px] rounded-full bg-primary-300" />
+        <div className="absolute bottom-1/2 right-1/2 h-20 w-px translate-y-[14px] bg-gradient-to-b from-transparent to-primary-300 blur-[2px] group-hover/pin:h-40" />
+        <div className="absolute bottom-1/2 right-1/2 h-20 w-px translate-y-[14px] bg-gradient-to-b from-transparent to-primary-300 group-hover/pin:h-40" />
+        <div className="absolute bottom-1/2 right-1/2 z-40 h-[4px] w-[4px] translate-x-[1.5px] translate-y-[14px] rounded-full bg-primary-200 blur-[3px]" />
+        <div className="absolute bottom-1/2 right-1/2 z-40 h-[2px] w-[2px] translate-x-[0.5px] translate-y-[14px] rounded-full bg-primary-300" />
       </div>
-    </motion.div>
+    </div>
   );
 }

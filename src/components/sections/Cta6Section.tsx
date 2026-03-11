@@ -1,10 +1,9 @@
 "use client";
 
-import { motion } from "motion/react";
 import { Container } from "@/components/layout/Container";
 import { CallToAction1 } from "@/components/ui/call-to-action-1";
+import { useInView } from "@/hooks/useInView";
 import { cx } from "@/utils/cx";
-import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
 
 interface Cta6SectionProps {
   className?: string;
@@ -15,14 +14,13 @@ interface Cta6SectionProps {
 }
 
 export function Cta6Section({ className, headline, badgeText, ctaText, ctaHref }: Cta6SectionProps) {
+  const { ref, isVisible } = useInView(0.15);
   return (
-    <motion.section
-      initial="hidden"
-      whileInView="visible"
-      viewport={sectionViewport}
-      variants={sectionFadeInUp}
+    <section
+      ref={ref}
       className={cx(
-        "min-w-0 overflow-x-visible py-8 sm:py-12 lg:py-16",
+        "section-fade-in-up min-w-0 overflow-x-visible py-8 sm:py-12 lg:py-16",
+        isVisible && "visible",
         className
       )}
     >
@@ -34,6 +32,6 @@ export function Cta6Section({ className, headline, badgeText, ctaText, ctaHref }
           ctaHref={ctaHref}
         />
       </Container>
-    </motion.section>
+    </section>
   );
 }

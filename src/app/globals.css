@@ -260,3 +260,52 @@
 .animate-fadeInUp {
   animation: fadeInUp 0.6s ease-out forwards;
 }
+
+/* Header mobile menu: CSS-only stagger (avoids motion in root layout → rootMainFiles) */
+.mobile-menu-panel .menu-stagger-item {
+  opacity: 0;
+  transform: translateY(-8px);
+  transition:
+    opacity 0.25s cubic-bezier(0.25, 0.1, 0.25, 1),
+    transform 0.25s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+.mobile-menu-panel.open .menu-stagger-item {
+  opacity: 1;
+  transform: translateY(0);
+}
+.mobile-menu-panel.open .menu-stagger-item:nth-child(1) { transition-delay: 0.08s; }
+.mobile-menu-panel.open .menu-stagger-item:nth-child(2) { transition-delay: 0.13s; }
+.mobile-menu-panel.open .menu-stagger-item:nth-child(3) { transition-delay: 0.18s; }
+.mobile-menu-panel.open .menu-stagger-item:nth-child(4) { transition-delay: 0.23s; }
+.mobile-menu-panel.open .menu-stagger-item:nth-child(5) { transition-delay: 0.28s; }
+.mobile-menu-panel.open .menu-stagger-item:nth-child(6) { transition-delay: 0.33s; }
+.mobile-menu-panel.open .menu-stagger-item:nth-child(7) { transition-delay: 0.38s; }
+.mobile-menu-panel.open .menu-stagger-item:nth-child(8) { transition-delay: 0.43s; }
+.mobile-menu-panel.open .menu-stagger-item:nth-child(9) { transition-delay: 0.48s; }
+
+/* FeatureCards pin ripple (CSS-only, no motion) */
+@keyframes pin-ripple {
+  0%, 100% { opacity: 0; transform: translate(-50%, -50%) scale(0); }
+  16% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  50% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
+  83% { opacity: 0; transform: translate(-50%, -50%) scale(1); }
+}
+.pin-ripple-circle {
+  animation: pin-ripple 6s ease-in-out infinite;
+}
+.pin-ripple-circle:nth-child(1) { animation-delay: 0s; }
+.pin-ripple-circle:nth-child(2) { animation-delay: 2s; }
+.pin-ripple-circle:nth-child(3) { animation-delay: 4s; }
+
+/* Section viewport-triggered fade-in (CSS-only, no motion lib on home) */
+.section-fade-in-up {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.5s cubic-bezier(0.25, 0.1, 0.25, 1),
+    transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+.section-fade-in-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}

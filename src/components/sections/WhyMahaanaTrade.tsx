@@ -8,10 +8,10 @@ import {
   Sliders01,
   Wallet01,
 } from "@untitledui/icons";
-import { motion } from "motion/react";
 import { Container } from "@/components/layout/Container";
 import { TextLarge, TextRegular } from "@/components/ui/Typography";
-import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
+import { useInView } from "@/hooks/useInView";
+import { cx } from "@/utils/cx";
 
 const features = [
   {
@@ -47,13 +47,14 @@ const features = [
 ];
 
 export function WhyMahaanaTrade() {
+  const { ref, isVisible } = useInView(0.15);
   return (
-    <motion.section
-      initial="hidden"
-      whileInView="visible"
-      viewport={sectionViewport}
-      variants={sectionFadeInUp}
-      className="border-t border-surface-stroke py-8 sm:py-10 md:py-12 lg:py-14 xl:py-16"
+    <section
+      ref={ref}
+      className={cx(
+        "section-fade-in-up border-t border-surface-stroke py-8 sm:py-10 md:py-12 lg:py-14 xl:py-16",
+        isVisible && "visible"
+      )}
       aria-labelledby="why-mahaana-heading"
     >
       <Container className="flex flex-col gap-6 sm:gap-8 lg:gap-10">
@@ -106,6 +107,6 @@ export function WhyMahaanaTrade() {
           })}
         </div>
       </Container>
-    </motion.section>
+    </section>
   );
 }

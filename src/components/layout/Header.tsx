@@ -8,9 +8,8 @@ import { Container } from './Container';
 import { Button } from '@/components/base/buttons/button';
 import { AppStoreButton, GooglePlayButton } from '@/components/base/buttons/app-store-buttons';
 import { ButtonUtility } from '@/components/base/buttons/button-utility';
-import { navDropdowns, type NavDropdownConfig } from './navConfig';
+import { navDropdowns } from './navConfig';
 import { ChevronDown } from '@untitledui/icons';
-import { motion } from 'motion/react';
 import { cx } from '@/utils/cx';
 import {
   NavigationMenu,
@@ -24,22 +23,6 @@ import { Sheet, SheetContent, SheetTitle } from '@/components/ui/sheet';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
 const MOBILE_BREAKPOINT_PX = 800; // lg in theme
-
-const menuStaggerContainer = {
-  hidden: {},
-  visible: {
-    transition: { staggerChildren: 0.05, delayChildren: 0.08 },
-  },
-} as const;
-
-const menuStaggerItem = {
-  hidden: { opacity: 0, y: -8 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.25, ease: [0.25, 0.1, 0.25, 1] },
-  },
-} as const;
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -284,12 +267,12 @@ export function Header() {
           )}
           style={{ backgroundColor: '#ffffff' }}
         >
-          <motion.div
-            className="flex min-h-full flex-1 flex-col gap-0 overflow-y-auto overflow-x-hidden bg-white pb-8"
+          <div
+            className={cx(
+              'mobile-menu-panel flex min-h-full flex-1 flex-col gap-0 overflow-y-auto overflow-x-hidden bg-white pb-8',
+              mobileMenuOpen && 'open'
+            )}
             style={{ backgroundColor: '#ffffff' }}
-            initial="hidden"
-            animate={mobileMenuOpen ? 'visible' : 'hidden'}
-            variants={menuStaggerContainer}
           >
             <div className="absolute -m-px h-px w-px overflow-hidden border-0 p-0 text-nowrap whitespace-nowrap [clip:rect(0,0,0,0)]">
               <SheetTitle className="text-primary">
@@ -297,7 +280,7 @@ export function Header() {
               </SheetTitle>
             </div>
             {/* 1. Menu header: logo + close */}
-            <motion.div className="mb-2 flex items-center justify-between border-b border-[#f0f0f0] pb-4" variants={menuStaggerItem}>
+            <div className="menu-stagger-item mb-2 flex items-center justify-between border-b border-[#f0f0f0] pb-4">
               <Link
                 href="/"
                 className="shrink-0"
@@ -321,9 +304,9 @@ export function Header() {
                   <path d="M18 6L6 18M6 6l12 12" />
                 </svg>
               </button>
-            </motion.div>
+            </div>
             {/* 2–5. Nav items: Products, Resources, Company with chevrons */}
-            <motion.div variants={menuStaggerItem}>
+            <div className="menu-stagger-item">
               <Accordion type="multiple" className="w-full bg-white" style={{ backgroundColor: '#ffffff' }}>
                 {navDropdowns.map((config, index) => (
                   <AccordionItem
@@ -361,18 +344,18 @@ export function Header() {
                   </AccordionItem>
                 ))}
               </Accordion>
-            </motion.div>
+            </div>
             {/* 6. Divider */}
-            <motion.div className="border-b border-[#f0f0f0]" variants={menuStaggerItem} />
+            <div className="menu-stagger-item border-b border-[#f0f0f0]" />
             {/* 7. App store row */}
-            <motion.div className="mb-4 mt-6 flex gap-3" variants={menuStaggerItem}>
+            <div className="menu-stagger-item mb-4 mt-6 flex gap-3">
               <AppStoreButton href="#" className="min-w-0 flex-1 shrink-0" />
               <GooglePlayButton href="#" className="min-w-0 flex-1 shrink-0" />
-            </motion.div>
+            </div>
             {/* 8. Divider */}
-            <motion.div className="border-b border-[#f0f0f0]" variants={menuStaggerItem} />
+            <div className="menu-stagger-item border-b border-[#f0f0f0]" />
             {/* 9. Login at bottom (mt-auto) */}
-            <motion.div className="mt-auto pt-6" variants={menuStaggerItem}>
+            <div className="menu-stagger-item mt-auto pt-6">
               <Button
                 href="/login"
                 color="primary"
@@ -382,8 +365,8 @@ export function Header() {
               >
                 Login
               </Button>
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
         </SheetContent>
       </Sheet>
     </>

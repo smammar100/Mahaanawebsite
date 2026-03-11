@@ -2,11 +2,10 @@
 
 import Image from "next/image";
 import { ArrowRight } from "@untitledui/icons";
-import { motion } from "motion/react";
 import { Container } from "@/components/layout/Container";
-import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
 import { Button } from "@/components/base/buttons/button";
 import { H2, TextRegular, TextSmall } from "@/components/ui/Typography";
+import { useInView } from "@/hooks/useInView";
 import { cn } from "@/lib/utils";
 
 interface BlogPost {
@@ -60,14 +59,13 @@ interface BlogSectionProps {
 
 export function BlogSection({ className, posts }: BlogSectionProps) {
   const list = posts?.length ? posts : BLOG_POSTS_FALLBACK;
+  const { ref, isVisible } = useInView(0.15);
   return (
-    <motion.section
-      initial="hidden"
-      whileInView="visible"
-      viewport={sectionViewport}
-      variants={sectionFadeInUp}
+    <section
+      ref={ref}
       className={cn(
-        "border-t border-surface-stroke py-8 sm:py-10 md:py-12 lg:py-14 xl:py-16",
+        "section-fade-in-up border-t border-surface-stroke py-8 sm:py-10 md:py-12 lg:py-14 xl:py-16",
+        isVisible && "visible",
         className
       )}
       aria-labelledby="blog-heading"
@@ -143,6 +141,6 @@ export function BlogSection({ className, posts }: BlogSectionProps) {
           ))}
         </div>
       </Container>
-    </motion.section>
+    </section>
   );
 }
