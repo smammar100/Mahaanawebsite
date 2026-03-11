@@ -1,47 +1,85 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { buildPageMetadata } from "@/lib/metadata";
-import { getPostBySlug, getPostSlugs } from "@/lib/sanity/fetch";
+import {
+  getInvestorEducationBySlug,
+  getInvestorEducationSlugs,
+} from "@/lib/sanity/fetch";
 import { urlFor } from "@/lib/sanity/image";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { Container } from "@/components/layout/Container";
 import { H1, TextRegular } from "@/components/ui/Typography";
 import { PortableTextRenderer } from "@/components/ui/PortableTextRenderer";
+import type { PortableTextBlock } from "@portabletext/types";
 
 interface Props {
   params: Promise<{ slug: string }>;
 }
 
 export async function generateStaticParams() {
-  const slugs = await getPostSlugs();
+  const slugs = await getInvestorEducationSlugs();
   return slugs.map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const post = await getPostBySlug(slug);
-  if (!post?.title) return {};
+  const item = await getInvestorEducationBySlug(slug);
+  if (!item?.title) return {};
   return buildPageMetadata({
-    title: `${post.title} | Mahaana`,
-    description: post.excerpt ?? "Investor education article from Mahaana.",
+    title: `${item.title} | Mahaana`,
+    description: item.tldr ?? "Investor education article from Mahaana.",
     path: `investor-education/${slug}`,
   });
 }
 
+function isVideoEmbedUrl(url: string): boolean {
+  try {
+    const u = new URL(url);
+    return (
+      u.hostname.includes("youtube.com") ||
+      u.hostname.includes("youtu.be") ||
+      u.hostname.includes("vimeo.com")
+    );
+  } catch {
+    return false;
+  }
+}
+
+function embedUrl(url: string): string {
+  try {
+    const u = new URL(url);
+    if (u.hostname.includes("youtube.com") && u.searchParams.has("v")) {
+      return `https://www.youtube.com/embed/${u.searchParams.get("v")}`;
+    }
+    if (u.hostname === "youtu.be") {
+      return `https://www.youtube.com/embed/${u.pathname.slice(1)}`;
+    }
+    if (u.hostname.includes("vimeo.com")) {
+      const id = u.pathname.split("/").filter(Boolean).pop();
+      return id ? `https://player.vimeo.com/video/${id}` : url;
+    }
+  } catch {
+    // ignore
+  }
+  return url;
+}
+
 export default async function InvestorEducationSlugPage({ params }: Props) {
   const { slug } = await params;
-  const post = await getPostBySlug(slug);
-  if (!post) notFound();
+  const item = await getInvestorEducationBySlug(slug);
+  if (!item) notFound();
 
-  const title = post.title ?? "Untitled";
-  const isVideo = post.type === "video";
-  const imageUrl = post.mainImage
-    ? urlFor(post.mainImage).width(1200).height(630).url()
-    : null;
-  const authorImageUrl = post.author?.image
-    ? urlFor(post.author.image).width(96).height(96).url()
-    : null;
+  const title = item.title ?? "Untitled";
+  const isVideo = item.category === "Video";
+  const imageUrl = item.thumbnailImage
+    ? urlFor(item.thumbnailImage).width(1200).height(630).url()
+    : item.thumbnailImageUrl ?? null;
+  const bodyBlocks =
+    item.blogBodyText && Array.isArray(item.blogBodyText)
+      ? (item.blogBodyText as PortableTextBlock[])
+      : null;
 
   return (
     <div className="bg-surface-bg">
@@ -49,36 +87,24 @@ export default async function InvestorEducationSlugPage({ params }: Props) {
         <AnimatedSection className="py-12 sm:py-16 lg:py-24">
           <Container className="max-w-3xl">
             <span className="font-body text-tiny font-semibold uppercase tracking-wide text-system-brand">
-              {post.type}
+              {item.category ?? "Article"}
             </span>
             <H1 className="mt-2 text-text-primary">{title}</H1>
             <div className="mt-4 flex flex-wrap items-center gap-4">
-              {post.author?.name ? (
+              {item.authorName ? (
                 <span className="font-body text-regular text-text-secondary">
-                  {post.author.name}
+                  {item.authorName}
                 </span>
               ) : null}
-              {post.publishedAt ? (
-                <time
-                  dateTime={post.publishedAt}
-                  className="font-body text-regular text-text-tertiary"
-                >
-                  {new Date(post.publishedAt).toLocaleDateString("en-PK", {
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
-                  })}
-                </time>
-              ) : null}
-              {post.readTime ? (
+              {item.readingTime ? (
                 <span className="font-body text-regular text-text-tertiary">
-                  {post.readTime}
+                  {item.readingTime}
                 </span>
               ) : null}
             </div>
-            {post.excerpt ? (
+            {item.tldr ? (
               <TextRegular className="mt-6 text-text-secondary">
-                {post.excerpt}
+                {item.tldr}
               </TextRegular>
             ) : null}
           </Container>
@@ -101,12 +127,12 @@ export default async function InvestorEducationSlugPage({ params }: Props) {
           </AnimatedSection>
         ) : null}
 
-        {isVideo && post.videoUrl ? (
+        {isVideo && item.link && isVideoEmbedUrl(item.link) ? (
           <AnimatedSection className="px-4 sm:px-6 md:px-8 lg:px-12">
             <Container className="max-w-4xl">
               <div className="relative aspect-video w-full overflow-hidden rounded-2xl bg-black">
                 <iframe
-                  src={post.videoUrl}
+                  src={embedUrl(item.link)}
                   title={title}
                   className="absolute inset-0 h-full w-full"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -117,10 +143,25 @@ export default async function InvestorEducationSlugPage({ params }: Props) {
           </AnimatedSection>
         ) : null}
 
-        {!isVideo && post.body && Array.isArray(post.body) && post.body.length > 0 ? (
+        {item.cta && item.link ? (
+          <AnimatedSection className="px-4 sm:px-6 md:px-8 lg:px-12">
+            <Container className="max-w-3xl">
+              <Link
+                href={item.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center rounded-full bg-system-brand px-6 py-3 font-body text-regular font-semibold text-white transition-colors hover:bg-system-brand/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-system-brand"
+              >
+                {item.cta}
+              </Link>
+            </Container>
+          </AnimatedSection>
+        ) : null}
+
+        {bodyBlocks && bodyBlocks.length > 0 ? (
           <AnimatedSection className="py-12 sm:py-16">
             <Container className="max-w-3xl">
-              <PortableTextRenderer value={post.body} />
+              <PortableTextRenderer value={bodyBlocks} />
             </Container>
           </AnimatedSection>
         ) : null}

@@ -40,7 +40,7 @@ export async function POST(request: NextRequest) {
       "/retirement",
     ];
 
-    if (_type === "post") {
+    if (_type === "investorEducation") {
       pathsToRevalidate.push("/investor-education");
       const slug = (body as { slug?: { current?: string } }).slug?.current;
       if (slug) revalidatePath(`/investor-education/${slug}`);

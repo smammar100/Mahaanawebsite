@@ -1,119 +1,75 @@
-/** Posts (blogs, news, videos) — filter by type in params */
-export const postsQuery = `
-  *[_type == "post"] | order(publishedAt desc) {
+/** Investor Education: all docs ordered by priority desc (higher first). */
+export const investorEducationsQuery = `
+  *[_type == "investorEducation"] | order(priority desc) {
     _id,
     title,
     slug,
-    type,
-    excerpt,
-    mainImage,
-    body,
-    videoUrl,
-    author->{ name, image },
-    readTime,
-    publishedAt,
-    categories[]->{ _id, title }
-  }
-`;
-
-/** Posts by type (blog | news | video) */
-export const postsByTypeQuery = `
-  *[_type == "post" && type == $type] | order(publishedAt desc) {
-    _id,
-    title,
-    slug,
-    type,
-    excerpt,
-    mainImage,
-    body,
-    videoUrl,
-    author->{ name, image },
-    readTime,
-    publishedAt
-  }
-`;
-
-/** Single post by slug */
-export const postBySlugQuery = `
-  *[_type == "post" && slug.current == $slug][0] {
-    _id,
-    title,
-    slug,
-    type,
-    excerpt,
-    mainImage,
-    body,
-    videoUrl,
-    author->{ name, image, role },
-    readTime,
-    publishedAt,
-    categories[]->{ _id, title }
-  }
-`;
-
-/** All post slugs for generateStaticParams */
-export const postSlugsQuery = `
-  *[_type == "post" && defined(slug.current)].slug.current
-`;
-
-/** Home page: latest 3 blog posts */
-export const latestBlogPostsQuery = `
-  *[_type == "post" && type == "blog"] | order(publishedAt desc)[0...3] {
-    _id,
-    title,
-    slug,
-    excerpt,
-    mainImage,
-    author->{ name, image },
-    readTime,
-    publishedAt
-  }
-`;
-
-/** Reviews */
-export const reviewsQuery = `
-  *[_type == "review" && published == true] | order(order asc) {
-    _id,
-    quote,
-    authorName,
-    authorImage,
-    rating,
-    source,
-    order
-  }
-`;
-
-/** FAQs by product (micf | miietf | miirf | save-plus | retirement) */
-export const faqByProductQuery = `
-  *[_type == "faqItem" && product == $product] | order(order asc) {
-    _id,
-    question,
-    answer,
-    product,
-    order
-  }
-`;
-
-/** Fund documents by fund and optional category */
-export const fundDocumentsQuery = `
-  *[_type == "fundDocument" && fund == $fund] | order(order asc) {
-    _id,
-    title,
-    "fileUrl": file.asset->url,
+    priority,
     category,
-    fund,
-    order
+    thumbnailImage,
+    thumbnailImageUrl,
+    tldr,
+    cta,
+    link,
+    blogBodyText,
+    readingTime,
+    authorName
   }
 `;
 
-/** Fund documents by fund and category */
-export const fundDocumentsByCategoryQuery = `
-  *[_type == "fundDocument" && fund == $fund && category == $category] | order(order asc) {
+/** Investor Education by category (Video | Article | News). */
+export const investorEducationsByCategoryQuery = `
+  *[_type == "investorEducation" && category == $category] | order(priority desc) {
     _id,
     title,
-    "fileUrl": file.asset->url,
+    slug,
+    priority,
     category,
-    fund,
-    order
+    thumbnailImage,
+    thumbnailImageUrl,
+    tldr,
+    cta,
+    link,
+    readingTime,
+    authorName
+  }
+`;
+
+/** Single Investor Education by slug. */
+export const investorEducationBySlugQuery = `
+  *[_type == "investorEducation" && slug.current == $slug][0] {
+    _id,
+    title,
+    slug,
+    priority,
+    category,
+    thumbnailImage,
+    thumbnailImageUrl,
+    tldr,
+    cta,
+    link,
+    blogBodyText,
+    readingTime,
+    authorName
+  }
+`;
+
+/** All Investor Education slugs for generateStaticParams. */
+export const investorEducationSlugsQuery = `
+  *[_type == "investorEducation" && defined(slug.current)].slug.current
+`;
+
+/** Latest 3 Investor Education items for home blog section. */
+export const latestInvestorEducationsQuery = `
+  *[_type == "investorEducation"] | order(priority desc)[0...3] {
+    _id,
+    title,
+    slug,
+    category,
+    thumbnailImage,
+    thumbnailImageUrl,
+    tldr,
+    readingTime,
+    authorName
   }
 `;

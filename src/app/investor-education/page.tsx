@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { buildPageMetadata } from "@/lib/metadata";
-import { getPosts } from "@/lib/sanity/fetch";
+import { getInvestorEducations } from "@/lib/sanity/fetch";
 import { urlFor } from "@/lib/sanity/image";
-import type { SanityPost } from "@/lib/sanity/types";
+import type { SanityInvestorEducation } from "@/lib/sanity/types";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { Container } from "@/components/layout/Container";
 import { H1, H2, TextRegular, TextSmall } from "@/components/ui/Typography";
@@ -15,21 +15,18 @@ export const metadata: Metadata = buildPageMetadata({
   path: "investor-education",
 });
 
-const TYPES = [
-  { id: "blog" as const, label: "Blogs" },
-  { id: "news" as const, label: "News" },
-  { id: "video" as const, label: "Videos" },
+const CATEGORIES = [
+  { id: "Article" as const, label: "Blogs" },
+  { id: "News" as const, label: "News" },
+  { id: "Video" as const, label: "Videos" },
 ];
 
-function PostCard({ post }: { post: SanityPost }) {
-  const slug = post.slug?.current ?? post._id;
+function PostCard({ item }: { item: SanityInvestorEducation }) {
+  const slug = item.slug?.current ?? item._id;
   const href = `/investor-education/${slug}`;
-  const imageUrl = post.mainImage
-    ? urlFor(post.mainImage).width(600).height(340).url()
-    : "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-8-wide.svg";
-  const authorImageUrl = post.author?.image
-    ? urlFor(post.author.image).width(48).height(48).url()
-    : "";
+  const imageUrl = item.thumbnailImage
+    ? urlFor(item.thumbnailImage).width(600).height(340).url()
+    : item.thumbnailImageUrl ?? "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-8-wide.svg";
 
   return (
     <Link
@@ -49,33 +46,22 @@ function PostCard({ post }: { post: SanityPost }) {
       </div>
       <div className="px-3 pt-2 pb-4 min-w-0">
         <span className="font-body text-tiny font-semibold uppercase tracking-wide text-system-brand">
-          {post.type}
+          {item.category ?? "Article"}
         </span>
         <h3 className="mt-1 mb-1 font-body text-large font-semibold leading-[150%] text-text-primary line-clamp-2">
-          {post.title ?? "Untitled"}
+          {item.title ?? "Untitled"}
         </h3>
         <TextSmall className="line-clamp-2 text-text-tertiary">
-          {post.excerpt ?? ""}
+          {item.tldr ?? ""}
         </TextSmall>
         <div className="my-5 border-t border-surface-stroke" aria-hidden />
         <div className="flex items-center gap-3">
-          {authorImageUrl ? (
-            <div className="relative size-9 shrink-0 overflow-hidden rounded-full ring-1 ring-input">
-              <Image
-                src={authorImageUrl}
-                alt=""
-                fill
-                className="object-cover"
-                sizes="36px"
-              />
-            </div>
-          ) : null}
           <TextSmall weight="medium" className="text-text-primary">
-            {post.author?.name ?? "Mahaana"}
+            {item.authorName ?? "Mahaana"}
           </TextSmall>
-          {post.readTime ? (
+          {item.readingTime ? (
             <span className="rounded-full bg-gray-100 px-2 py-0.5 font-body text-tiny font-medium text-text-tertiary">
-              {post.readTime}
+              {item.readingTime}
             </span>
           ) : null}
         </div>
@@ -85,11 +71,11 @@ function PostCard({ post }: { post: SanityPost }) {
 }
 
 export default async function InvestorEducationPage() {
-  const allPosts = await getPosts();
-  const byType = {
-    blog: allPosts.filter((p) => p.type === "blog"),
-    news: allPosts.filter((p) => p.type === "news"),
-    video: allPosts.filter((p) => p.type === "video"),
+  const allItems = await getInvestorEducations();
+  const byCategory = {
+    Article: allItems.filter((p) => p.category === "Article"),
+    News: allItems.filter((p) => p.category === "News"),
+    Video: allItems.filter((p) => p.category === "Video"),
   };
 
   return (
@@ -104,9 +90,9 @@ export default async function InvestorEducationPage() {
         </Container>
       </AnimatedSection>
 
-      {TYPES.map(({ id, label }) => {
-        const posts = byType[id];
-        if (!posts.length) return null;
+      {CATEGORIES.map(({ id, label }) => {
+        const items = byCategory[id];
+        if (!items.length) return null;
         return (
           <AnimatedSection
             key={id}
@@ -115,8 +101,8 @@ export default async function InvestorEducationPage() {
             <Container>
               <H2 className="text-text-primary mb-6">{label}</H2>
               <div className="grid gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
-                {posts.map((post) => (
-                  <PostCard key={post._id} post={post} />
+                {items.map((item) => (
+                  <PostCard key={item._id} item={item} />
                 ))}
               </div>
             </Container>
@@ -124,7 +110,7 @@ export default async function InvestorEducationPage() {
         );
       })}
 
-      {allPosts.length === 0 ? (
+      {allItems.length === 0 ? (
         <AnimatedSection className="border-t border-surface-stroke py-12">
           <Container>
             <TextRegular className="text-text-tertiary">
