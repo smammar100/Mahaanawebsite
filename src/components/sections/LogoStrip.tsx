@@ -2,7 +2,7 @@ import { Container } from "@/components/layout/Container";
 
 const LOGOS = [
   { src: "/images/invest/VEF%20logo.png", alt: "VEF" },
-  { src: "/images/invest/YC%20logo.jpg", alt: "Y Combinator" },
+  { src: "/images/invest/y-combinator-seeklogo.png", alt: "Y Combinator" },
   { src: "/images/invest/Sparklabs%20logo.png", alt: "SparkLabs" },
   { src: "/images/invest/IGI%20Life%20Logo.png", alt: "IGI Life and Vitality" },
 ];
