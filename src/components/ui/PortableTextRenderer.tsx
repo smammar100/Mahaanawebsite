@@ -5,6 +5,11 @@ import type { PortableTextBlock } from "@portabletext/types";
 
 const components: PortableTextComponents = {
   block: {
+    h1: ({ children }) => (
+      <h1 className="font-heading tracking-heading text-[2rem] font-semibold leading-[120%] text-text-primary mt-8 mb-3 lg:text-h2">
+        {children}
+      </h1>
+    ),
     normal: ({ children }) => (
       <p className="font-body text-regular leading-[150%] text-text-secondary mb-4">
         {children}
@@ -32,6 +37,12 @@ const components: PortableTextComponents = {
         {children}
       </ol>
     ),
+  },
+  marks: {
+    strong: ({ children }) => (
+      <strong className="font-semibold text-text-primary">{children}</strong>
+    ),
+    em: ({ children }) => <em className="italic">{children}</em>,
   },
 };
 

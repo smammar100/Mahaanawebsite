@@ -7,7 +7,11 @@
     "build": "next build --webpack",
     "start": "next start",
     "lint": "eslint",
-    "import:investor-education": "tsx scripts/import-investor-education-csv.ts"
+    "schema:extract": "sanity schema extract --path public/studio/static/schema.json",
+    "schema:deploy": "sanity schema deploy --manifest-dir public/studio/static",
+    "import:investor-education": "tsx scripts/import-investor-education-csv.ts",
+    "import:post": "npx tsx scripts/import-roshan-post.ts",
+    "import:html": "npx tsx scripts/import-html-article.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
@@ -56,6 +60,7 @@
     "dotenv": "^17.3.1",
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
+    "node-html-parser": "^6.1.13",
     "sharp": "^0.34.5",
     "tailwindcss": "^4",
     "tsx": "^4.21.0",

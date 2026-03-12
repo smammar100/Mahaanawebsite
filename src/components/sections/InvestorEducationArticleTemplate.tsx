@@ -40,7 +40,7 @@ export function InvestorEducationArticleTemplate({
     <div className="bg-surface-bg">
       <article>
         {/* Hero */}
-        <section className="py-12 sm:py-16 lg:py-24">
+        <section className="py-12 sm:py-16 lg:py-24 pb-10">
           <Container className="mx-auto flex max-w-5xl flex-col items-center gap-4 text-center">
             <H1 className="max-w-3xl text-text-primary">{title}</H1>
             {description ? (
@@ -88,7 +88,7 @@ export function InvestorEducationArticleTemplate({
         ) : null}
 
         {/* Prose + CTA */}
-        <section className="py-8 sm:py-12 lg:py-16">
+        <section className="pt-10 pb-10">
           <Container className="max-w-3xl">
             {bodyContent ?? null}
             {externalLink ? (
