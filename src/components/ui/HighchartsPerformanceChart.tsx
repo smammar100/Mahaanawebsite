@@ -154,7 +154,6 @@ function buildOptions(props: HighchartsPerformanceChartProps): Options {
       symbolHeight: 2,
       symbolRadius: 0,
       squareSymbol: false,
-      lineHeight: 16,
       useHTML: false,
     },
     plotOptions: {
