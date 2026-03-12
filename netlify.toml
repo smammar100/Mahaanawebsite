@@ -2,12 +2,18 @@
 # https://docs.netlify.com/integrations/frameworks/next-js/
 
 [build]
-  command = "npm run build"
+  command = "npm run sanity:generate && npm run build"
   publish = ".next"
 
 [build.environment]
   NEXT_PUBLIC_SANITY_PROJECT_ID = "ke6ev8q3"
   NEXT_PUBLIC_SANITY_DATASET = "production"
+
+# CORS for Sanity Dashboard manifest/schema fetch
+[[headers]]
+  for = "/studio/static/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"

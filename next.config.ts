@@ -45,7 +45,7 @@ const nextConfig: NextConfig = {
         headers: [
           {
             key: "Content-Security-Policy",
-            value: `frame-ancestors 'self' http://localhost:3000 http://localhost:3002 ${studioOrigin} https://www.sanity.io`,
+            value: `frame-ancestors 'self' http://localhost:3000 http://localhost:3002 ${studioOrigin} https://www.sanity.io https://*.sanity.io`,
           },
         ],
       },
