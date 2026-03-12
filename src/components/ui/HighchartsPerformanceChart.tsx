@@ -179,9 +179,11 @@ function buildOptions(props: HighchartsPerformanceChartProps): Options {
             line: {
               marker: {
                 enabled: false,
-                hover: {
-                  enabled: true,
-                  radius: 4,
+                states: {
+                  hover: {
+                    enabled: true,
+                    radius: 4,
+                  },
                 },
               },
             },
@@ -216,7 +218,7 @@ function buildOptions(props: HighchartsPerformanceChartProps): Options {
             },
             yAxis: {
               title: {
-                text: null,
+                text: undefined,
               },
               labels: {
                 style: { fontSize: "11px" },

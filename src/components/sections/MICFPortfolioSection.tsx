@@ -1,7 +1,11 @@
 "use client";
 
+import { useId } from "react";
 import { useState } from "react";
-import { Bar, BarChart, Cell, CartesianGrid, Legend, Pie, PieChart, XAxis, YAxis } from "recharts";
+import Highcharts from "highcharts";
+import type { Options } from "highcharts";
+import HighchartsReact from "highcharts-react-official";
+import { Cell, Pie, PieChart } from "recharts";
 import { motion } from "motion/react";
 import { Container } from "@/components/layout/Container";
 import { H2, H4, TextMedium, TextSmall } from "@/components/ui/Typography";
@@ -22,15 +26,6 @@ const ASSET_COLORS = {
   otherAssets: "var(--color-info-150)",
 } as const;
 
-const assetAllocationChartData = [
-  { item: "Bank Deposits", previousMonth: 37.53, currentMonth: 14.61, fill: ASSET_COLORS.bankDeposits },
-  { item: "Musharaka", previousMonth: 12, currentMonth: 18, fill: ASSET_COLORS.musharaka },
-  { item: "Govt Securities (GOP ijarah)", previousMonth: 8, currentMonth: 22, fill: ASSET_COLORS.govtSecurities },
-  { item: "Short Term Sukuk", previousMonth: 15, currentMonth: 20, fill: ASSET_COLORS.shortTermSukuk },
-  { item: "Bai Muajjal", previousMonth: 10, currentMonth: 12, fill: ASSET_COLORS.baiMuajjal },
-  { item: "Other Assets", previousMonth: 17.47, currentMonth: 13.39, fill: ASSET_COLORS.otherAssets },
-];
-
 const ASSET_ALLOCATION_ROWS = [
   { item: "Bank Deposits", currentMonth: "14.61%", previousMonth: "37.53%", color: ASSET_COLORS.bankDeposits },
   { item: "Musharaka", currentMonth: "18.00%", previousMonth: "12.00%", color: ASSET_COLORS.musharaka },
@@ -40,9 +35,183 @@ const ASSET_ALLOCATION_ROWS = [
   { item: "Other Assets", currentMonth: "13.39%", previousMonth: "17.47%", color: ASSET_COLORS.otherAssets },
 ];
 
-const assetAllocationChartConfig: ChartConfig = {
-  previousMonth: { label: "Previous month", color: "var(--color-info-200)" },
-  currentMonth: { label: "Current month", color: "var(--color-teal-200)" },
+/** Highcharts column chart options — preserved margins (10, 12, 8, 60) from original Recharts BarChart */
+const assetAllocationColumnChartOptions: Options = {
+  chart: {
+    type: "column",
+    backgroundColor: "transparent",
+    spacing: [16, 16, 16, 16],
+    marginTop: 10,
+    marginRight: 12,
+    marginLeft: 8,
+    marginBottom: 60,
+    reflow: true,
+    animation: { duration: 600 },
+    height: null,
+    style: { fontFamily: "inherit" },
+  },
+  title: {
+    text: "Asset Allocation",
+    align: "left",
+    style: {
+      fontSize: "18px",
+      fontWeight: "600",
+      color: "var(--color-text-primary)",
+    },
+  },
+  subtitle: {
+    text: "Current month vs previous month by category",
+    align: "left",
+    style: {
+      fontSize: "13px",
+      color: "var(--color-text-tertiary)",
+    },
+  },
+  xAxis: {
+    categories: [
+      "Bank Deposits",
+      "Musharaka",
+      "Govt Securities (GOP ijarah)",
+      "Short Term Sukuk",
+      "Bai Muajjal",
+      "Other Assets",
+    ],
+    crosshair: true,
+    accessibility: { description: "Asset categories" },
+    startOnTick: false,
+    endOnTick: false,
+    minPadding: 0.03,
+    maxPadding: 0.03,
+    labels: {
+      overflow: "justify",
+      rotation: -35,
+      style: {
+        fontSize: "12px",
+        color: "var(--color-text-secondary)",
+      },
+    },
+    lineColor: "transparent",
+    tickColor: "transparent",
+  },
+  yAxis: {
+    min: 0,
+    title: {
+      text: "Percentage (%)",
+      style: {
+        fontSize: "12px",
+        color: "var(--color-text-tertiary)",
+      },
+    },
+    maxPadding: 0.15,
+    startOnTick: false,
+    endOnTick: false,
+    gridLineDashStyle: "Dash",
+    gridLineColor: "var(--color-surface-stroke)",
+    labels: {
+      style: {
+        fontSize: "12px",
+        color: "var(--color-text-secondary)",
+      },
+    },
+  },
+  tooltip: {
+    valueSuffix: "%",
+    backgroundColor: "var(--color-surface-bg, #fff)",
+    borderColor: "var(--color-surface-stroke)",
+    borderRadius: 8,
+    shadow: {
+      color: "rgba(0,0,0,0.08)",
+      offsetX: 0,
+      offsetY: 4,
+      opacity: 1,
+      width: 16,
+    },
+    style: {
+      fontSize: "13px",
+      color: "var(--color-text-primary)",
+    },
+  },
+  plotOptions: {
+    column: {
+      pointPadding: 0.2,
+      borderWidth: 0,
+      borderRadius: 4,
+      groupPadding: 0.1,
+      dataLabels: { enabled: false },
+      states: {
+        hover: { brightness: 0.1 },
+      },
+    },
+  },
+  series: [
+    {
+      name: "Previous month",
+      data: [37.53, 12, 8, 15, 10, 17.47],
+      color: "var(--color-info-200)",
+    },
+    {
+      name: "Current month",
+      data: [14.61, 18, 22, 20, 12, 13.39],
+      color: "var(--color-teal-200)",
+    },
+  ],
+  legend: {
+    enabled: true,
+    align: "center",
+    verticalAlign: "bottom",
+    layout: "horizontal",
+    itemDistance: 32,
+    margin: 20,
+    padding: 8,
+    squareSymbol: true,
+    symbolRadius: 2,
+    itemStyle: {
+      fontSize: "13px",
+      fontWeight: "500",
+      color: "var(--color-text-secondary)",
+      cursor: "pointer",
+    },
+    itemHoverStyle: {
+      color: "var(--color-text-primary)",
+    },
+    symbolWidth: 24,
+    symbolHeight: 12,
+  },
+  credits: { enabled: false },
+  responsive: {
+    rules: [
+      {
+        condition: { maxWidth: 640 },
+        chartOptions: {
+          chart: {
+            marginLeft: 56,
+            marginBottom: 60,
+          },
+          yAxis: {
+            title: { text: undefined },
+            labels: { style: { fontSize: "11px" } },
+          },
+          xAxis: {
+            labels: { style: { fontSize: "11px" }, rotation: -30 },
+          },
+          legend: {
+            itemStyle: { fontSize: "11px" },
+            itemDistance: 16,
+          },
+        },
+      },
+      {
+        condition: { maxWidth: 768 },
+        chartOptions: {
+          chart: { marginLeft: 60 },
+          yAxis: {
+            labels: { style: { fontSize: "12px" } },
+          },
+        },
+      },
+    ],
+  },
+  accessibility: { enabled: true },
 };
 
 const CREDIT_QUALITY_COLORS = {
@@ -165,6 +334,23 @@ function DonutChart({
   );
 }
 
+function AssetAllocationColumnChart() {
+  const id = useId().replace(/:/g, "");
+  const containerId = `asset-allocation-column-${id}`;
+  return (
+    <div className="h-full w-full">
+      <HighchartsReact
+        highcharts={Highcharts}
+        options={assetAllocationColumnChartOptions}
+        containerProps={{
+          id: containerId,
+          style: { width: "100%", height: "100%" },
+        }}
+      />
+    </div>
+  );
+}
+
 export function MICFPortfolioSection() {
   const [hoveredCreditIndex, setHoveredCreditIndex] = useState<number | null>(null);
   const [hoveredHoldingsIndex, setHoveredHoldingsIndex] = useState<number | null>(null);
@@ -188,7 +374,7 @@ export function MICFPortfolioSection() {
         </H2>
 
         <div className="flex flex-col gap-10 lg:gap-10">
-          {/* 1. Asset Allocation: bar chart + table */}
+          {/* 1. Asset Allocation: column chart + table */}
           <div className="flex flex-col gap-6">
             <H4 className="text-text-primary text-xl lg:text-2xl" weight="semibold">
               Asset Allocation
@@ -199,55 +385,7 @@ export function MICFPortfolioSection() {
                 role="img"
                 aria-label="Asset allocation: previous month vs current month by category"
               >
-                <ChartContainer config={assetAllocationChartConfig} className="h-full">
-                  <BarChart
-                    accessibilityLayer
-                    data={assetAllocationChartData}
-                    margin={{ top: 10, right: 12, left: 8, bottom: 60 }}
-                  >
-                    <CartesianGrid
-                      strokeDasharray="3 3"
-                      stroke="var(--color-surface-stroke)"
-                      vertical={false}
-                    />
-                    <XAxis
-                      dataKey="item"
-                      axisLine={false}
-                      tickLine={false}
-                      tickMargin={8}
-                      tick={{ fontSize: 11, fill: "var(--color-text-secondary)" }}
-                      angle={-35}
-                      textAnchor="end"
-                      height={60}
-                    />
-                    <YAxis
-                      axisLine={false}
-                      tickLine={false}
-                      tickMargin={8}
-                      tickCount={6}
-                      domain={[0, 50]}
-                      tick={{ fontSize: 12, fill: "var(--color-text-secondary)" }}
-                      tickFormatter={(value) => `${value}%`}
-                    />
-                    <ChartTooltip
-                      content={({ active, payload }) => {
-                        if (!active || !payload?.length) return null;
-                        const p = payload[0].payload as (typeof assetAllocationChartData)[0];
-                        return (
-                          <div className="rounded-lg border border-surface-stroke bg-white p-3 shadow-lg">
-                            <p className="text-tiny font-medium text-text-primary">{p.item}</p>
-                            <p className="text-tiny text-text-secondary">Previous: {p.previousMonth}%</p>
-                            <p className="text-tiny text-text-secondary">Current: {p.currentMonth}%</p>
-                          </div>
-                        );
-                      }}
-                      cursor={false}
-                    />
-                    <Legend />
-                    <Bar dataKey="previousMonth" fill="var(--color-info-200)" name="Previous month" radius={[4, 4, 0, 0]} />
-                    <Bar dataKey="currentMonth" fill="var(--color-teal-200)" name="Current month" radius={[4, 4, 0, 0]} />
-                  </BarChart>
-                </ChartContainer>
+                <AssetAllocationColumnChart />
               </div>
               <div className="overflow-x-auto rounded-2xl border border-surface-stroke bg-white">
                 <table
