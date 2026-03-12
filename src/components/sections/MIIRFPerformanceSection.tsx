@@ -48,7 +48,7 @@ export function MIIRFPerformanceSection() {
 
         <div className="rounded-2xl border border-surface-stroke bg-white p-4 sm:p-6">
           <div
-            className="h-56 w-full min-w-0 sm:h-64 lg:h-80"
+            className="h-64 w-full min-w-0 sm:h-72 lg:h-96"
             role="img"
             aria-label="Performance chart: Conservative, Low Risk, Balanced, Medium Risk, and Aggressive cumulative returns from April 2023 to January 2026"
           >

@@ -20,7 +20,7 @@ export function AboutMissionSection() {
       aria-labelledby="about-mission-heading"
     >
       <Container className="px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16">
-        <div className="flex flex-col items-center gap-4 text-center max-w-[750px] mx-auto">
+        <div className="flex flex-col items-start gap-4 text-left max-w-[750px]">
           <p className="font-body text-small font-semibold uppercase tracking-wide text-system-brand">
             {SECTION_LABEL}
           </p>
@@ -30,7 +30,7 @@ export function AboutMissionSection() {
             delay={200}
             animateBy="lines"
             direction="top"
-            className="font-heading text-[1.5rem] font-medium leading-[1.35] tracking-heading text-text-primary sm:text-[2rem] lg:text-[2.5rem]"
+            className="font-heading text-[1.5rem] font-medium leading-[1.1] tracking-heading text-text-primary sm:text-[2rem] lg:text-[2.5rem]"
           />
         </div>
       </Container>

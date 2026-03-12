@@ -57,7 +57,7 @@ export function MICFPerformanceSection() {
       className="relative overflow-hidden bg-surface-bg py-8 sm:py-12 lg:py-16"
       aria-labelledby="micf-performance-section-heading"
     >
-      <Container className="flex flex-col gap-10 px-4 sm:px-6 md:px-8 lg:gap-10 lg:px-12 xl:px-16">
+      <Container className="flex flex-col gap-4 px-4 sm:px-6 md:px-8 lg:gap-4 lg:px-12 xl:px-16">
         <H2
           id="micf-performance-section-heading"
           weight="bold"
@@ -66,11 +66,11 @@ export function MICFPerformanceSection() {
           Performance
         </H2>
 
-        <div className="flex flex-col gap-10 lg:gap-10">
+        <div className="flex flex-col gap-4 lg:gap-4">
           {/* Chart card */}
-          <div className="rounded-2xl border border-surface-stroke bg-white p-4 sm:p-6">
+          <div className="h-fit rounded-2xl border border-surface-stroke bg-white p-4 sm:p-6">
             <div
-              className="h-56 w-full min-w-0 sm:h-64 lg:h-80"
+              className="h-[375px] w-full min-w-0"
               role="img"
               aria-label="Performance chart: MICF and Benchmark cumulative returns from April 2023 to January 2026"
             >

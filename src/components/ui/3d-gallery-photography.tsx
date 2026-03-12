@@ -254,7 +254,6 @@ function GalleryScene({
 
   const handleWheel = useCallback(
     (event: WheelEvent) => {
-      event.preventDefault();
       setScrollVelocity((prev) => prev + event.deltaY * 0.01 * speed);
       setAutoPlay(false);
       lastInteraction.current = Date.now();
@@ -280,7 +279,7 @@ function GalleryScene({
   useEffect(() => {
     const canvas = document.querySelector("canvas");
     if (canvas) {
-      canvas.addEventListener("wheel", handleWheel, { passive: false });
+      canvas.addEventListener("wheel", handleWheel, { passive: true });
       document.addEventListener("keydown", handleKeyDown);
       return () => {
         canvas.removeEventListener("wheel", handleWheel);
@@ -496,7 +495,7 @@ export default function InfiniteGallery({
   }
 
   return (
-    <div className={className} style={style}>
+    <div className={`${className} overflow-hidden`} style={style}>
       <Canvas
         camera={{ position: [0, 0, 0], fov: 55 }}
         gl={{ antialias: true, alpha: true }}

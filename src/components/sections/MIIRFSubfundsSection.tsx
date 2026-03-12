@@ -2,13 +2,6 @@
 
 import { useState } from "react";
 import { Cell, Pie, PieChart } from "recharts";
-import {
-  CartesianGrid,
-  Line,
-  LineChart,
-  XAxis,
-  YAxis,
-} from "recharts";
 import { motion } from "motion/react";
 import { Container } from "@/components/layout/Container";
 import { H2, H4, TextMedium, TextRegular, TextSmall } from "@/components/ui/Typography";
@@ -16,8 +9,8 @@ import {
   type ChartConfig,
   ChartContainer,
   ChartTooltip,
-  ChartTooltipContent,
 } from "@/components/ui/chart";
+import { HighchartsPerformanceChart } from "@/components/ui/HighchartsPerformanceChart";
 import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
 import { cx } from "@/utils/cx";
 
@@ -551,111 +544,38 @@ export function MIIRFSubfundsSection() {
             </div>
           </div>
 
-          {/* Historical performance: line chart + table */}
+          {/* Historical performance: Highcharts line chart + table */}
           <div className="flex flex-col gap-6">
             <H4 className="text-text-primary text-xl lg:text-2xl" weight="semibold">
               Historical performance
             </H4>
-            <div className="rounded-2xl border border-surface-stroke bg-white p-4 sm:p-6">
+            <div className="h-fit rounded-2xl border border-surface-stroke bg-white p-4 sm:p-6">
               <div
-                className="h-56 w-full min-w-0 sm:h-64 lg:h-80"
+                className="h-fit w-full min-w-0"
                 role="img"
                 aria-label={`Historical performance: ${data.performanceTable.subfundLabel} vs ${data.performanceTable.benchmarkLabel}`}
               >
-                <ChartContainer
-                  config={{
-                    subfund: {
-                      label: data.performanceTable.subfundLabel,
+                <HighchartsPerformanceChart
+                  title="Historical performance"
+                  subtitle={`Cumulative returns. ${data.performanceChartData[0]?.date ?? ""} to ${data.performanceChartData[data.performanceChartData.length - 1]?.date ?? ""}.`}
+                  categories={data.performanceChartData.map((d) => d.date)}
+                  series={[
+                    {
+                      name: data.performanceTable.subfundLabel,
+                      data: data.performanceChartData.map((d) => d.subfund),
                       color: data.performanceTable.subfundColor,
                     },
-                    benchmark: {
-                      label: data.performanceTable.benchmarkLabel,
+                    {
+                      name: data.performanceTable.benchmarkLabel,
+                      data: data.performanceChartData.map((d) => d.benchmark),
                       color: data.performanceTable.benchmarkColor,
                     },
-                  }}
-                  className="h-full"
-                >
-                  <LineChart
-                    accessibilityLayer
-                    data={data.performanceChartData}
-                    margin={{ top: 10, right: 12, left: -20, bottom: 8 }}
-                  >
-                    <CartesianGrid
-                      strokeDasharray="3 3"
-                      stroke="var(--color-surface-stroke)"
-                      vertical={false}
-                    />
-                    <XAxis
-                      axisLine={false}
-                      dataKey="date"
-                      tickLine={false}
-                      tickMargin={8}
-                      tick={{ fontSize: 12, fill: "var(--color-text-secondary)" }}
-                      tickFormatter={(value) => value}
-                    />
-                    <YAxis
-                      axisLine={false}
-                      tickLine={false}
-                      tickMargin={8}
-                      tickCount={6}
-                      domain={data.performanceChartDomain}
-                      tick={{ fontSize: 12, fill: "var(--color-text-secondary)" }}
-                      tickFormatter={(value) =>
-                        data.performanceChartFormatter
-                          ? data.performanceChartFormatter(value)
-                          : `${value}%`
-                      }
-                    />
-                    <ChartTooltip
-                      content={
-                        <ChartTooltipContent
-                          formatter={(value) =>
-                            data.performanceChartFormatter
-                              ? data.performanceChartFormatter(value as number | string)
-                              : `${Number(value).toFixed(2)}%`
-                          }
-                        />
-                      }
-                      cursor={false}
-                    />
-                    <Line
-                      type="natural"
-                      dataKey="subfund"
-                      stroke={data.performanceTable.subfundColor}
-                      strokeWidth={2}
-                      dot={false}
-                    />
-                    <Line
-                      type="natural"
-                      dataKey="benchmark"
-                      stroke={data.performanceTable.benchmarkColor}
-                      strokeWidth={2}
-                      dot={false}
-                    />
-                  </LineChart>
-                </ChartContainer>
-              </div>
-              <div className="mt-4 flex flex-wrap items-center justify-center gap-4 pl-0 sm:pl-9 lg:pl-12">
-                <div className="flex items-center gap-2">
-                  <span
-                    className="h-3.5 w-3.5 shrink-0 rounded"
-                    style={{ backgroundColor: data.performanceTable.subfundColor }}
-                    aria-hidden
-                  />
-                  <TextMedium weight="semibold" className="text-text-primary text-sm">
-                    {data.performanceTable.subfundLabel}
-                  </TextMedium>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span
-                    className="h-3.5 w-3.5 shrink-0 rounded"
-                    style={{ backgroundColor: data.performanceTable.benchmarkColor }}
-                    aria-hidden
-                  />
-                  <TextMedium weight="semibold" className="text-text-primary text-sm">
-                    {data.performanceTable.benchmarkLabel}
-                  </TextMedium>
-                </div>
+                  ]}
+                  ariaLabel={`Historical performance: ${data.performanceTable.subfundLabel} vs ${data.performanceTable.benchmarkLabel}`}
+                  chartType="line"
+                  valueSuffix="%"
+                  compact
+                />
               </div>
             </div>
 

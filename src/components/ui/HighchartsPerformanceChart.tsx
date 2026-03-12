@@ -20,6 +20,8 @@ export interface HighchartsPerformanceChartProps {
   chartType?: "area" | "line";
   yAxisTitle?: string;
   valueSuffix?: string;
+  /** When true, chart fills parent height only (no min-height). Use inside a card with fixed height so legend stays inside. */
+  compact?: boolean;
 }
 
 const defaultYAxisTitle = "Cumulative return (%)";
@@ -49,10 +51,14 @@ function buildOptions(props: HighchartsPerformanceChartProps): Options {
   return {
     chart: {
       backgroundColor: "transparent",
-      marginBottom: 80,
-      marginLeft: 8,
-      marginRight: 16,
-      spacingBottom: 24,
+      spacing: [16, 16, 16, 16],
+      marginTop: 56,
+      marginRight: 32,
+      marginLeft: 72,
+      marginBottom: 72,
+      reflow: true,
+      animation: false,
+      height: null,
       style: {
         fontFamily: "inherit",
       },
@@ -60,24 +66,42 @@ function buildOptions(props: HighchartsPerformanceChartProps): Options {
     title: {
       text: title,
       align: "left",
+      margin: 4,
       style: {
-        fontSize: "1rem",
+        fontSize: "18px",
         fontWeight: "600",
+        color: "var(--color-text-primary)",
       },
     },
     subtitle: subtitle
       ? {
           text: subtitle,
           align: "left",
+          style: {
+            fontSize: "13px",
+            color: "var(--color-text-tertiary)",
+          },
         }
       : undefined,
     yAxis: {
+      maxPadding: 0.15,
+      startOnTick: false,
+      endOnTick: false,
       title: {
         text: yAxisTitle,
+        margin: 16,
+        reserveSpace: true,
+        style: {
+          fontSize: "12px",
+        },
       },
+      lineColor: "var(--color-surface-stroke)",
       gridLineColor: "var(--color-surface-stroke)",
       gridLineDashStyle: "Dash",
       labels: {
+        enabled: true,
+        reserveSpace: true,
+        y: 4,
         style: {
           color: "var(--color-text-secondary)",
           fontSize: "12px",
@@ -87,33 +111,58 @@ function buildOptions(props: HighchartsPerformanceChartProps): Options {
     },
     xAxis: {
       categories,
+      startOnTick: false,
+      endOnTick: false,
+      minPadding: 0.03,
+      maxPadding: 0.03,
       accessibility: {
         rangeDescription: `Range: ${categories[0] ?? ""} to ${categories[categories.length - 1] ?? ""}`,
       },
       labels: {
+        enabled: true,
+        reserveSpace: true,
+        overflow: "justify",
         style: {
           color: "var(--color-text-secondary)",
           fontSize: "12px",
         },
         rotation: 0,
-        y: 16,
+        y: 20,
       },
-      lineColor: "transparent",
-      tickLength: 0,
+      lineColor: "var(--color-surface-stroke)",
+      tickLength: 4,
     },
     legend: {
-      layout: "vertical",
+      enabled: true,
       align: "center",
       verticalAlign: "bottom",
+      layout: "horizontal",
+      itemDistance: 32,
+      margin: 20,
+      padding: 8,
+      y: 0,
       itemStyle: {
-        fontSize: "12px",
+        fontSize: "13px",
+        fontWeight: "500",
+        color: "var(--color-text-secondary)",
+        cursor: "pointer",
+      },
+      itemHoverStyle: {
         color: "var(--color-text-primary)",
       },
-      y: 0,
-      itemDistance: 12,
+      symbolWidth: 24,
+      symbolHeight: 2,
+      symbolRadius: 0,
+      squareSymbol: false,
+      lineHeight: 16,
+      useHTML: false,
     },
     plotOptions: {
       series: {
+        clip: true,
+        animation: {
+          duration: 600,
+        },
         label: {
           connectorAllowed: false,
         },
@@ -129,7 +178,13 @@ function buildOptions(props: HighchartsPerformanceChartProps): Options {
           }
         : {
             line: {
-              marker: { enabled: false },
+              marker: {
+                enabled: false,
+                hover: {
+                  enabled: true,
+                  radius: 4,
+                },
+              },
             },
           }),
     },
@@ -142,6 +197,9 @@ function buildOptions(props: HighchartsPerformanceChartProps): Options {
         color: "var(--color-text-primary)",
       },
     },
+    credits: {
+      enabled: false,
+    },
     series: seriesConfig,
     accessibility: {
       enabled: true,
@@ -150,33 +208,44 @@ function buildOptions(props: HighchartsPerformanceChartProps): Options {
       rules: [
         {
           condition: {
-            maxWidth: 500,
+            maxWidth: 640,
           },
           chartOptions: {
+            chart: {
+              marginLeft: 56,
+              marginBottom: 72,
+            },
+            yAxis: {
+              title: {
+                text: null,
+              },
+              labels: {
+                style: { fontSize: "11px" },
+              },
+            },
+            xAxis: {
+              labels: {
+                style: { fontSize: "11px" },
+                rotation: -30,
+              },
+            },
             legend: {
-              layout: "vertical",
-              align: "center",
-              verticalAlign: "bottom",
+              itemStyle: { fontSize: "11px" },
+              itemDistance: 16,
             },
           },
         },
         {
           condition: {
-            maxWidth: 640,
+            maxWidth: 768,
           },
           chartOptions: {
-            xAxis: {
-              labels: {
-                style: {
-                  fontSize: "10px",
-                },
-              },
+            chart: {
+              marginLeft: 60,
             },
             yAxis: {
               labels: {
-                style: {
-                  fontSize: "10px",
-                },
+                style: { fontSize: "12px" },
               },
             },
           },
@@ -190,17 +259,20 @@ export function HighchartsPerformanceChart(props: HighchartsPerformanceChartProp
   const id = useId().replace(/:/g, "");
   const containerId = `performance-chart-${id}`;
   const options = buildOptions(props);
+  const wrapperClass = props.compact
+    ? "h-fit w-full"
+    : "h-full w-full min-h-[380px] sm:min-h-[420px] md:min-h-[460px]";
 
   return (
     <div
-      className="h-full w-full min-w-0"
+      className={wrapperClass}
       role="img"
       aria-label={props.ariaLabel}
     >
       <HighchartsReact
         highcharts={Highcharts}
         options={options}
-        containerProps={{ id: containerId, style: { height: "100%", width: "100%" } }}
+        containerProps={{ id: containerId, style: { width: "100%", height: "fit-content" } }}
       />
     </div>
   );

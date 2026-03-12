@@ -184,7 +184,6 @@
     background-color: var(--color-surface-bg);
     color: var(--color-text-primary);
     overflow-x: hidden;
-    overflow-y: auto;
   }
   body {
     font-family: var(--font-body);
