@@ -38,12 +38,6 @@ export const investorEducationArticleType = defineType({
       description: "Cover image for the content",
     }),
     defineField({
-      name: "externalLink",
-      title: "External Link",
-      type: "url",
-      description: "Optional link to source (e.g. read more)",
-    }),
-    defineField({
       name: "author",
       title: "Author",
       type: "string",

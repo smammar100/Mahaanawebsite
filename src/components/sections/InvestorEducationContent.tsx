@@ -4,22 +4,30 @@ import Image from "next/image";
 import Link from "next/link";
 import { urlFor } from "@/lib/sanity/image";
 import type { SanityInvestorEducation } from "@/lib/sanity/types";
-import { TextRegular, TextSmall } from "@/components/ui/Typography";
+import { TextSmall } from "@/components/ui/Typography";
 import { Button } from "@/components/base/buttons/button";
 import { formatPublishedDate } from "@/lib/formatters";
 
 function InvestorEducationCard({ item }: { item: SanityInvestorEducation }) {
   const slug = item.slug?.current ?? item._id;
-  const href = `/investor-education/${slug}`;
+  const isVideoOrNews = item.category === "Video" || item.category === "News";
+  const openExternal =
+    isVideoOrNews && item.externalLink && item.externalLink.startsWith("http");
+  const href = openExternal ? item.externalLink! : `/investor-education/${slug}`;
   const imageUrl = item.thumbnail
     ? urlFor(item.thumbnail).width(600).height(340).url()
     : item.thumbnailUrl ?? "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-8-wide.svg";
   const dateStr = formatPublishedDate(item.publishedAt ?? undefined);
   const meta = [item.author ? `By ${item.author}` : null, dateStr].filter(Boolean).join(" · ") || "Mahaana";
 
+  const linkProps = openExternal
+    ? { target: "_blank" as const, rel: "noopener noreferrer" }
+    : {};
+
   return (
     <Link
       href={href}
+      {...linkProps}
       className="flex min-h-[320px] flex-col gap-5 rounded-2xl bg-surface-card p-5 transition-colors hover:opacity-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-system-brand"
     >
       <div className="relative h-40 w-full shrink-0 overflow-hidden rounded-lg">
@@ -35,9 +43,6 @@ function InvestorEducationCard({ item }: { item: SanityInvestorEducation }) {
         <h3 className="font-heading text-[20px] font-medium leading-[30px] tracking-heading text-text-primary line-clamp-2">
           {item.title ?? "Untitled"}
         </h3>
-        <TextRegular className="line-clamp-2 text-text-secondary">
-          {item.excerpt ?? ""}
-        </TextRegular>
         <TextSmall className="mt-auto pt-2 text-text-tertiary">
           {meta}
         </TextSmall>

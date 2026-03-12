@@ -24,13 +24,6 @@ export const investorEducationVideoPodcastType = defineType({
       type: "datetime",
     }),
     defineField({
-      name: "excerpt",
-      title: "Excerpt",
-      type: "text",
-      rows: 3,
-      description: "Short summary or description",
-    }),
-    defineField({
       name: "thumbnail",
       title: "Thumbnail",
       type: "image",
@@ -43,34 +36,18 @@ export const investorEducationVideoPodcastType = defineType({
       type: "url",
       description: "Link to video or podcast (YouTube, Vimeo, etc.)",
     }),
-    defineField({
-      name: "author",
-      title: "Author",
-      type: "string",
-      description: "Name of the author or host (optional)",
-    }),
-    defineField({
-      name: "bodyHtml",
-      title: "Body Content",
-      type: "array",
-      of: [{ type: "block" }],
-      description: "Additional rich text (optional)",
-    }),
   ],
   preview: {
     select: {
       title: "title",
-      author: "author",
       publishedAt: "publishedAt",
       thumbnail: "thumbnail",
     },
-    prepare({ title, author, publishedAt, thumbnail }) {
-      const sub = [author, publishedAt ? new Date(publishedAt).toLocaleDateString() : null]
-        .filter(Boolean)
-        .join(" · ");
+    prepare({ title, publishedAt, thumbnail }) {
+      const sub = publishedAt ? new Date(publishedAt).toLocaleDateString() : undefined;
       return {
         title: title ?? "Untitled",
-        subtitle: sub || undefined,
+        subtitle: sub,
         media: thumbnail,
       };
     },
