@@ -59,7 +59,7 @@ function getContentType(entryName: string): string {
 type ThumbnailEntry = { buffer: Buffer; entryName: string };
 
 /** Build map: normalized key -> ThumbnailEntry from zip entries under Thumbnail/ or Thumbnails/ */
-function buildThumbnailMap(zip: AdmZip): Map<string, ThumbnailEntry> {
+function buildThumbnailMap(zip: InstanceType<typeof AdmZip>): Map<string, ThumbnailEntry> {
   const map = new Map<string, ThumbnailEntry>();
   const entries = zip.getEntries();
   const thumbnailFolderNames = ["thumbnail", "thumbnails"];
@@ -68,7 +68,7 @@ function buildThumbnailMap(zip: AdmZip): Map<string, ThumbnailEntry> {
     if (entry.isDirectory) continue;
     const raw = entry.entryName.replace(/\\/g, "/");
     const parts = raw.split("/");
-    const idx = parts.findIndex((p) => thumbnailFolderNames.includes(p.toLowerCase()));
+    const idx = parts.findIndex((p: string) => thumbnailFolderNames.includes(p.toLowerCase()));
     if (idx === -1) continue;
     const underThumbnail = parts.slice(idx + 1).join("/");
     const name = underThumbnail.replace(/^.*\//, "");
@@ -91,7 +91,7 @@ function buildThumbnailMap(zip: AdmZip): Map<string, ThumbnailEntry> {
 }
 
 /** Log first N zip entry paths (for debugging when no thumbnails found). */
-function logZipEntryNames(zip: AdmZip, limit: number): void {
+function logZipEntryNames(zip: InstanceType<typeof AdmZip>, limit: number): void {
   const entries = zip.getEntries();
   const names: string[] = [];
   for (let i = 0; i < Math.min(entries.length, limit); i++) {

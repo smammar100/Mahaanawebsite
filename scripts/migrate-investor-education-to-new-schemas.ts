@@ -146,7 +146,7 @@ async function main() {
     }
 
     try {
-      await client.createOrReplace(cleaned);
+      await client.createOrReplace(cleaned as { _id: string; _type: string } & Record<string, unknown>);
       counts[newType]++;
       if ((counts.investorEducationArticle + counts.investorEducationNews + counts.investorEducationVideoPodcast + errors) % 10 === 0) {
         console.log(`  Processed ${counts.investorEducationArticle + counts.investorEducationNews + counts.investorEducationVideoPodcast + errors}/${oldDocs.length}`);

@@ -268,7 +268,7 @@ async function main() {
     }
 
     try {
-      await client.createOrReplace(cleaned);
+      await client.createOrReplace(cleaned as { _id: string; _type: string } & Record<string, unknown>);
       counts[_type]++;
       created.push({ _id, title });
       if ((counts.investorEducationArticle + counts.investorEducationNews + counts.investorEducationVideoPodcast + errors) % 10 === 0) {

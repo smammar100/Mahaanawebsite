@@ -130,7 +130,7 @@ function getContentType(entryName: string): string {
 
 type ThumbnailEntry = { buffer: Buffer; entryName: string };
 
-function buildThumbnailMap(zip: AdmZip): Map<string, ThumbnailEntry> {
+function buildThumbnailMap(zip: InstanceType<typeof AdmZip>): Map<string, ThumbnailEntry> {
   const map = new Map<string, ThumbnailEntry>();
   const entries = zip.getEntries();
   const thumbnailFolderNames = ["thumbnail", "thumbnails"];
@@ -139,7 +139,7 @@ function buildThumbnailMap(zip: AdmZip): Map<string, ThumbnailEntry> {
     if (entry.isDirectory) continue;
     const raw = entry.entryName.replace(/\\/g, "/");
     const parts = raw.split("/");
-    const idx = parts.findIndex((p) => thumbnailFolderNames.includes(p.toLowerCase()));
+    const idx = parts.findIndex((p: string) => thumbnailFolderNames.includes(p.toLowerCase()));
     if (idx === -1) continue;
     const underThumbnail = parts.slice(idx + 1).join("/");
     const name = underThumbnail.replace(/^.*\//, "");
@@ -205,7 +205,7 @@ async function main() {
     csvRaw = readFileSync(resolve(csvPathArg), "utf-8");
   } else {
     const entries = zip.getEntries();
-    const csvEntry = entries.find((e) => !e.isDirectory && e.entryName.toLowerCase().endsWith(".csv"));
+    const csvEntry = entries.find((e: { isDirectory: boolean; entryName: string }) => !e.isDirectory && e.entryName.toLowerCase().endsWith(".csv"));
     if (!csvEntry) {
       console.error("No .csv file found inside the zip. Provide a CSV path as second argument, or add a CSV to the zip.");
       process.exit(1);
@@ -279,7 +279,7 @@ async function main() {
     }
 
     try {
-      await client.createOrReplace(cleaned);
+      await client.createOrReplace(cleaned as { _id: string; _type: string } & Record<string, unknown>);
       counts[_type]++;
       created.push({ _id, title });
       if ((counts.investorEducationArticle + counts.investorEducationNews + counts.investorEducationVideoPodcast + errors) % 10 === 0) {

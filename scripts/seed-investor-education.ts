@@ -149,7 +149,7 @@ async function main() {
       }
 
       try {
-        await client.create(cleaned);
+        await client.create(cleaned as { _type: string } & Record<string, unknown>);
         counts[type as keyof typeof counts]++;
         console.log(`  Created ${type}: ${item.title}`);
       } catch (e) {
