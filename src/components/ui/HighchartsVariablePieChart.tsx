@@ -82,17 +82,21 @@ export function HighchartsVariablePieChart({
 
   return (
     <div
-      className="flex min-h-0 w-full items-center justify-center lg:min-h-[280px]"
+      className="flex h-full min-h-0 w-full items-center justify-center"
+      style={{ height: "100%" }}
       role="img"
       aria-label={ariaLabel}
     >
-      <div className="aspect-square w-full max-w-[280px] overflow-visible">
+      <div
+        className="variable-pie-chart-wrapper aspect-square h-full w-full overflow-visible"
+        style={{ width: "100%", height: "100%" }}
+      >
         <HighchartsReact
           highcharts={Highcharts}
           options={options}
           containerProps={{
             id: containerId,
-            style: { width: "100%", height: "100%", minHeight: 280 },
+            style: { width: "100%", height: "100%" },
           }}
         />
       </div>
