@@ -416,11 +416,11 @@ export function MIIRFSubfundsSection() {
             <H4 className="text-text-primary text-xl lg:text-2xl" weight="semibold">
               Top holdings
             </H4>
-            <div className="flex min-w-0 flex-col gap-6 lg:flex-row lg:items-start lg:gap-8">
-              <div className="flex flex-col justify-center items-center min-w-0 flex-1 lg:max-w-[306px]">
+            <div className="flex min-w-0 flex-col gap-6 lg:flex-row lg:gap-6">
+              <div className="flex flex-col justify-center items-center min-w-0 flex-1 lg:w-1/2">
                 <SubfundDonutChart holdings={data.topHoldings} />
               </div>
-              <div className="min-w-0 flex-1 overflow-x-auto">
+              <div className="min-w-0 flex-1 lg:w-1/2 overflow-x-auto">
                 <div className="rounded-2xl border border-surface-stroke bg-white min-w-[280px]">
                   <table
                     className="w-full border-collapse"
