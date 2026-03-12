@@ -71,10 +71,10 @@ export function FeatureCards() {
           </TextRegular>
         </div>
 
-        {/* Cards grid */}
-        <div className="grid h-fit grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3 pb-16">
+        {/* Cards grid: min height so grid doesn't collapse; rows size to content */}
+        <div className="grid h-fit min-h-[380px] grid-cols-1 grid-auto-rows-[minmax(380px,auto)] gap-4 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3 pb-16">
           {features.map((feature, index) => (
-            <div key={index} className="w-full">
+            <div key={index} className="min-h-[380px] w-full">
               <PinContainer
                 href={feature.href}
                 containerClassName="block h-full w-full"
@@ -150,6 +150,8 @@ function PinContainer({
       onMouseLeave={onMouseLeave}
       role="group"
     >
+      {/* Spacer so container has height when both card and overlay are absolute */}
+      <div className="min-h-[380px] w-full" aria-hidden />
       <div
         style={{
           perspective: "1000px",
@@ -175,9 +177,9 @@ interface PinPerspectiveProps {
 
 function PinPerspective({ href }: PinPerspectiveProps) {
   return (
-    <div className="pointer-events-none z-[60] flex h-80 w-96 items-center justify-center opacity-0 transition duration-500 group-hover/pin:opacity-100 [&>[data-clickable]]:pointer-events-auto">
-      <div className="inset-0 -mt-7 h-full w-full flex-none">
-        <div className="absolute inset-x-0 top-0 flex justify-center" data-clickable>
+    <div className="pointer-events-none absolute inset-0 z-[60] flex items-center justify-center opacity-0 transition duration-500 group-hover/pin:opacity-100 [&>[data-clickable]]:pointer-events-auto">
+      <div className="relative h-full w-full">
+        <div className="absolute left-1/2 top-0 flex -translate-x-1/2 justify-center" data-clickable>
           <Button
             href={href || "#open-account"}
             color="primary"
@@ -188,12 +190,13 @@ function PinPerspective({ href }: PinPerspectiveProps) {
           </Button>
         </div>
 
+        {/* Ripple at the pin landing point (where the line meets the dot) */}
         <div
           style={{
             perspective: "1000px",
             transform: "rotateX(70deg) translateZ(0)",
           }}
-          className="absolute left-1/2 top-1/2 mt-4 ml-[0.09375rem] -translate-x-1/2 -translate-y-1/2"
+          className="absolute bottom-1/2 right-1/2 -translate-x-1/2 translate-y-[14px]"
         >
           <div
             className="pin-ripple-circle absolute left-1/2 top-1/2 h-[11.25rem] w-[11.25rem] -translate-x-1/2 -translate-y-1/2 rounded-[50%] bg-primary-300/[0.08] shadow-[0_8px_16px_rgb(0_0_0/0.4)]"
@@ -206,6 +209,7 @@ function PinPerspective({ href }: PinPerspectiveProps) {
           />
         </div>
 
+        {/* Pin line and dot (landing point) */}
         <div className="absolute bottom-1/2 right-1/2 h-20 w-px translate-y-[14px] bg-gradient-to-b from-transparent to-primary-300 blur-[2px] group-hover/pin:h-40" />
         <div className="absolute bottom-1/2 right-1/2 h-20 w-px translate-y-[14px] bg-gradient-to-b from-transparent to-primary-300 group-hover/pin:h-40" />
         <div className="absolute bottom-1/2 right-1/2 z-40 h-[4px] w-[4px] translate-x-[1.5px] translate-y-[14px] rounded-full bg-primary-200 blur-[3px]" />

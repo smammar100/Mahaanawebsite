@@ -2,13 +2,53 @@ import { sanityClient } from "./client";
 import { urlFor } from "./image";
 import {
   investorEducationsQuery,
-  investorEducationsByCategoryQuery,
+  investorEducationsByTypeQuery,
   investorEducationBySlugQuery,
   investorEducationSlugsQuery,
   latestInvestorEducationsQuery,
   fundDocumentsQuery,
 } from "./queries";
-import type { SanityInvestorEducation, SanityFundDocument } from "./types";
+import type {
+  SanityInvestorEducation,
+  SanityInvestorEducationType,
+  SanityFundDocument,
+} from "./types";
+
+/** Map Sanity _type to app category for tabs and CTA. */
+function typeToCategory(
+  _type: SanityInvestorEducationType
+): "Video" | "Article" | "News" {
+  switch (_type) {
+    case "investorEducationArticle":
+      return "Article";
+    case "investorEducationNews":
+      return "News";
+    case "investorEducationVideoPodcast":
+      return "Video";
+    default:
+      return "Article";
+  }
+}
+
+/** Map app category to Sanity _type for filtered fetch. */
+function categoryToType(
+  category: "Video" | "Article" | "News"
+): SanityInvestorEducationType {
+  switch (category) {
+    case "Video":
+      return "investorEducationVideoPodcast";
+    case "News":
+      return "investorEducationNews";
+    case "Article":
+      return "investorEducationArticle";
+  }
+}
+
+function withCategory(
+  item: Omit<SanityInvestorEducation, "category"> & { _type: SanityInvestorEducationType }
+): SanityInvestorEducation {
+  return { ...item, category: typeToCategory(item._type) };
+}
 
 export interface BlogPostForSection {
   title: string;
@@ -28,19 +68,19 @@ export async function getLatestBlogPosts(): Promise<BlogPostForSection[]> {
   try {
     const raw = (await sanityClient.fetch(
       latestInvestorEducationsQuery
-    )) as SanityInvestorEducation[] | null;
+    )) as (SanityInvestorEducation & { _type: SanityInvestorEducationType })[] | null;
     if (!Array.isArray(raw) || raw.length === 0) return [];
 
     return raw.map((p) => ({
       title: p.title ?? "Untitled",
-      excerpt: p.tldr ?? "",
-      authorName: p.authorName ?? "Mahaana",
+      excerpt: p.excerpt ?? "",
+      authorName: p.author ?? "Mahaana",
       authorImageUrl:
         "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/avatar-4.webp",
       readTime: p.readingTime ?? "5 Min Read",
-      imageUrl: p.thumbnailImage
-        ? urlFor(p.thumbnailImage).width(800).height(450).url()
-        : p.thumbnailImageUrl ?? "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-8-wide.svg",
+      imageUrl: p.thumbnail
+        ? urlFor(p.thumbnail).width(800).height(450).url()
+        : p.thumbnailUrl ?? "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-8-wide.svg",
       href: `/investor-education/${p.slug?.current ?? p._id}`,
     }));
   } catch {
@@ -48,7 +88,7 @@ export async function getLatestBlogPosts(): Promise<BlogPostForSection[]> {
   }
 }
 
-/** Fetch all investor education items (optionally by category). */
+/** Fetch all investor education items (optionally by category). Category is derived from _type. */
 export async function getInvestorEducations(
   category?: "Video" | "Article" | "News"
 ): Promise<SanityInvestorEducation[]> {
@@ -56,18 +96,20 @@ export async function getInvestorEducations(
   if (!projectId) return [];
 
   try {
+    type Raw = Omit<SanityInvestorEducation, "category"> & { _type: SanityInvestorEducationType };
     const raw = category
-      ? ((await sanityClient.fetch(investorEducationsByCategoryQuery, {
-          category,
-        })) as SanityInvestorEducation[] | null)
-      : ((await sanityClient.fetch(investorEducationsQuery)) as SanityInvestorEducation[] | null);
-    return Array.isArray(raw) ? raw : [];
+      ? ((await sanityClient.fetch(investorEducationsByTypeQuery, {
+          type: categoryToType(category),
+        })) as Raw[] | null)
+      : ((await sanityClient.fetch(investorEducationsQuery)) as Raw[] | null);
+    const list = Array.isArray(raw) ? raw : [];
+    return list.map(withCategory);
   } catch {
     return [];
   }
 }
 
-/** Fetch single investor education by slug. */
+/** Fetch single investor education by slug. Returns item with category derived from _type. */
 export async function getInvestorEducationBySlug(
   slug: string
 ): Promise<SanityInvestorEducation | null> {
@@ -75,15 +117,17 @@ export async function getInvestorEducationBySlug(
   if (!projectId) return null;
 
   try {
-    return (await sanityClient.fetch(investorEducationBySlugQuery, {
+    type Raw = Omit<SanityInvestorEducation, "category"> & { _type: SanityInvestorEducationType };
+    const raw = (await sanityClient.fetch(investorEducationBySlugQuery, {
       slug,
-    })) as SanityInvestorEducation | null;
+    })) as Raw | null;
+    return raw ? withCategory(raw) : null;
   } catch {
     return null;
   }
 }
 
-/** All investor education slugs for static params. */
+/** All investor education slugs for static params (unique across all three types). */
 export async function getInvestorEducationSlugs(): Promise<string[]> {
   const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
   if (!projectId) return [];
@@ -92,7 +136,8 @@ export async function getInvestorEducationSlugs(): Promise<string[]> {
     const slugs = (await sanityClient.fetch(
       investorEducationSlugsQuery
     )) as string[] | null;
-    return Array.isArray(slugs) ? slugs : [];
+    const list = Array.isArray(slugs) ? slugs : [];
+    return [...new Set(list)];
   } catch {
     return [];
   }

@@ -1,76 +1,73 @@
-/** Investor Education: all docs ordered by priority desc (higher first). */
+/** Investor Education: all three types, most recent first. List view (no bodyHtml). */
 export const investorEducationsQuery = `
-  *[_type == "investorEducation"] | order(priority desc) {
+  *[_type in ["investorEducationArticle", "investorEducationNews", "investorEducationVideoPodcast"]] | order(publishedAt desc, _updatedAt desc) {
     _id,
+    _type,
     title,
     slug,
-    priority,
-    category,
-    thumbnailImage,
-    thumbnailImageUrl,
-    tldr,
-    cta,
-    link,
-    blogBodyText,
-    readingTime,
-    authorName
+    publishedAt,
+    excerpt,
+    thumbnail,
+    "thumbnailUrl": thumbnail.asset->url,
+    externalLink,
+    author,
+    readingTime
   }
 `;
 
-/** Investor Education by category (Video | Article | News). */
-export const investorEducationsByCategoryQuery = `
-  *[_type == "investorEducation" && category == $category] | order(priority desc) {
+/** Investor Education by document type (for tab filter). */
+export const investorEducationsByTypeQuery = `
+  *[_type == $type] | order(publishedAt desc, _updatedAt desc) {
     _id,
+    _type,
     title,
     slug,
-    priority,
-    category,
-    thumbnailImage,
-    thumbnailImageUrl,
-    tldr,
-    cta,
-    link,
-    readingTime,
-    authorName
+    publishedAt,
+    excerpt,
+    thumbnail,
+    "thumbnailUrl": thumbnail.asset->url,
+    externalLink,
+    author,
+    readingTime
   }
 `;
 
-/** Single Investor Education by slug. */
+/** Single Investor Education by slug (any of the three types). */
 export const investorEducationBySlugQuery = `
-  *[_type == "investorEducation" && slug.current == $slug][0] {
+  *[_type in ["investorEducationArticle", "investorEducationNews", "investorEducationVideoPodcast"] && slug.current == $slug][0] {
     _id,
+    _type,
     title,
     slug,
-    priority,
-    category,
-    thumbnailImage,
-    thumbnailImageUrl,
-    tldr,
-    cta,
-    link,
-    blogBodyText,
+    publishedAt,
+    excerpt,
+    thumbnail,
+    "thumbnailUrl": thumbnail.asset->url,
+    externalLink,
+    author,
     readingTime,
-    authorName
+    bodyHtml
   }
 `;
 
 /** All Investor Education slugs for generateStaticParams. */
 export const investorEducationSlugsQuery = `
-  *[_type == "investorEducation" && defined(slug.current)].slug.current
+  *[_type in ["investorEducationArticle", "investorEducationNews", "investorEducationVideoPodcast"] && defined(slug.current)].slug.current
 `;
 
-/** Latest 3 Investor Education items for home blog section. */
+/** Latest 3 Investor Education items (most recent first, any type). */
 export const latestInvestorEducationsQuery = `
-  *[_type == "investorEducation"] | order(priority desc)[0...3] {
+  *[_type in ["investorEducationArticle", "investorEducationNews", "investorEducationVideoPodcast"]] | order(publishedAt desc, _updatedAt desc)[0...3] {
     _id,
+    _type,
     title,
     slug,
-    category,
-    thumbnailImage,
-    thumbnailImageUrl,
-    tldr,
+    excerpt,
+    thumbnail,
+    "thumbnailUrl": thumbnail.asset->url,
     readingTime,
-    authorName
+    author,
+    publishedAt
   }
 `;
 

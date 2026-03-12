@@ -40,7 +40,11 @@ export async function POST(request: NextRequest) {
       "/retirement",
     ];
 
-    if (_type === "investorEducation") {
+    if (
+      _type === "investorEducationArticle" ||
+      _type === "investorEducationNews" ||
+      _type === "investorEducationVideoPodcast"
+    ) {
       pathsToRevalidate.push("/investor-education");
       const slug = (body as { slug?: { current?: string } }).slug?.current;
       if (slug) revalidatePath(`/investor-education/${slug}`);

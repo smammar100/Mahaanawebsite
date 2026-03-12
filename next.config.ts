@@ -28,6 +28,11 @@ const nextConfig: NextConfig = {
         hostname: "cdn.prod.website-files.com",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "cdn.sanity.io",
+        pathname: "/images/**",
+      },
     ],
   },
   async headers() {

@@ -1,19 +1,26 @@
-/** Shapes returned by GROQ for app use (minimal types; extend as needed). */
+/** Shapes returned by GROQ for app use (minimal types; extend as needed).
+ * For investor education, category is derived in fetch from _type (Article, News, Video).
+ */
+export type SanityInvestorEducationType =
+  | "investorEducationArticle"
+  | "investorEducationNews"
+  | "investorEducationVideoPodcast";
 
 export interface SanityInvestorEducation {
   _id: string;
+  _type: SanityInvestorEducationType;
+  /** Derived in fetch from _type: Article | News | Video */
+  category?: "Video" | "Article" | "News" | null;
   title: string | null;
   slug: { current: string } | null;
-  priority?: number | null;
-  category?: "Video" | "Article" | "News" | null;
-  thumbnailImage?: { _type: string; asset?: { _ref: string }; [key: string]: unknown } | null;
-  thumbnailImageUrl?: string | null;
-  tldr?: string | null;
-  cta?: string | null;
-  link?: string | null;
-  blogBodyText?: unknown;
+  publishedAt?: string | null;
+  excerpt?: string | null;
+  thumbnail?: { _type: string; asset?: { _ref: string }; [key: string]: unknown } | null;
+  thumbnailUrl?: string | null;
+  externalLink?: string | null;
+  author?: string | null;
   readingTime?: string | null;
-  authorName?: string | null;
+  bodyHtml?: unknown;
 }
 
 export interface SanityFundDocument {

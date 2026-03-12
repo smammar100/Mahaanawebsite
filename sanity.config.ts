@@ -9,6 +9,32 @@ export default defineConfig({
   projectId,
   dataset,
   basePath: "/studio",
-  plugins: [structureTool()],
+  plugins: [
+    structureTool({
+      structure: (S) =>
+        S.list()
+          .title("Content")
+          .items([
+            S.listItem()
+              .title("Investor Education")
+              .child(
+                S.list()
+                  .title("Investor Education")
+                  .items([
+                    S.documentTypeListItem("investorEducationArticle").title(
+                      "Articles"
+                    ),
+                    S.documentTypeListItem("investorEducationNews").title(
+                      "News"
+                    ),
+                    S.documentTypeListItem(
+                      "investorEducationVideoPodcast"
+                    ).title("Videos & Podcasts"),
+                  ])
+              ),
+            S.documentTypeListItem("fundDocument").title("Fund Documents"),
+          ]),
+    }),
+  ],
   schema: { types: schemaTypes },
 });
