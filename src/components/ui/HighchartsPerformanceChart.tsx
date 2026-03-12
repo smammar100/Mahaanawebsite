@@ -1,9 +1,7 @@
 "use client";
 
-import Highcharts from "highcharts";
 import type { Options } from "highcharts";
-import HighchartsReact from "highcharts-react-official";
-import { useId } from "react";
+import { useId, useState, useEffect } from "react";
 
 export interface PerformanceSeries {
   name: string;
@@ -26,6 +24,32 @@ export interface HighchartsPerformanceChartProps {
 
 const defaultYAxisTitle = "Cumulative return (%)";
 const defaultValueSuffix = "%";
+
+/** Load Highcharts only on the client to avoid SSR "SeriesRegistry" errors. */
+function useHighcharts() {
+  const [libs, setLibs] = useState<{
+    Highcharts: typeof import("highcharts");
+    HighchartsReact: typeof import("highcharts-react-official").default;
+  } | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    Promise.all([import("highcharts"), import("highcharts-react-official")]).then(
+      ([HighchartsModule, HighchartsReactModule]) => {
+        if (cancelled) return;
+        setLibs({
+          Highcharts: HighchartsModule.default,
+          HighchartsReact: HighchartsReactModule.default,
+        });
+      }
+    );
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  return libs;
+}
 
 function buildOptions(props: HighchartsPerformanceChartProps): Options {
   const {
@@ -260,9 +284,23 @@ export function HighchartsPerformanceChart(props: HighchartsPerformanceChartProp
   const id = useId().replace(/:/g, "");
   const containerId = `performance-chart-${id}`;
   const options = buildOptions(props);
+  const libs = useHighcharts();
   const wrapperClass = props.compact
     ? "h-fit w-full"
     : "h-full w-full min-h-[380px] sm:min-h-[420px] md:min-h-[460px]";
+
+  if (!libs) {
+    return (
+      <div
+        className={wrapperClass}
+        role="img"
+        aria-label={props.ariaLabel}
+        aria-busy="true"
+      />
+    );
+  }
+
+  const { Highcharts, HighchartsReact } = libs;
 
   return (
     <div

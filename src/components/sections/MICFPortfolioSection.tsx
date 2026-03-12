@@ -1,10 +1,7 @@
 "use client";
 
-import { useId } from "react";
-import { useState } from "react";
-import Highcharts from "highcharts";
+import { useId, useState, useEffect } from "react";
 import type { Options } from "highcharts";
-import HighchartsReact from "highcharts-react-official";
 import { motion } from "motion/react";
 import { Container } from "@/components/layout/Container";
 import { H2, H4, TextMedium, TextSmall } from "@/components/ui/Typography";
@@ -302,9 +299,50 @@ const holdingsChartData = TOP_HOLDINGS_ROWS.map((row) => ({
   fill: row.color,
 }));
 
+/** Load Highcharts only on the client to avoid SSR "SeriesRegistry" errors. */
+function useHighchartsColumn() {
+  const [libs, setLibs] = useState<{
+    Highcharts: typeof import("highcharts");
+    HighchartsReact: typeof import("highcharts-react-official").default;
+  } | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    Promise.all([import("highcharts"), import("highcharts-react-official")]).then(
+      ([HighchartsModule, HighchartsReactModule]) => {
+        if (cancelled) return;
+        setLibs({
+          Highcharts: HighchartsModule.default,
+          HighchartsReact: HighchartsReactModule.default,
+        });
+      }
+    );
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  return libs;
+}
+
 function AssetAllocationColumnChart() {
   const id = useId().replace(/:/g, "");
   const containerId = `asset-allocation-column-${id}`;
+  const libs = useHighchartsColumn();
+
+  if (!libs) {
+    return (
+      <div
+        className="h-fit w-full"
+        role="img"
+        aria-label="Asset allocation chart loading"
+        aria-busy="true"
+      />
+    );
+  }
+
+  const { Highcharts, HighchartsReact } = libs;
+
   return (
     <div className="h-fit w-full">
       <HighchartsReact
