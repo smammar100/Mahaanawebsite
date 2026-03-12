@@ -30,7 +30,7 @@ export function Header() {
   const pathname = usePathname();
   const [scrolledPastHero, setScrolledPastHero] = useState(false);
 
-  const isHeroPage = pathname === '/' || pathname === '/retirement';
+  const isHeroPage = pathname === '/' || pathname === '/retirement' || pathname === '/save-plus';
 
   useEffect(() => {
     if (pathname != null && !isHeroPage) {

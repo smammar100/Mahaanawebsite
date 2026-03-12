@@ -1,15 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { Cell, Pie, PieChart } from "recharts";
 import { motion } from "motion/react";
 import { Container } from "@/components/layout/Container";
 import { H2, H4, TextMedium, TextRegular, TextSmall } from "@/components/ui/Typography";
-import {
-  type ChartConfig,
-  ChartContainer,
-  ChartTooltip,
-} from "@/components/ui/chart";
+import { HighchartsVariablePieChart } from "@/components/ui/HighchartsVariablePieChart";
 import { HighchartsPerformanceChart } from "@/components/ui/HighchartsPerformanceChart";
 import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
 import { cx } from "@/utils/cx";
@@ -265,59 +260,11 @@ function SubfundDonutChart({
     value: row.value,
     fill: row.color,
   }));
-  const chartConfig: ChartConfig = Object.fromEntries(
-    holdings.map((row) => [row.name, { label: row.name, color: row.color }])
-  );
   return (
-    <div
-      className="flex min-h-0 w-full items-center justify-center lg:min-h-[280px]"
-      role="img"
-      aria-label="Top holdings by percentage"
-    >
-      <ChartContainer
-        config={chartConfig}
-        className="aspect-square w-full max-w-[280px] sm:max-w-[306px]"
-      >
-        <PieChart>
-          <ChartTooltip
-            content={({ active, payload }) => {
-              if (!active || !payload?.length) return null;
-              const item = payload[0];
-              const name = (item.payload as { name?: string }).name ?? item.name;
-              const val = item.value;
-              const displayValue = typeof val === "number" ? val.toFixed(2) : String(val);
-              const color = (item.payload as { fill?: string }).fill ?? item.color;
-              return (
-                <div className="rounded-lg border border-surface-stroke bg-white p-3 shadow-lg">
-                  <p className="flex items-center gap-2 text-tiny font-medium text-text-primary">
-                    <span
-                      className="h-3.5 w-3.5 shrink-0 rounded"
-                      style={{ backgroundColor: color }}
-                      aria-hidden
-                    />
-                    {name}: {displayValue}{name === "—" ? "" : "%"}
-                  </p>
-                </div>
-              );
-            }}
-            cursor={false}
-          />
-          <Pie
-            data={chartData}
-            dataKey="value"
-            nameKey="name"
-            innerRadius="60%"
-            outerRadius="90%"
-            strokeWidth={0}
-            paddingAngle={0}
-          >
-            {chartData.map((_, index) => (
-              <Cell key={`cell-${index}`} fill={chartData[index].fill} />
-            ))}
-          </Pie>
-        </PieChart>
-      </ChartContainer>
-    </div>
+    <HighchartsVariablePieChart
+      data={chartData}
+      ariaLabel="Top holdings by percentage"
+    />
   );
 }
 

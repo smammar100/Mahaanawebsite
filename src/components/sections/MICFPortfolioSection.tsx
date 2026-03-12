@@ -5,15 +5,10 @@ import { useState } from "react";
 import Highcharts from "highcharts";
 import type { Options } from "highcharts";
 import HighchartsReact from "highcharts-react-official";
-import { Cell, Pie, PieChart } from "recharts";
 import { motion } from "motion/react";
 import { Container } from "@/components/layout/Container";
 import { H2, H4, TextMedium, TextSmall } from "@/components/ui/Typography";
-import {
-  type ChartConfig,
-  ChartContainer,
-  ChartTooltip,
-} from "@/components/ui/chart";
+import { HighchartsVariablePieChart } from "@/components/ui/HighchartsVariablePieChart";
 import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
 import { cx } from "@/utils/cx";
 
@@ -35,16 +30,16 @@ const ASSET_ALLOCATION_ROWS = [
   { item: "Other Assets", currentMonth: "13.39%", previousMonth: "17.47%", color: ASSET_COLORS.otherAssets },
 ];
 
-/** Highcharts column chart options — preserved margins (10, 12, 8, 60) from original Recharts BarChart */
+/** Highcharts column chart options — margins tuned for visible axis labels and legend */
 const assetAllocationColumnChartOptions: Options = {
   chart: {
     type: "column",
     backgroundColor: "transparent",
-    spacing: [16, 16, 16, 16],
-    marginTop: 10,
-    marginRight: 12,
-    marginLeft: 8,
-    marginBottom: 60,
+    spacing: [16, 16, 16, 20],
+    marginTop: 60,
+    marginRight: 24,
+    marginLeft: 88,
+    marginBottom: 100,
     reflow: true,
     animation: { duration: 600 },
     height: null,
@@ -80,11 +75,12 @@ const assetAllocationColumnChartOptions: Options = {
     accessibility: { description: "Asset categories" },
     startOnTick: false,
     endOnTick: false,
-    minPadding: 0.03,
-    maxPadding: 0.03,
+    minPadding: 0.02,
+    maxPadding: 0.02,
     labels: {
       overflow: "justify",
-      rotation: -35,
+      rotation: -45,
+      align: "right",
       style: {
         fontSize: "12px",
         color: "var(--color-text-secondary)",
@@ -97,6 +93,7 @@ const assetAllocationColumnChartOptions: Options = {
     min: 0,
     title: {
       text: "Percentage (%)",
+      margin: 12,
       style: {
         fontSize: "12px",
         color: "var(--color-text-tertiary)",
@@ -108,6 +105,8 @@ const assetAllocationColumnChartOptions: Options = {
     gridLineDashStyle: "Dash",
     gridLineColor: "var(--color-surface-stroke)",
     labels: {
+      align: "right",
+      x: -8,
       style: {
         fontSize: "12px",
         color: "var(--color-text-secondary)",
@@ -157,14 +156,18 @@ const assetAllocationColumnChartOptions: Options = {
   ],
   legend: {
     enabled: true,
-    align: "center",
-    verticalAlign: "bottom",
+    align: "right",
+    verticalAlign: "top",
     layout: "horizontal",
-    itemDistance: 32,
-    margin: 20,
+    floating: true,
+    x: -16,
+    y: 8,
+    margin: 0,
     padding: 8,
-    squareSymbol: true,
-    symbolRadius: 2,
+    itemDistance: 24,
+    backgroundColor: "rgba(255, 255, 255, 0.85)",
+    borderWidth: 0,
+    shadow: false,
     itemStyle: {
       fontSize: "13px",
       fontWeight: "500",
@@ -174,38 +177,79 @@ const assetAllocationColumnChartOptions: Options = {
     itemHoverStyle: {
       color: "var(--color-text-primary)",
     },
-    symbolWidth: 24,
+    symbolWidth: 12,
     symbolHeight: 12,
+    squareSymbol: true,
+    symbolRadius: 2,
   },
   credits: { enabled: false },
   responsive: {
     rules: [
       {
+        condition: { maxWidth: 480 },
+        chartOptions: {
+          chart: {
+            marginBottom: 110,
+            marginTop: 50,
+          },
+          xAxis: {
+            labels: {
+              rotation: -45,
+              style: { fontSize: "10px" },
+            },
+          },
+          legend: {
+            align: "right",
+            verticalAlign: "top",
+            floating: true,
+            x: -8,
+            y: 6,
+            itemStyle: { fontSize: "10px" },
+            itemDistance: 8,
+          },
+        },
+      },
+      {
         condition: { maxWidth: 640 },
         chartOptions: {
           chart: {
-            marginLeft: 56,
-            marginBottom: 60,
+            marginLeft: 64,
+            marginBottom: 105,
+          },
+          xAxis: {
+            labels: {
+              rotation: -45,
+              style: { fontSize: "11px" },
+            },
           },
           yAxis: {
             title: { text: undefined },
-            labels: { style: { fontSize: "11px" } },
-          },
-          xAxis: {
-            labels: { style: { fontSize: "11px" }, rotation: -30 },
+            labels: { style: { fontSize: "10px" } },
           },
           legend: {
+            align: "right",
+            verticalAlign: "top",
+            floating: true,
+            x: -12,
+            y: 8,
             itemStyle: { fontSize: "11px" },
-            itemDistance: 16,
+            itemDistance: 10,
           },
         },
       },
       {
         condition: { maxWidth: 768 },
         chartOptions: {
-          chart: { marginLeft: 60 },
-          yAxis: {
-            labels: { style: { fontSize: "12px" } },
+          chart: {
+            marginLeft: 72,
+            marginBottom: 100,
+          },
+          legend: {
+            align: "right",
+            verticalAlign: "top",
+            floating: true,
+            x: -14,
+            y: 8,
           },
         },
       },
@@ -234,10 +278,6 @@ const creditQualityChartData = CREDIT_QUALITY_ROWS.map((row) => ({
   fill: row.color,
 }));
 
-const creditQualityChartConfig: ChartConfig = Object.fromEntries(
-  CREDIT_QUALITY_ROWS.map((row) => [row.item, { label: row.item, color: row.color }])
-);
-
 const HOLDINGS_COLORS = {
   sadaqat: "var(--color-info-200)",
   zarea: "var(--color-teal-200)",
@@ -262,89 +302,17 @@ const holdingsChartData = TOP_HOLDINGS_ROWS.map((row) => ({
   fill: row.color,
 }));
 
-const holdingsChartConfig: ChartConfig = Object.fromEntries(
-  TOP_HOLDINGS_ROWS.map((row) => [row.name, { label: row.name, color: row.color }])
-);
-
-function DonutChart({
-  data,
-  config,
-  ariaLabel,
-  onSegmentHover,
-}: {
-  data: { name: string; value: number; fill: string }[];
-  config: ChartConfig;
-  ariaLabel: string;
-  onSegmentHover: (index: number | null) => void;
-}) {
-  return (
-    <div
-      className="flex min-h-0 w-full items-center justify-center lg:min-h-[280px]"
-      role="img"
-      aria-label={ariaLabel}
-    >
-      <ChartContainer
-        config={config}
-        className="aspect-square w-full max-w-[280px]"
-      >
-        <PieChart>
-          <ChartTooltip
-            content={({ active, payload }) => {
-              if (!active || !payload?.length) return null;
-              const item = payload[0];
-              const name = (item.payload as { name?: string }).name ?? item.name;
-              const value = Number(item.value).toFixed(2);
-              const color = (item.payload as { fill?: string }).fill ?? item.color;
-              return (
-                <div className="rounded-lg border border-surface-stroke bg-white p-3 shadow-lg">
-                  <p className="flex items-center gap-2 text-tiny font-medium text-text-primary">
-                    <span
-                      className="h-3.5 w-3.5 shrink-0 rounded"
-                      style={{ backgroundColor: color }}
-                      aria-hidden
-                    />
-                    {name}: {value}%
-                  </p>
-                </div>
-              );
-            }}
-            cursor={false}
-          />
-          <Pie
-            data={data}
-            dataKey="value"
-            nameKey="name"
-            innerRadius="60%"
-            outerRadius="90%"
-            strokeWidth={0}
-            paddingAngle={0}
-          >
-            {data.map((_, index) => (
-              <Cell
-                key={`cell-${index}`}
-                fill={data[index].fill}
-                onMouseEnter={() => onSegmentHover(index)}
-                onMouseLeave={() => onSegmentHover(null)}
-              />
-            ))}
-          </Pie>
-        </PieChart>
-      </ChartContainer>
-    </div>
-  );
-}
-
 function AssetAllocationColumnChart() {
   const id = useId().replace(/:/g, "");
   const containerId = `asset-allocation-column-${id}`;
   return (
-    <div className="h-full w-full">
+    <div className="h-fit w-full">
       <HighchartsReact
         highcharts={Highcharts}
         options={assetAllocationColumnChartOptions}
         containerProps={{
           id: containerId,
-          style: { width: "100%", height: "100%" },
+          style: { width: "100%", height: "fit-content" },
         }}
       />
     </div>
@@ -381,7 +349,7 @@ export function MICFPortfolioSection() {
             </H4>
             <div className="flex flex-col gap-6">
               <div
-                className="h-56 w-full min-w-0 sm:h-64 lg:h-80 rounded-2xl border border-surface-stroke bg-white p-4 sm:p-6"
+                className="h-fit w-full min-w-0 rounded-2xl border border-surface-stroke bg-white p-4 sm:p-6"
                 role="img"
                 aria-label="Asset allocation: previous month vs current month by category"
               >
@@ -505,9 +473,8 @@ export function MICFPortfolioSection() {
                 </div>
               </div>
               <div className="flex flex-col justify-center items-center min-w-0 flex-1 lg:w-1/2">
-                <DonutChart
+                <HighchartsVariablePieChart
                   data={creditQualityChartData}
-                  config={creditQualityChartConfig}
                   ariaLabel="Credit quality by rating"
                   onSegmentHover={setHoveredCreditIndex}
                 />
@@ -522,9 +489,8 @@ export function MICFPortfolioSection() {
             </H4>
             <div className="flex min-w-0 flex-col gap-6 lg:flex-row lg:gap-6">
               <div className="flex flex-col justify-center items-center min-w-0 flex-1 lg:w-1/2">
-                <DonutChart
+                <HighchartsVariablePieChart
                   data={holdingsChartData}
-                  config={holdingsChartConfig}
                   ariaLabel="Top holdings by percentage"
                   onSegmentHover={setHoveredHoldingsIndex}
                 />

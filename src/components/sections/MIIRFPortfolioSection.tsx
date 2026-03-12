@@ -1,15 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { Cell, Pie, PieChart } from "recharts";
 import { motion } from "motion/react";
 import { Container } from "@/components/layout/Container";
 import { H2, H4, TextMedium, TextSmall } from "@/components/ui/Typography";
-import {
-  type ChartConfig,
-  ChartContainer,
-  ChartTooltip,
-} from "@/components/ui/chart";
+import { HighchartsVariablePieChart } from "@/components/ui/HighchartsVariablePieChart";
 import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
 import { cx } from "@/utils/cx";
 
@@ -120,138 +115,6 @@ const holdingsChartData = TOP_HOLDINGS_ROWS.map((row) => ({
   value: row.value,
   fill: row.color,
 }));
-
-const exposureChartConfig: ChartConfig = Object.fromEntries(
-  WEIGHTED_EXPOSURE_ROWS.map((row) => [row.sector, { label: row.sector, color: row.color }])
-);
-
-const holdingsChartConfig: ChartConfig = Object.fromEntries(
-  TOP_HOLDINGS_ROWS.map((row) => [row.name, { label: row.name, color: row.color }])
-);
-
-function ExposureDonutChart({
-  onSegmentHover,
-}: {
-  onSegmentHover: (index: number | null) => void;
-}) {
-  return (
-    <div
-      className="flex min-h-0 w-full items-center justify-center lg:min-h-[280px]"
-      role="img"
-      aria-label="Weighted exposure by sector"
-    >
-      <ChartContainer
-        config={exposureChartConfig}
-        className="aspect-square w-full max-w-[280px]"
-      >
-        <PieChart>
-          <ChartTooltip
-            content={({ active, payload }) => {
-              if (!active || !payload?.length) return null;
-              const item = payload[0];
-              const name = (item.payload as { name?: string }).name ?? item.name;
-              const value = Number(item.value).toFixed(2);
-              const color = (item.payload as { fill?: string }).fill ?? item.color;
-              return (
-                <div className="rounded-lg border border-surface-stroke bg-white p-3 shadow-lg">
-                  <p className="flex items-center gap-2 text-tiny font-medium text-text-primary">
-                    <span
-                      className="h-3.5 w-3.5 shrink-0 rounded"
-                      style={{ backgroundColor: color }}
-                      aria-hidden
-                    />
-                    {name}: {value}%
-                  </p>
-                </div>
-              );
-            }}
-            cursor={false}
-          />
-          <Pie
-            data={exposureChartData}
-            dataKey="value"
-            nameKey="name"
-            innerRadius="60%"
-            outerRadius="90%"
-            strokeWidth={0}
-            paddingAngle={0}
-          >
-            {exposureChartData.map((_, index) => (
-              <Cell
-                key={`cell-${index}`}
-                fill={exposureChartData[index].fill}
-                onMouseEnter={() => onSegmentHover(index)}
-                onMouseLeave={() => onSegmentHover(null)}
-              />
-            ))}
-          </Pie>
-        </PieChart>
-      </ChartContainer>
-    </div>
-  );
-}
-
-function HoldingsDonutChart({
-  onSegmentHover,
-}: {
-  onSegmentHover: (index: number | null) => void;
-}) {
-  return (
-    <div
-      className="flex min-h-0 w-full items-center justify-center lg:min-h-[280px]"
-      role="img"
-      aria-label="Top holdings by percentage"
-    >
-      <ChartContainer
-        config={holdingsChartConfig}
-        className="aspect-square w-full max-w-[280px]"
-      >
-        <PieChart>
-          <ChartTooltip
-            content={({ active, payload }) => {
-              if (!active || !payload?.length) return null;
-              const item = payload[0];
-              const name = (item.payload as { name?: string }).name ?? item.name;
-              const value = Number(item.value).toFixed(2);
-              const color = (item.payload as { fill?: string }).fill ?? item.color;
-              return (
-                <div className="rounded-lg border border-surface-stroke bg-white p-3 shadow-lg">
-                  <p className="flex items-center gap-2 text-tiny font-medium text-text-primary">
-                    <span
-                      className="h-3.5 w-3.5 shrink-0 rounded"
-                      style={{ backgroundColor: color }}
-                      aria-hidden
-                    />
-                    {name}: {value}%
-                  </p>
-                </div>
-              );
-            }}
-            cursor={false}
-          />
-          <Pie
-            data={holdingsChartData}
-            dataKey="value"
-            nameKey="name"
-            innerRadius="60%"
-            outerRadius="90%"
-            strokeWidth={0}
-            paddingAngle={0}
-          >
-            {holdingsChartData.map((_, index) => (
-              <Cell
-                key={`cell-${index}`}
-                fill={holdingsChartData[index].fill}
-                onMouseEnter={() => onSegmentHover(index)}
-                onMouseLeave={() => onSegmentHover(null)}
-              />
-            ))}
-          </Pie>
-        </PieChart>
-      </ChartContainer>
-    </div>
-  );
-}
 
 export function MIIRFPortfolioSection() {
   const [hoveredExposureIndex, setHoveredExposureIndex] = useState<number | null>(null);
@@ -392,7 +255,11 @@ export function MIIRFPortfolioSection() {
                 </div>
               </div>
               <div className="flex flex-col justify-center items-center min-w-0 flex-1 lg:w-1/2">
-                <ExposureDonutChart onSegmentHover={setHoveredExposureIndex} />
+                <HighchartsVariablePieChart
+                  data={exposureChartData}
+                  ariaLabel="Weighted exposure by sector"
+                  onSegmentHover={setHoveredExposureIndex}
+                />
               </div>
             </div>
           </div>
@@ -404,7 +271,11 @@ export function MIIRFPortfolioSection() {
             </H4>
             <div className="flex min-w-0 flex-col gap-6 lg:flex-row lg:gap-6">
               <div className="flex flex-col justify-center items-center min-w-0 flex-1 lg:w-1/2">
-                <HoldingsDonutChart onSegmentHover={setHoveredHoldingsIndex} />
+                <HighchartsVariablePieChart
+                  data={holdingsChartData}
+                  ariaLabel="Top holdings by percentage"
+                  onSegmentHover={setHoveredHoldingsIndex}
+                />
               </div>
               <div className="min-w-0 flex-1 lg:w-1/2">
                 <div className="overflow-x-auto rounded-2xl border border-surface-stroke bg-white">
