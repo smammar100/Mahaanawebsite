@@ -164,7 +164,7 @@ export function HelpCenterSection({ items, className }: HelpCenterSectionProps) 
     >
       <Container className="flex flex-col gap-8 md:gap-12 lg:gap-16">
         {/* Hero */}
-        <div className="text-center pt-24 pb-24">
+        <div className="text-center pt-16 pb-16 flex flex-col gap-2">
           <H1
             id="help-center-heading"
             className="text-center text-white text-[2.5rem] leading-tight sm:text-[3rem] lg:text-[3.5rem]"

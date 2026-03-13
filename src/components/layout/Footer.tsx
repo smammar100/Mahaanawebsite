@@ -117,7 +117,7 @@ export function Footer() {
           </div>
 
           {/* Right: 5-column nav grid (2 cols on mobile) */}
-          <div className="grid flex-1 grid-cols-2 items-start gap-4 max-[768px]:gap-0 max-[768px]:[&>:nth-child(odd)]:border-r max-[768px]:[&>:nth-child(odd)]:border-surface-stroke md:grid-cols-2 xl:grid-cols-4">
+          <div className="grid flex-1 grid-cols-2 items-start gap-4 max-[768px]:gap-0 max-[768px]:[&>:nth-child(odd)]:border-r max-[768px]:[&>:nth-child(odd)]:border-surface-stroke md:grid-cols-2 xl:grid-cols-5">
             <div className="max-[768px]:border-b max-[768px]:border-surface-stroke max-[768px]:pt-5 max-[768px]:pr-4 max-[768px]:pb-5 max-[768px]:pl-0 md:border-0 md:p-0">
               <NavColumn
                 heading="Products"
