@@ -4,6 +4,7 @@ import { motion } from "motion/react";
 import { Container } from "@/components/layout/Container";
 import { HighchartsPerformanceChart } from "@/components/ui/HighchartsPerformanceChart";
 import { H2, TextMedium, TextSmall } from "@/components/ui/Typography";
+import type { MicfPerformanceFundData } from "@/lib/micf-fund-api";
 import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
 
 const CHART_COLORS = {
@@ -47,7 +48,30 @@ const PERFORMANCE_TABLE_ROWS = [
   },
 ] as const;
 
-export function MICFPerformanceSection() {
+export function MICFPerformanceSection({
+  fundData,
+}: {
+  fundData?: MicfPerformanceFundData | null;
+}) {
+  const categories = fundData?.chartCategories ?? performanceChartData.map((d) => d.date);
+  const series = fundData?.chartSeries ?? [
+    {
+      name: "MICF",
+      data: performanceChartData.map((d) => d.micf),
+      color: CHART_COLORS.micf,
+    },
+    {
+      name: "Benchmark",
+      data: performanceChartData.map((d) => d.benchmark),
+      color: CHART_COLORS.benchmark,
+    },
+  ];
+  const tableRows = fundData?.tableRows ?? [...PERFORMANCE_TABLE_ROWS];
+  const chartSubtitle =
+    categories.length >= 2
+      ? `Cumulative returns. ${categories[0]} to ${categories[categories.length - 1]}.`
+      : "Cumulative returns.";
+
   return (
     <motion.section
       initial="hidden"
@@ -72,25 +96,14 @@ export function MICFPerformanceSection() {
             <div
               className="h-[375px] w-full min-w-0"
               role="img"
-              aria-label="Performance chart: MICF and Benchmark cumulative returns from April 2023 to January 2026"
+              aria-label="Performance chart: MICF and Benchmark cumulative returns"
             >
               <HighchartsPerformanceChart
                 title="Performance"
-                subtitle="Cumulative returns. April 2023 to January 2026."
-                categories={performanceChartData.map((d) => d.date)}
-                series={[
-                  {
-                    name: "MICF",
-                    data: performanceChartData.map((d) => d.micf),
-                    color: CHART_COLORS.micf,
-                  },
-                  {
-                    name: "Benchmark",
-                    data: performanceChartData.map((d) => d.benchmark),
-                    color: CHART_COLORS.benchmark,
-                  },
-                ]}
-                ariaLabel="Performance chart: MICF and Benchmark cumulative returns from April 2023 to January 2026"
+                subtitle={chartSubtitle}
+                categories={categories}
+                series={series}
+                ariaLabel="Performance chart: MICF and Benchmark cumulative returns"
                 chartType="line"
                 valueSuffix="%"
               />
@@ -182,7 +195,7 @@ export function MICFPerformanceSection() {
                 </tr>
               </thead>
               <tbody>
-                {PERFORMANCE_TABLE_ROWS.map((row) => (
+                {tableRows.map((row) => (
                   <tr
                     key={row.label}
                     className="border-b border-surface-stroke last:border-b-0"

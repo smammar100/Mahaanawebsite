@@ -6,6 +6,7 @@ import { motion } from "motion/react";
 import { Container } from "@/components/layout/Container";
 import { H2, H4, TextMedium, TextSmall } from "@/components/ui/Typography";
 import { HighchartsVariablePieChart } from "@/components/ui/HighchartsVariablePieChart";
+import type { MicfPortfolioFundData } from "@/lib/micf-fund-api";
 import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
 import { cx } from "@/utils/cx";
 
@@ -325,10 +326,38 @@ function useHighchartsColumn() {
   return libs;
 }
 
-function AssetAllocationColumnChart() {
+function parsePct(s: string): number {
+  const n = parseFloat(s.replace("%", ""));
+  return Number.isNaN(n) ? 0 : n;
+}
+
+function AssetAllocationColumnChart({
+  categories,
+  prevData,
+  currentData,
+}: {
+  categories?: string[];
+  prevData?: number[];
+  currentData?: number[];
+} = {}) {
   const id = useId().replace(/:/g, "");
   const containerId = `asset-allocation-column-${id}`;
   const libs = useHighchartsColumn();
+
+  const options: Options =
+    categories && prevData && currentData
+      ? {
+          ...assetAllocationColumnChartOptions,
+          xAxis: {
+            ...assetAllocationColumnChartOptions.xAxis,
+            categories,
+          },
+          series: [
+            { name: "Previous month", data: prevData, color: "var(--color-info-200)" },
+            { name: "Current month", data: currentData, color: "var(--color-teal-200)" },
+          ],
+        }
+      : assetAllocationColumnChartOptions;
 
   if (!libs) {
     return (
@@ -347,7 +376,7 @@ function AssetAllocationColumnChart() {
     <div className="h-fit w-full">
       <HighchartsReact
         highcharts={Highcharts}
-        options={assetAllocationColumnChartOptions}
+        options={options}
         containerProps={{
           id: containerId,
           style: { width: "100%", height: "fit-content" },
@@ -357,9 +386,36 @@ function AssetAllocationColumnChart() {
   );
 }
 
-export function MICFPortfolioSection() {
+export function MICFPortfolioSection({
+  fundData,
+}: {
+  fundData?: MicfPortfolioFundData | null;
+}) {
   const [hoveredCreditIndex, setHoveredCreditIndex] = useState<number | null>(null);
   const [hoveredHoldingsIndex, setHoveredHoldingsIndex] = useState<number | null>(null);
+
+  const assetAllocationRows = fundData?.assetAllocation ?? [...ASSET_ALLOCATION_ROWS];
+  const creditQualityRows = fundData?.creditQuality ?? [...CREDIT_QUALITY_ROWS];
+  const topHoldingsRows = fundData?.topHoldings ?? [...TOP_HOLDINGS_ROWS];
+
+  const creditQualityChartData =
+    fundData?.creditQuality?.map((r) => ({ name: r.item, value: r.value, fill: r.color })) ??
+    CREDIT_QUALITY_ROWS.map((row) => ({
+      name: row.item,
+      value: row.value,
+      fill: row.color,
+    }));
+  const holdingsChartDataForView =
+    fundData?.topHoldings?.map((r) => ({ name: r.name, value: r.value, fill: r.color })) ??
+    TOP_HOLDINGS_ROWS.map((row) => ({
+      name: row.name,
+      value: row.value,
+      fill: row.color,
+    }));
+
+  const columnChartCategories = assetAllocationRows.map((r) => r.item);
+  const columnChartPrevData = assetAllocationRows.map((r) => parsePct(r.previousMonth));
+  const columnChartCurrentData = assetAllocationRows.map((r) => parsePct(r.currentMonth));
 
   return (
     <motion.section
@@ -391,7 +447,11 @@ export function MICFPortfolioSection() {
                 role="img"
                 aria-label="Asset allocation: previous month vs current month by category"
               >
-                <AssetAllocationColumnChart />
+                <AssetAllocationColumnChart
+                  categories={columnChartCategories}
+                  prevData={columnChartPrevData}
+                  currentData={columnChartCurrentData}
+                />
               </div>
               <div className="overflow-x-auto rounded-2xl border border-surface-stroke bg-surface-card">
                 <table
@@ -419,7 +479,7 @@ export function MICFPortfolioSection() {
                     </tr>
                   </thead>
                   <tbody>
-                    {ASSET_ALLOCATION_ROWS.map((row) => (
+                    {assetAllocationRows.map((row) => (
                       <tr key={row.item} className="border-b border-surface-stroke last:border-b-0">
                         <td className="px-4 py-5 sm:px-6">
                           <div className="flex items-center gap-3">
@@ -452,11 +512,11 @@ export function MICFPortfolioSection() {
           </div>
 
           {/* 2. Credit quality: table (left) + donut (right) */}
-          <div className="flex flex-col gap-6">
+          <div className="flex flex-col gap-6 justify-start items-start">
             <H4 className="text-text-primary text-xl lg:text-2xl" weight="semibold">
               Credit quality
             </H4>
-            <div className="flex min-w-0 flex-col gap-6 lg:flex-row lg:gap-6">
+            <div className="flex min-w-0 w-full flex-col gap-6 lg:flex-row lg:gap-6">
               <div className="min-w-0 flex-1 lg:w-1/2">
                 <div className="overflow-x-auto rounded-2xl border border-surface-stroke bg-surface-card">
                   <table
@@ -479,7 +539,7 @@ export function MICFPortfolioSection() {
                       </tr>
                     </thead>
                     <tbody>
-                      {CREDIT_QUALITY_ROWS.map((row, index) => (
+                      {creditQualityRows.map((row, index) => (
                         <tr
                           key={row.item}
                           className={cx(
@@ -528,7 +588,7 @@ export function MICFPortfolioSection() {
             <div className="flex min-w-0 flex-col gap-6 lg:flex-row lg:gap-6">
               <div className="flex flex-col justify-center items-center min-w-0 flex-1 lg:w-1/2">
                 <HighchartsVariablePieChart
-                  data={holdingsChartData}
+                  data={holdingsChartDataForView}
                   ariaLabel="Top holdings by percentage"
                   onSegmentHover={setHoveredHoldingsIndex}
                 />
@@ -555,7 +615,7 @@ export function MICFPortfolioSection() {
                       </tr>
                     </thead>
                     <tbody>
-                      {TOP_HOLDINGS_ROWS.map((row, index) => (
+                      {topHoldingsRows.map((row, index) => (
                         <tr
                           key={row.name}
                           className={cx(

@@ -9,6 +9,7 @@ import {
   TextSmall,
   TextMedium,
 } from "@/components/ui/Typography";
+import type { MicfOverviewFundData } from "@/lib/micf-fund-api";
 import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
 
 const KEY_FACTS_LEFT = [
@@ -60,7 +61,22 @@ function DetailRow({ label, value }: { label: string; value: string }) {
   );
 }
 
-export function MICFOverviewSection() {
+const DEFAULT_SUMMARY =
+  "MICF is a Shariah-compliant fund that primarily invests in cash and cash equivalents, such as short-term government bonds and money market instruments. Cash funds are often used as a short-term investment vehicle or as a way to preserve capital while earning a low return. They are typically considered low-risk investments, as they are invested in highly liquid assets, such as islamic sukuks, that are not subject to significant price fluctuations. Through MICF, our clients gain direct exposure to government Sukuks at a fraction of the cost compared to banks.";
+
+const DEFAULT_OBJECTIVE =
+  "Investment objective is to provide competitive returns with maximum possible capital preservation by Investing in low risk and liquid Shariah-compliant authorized instruments.";
+
+export function MICFOverviewSection({
+  fundData,
+}: {
+  fundData?: MicfOverviewFundData | null;
+}) {
+  const summary = fundData?.summary ?? DEFAULT_SUMMARY;
+  const investmentObjective = fundData?.investmentObjective ?? DEFAULT_OBJECTIVE;
+  const keyFactsLeft = fundData?.keyFactsLeft ?? [...KEY_FACTS_LEFT];
+  const keyFactsRight = fundData?.keyFactsRight ?? [...KEY_FACTS_RIGHT];
+
   return (
     <motion.section
       initial="hidden"
@@ -87,16 +103,7 @@ export function MICFOverviewSection() {
                 Product summary
               </H4>
               <TextRegular className="text-text-secondary leading-[150%]">
-                MICF is a Shariah-compliant fund that primarily invests in cash
-                and cash equivalents, such as short-term government bonds and
-                money market instruments. Cash funds are often used as a
-                short-term investment vehicle or as a way to preserve capital
-                while earning a low return. They are typically considered
-                low-risk investments, as they are invested in highly liquid
-                assets, such as islamic sukuks, that are not subject to
-                significant price fluctuations. Through MICF, our clients gain
-                direct exposure to government Sukuks at a fraction of the cost
-                compared to banks.
+                {summary}
               </TextRegular>
             </div>
             <div className="flex flex-col gap-4">
@@ -104,9 +111,7 @@ export function MICFOverviewSection() {
                 Investment objective
               </H4>
               <TextRegular className="text-text-secondary leading-[150%]">
-                Investment objective is to provide competitive returns with
-                maximum possible capital preservation by Investing in low risk
-                and liquid Shariah-compliant authorized instruments.
+                {investmentObjective}
               </TextRegular>
             </div>
           </div>
@@ -114,12 +119,12 @@ export function MICFOverviewSection() {
           {/* Fund details grid — two columns on lg */}
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-20">
             <div className="flex flex-col gap-6">
-              {KEY_FACTS_LEFT.map(({ label, value }) => (
+              {keyFactsLeft.map(({ label, value }) => (
                 <DetailRow key={label} label={label} value={value} />
               ))}
             </div>
             <div className="flex flex-col gap-6">
-              {KEY_FACTS_RIGHT.map(({ label, value }) => (
+              {keyFactsRight.map(({ label, value }) => (
                 <DetailRow key={label} label={label} value={value} />
               ))}
             </div>

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
 import { buildPageMetadata } from "@/lib/metadata";
+import { getMicfFundDataForPage } from "@/lib/micf-fund-api";
 import { getFaqByProduct, getFundDocuments } from "@/lib/sanity/fetch";
 import { Cta6Section } from "@/components/sections/Cta6Section";
 import { MICFFAQSection } from "@/components/sections/MICFFAQSection";
@@ -24,8 +25,11 @@ export const metadata: Metadata = buildPageMetadata({
   path: "micf",
 });
 
+export const revalidate = 60;
+
 export default async function MICFPage() {
-  const [faqItems, fundDocs] = await Promise.all([
+  const [fundData, faqItems, fundDocs] = await Promise.all([
+    getMicfFundDataForPage(),
     getFaqByProduct("micf"),
     getFundDocuments("micf"),
   ]);
@@ -37,11 +41,11 @@ export default async function MICFPage() {
   }));
   return (
     <div className="-mt-[calc(4.5rem+env(safe-area-inset-top,0px))] bg-surface-bg">
-      <MICFHero />
-      <MICFOverviewSection />
-      <MICFPerformanceSection />
-      <MICFPortfolioSection />
-      <MICFDistributionsSection />
+      <MICFHero fundData={fundData?.hero} />
+      <MICFOverviewSection fundData={fundData?.overview} />
+      <MICFPerformanceSection fundData={fundData?.performance} />
+      <MICFPortfolioSection fundData={fundData?.portfolio} />
+      <MICFDistributionsSection fundData={fundData?.distributions} />
       <MICFFundLiteratureSection documents={documents} />
       <MICFFAQSection items={faqItems} />
       <Cta6Section />

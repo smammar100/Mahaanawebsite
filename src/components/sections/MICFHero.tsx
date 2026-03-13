@@ -9,6 +9,7 @@ import {
   TextMedium,
   TextTiny,
 } from "@/components/ui/Typography";
+import type { MicfHeroFundData } from "@/lib/micf-fund-api";
 import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
 import { cx } from "@/utils/cx";
 
@@ -28,8 +29,26 @@ const TAB_TO_SECTION_ID: Record<(typeof MICF_HERO_TABS)[number]["id"], string> =
   "fund-literature": "micf-fund-literature-section-heading",
 };
 
-export function MICFHero() {
+const DEFAULT_NAV = "114.0123";
+const DEFAULT_NAV_DATE = "4 Mar 2026";
+const DEFAULT_MTD = "10.50%";
+const DEFAULT_ASSET_CLASS = "Open-end Shariah Compliant Money Market Fund";
+const DEFAULT_EXPENSE_MTD = "0.91% (MTD)";
+const DEFAULT_EXPENSE_YTD = "0.83% (YTD)";
+const DEFAULT_EXPENSE_DATE = "As of 28 Feb 2026";
+
+export function MICFHero({ fundData }: { fundData?: MicfHeroFundData | null }) {
   const [selectedTab, setSelectedTab] = useState<(typeof MICF_HERO_TABS)[number]["id"]>("overview");
+
+  const nav = fundData?.nav ?? DEFAULT_NAV;
+  const navDate = fundData?.navDate ?? DEFAULT_NAV_DATE;
+  const mtd = fundData?.mtd ?? DEFAULT_MTD;
+  const assetClass = fundData?.assetClass ?? DEFAULT_ASSET_CLASS;
+  const expenseMtd = fundData?.expenseRatioMtd ?? DEFAULT_EXPENSE_MTD;
+  const expenseYtd = fundData?.expenseRatioYtd ?? DEFAULT_EXPENSE_YTD;
+  const expenseDate = fundData?.expenseRatioDate
+    ? `As of ${fundData.expenseRatioDate}`
+    : DEFAULT_EXPENSE_DATE;
 
   function handleTabClick(tabId: (typeof MICF_HERO_TABS)[number]["id"]) {
     setSelectedTab(tabId);
@@ -79,9 +98,9 @@ export function MICFHero() {
                 NAV
               </TextSmall>
               <TextMedium weight="semibold" className="text-text-primary text-[1.25rem] leading-[1.2]">
-                114.0123
+                {nav}
               </TextMedium>
-              <TextTiny className="text-text-tertiary">as of 4 Mar 2026</TextTiny>
+              <TextTiny className="text-text-tertiary">as of {navDate}</TextTiny>
             </div>
 
             {/* Risk / Reward Scale */}
@@ -100,7 +119,7 @@ export function MICFHero() {
                 Asset class
               </TextSmall>
               <TextMedium weight="semibold" className="text-text-primary text-[1.25rem] leading-[1.2]">
-                Open-end Shariah Compliant Money Market Fund
+                {assetClass}
               </TextMedium>
             </div>
 
@@ -110,9 +129,9 @@ export function MICFHero() {
                 MTD
               </TextSmall>
               <TextMedium weight="semibold" className="text-text-primary text-[1.25rem] leading-[1.2]">
-                10.50%
+                {mtd}
               </TextMedium>
-              <TextTiny className="text-text-tertiary">As of 4 Mar 2026</TextTiny>
+              <TextTiny className="text-text-tertiary">As of {navDate}</TextTiny>
             </div>
 
             {/* Management style */}
@@ -133,14 +152,14 @@ export function MICFHero() {
               <div className="flex flex-col gap-0.5">
                 <div className="flex items-center gap-2">
                   <TextMedium weight="semibold" className="text-text-primary text-[1.25rem] leading-[1.2]">
-                    0.91% (MTD)
+                    {expenseMtd}
                   </TextMedium>
                   <span className="h-4 w-px shrink-0 bg-gray-200" aria-hidden />
                   <TextMedium weight="semibold" className="text-text-primary text-[1.25rem] leading-[1.2]">
-                    0.83% (YTD)
+                    {expenseYtd}
                   </TextMedium>
                 </div>
-                <TextTiny className="text-text-tertiary">As of 28 Feb 2026</TextTiny>
+                <TextTiny className="text-text-tertiary">{expenseDate}</TextTiny>
               </div>
             </div>
           </div>

@@ -3,7 +3,15 @@
 import { motion } from "motion/react";
 import { Container } from "@/components/layout/Container";
 import { H2, TextMedium, TextSmall } from "@/components/ui/Typography";
+import type { MicfDistributionsFundData } from "@/lib/micf-fund-api";
 import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
+
+/** Parse DD/MM/YYYY (with or without spaces) to YYYY-MM-DD for sorting. */
+function toSortableDate(dateStr: string): string {
+  const [d, m, y] = dateStr.replace(/\s/g, "").split("/");
+  if (!d || !m || !y) return "0000-00-00";
+  return `${y}-${m.padStart(2, "0")}-${d.padStart(2, "0")}`;
+}
 
 const DISTRIBUTIONS_ROWS = [
   {
@@ -38,7 +46,15 @@ const DISTRIBUTIONS_ROWS = [
   },
 ] as const;
 
-export function MICFDistributionsSection() {
+export function MICFDistributionsSection({
+  fundData,
+}: {
+  fundData?: MicfDistributionsFundData | null;
+}) {
+  const rows = (fundData ?? [...DISTRIBUTIONS_ROWS]).slice().sort(
+    (a, b) => toSortableDate(b.date).localeCompare(toSortableDate(a.date))
+  );
+
   return (
     <motion.section
       initial="hidden"
@@ -112,7 +128,7 @@ export function MICFDistributionsSection() {
               </tr>
             </thead>
             <tbody>
-              {DISTRIBUTIONS_ROWS.map((row) => (
+              {rows.map((row) => (
                 <tr
                   key={row.date}
                   className="border-b border-surface-stroke last:border-b-0"

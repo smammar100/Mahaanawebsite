@@ -58,3 +58,49 @@ export function formatPublishedDate(isoDate: string | null | undefined): string 
     return null;
   }
 }
+
+/** Format date as "Mar 29, 2023" (short month). Returns empty string if invalid. */
+export function formatShortDate(isoDate: string | null | undefined): string {
+  if (!isoDate) return "";
+  try {
+    const d = new Date(isoDate);
+    if (Number.isNaN(d.getTime())) return "";
+    return new Intl.DateTimeFormat("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    }).format(d);
+  } catch {
+    return "";
+  }
+}
+
+/** Format date as "DD/MM/YYYY" (e.g. 13/06/2023). Returns empty string if invalid. */
+export function formatDateDdMmYyyy(isoDate: string | null | undefined): string {
+  if (!isoDate) return "";
+  try {
+    const d = new Date(isoDate);
+    if (Number.isNaN(d.getTime())) return "";
+    const day = String(d.getDate()).padStart(2, "0");
+    const month = String(d.getMonth() + 1).padStart(2, "0");
+    const year = d.getFullYear();
+    return `${day}/${month}/${year}`;
+  } catch {
+    return "";
+  }
+}
+
+/** Format date as "MMM YYYY" for chart categories (e.g. Apr 2023). */
+export function formatMonthYear(isoDate: string | null | undefined): string {
+  if (!isoDate) return "";
+  try {
+    const d = new Date(isoDate);
+    if (Number.isNaN(d.getTime())) return "";
+    return new Intl.DateTimeFormat("en-US", {
+      month: "short",
+      year: "numeric",
+    }).format(d);
+  } catch {
+    return "";
+  }
+}
