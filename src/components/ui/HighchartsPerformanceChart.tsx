@@ -156,8 +156,8 @@ function buildOptions(props: HighchartsPerformanceChartProps): Options {
         rotation: 0,
         y: 20,
         step: categories.length > 90 ? Math.max(1, Math.floor(categories.length / 10)) : 1,
-        formatter: function (this: { value: string }) {
-          const v = this.value;
+        formatter: function (this: { value: string | number }) {
+          const v = String(this.value);
           const parts = v.split(", ");
           if (parts.length === 2) {
             const monthPart = parts[0].split(" ")[0];
@@ -239,7 +239,7 @@ function buildOptions(props: HighchartsPerformanceChartProps): Options {
       style: {
         color: "var(--color-text-primary)",
       },
-      formatter: function (this: Highcharts.TooltipFormatterContextObject) {
+      formatter: function (this: any) {
         const points = this.points ?? [];
         const date =
           (points[0] && "point" in points[0] && (points[0].point as { category?: string }).category) ??
@@ -247,7 +247,7 @@ function buildOptions(props: HighchartsPerformanceChartProps): Options {
         const valueDecimals = 2;
         const suffix = valueSuffix ?? "";
         const rows = points
-          .map((p) => {
+          .map((p: { point: { y?: number; color?: string }; series: { name: string; color?: string } }) => {
             const point = p.point as { y?: number; color?: string };
             const name = p.series.name;
             const color = point.color ?? p.series.color ?? "#666";
