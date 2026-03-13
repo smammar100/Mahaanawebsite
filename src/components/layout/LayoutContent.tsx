@@ -20,7 +20,7 @@ export function LayoutContent({
     <>
       <a
         href="#main-content"
-        className="sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[10000002] focus:w-auto focus:h-auto focus:overflow-visible focus:bg-purple-600 focus:text-white focus:px-4 focus:py-2 focus:rounded focus:[clip:auto] focus:whitespace-normal"
+        className="sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[10000002] focus:w-auto focus:h-auto focus:overflow-visible focus:bg-system-brand focus:text-gray-100 focus:px-4 focus:py-2 focus:rounded focus:[clip:auto] focus:whitespace-normal"
       >
         Skip to main content
       </a>

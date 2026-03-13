@@ -76,7 +76,7 @@ function PortfolioPieChartTooltip({
   const name = item.payload?.name ?? item.name;
   const value = item.value;
   return (
-    <div className="rounded-lg border border-surface-stroke bg-white px-2.5 py-1.5 shadow-lg dark:bg-surface-card dark:border-surface-stroke">
+    <div className="rounded-lg border border-surface-stroke bg-surface-card px-2.5 py-1.5 shadow-lg dark:bg-surface-card dark:border-surface-stroke">
       <p className="text-[11px] font-medium text-text-primary sm:text-tiny">
         {name}: {value}%
       </p>

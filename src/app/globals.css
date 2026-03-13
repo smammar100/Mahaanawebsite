@@ -154,6 +154,10 @@
   --color-system-warning: #d59455;
   --color-system-info: #181f8b;
 
+  /* ── Brand gradient (hero / CTA) ────────────────────────── */
+  --gradient-brand-start: #443087;
+  --gradient-brand-end: #30225f;
+
   /* ── Chart (ShadCN / FIRE projection) ──────────────────── */
   --chart-1: #84a344;  /* portfolio */
   --chart-2: #8b5cf6;  /* contributions */
@@ -245,6 +249,25 @@
   height: 100% !important;
 }
 
+/* Brand gradient utility (hero / CTA sections) */
+.bg-gradient-brand {
+  background: linear-gradient(
+    180deg,
+    var(--gradient-brand-start) 0%,
+    var(--gradient-brand-end) 100%
+  );
+}
+.bg-gradient-brand-text {
+  background: linear-gradient(
+    180deg,
+    var(--gradient-brand-start) 0%,
+    var(--gradient-brand-end) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
 /* Gradient shimmer for text (e.g. culture section heading) */
 @keyframes gradient-shimmer {
   0% { background-position: 200% center; }
@@ -253,11 +276,11 @@
 .text-gradient-shimmer {
   background: linear-gradient(
     90deg,
-    #9333ea 0%,
-    #9333ea 35%,
-    #c084fc 50%,
-    #9333ea 65%,
-    #9333ea 100%
+    var(--color-system-brand) 0%,
+    var(--color-system-brand) 35%,
+    var(--color-primary-150) 50%,
+    var(--color-system-brand) 65%,
+    var(--color-system-brand) 100%
   );
   background-size: 200% 100%;
   animation: gradient-shimmer 2.5s ease-in-out infinite;
@@ -325,4 +348,25 @@
 .section-fade-in-up.visible {
   opacity: 1;
   transform: translateY(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .section-fade-in-up {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .animate-fadeInUp {
+    animation: none;
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .mobile-menu-panel .menu-stagger-item {
+    opacity: 1;
+    transform: translateY(0);
+    transition: none;
+  }
+  .pin-ripple-circle {
+    animation: none;
+    opacity: 0;
+  }
 }

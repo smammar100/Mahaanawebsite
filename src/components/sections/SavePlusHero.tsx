@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { motion } from "motion/react";
 import { Container } from "@/components/layout/Container";
-import { TextRegular } from "@/components/ui/Typography";
+import { H1, TextRegular } from "@/components/ui/Typography";
 import {
   AppStoreButton,
   GooglePlayButton,
@@ -41,12 +41,13 @@ export function SavePlusHero() {
         <Container className="flex w-full flex-1 items-center justify-start px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16">
           <div className="flex h-fit w-full max-w-xl flex-col items-start gap-10">
             <div className="flex flex-col items-start gap-4">
-              <h1
+              <H1
                 id="save-plus-hero-heading"
-                className="max-w-[592px] font-heading text-[2.5rem] font-semibold leading-[1.2] tracking-heading text-white sm:text-[3rem] lg:text-[3.5rem]"
+                weight="semibold"
+                className="max-w-[592px] text-white text-[2.5rem] sm:text-[3rem] lg:text-h1"
               >
                 Your Savings Account, You wished your bank could offer
-              </h1>
+              </H1>
 
               <TextRegular className="max-w-[446px] text-white">
                 The smart alternative to your traditional bank account, offering

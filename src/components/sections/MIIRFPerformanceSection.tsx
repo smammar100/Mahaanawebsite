@@ -46,7 +46,7 @@ export function MIIRFPerformanceSection() {
           Performance
         </H2>
 
-        <div className="rounded-2xl border border-surface-stroke bg-white p-4 sm:p-6">
+        <div className="rounded-2xl border border-surface-stroke bg-surface-card p-4 sm:p-6">
           <div
             className="h-64 w-full min-w-0 sm:h-72 lg:h-96"
             role="img"

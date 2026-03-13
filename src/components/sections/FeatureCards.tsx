@@ -13,7 +13,7 @@ const features = [
     number: "Step 1",
     title: "Answer few questions",
     description:
-      "Fill out your details in less than 10 mins and get onboarded",
+      "Fill out your details in less than 10 minutes and get onboarded",
     image: "/images/invest/Step%201.webp",
     imageOrder: "order-1",
     contentOrder: "order-2",
@@ -55,7 +55,7 @@ export function FeatureCards() {
       <Container className="flex flex-col gap-12 sm:gap-16 lg:gap-20">
         {/* Header */}
         <div className="flex flex-col items-start gap-4">
-          <div className="flex flex-col items-start" style={{ gap: '0.5rem' }}>
+          <div className="flex flex-col items-start gap-2">
             <p className="font-body text-small font-semibold uppercase tracking-wide text-system-brand">
               Investing made effortless
             </p>
@@ -78,7 +78,7 @@ export function FeatureCards() {
               <PinContainer
                 href={feature.href}
                 containerClassName="block h-full w-full"
-                className="flex h-full flex-col rounded-2xl border border-surface-stroke bg-[#f8f8f7] p-6 dark:bg-surface-card"
+                className="flex h-full flex-col rounded-2xl border border-surface-stroke bg-surface-card p-6 dark:bg-surface-card"
               >
                 <div className="flex min-h-full flex-1 flex-col">
                   <div className={`flex shrink-0 items-center justify-center overflow-hidden rounded-xl bg-surface-bg ${feature.imageOrder}`}>

@@ -55,7 +55,7 @@ export function MICFHero() {
               id="micf-hero-heading"
               className={cx(
                 "font-heading font-bold leading-[120%] tracking-heading",
-                "bg-gradient-to-b from-[#443087] to-[#30225f] bg-clip-text text-transparent",
+                "bg-gradient-brand-text",
                 "text-[2.5rem] sm:text-5xl lg:text-[4.375rem]"
               )}
             >

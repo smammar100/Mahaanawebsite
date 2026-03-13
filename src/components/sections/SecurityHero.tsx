@@ -35,7 +35,7 @@ export function SecurityHero() {
       <Container className="px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16">
         <div
           className={cx(
-            "flex flex-col overflow-hidden rounded-lg bg-white",
+            "flex flex-col overflow-hidden rounded-lg bg-surface-card",
             "min-h-[280px] sm:min-h-[320px] lg:min-h-0",
             "lg:flex-row lg:items-center lg:justify-center"
           )}
@@ -94,7 +94,7 @@ export function SecurityHero() {
           </div>
 
           {/* Right column: visual — equal width on desktop */}
-          <div className="relative flex min-h-[280px] min-w-0 flex-1 items-center justify-center overflow-hidden rounded-2xl bg-[#fafafa] p-6 sm:min-h-[320px] sm:p-8 lg:h-fit lg:min-h-0 lg:w-fit lg:flex-none lg:p-10">
+          <div className="relative flex min-h-[280px] min-w-0 flex-1 items-center justify-center overflow-hidden rounded-2xl bg-surface-card p-6 sm:min-h-[320px] sm:p-8 lg:h-fit lg:min-h-0 lg:w-fit lg:flex-none lg:p-10">
             <Image
               src="/images/invest/Card.webp"
               alt="Security card illustration"

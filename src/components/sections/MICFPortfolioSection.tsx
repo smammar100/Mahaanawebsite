@@ -387,13 +387,13 @@ export function MICFPortfolioSection() {
             </H4>
             <div className="flex flex-col gap-6">
               <div
-                className="h-fit w-full min-w-0 rounded-2xl border border-surface-stroke bg-white p-4 sm:p-6"
+                className="h-fit w-full min-w-0 rounded-2xl border border-surface-stroke bg-surface-card p-4 sm:p-6"
                 role="img"
                 aria-label="Asset allocation: previous month vs current month by category"
               >
                 <AssetAllocationColumnChart />
               </div>
-              <div className="overflow-x-auto rounded-2xl border border-surface-stroke bg-white">
+              <div className="overflow-x-auto rounded-2xl border border-surface-stroke bg-surface-card">
                 <table
                   className="w-full min-w-[400px] border-collapse"
                   role="table"
@@ -401,17 +401,17 @@ export function MICFPortfolioSection() {
                 >
                   <thead>
                     <tr>
-                      <th scope="col" className="bg-gray-100 px-4 py-4 text-left sm:px-6">
+                      <th scope="col" className="bg-surface-stroke px-4 py-4 text-left sm:px-6">
                         <TextSmall weight="semibold" className="text-text-tertiary text-sm">
                           Items
                         </TextSmall>
                       </th>
-                      <th scope="col" className="bg-gray-100 px-4 py-4 text-center sm:px-6">
+                      <th scope="col" className="bg-surface-stroke px-4 py-4 text-center sm:px-6">
                         <TextSmall weight="semibold" className="text-text-tertiary text-sm">
                           Current month
                         </TextSmall>
                       </th>
-                      <th scope="col" className="bg-gray-100 px-4 py-4 text-center sm:px-6">
+                      <th scope="col" className="bg-surface-stroke px-4 py-4 text-center sm:px-6">
                         <TextSmall weight="semibold" className="text-text-tertiary text-sm">
                           Previous month
                         </TextSmall>
@@ -458,7 +458,7 @@ export function MICFPortfolioSection() {
             </H4>
             <div className="flex min-w-0 flex-col gap-6 lg:flex-row lg:gap-6">
               <div className="min-w-0 flex-1 lg:w-1/2">
-                <div className="overflow-x-auto rounded-2xl border border-surface-stroke bg-white">
+                <div className="overflow-x-auto rounded-2xl border border-surface-stroke bg-surface-card">
                   <table
                     className="w-full min-w-[320px] border-collapse"
                     role="table"
@@ -466,12 +466,12 @@ export function MICFPortfolioSection() {
                   >
                     <thead>
                       <tr>
-                        <th scope="col" className="bg-gray-100 px-4 py-4 text-left sm:px-6">
+                        <th scope="col" className="bg-surface-stroke px-4 py-4 text-left sm:px-6">
                           <TextSmall weight="semibold" className="text-text-tertiary text-sm">
                             Items
                           </TextSmall>
                         </th>
-                        <th scope="col" className="bg-gray-100 px-4 py-4 text-center sm:px-6">
+                        <th scope="col" className="bg-surface-stroke px-4 py-4 text-center sm:px-6">
                           <TextSmall weight="semibold" className="text-text-tertiary text-sm">
                             Percentage
                           </TextSmall>
@@ -484,7 +484,7 @@ export function MICFPortfolioSection() {
                           key={row.item}
                           className={cx(
                             "border-b border-surface-stroke last:border-b-0 transition-colors",
-                            hoveredCreditIndex === index && "bg-gray-100"
+                            hoveredCreditIndex === index && "bg-surface-stroke"
                           )}
                         >
                           <td className="px-4 py-5 sm:px-6">
@@ -534,7 +534,7 @@ export function MICFPortfolioSection() {
                 />
               </div>
               <div className="min-w-0 flex-1 lg:w-1/2">
-                <div className="overflow-x-auto rounded-2xl border border-surface-stroke bg-white">
+                <div className="overflow-x-auto rounded-2xl border border-surface-stroke bg-surface-card">
                   <table
                     className="w-full min-w-[320px] border-collapse"
                     role="table"
@@ -542,12 +542,12 @@ export function MICFPortfolioSection() {
                   >
                     <thead>
                       <tr>
-                        <th scope="col" className="bg-gray-100 px-4 py-4 text-left sm:px-6">
+                        <th scope="col" className="bg-surface-stroke px-4 py-4 text-left sm:px-6">
                           <TextSmall weight="semibold" className="text-text-tertiary text-sm">
                             Instrument
                           </TextSmall>
                         </th>
-                        <th scope="col" className="bg-gray-100 px-4 py-4 text-center sm:px-6">
+                        <th scope="col" className="bg-surface-stroke px-4 py-4 text-center sm:px-6">
                           <TextSmall weight="semibold" className="text-text-tertiary text-sm">
                             Percentage
                           </TextSmall>
@@ -560,7 +560,7 @@ export function MICFPortfolioSection() {
                           key={row.name}
                           className={cx(
                             "border-b border-surface-stroke last:border-b-0 transition-colors",
-                            hoveredHoldingsIndex === index && "bg-gray-100"
+                            hoveredHoldingsIndex === index && "bg-surface-stroke"
                           )}
                         >
                           <td className="px-4 py-5 sm:px-6">

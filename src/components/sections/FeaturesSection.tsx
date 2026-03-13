@@ -33,7 +33,7 @@ function CheckItem({ children }: { children: React.ReactNode }) {
       >
         <CheckCircle className="size-4 text-primary-200" />
       </div>
-      <TextRegular className="flex-1 text-gray-100 text-[1.125rem] leading-7 min-w-0">
+          <TextRegular className="flex-1 text-white/95 text-medium leading-7 min-w-0">
         {children}
       </TextRegular>
     </div>
@@ -73,10 +73,10 @@ function FeatureBlock({
           <p className="font-body text-small font-bold uppercase tracking-wide text-primary-150 mb-2">
             {badge}
           </p>
-          <H3 className="font-heading text-gray-100 text-[1.75rem] sm:text-[1.875rem] lg:text-h4 leading-[1.3] tracking-heading mb-4">
+          <H3 className="font-heading text-white/95 text-[1.75rem] sm:text-[1.875rem] lg:text-h4 leading-[1.3] tracking-heading mb-4">
             {title}
           </H3>
-          <TextRegular className="text-gray-100 text-[1.125rem] leading-7 max-w-xl mb-6">
+          <TextRegular className="text-white/95 text-medium leading-7 max-w-xl mb-6">
             {description}
           </TextRegular>
           <div className="flex flex-col gap-2 mb-10">
@@ -118,10 +118,9 @@ export function FeaturesSection() {
     <section
       ref={ref}
       className={cx(
-        "section-fade-in-up border-t border-surface-stroke pt-16 pb-8 sm:pb-10 md:pb-12 lg:pb-14 xl:pb-16",
+        "section-fade-in-up border-t border-surface-stroke pt-16 pb-8 sm:pb-10 md:pb-12 lg:pb-14 xl:pb-16 bg-gradient-brand",
         isVisible && "visible"
       )}
-      style={{ background: "linear-gradient(180deg, #443087 0%, #30225F 100%)" }}
       aria-labelledby="features-heading"
     >
       <Container className="flex flex-col gap-12 sm:gap-16 lg:gap-20">
@@ -134,7 +133,7 @@ export function FeaturesSection() {
           </div>
           <H2
             id="features-heading"
-            className="font-heading text-[2rem] sm:text-[2.5rem] lg:text-h2 text-gray-100 leading-[1.2] tracking-heading max-w-[28rem]"
+            className="font-heading text-white/95 leading-[1.2] tracking-heading max-w-[28rem] text-[2rem] sm:text-[2.5rem] lg:text-h2"
           >
             Find the perfect ways to Invest
           </H2>

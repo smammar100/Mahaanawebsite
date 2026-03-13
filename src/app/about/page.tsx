@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
 import { buildPageMetadata } from "@/lib/metadata";
+import { getLatestNewsPosts } from "@/lib/sanity/fetch";
 import { AboutHero } from "@/components/sections/AboutHero";
 import { LogoStrip } from "@/components/sections/LogoStrip";
+import { BlogSection } from "@/components/sections/BlogSection";
 
 const AboutCultureSection = dynamic(
   () => import("@/components/sections/AboutCultureSection").then((m) => ({ default: m.AboutCultureSection })),
@@ -24,10 +26,6 @@ const AboutBoardSection = dynamic(
   () => import("@/components/sections/AboutBoardSection").then((m) => ({ default: m.AboutBoardSection })),
   { ssr: true }
 );
-const AboutNewsSection = dynamic(
-  () => import("@/components/sections/AboutNewsSection").then((m) => ({ default: m.AboutNewsSection })),
-  { ssr: true }
-);
 const TestimonialsSection = dynamic(
   () => import("@/components/sections/TestimonialsSection").then((m) => ({ default: m.TestimonialsSection })),
   { ssr: true }
@@ -44,9 +42,11 @@ export const metadata: Metadata = buildPageMetadata({
   path: "about",
 });
 
-export default function AboutUsPage() {
+export default async function AboutUsPage() {
+  const newsPosts = await getLatestNewsPosts();
+
   return (
-    <div className="-mt-[calc(4.5rem+env(safe-area-inset-top,0px))] overflow-x-hidden bg-surface-bg">
+    <div className="-mt-[calc(4.5rem+env(safe-area-inset-top,0px))] overflow-x-clip bg-surface-bg">
       <AboutHero />
       <LogoStrip />
       <AboutCultureSection />
@@ -54,7 +54,14 @@ export default function AboutUsPage() {
       <AboutValuesSection />
       <AboutTeamSection />
       <AboutBoardSection />
-      <AboutNewsSection />
+      <BlogSection
+        posts={newsPosts}
+        heading="In news & media"
+        eyebrow="News"
+        description="Latest coverage and announcements about Mahaana in the press and media."
+        viewAllHref="/investor-education"
+        viewAllLabel="View all news"
+      />
       <TestimonialsSection viewAllHref="/reviews" />
       <Cta6Section />
     </div>

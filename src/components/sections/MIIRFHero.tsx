@@ -46,7 +46,7 @@ export function MIIRFHero() {
               id="miirf-hero-heading"
               className={cx(
                 "font-heading font-extrabold tracking-heading",
-                "bg-gradient-to-b from-[#443087] to-[#30225f] bg-clip-text text-transparent",
+                "bg-gradient-brand-text",
                 "text-[2.5rem] leading-[1.1] sm:text-5xl sm:leading-[68px] lg:text-[4.375rem] xl:text-[70px] xl:leading-[68px] xl:tracking-[-2.625px]"
               )}
             >

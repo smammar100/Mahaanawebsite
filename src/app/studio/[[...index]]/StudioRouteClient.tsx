@@ -12,7 +12,7 @@ const NextStudio = dynamic(
       const config = configMod.default;
       return function StudioPage() {
         return (
-          <div className="fixed inset-0 z-[9999] w-full h-full bg-white">
+          <div className="fixed inset-0 z-[9999] w-full h-full bg-surface-bg">
             <studioMod.NextStudio config={config} />
           </div>
         );
@@ -21,7 +21,7 @@ const NextStudio = dynamic(
   {
     ssr: false,
     loading: () => (
-      <div className="flex min-h-screen w-full items-center justify-center bg-white">
+      <div className="flex min-h-screen w-full items-center justify-center bg-surface-bg">
         Loading Sanity Studio…
       </div>
     ),
@@ -35,23 +35,23 @@ export function StudioRouteClient({
 }) {
   if (!projectId || projectId.trim() === "") {
     return (
-      <div className="flex min-h-screen w-full flex-col items-center justify-center gap-6 bg-gray-50 px-4 dark:bg-gray-900">
-        <div className="max-w-md rounded-xl border border-amber-200 bg-amber-50 p-6 text-center dark:border-amber-800 dark:bg-amber-950/30">
-          <h1 className="font-heading text-xl font-semibold text-amber-800 dark:text-amber-200">
+      <div className="flex min-h-screen w-full flex-col items-center justify-center gap-6 bg-surface-bg px-4">
+        <div className="max-w-md rounded-xl border border-warning-200 bg-warning-100 p-6 text-center dark:border-warning-400 dark:bg-warning-400/20">
+          <h1 className="font-heading text-xl font-semibold text-system-warning">
             Sanity Studio is not configured
           </h1>
-          <p className="mt-3 font-body text-regular text-amber-900 dark:text-amber-100">
-            Set <code className="rounded bg-amber-200/50 px-1.5 py-0.5 font-mono text-small">NEXT_PUBLIC_SANITY_PROJECT_ID</code> and{" "}
-            <code className="rounded bg-amber-200/50 px-1.5 py-0.5 font-mono text-small">NEXT_PUBLIC_SANITY_DATASET</code> in{" "}
-            <code className="rounded bg-amber-200/50 px-1.5 py-0.5 font-mono text-small">.env.local</code> and restart the dev server.
+          <p className="mt-3 font-body text-regular text-text-secondary">
+            Set <code className="rounded bg-warning-150 px-1.5 py-0.5 font-mono text-small">NEXT_PUBLIC_SANITY_PROJECT_ID</code> and{" "}
+            <code className="rounded bg-warning-150 px-1.5 py-0.5 font-mono text-small">NEXT_PUBLIC_SANITY_DATASET</code> in{" "}
+            <code className="rounded bg-warning-150 px-1.5 py-0.5 font-mono text-small">.env.local</code> and restart the dev server.
           </p>
-          <p className="mt-4 font-body text-small text-amber-800 dark:text-amber-200">
-            Copy from <code className="rounded bg-amber-200/50 px-1.5 py-0.5 font-mono text-tiny">.env.example</code> and add your project ID from{" "}
+          <p className="mt-4 font-body text-small text-text-secondary">
+            Copy from <code className="rounded bg-warning-150 px-1.5 py-0.5 font-mono text-tiny">.env.example</code> and add your project ID from{" "}
             <a
               href="https://sanity.io/manage"
               target="_blank"
               rel="noopener noreferrer"
-              className="font-semibold underline underline-offset-2 hover:no-underline"
+              className="font-semibold text-system-brand underline underline-offset-2 hover:no-underline"
             >
               sanity.io/manage
             </a>
@@ -59,7 +59,7 @@ export function StudioRouteClient({
           </p>
           <Link
             href="/"
-            className="mt-6 inline-block rounded-full bg-amber-600 px-5 py-2.5 font-body text-regular font-semibold text-white hover:bg-amber-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-600"
+            className="mt-6 inline-block rounded-full bg-system-warning px-5 py-2.5 font-body text-regular font-semibold text-gray-100 hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-system-warning"
           >
             Back to site
           </Link>

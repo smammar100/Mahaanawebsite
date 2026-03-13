@@ -44,7 +44,7 @@ export function SecurityBenefitsSection({
       aria-labelledby="security-benefits-heading"
     >
       <Container className="px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16">
-        <div className="overflow-hidden bg-white">
+        <div className="overflow-hidden bg-surface-card">
           <div className="grid items-center gap-x-10 gap-y-0 p-0 lg:grid-cols-[minmax(0,520px)_minmax(0,1fr)]">
             <div className="flex min-w-0 flex-col gap-8 lg:gap-10">
               <div className="flex max-w-[520px] flex-col gap-4">
@@ -83,7 +83,7 @@ export function SecurityBenefitsSection({
             </div>
 
             <div className="flex w-full justify-center lg:justify-end">
-              <div className="w-full max-w-[600px] overflow-hidden rounded-[2rem] bg-[#fafafa]">
+              <div className="w-full max-w-[600px] overflow-hidden rounded-[2rem] bg-surface-card">
                 <Image
                   src="/images/invest/flow%20chart.webp"
                   alt="Flow chart illustrating how Mahaana, CDC, and the market protect client assets."

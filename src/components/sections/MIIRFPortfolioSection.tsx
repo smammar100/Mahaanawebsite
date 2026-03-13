@@ -146,7 +146,7 @@ export function MIIRFPortfolioSection() {
             </H4>
             <div className="flex min-w-0 flex-col gap-6 lg:flex-row lg:gap-6">
               <div className="min-w-0 flex-1 lg:w-1/2">
-                <div className="overflow-x-auto rounded-2xl border border-surface-stroke bg-white">
+                <div className="overflow-x-auto rounded-2xl border border-surface-stroke bg-surface-card">
                   <table
                     className="w-full min-w-[400px] border-collapse"
                     role="table"
@@ -156,7 +156,7 @@ export function MIIRFPortfolioSection() {
                       <tr>
                         <th
                           scope="col"
-                          className="bg-gray-100 px-4 py-4 text-left sm:px-6"
+                          className="bg-surface-stroke px-4 py-4 text-left sm:px-6"
                         >
                           <TextSmall
                             weight="semibold"
@@ -167,7 +167,7 @@ export function MIIRFPortfolioSection() {
                         </th>
                         <th
                           scope="col"
-                          className="bg-gray-100 px-4 py-4 text-center sm:px-6"
+                          className="bg-surface-stroke px-4 py-4 text-center sm:px-6"
                         >
                           <TextSmall
                             weight="semibold"
@@ -178,7 +178,7 @@ export function MIIRFPortfolioSection() {
                         </th>
                         <th
                           scope="col"
-                          className="bg-gray-100 px-4 py-4 text-center sm:px-6"
+                          className="bg-surface-stroke px-4 py-4 text-center sm:px-6"
                         >
                           <TextSmall
                             weight="semibold"
@@ -189,7 +189,7 @@ export function MIIRFPortfolioSection() {
                         </th>
                         <th
                           scope="col"
-                          className="bg-gray-100 px-4 py-4 text-center sm:px-6"
+                          className="bg-surface-stroke px-4 py-4 text-center sm:px-6"
                         >
                           <TextSmall
                             weight="semibold"
@@ -206,7 +206,7 @@ export function MIIRFPortfolioSection() {
                           key={row.sector}
                           className={cx(
                             "border-b border-surface-stroke last:border-b-0 transition-colors",
-                            hoveredExposureIndex === index && "bg-gray-100"
+                            hoveredExposureIndex === index && "bg-surface-stroke"
                           )}
                         >
                           <td className="px-4 py-5 sm:px-6">
@@ -278,7 +278,7 @@ export function MIIRFPortfolioSection() {
                 />
               </div>
               <div className="min-w-0 flex-1 lg:w-1/2">
-                <div className="overflow-x-auto rounded-2xl border border-surface-stroke bg-white">
+                <div className="overflow-x-auto rounded-2xl border border-surface-stroke bg-surface-card">
                   <table
                     className="w-full min-w-[320px] border-collapse"
                     role="table"
@@ -288,7 +288,7 @@ export function MIIRFPortfolioSection() {
                       <tr>
                         <th
                           scope="col"
-                          className="bg-gray-100 px-4 py-4 text-left sm:px-6"
+                          className="bg-surface-stroke px-4 py-4 text-left sm:px-6"
                         >
                           <TextSmall
                             weight="semibold"
@@ -299,7 +299,7 @@ export function MIIRFPortfolioSection() {
                         </th>
                         <th
                           scope="col"
-                          className="bg-gray-100 px-4 py-4 text-center sm:px-6"
+                          className="bg-surface-stroke px-4 py-4 text-center sm:px-6"
                         >
                           <TextSmall
                             weight="semibold"
@@ -316,7 +316,7 @@ export function MIIRFPortfolioSection() {
                           key={row.name}
                           className={cx(
                             "border-b border-surface-stroke last:border-b-0 transition-colors",
-                            hoveredHoldingsIndex === index && "bg-gray-100"
+                            hoveredHoldingsIndex === index && "bg-surface-stroke"
                           )}
                         >
                           <td className="px-4 py-5 sm:px-6">

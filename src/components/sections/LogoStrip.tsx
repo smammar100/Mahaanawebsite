@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Container } from "@/components/layout/Container";
 
 const LOGOS = [
@@ -20,15 +21,13 @@ export function LogoStrip() {
               key={`${logo.src}-${index}`}
               className="flex max-h-16 min-h-[48px] w-full max-w-[180px] items-center justify-center py-1"
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <Image
                 src={logo.src}
                 alt={logo.alt}
                 width={180}
                 height={64}
+                sizes="(max-width: 800px) 50vw, 25vw"
                 className="h-8 w-auto max-h-16 max-w-[180px] object-contain object-center opacity-90 sm:h-10 lg:h-12"
-                loading="lazy"
-                fetchPriority="low"
               />
             </div>
           ))}

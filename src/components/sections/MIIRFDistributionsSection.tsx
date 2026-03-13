@@ -39,7 +39,7 @@ export function MIIRFDistributionsSection() {
           Distributions
         </H2>
 
-        <div className="overflow-x-auto rounded-2xl border border-surface-stroke bg-white">
+        <div className="overflow-x-auto rounded-2xl border border-surface-stroke bg-surface-card">
           <table
             className="w-full min-w-[480px] border-collapse"
             role="table"
@@ -49,7 +49,7 @@ export function MIIRFDistributionsSection() {
               <tr>
                 <th
                   scope="col"
-                  className="bg-gray-100 px-4 py-4 text-center sm:px-6"
+                  className="bg-surface-stroke px-4 py-4 text-center sm:px-6"
                 >
                   <TextSmall
                     weight="semibold"
@@ -60,7 +60,7 @@ export function MIIRFDistributionsSection() {
                 </th>
                 <th
                   scope="col"
-                  className="bg-gray-100 px-4 py-4 text-center sm:px-6"
+                  className="bg-surface-stroke px-4 py-4 text-center sm:px-6"
                 >
                   <TextSmall
                     weight="semibold"
@@ -71,7 +71,7 @@ export function MIIRFDistributionsSection() {
                 </th>
                 <th
                   scope="col"
-                  className="bg-gray-100 px-4 py-4 text-center sm:px-6"
+                  className="bg-surface-stroke px-4 py-4 text-center sm:px-6"
                 >
                   <TextSmall
                     weight="semibold"
@@ -82,7 +82,7 @@ export function MIIRFDistributionsSection() {
                 </th>
                 <th
                   scope="col"
-                  className="bg-gray-100 px-4 py-4 text-center sm:px-6"
+                  className="bg-surface-stroke px-4 py-4 text-center sm:px-6"
                 >
                   <TextSmall
                     weight="semibold"

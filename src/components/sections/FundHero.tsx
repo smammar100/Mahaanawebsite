@@ -54,7 +54,9 @@ export function FundHero({
             </H1>
             <Button
               href={ctaHref}
-              className="w-full rounded-xl bg-system-brand px-6 py-3 text-base font-semibold text-white hover:opacity-90 sm:w-auto"
+              color="primary"
+              size="lg"
+              className="w-full rounded-xl sm:w-auto"
             >
               {ctaLabel}
             </Button>

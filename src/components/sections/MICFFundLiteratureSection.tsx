@@ -155,7 +155,7 @@ export function MICFFundLiteratureSection({
 
           {/* Document list — per tab */}
           {activeTab === "general" && (
-            <div className="overflow-x-auto rounded-2xl border border-surface-stroke bg-white">
+            <div className="overflow-x-auto rounded-2xl border border-surface-stroke bg-surface-card">
               <div className="min-w-0 w-full">
                 {byCategory.general.map((doc, index) => (
                   <div
@@ -194,7 +194,7 @@ export function MICFFundLiteratureSection({
             </div>
           )}
           {activeTab !== "general" && hasDocs && (
-            <div className="overflow-x-auto rounded-2xl border border-surface-stroke bg-white">
+            <div className="overflow-x-auto rounded-2xl border border-surface-stroke bg-surface-card">
               <div className="min-w-0 w-full">
                 {tabDocs.map((doc, index) => (
                   <div
@@ -233,7 +233,7 @@ export function MICFFundLiteratureSection({
             </div>
           )}
           {activeTab !== "general" && !hasDocs && (
-            <div className="overflow-x-auto rounded-2xl border border-surface-stroke bg-white px-4 py-8 sm:px-6 text-center">
+            <div className="overflow-x-auto rounded-2xl border border-surface-stroke bg-surface-card px-4 py-8 sm:px-6 text-center">
               <TextMedium weight="medium" className="text-text-tertiary">
                 No documents in this category yet.
               </TextMedium>

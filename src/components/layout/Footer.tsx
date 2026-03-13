@@ -21,8 +21,8 @@ function NavColumn({
       <h3
         className={
           subheading
-            ? "font-body text-tiny font-semibold uppercase tracking-wide text-text-secondary max-[768px]:text-xs max-[768px]:font-bold max-[768px]:uppercase max-[768px]:tracking-[0.08em] max-[768px]:text-[#1a1a1a] max-[768px]:mb-3 md:mb-0"
-            : "font-heading text-small font-semibold tracking-heading text-text-primary max-[768px]:text-xs max-[768px]:font-bold max-[768px]:uppercase max-[768px]:tracking-[0.08em] max-[768px]:text-[#1a1a1a] max-[768px]:mb-3 md:mb-0"
+            ? "font-body text-tiny font-semibold uppercase tracking-wide text-text-secondary max-[768px]:text-xs max-[768px]:font-bold max-[768px]:uppercase max-[768px]:tracking-[0.08em] max-[768px]:text-text-primary max-[768px]:mb-3 md:mb-0"
+            : "font-heading text-small font-semibold tracking-heading text-text-primary max-[768px]:text-xs max-[768px]:font-bold max-[768px]:uppercase max-[768px]:tracking-[0.08em] max-[768px]:text-text-primary max-[768px]:mb-3 md:mb-0"
         }
       >
         {heading}
@@ -32,7 +32,7 @@ function NavColumn({
           <li key={label}>
             <Link
               href={href}
-              className="font-body text-small text-text-tertiary transition-colors hover:text-text-primary max-[768px]:block max-[768px]:text-sm max-[768px]:font-normal max-[768px]:text-[#666666] max-[768px]:py-1 max-[768px]:leading-[1.5]"
+              className="font-body text-small text-text-tertiary transition-colors hover:text-text-primary max-[768px]:block max-[768px]:text-sm max-[768px]:font-normal max-[768px]:text-text-tertiary max-[768px]:py-1 max-[768px]:leading-[1.5]"
             >
               {label}
             </Link>
@@ -47,7 +47,7 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="mt-auto border-t border-surface-stroke bg-[#F5F5F5]">
+    <footer className="mt-auto border-t border-surface-stroke bg-surface-card">
       <Container className="px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16">
         {/* Top section: logo + app buttons | nav grid */}
         <div className="flex flex-col gap-6 py-8 sm:py-10 md:py-12 lg:gap-6 lg:py-14 xl:flex-row xl:items-start xl:gap-12 xl:pt-14 xl:pb-4">
@@ -117,8 +117,8 @@ export function Footer() {
           </div>
 
           {/* Right: 5-column nav grid (2 cols on mobile) */}
-          <div className="grid flex-1 grid-cols-2 items-start gap-4 max-[768px]:gap-0 max-[768px]:[&>:nth-child(odd)]:border-r max-[768px]:[&>:nth-child(odd)]:border-[#f0f0f0] md:grid-cols-2 xl:grid-cols-4">
-            <div className="max-[768px]:border-b max-[768px]:border-[#f0f0f0] max-[768px]:pt-5 max-[768px]:pr-4 max-[768px]:pb-5 max-[768px]:pl-0 md:border-0 md:p-0">
+          <div className="grid flex-1 grid-cols-2 items-start gap-4 max-[768px]:gap-0 max-[768px]:[&>:nth-child(odd)]:border-r max-[768px]:[&>:nth-child(odd)]:border-surface-stroke md:grid-cols-2 xl:grid-cols-4">
+            <div className="max-[768px]:border-b max-[768px]:border-surface-stroke max-[768px]:pt-5 max-[768px]:pr-4 max-[768px]:pb-5 max-[768px]:pl-0 md:border-0 md:p-0">
               <NavColumn
                 heading="Products"
                 links={[
@@ -127,7 +127,7 @@ export function Footer() {
                 ]}
               />
             </div>
-            <div className="max-[768px]:border-b max-[768px]:border-[#f0f0f0] max-[768px]:pt-5 max-[768px]:pr-4 max-[768px]:pb-5 max-[768px]:pl-0 md:border-0 md:p-0">
+            <div className="max-[768px]:border-b max-[768px]:border-surface-stroke max-[768px]:pt-5 max-[768px]:pr-4 max-[768px]:pb-5 max-[768px]:pl-0 md:border-0 md:p-0">
               <NavColumn
                 heading="Funds"
                 links={[
@@ -137,7 +137,7 @@ export function Footer() {
                 ]}
               />
             </div>
-            <div className="max-[768px]:border-b max-[768px]:border-[#f0f0f0] max-[768px]:pt-5 max-[768px]:pr-4 max-[768px]:pb-5 max-[768px]:pl-0 md:border-0 md:p-0">
+            <div className="max-[768px]:border-b max-[768px]:border-surface-stroke max-[768px]:pt-5 max-[768px]:pr-4 max-[768px]:pb-5 max-[768px]:pl-0 md:border-0 md:p-0">
               <NavColumn
                 heading="Tools"
                 links={[
@@ -146,7 +146,7 @@ export function Footer() {
                 ]}
               />
             </div>
-            <div className="max-[768px]:border-b max-[768px]:border-[#f0f0f0] max-[768px]:pt-5 max-[768px]:pr-4 max-[768px]:pb-5 max-[768px]:pl-0 md:border-0 md:p-0">
+            <div className="max-[768px]:border-b max-[768px]:border-surface-stroke max-[768px]:pt-5 max-[768px]:pr-4 max-[768px]:pb-5 max-[768px]:pl-0 md:border-0 md:p-0">
               <NavColumn
                 heading="Investor Education"
                 links={[
@@ -155,7 +155,7 @@ export function Footer() {
                 ]}
               />
             </div>
-            <div className="max-[768px]:border-b max-[768px]:border-[#f0f0f0] max-[768px]:pt-5 max-[768px]:pr-4 max-[768px]:pb-5 max-[768px]:pl-0 md:border-0 md:p-0">
+            <div className="max-[768px]:border-b max-[768px]:border-surface-stroke max-[768px]:pt-5 max-[768px]:pr-4 max-[768px]:pb-5 max-[768px]:pl-0 md:border-0 md:p-0">
               <NavColumn
                 heading="About"
                 links={[

@@ -40,7 +40,7 @@ export function InvestorEducationLayout({
 
   return (
     <>
-      <section className="bg-gradient-to-b from-[#443087] to-[#30225f] py-12 sm:py-16 lg:py-24">
+      <section className="bg-gradient-brand py-12 sm:py-16 lg:py-24">
         <Container className="flex flex-col items-center gap-10 text-center">
           <div className="flex flex-col items-center gap-4">
             <H2 className="text-white">{headline}</H2>

@@ -263,16 +263,14 @@ export function Header() {
           hideOverlay
           className={cx(
             'inset-0 z-[10000003] flex min-h-dvh w-full flex-col gap-0 overflow-hidden overflow-x-hidden border-0 p-4 [&>button]:hidden',
-            '!bg-white bg-[#ffffff]'
+            'bg-surface-bg'
           )}
-          style={{ backgroundColor: '#ffffff' }}
         >
           <div
             className={cx(
-              'mobile-menu-panel flex min-h-full flex-1 flex-col gap-0 overflow-y-auto overflow-x-hidden bg-white pb-8',
+              'mobile-menu-panel flex min-h-full flex-1 flex-col gap-0 overflow-y-auto overflow-x-hidden bg-surface-bg pb-8',
               mobileMenuOpen && 'open'
             )}
-            style={{ backgroundColor: '#ffffff' }}
           >
             <div className="absolute -m-px h-px w-px overflow-hidden border-0 p-0 text-nowrap whitespace-nowrap [clip:rect(0,0,0,0)]">
               <SheetTitle className="text-primary">
@@ -280,7 +278,7 @@ export function Header() {
               </SheetTitle>
             </div>
             {/* 1. Menu header: logo + close */}
-            <div className="menu-stagger-item mb-2 flex items-center justify-between border-b border-[#f0f0f0] pb-4">
+            <div className="menu-stagger-item mb-2 flex items-center justify-between border-b border-surface-stroke pb-4">
               <Link
                 href="/"
                 className="shrink-0"
@@ -297,7 +295,7 @@ export function Header() {
               <button
                 type="button"
                 aria-label="Close menu"
-                className="flex size-10 items-center justify-center rounded-lg text-gray-600 transition-colors hover:bg-gray-100 hover:text-gray-900"
+                className="flex size-10 items-center justify-center rounded-lg text-text-tertiary transition-colors hover:bg-surface-card hover:text-text-primary"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <svg className="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden>
@@ -307,18 +305,18 @@ export function Header() {
             </div>
             {/* 2–5. Nav items: Products, Resources, Company with chevrons */}
             <div className="menu-stagger-item">
-              <Accordion type="multiple" className="w-full bg-white" style={{ backgroundColor: '#ffffff' }}>
+              <Accordion type="multiple" className="w-full bg-surface-bg">
                 {navDropdowns.map((config, index) => (
                   <AccordionItem
                     key={config.label}
                     value={`nav-${index}`}
-                    className="border-b border-[#f5f5f5]"
+                    className="border-b border-surface-stroke"
                   >
                     <AccordionTrigger
-                      className="w-full cursor-pointer border-b border-[#f0f0f0] py-4 text-base font-medium text-[#1a1a1a] hover:bg-gray-50 hover:no-underline [&[data-state=open]>svg]:rotate-180"
+                      className="w-full cursor-pointer border-b border-surface-stroke py-4 text-base font-medium text-text-primary hover:bg-surface-card hover:no-underline [&[data-state=open]>svg]:rotate-180"
                     >
                       <span>{config.label}</span>
-                      <ChevronDown className="size-5 shrink-0 text-[#aaaaaa] transition-transform duration-200 [&[data-state=open]>svg]:rotate-180" aria-hidden />
+                      <ChevronDown className="size-5 shrink-0 text-text-tertiary transition-transform duration-200 [&[data-state=open]>svg]:rotate-180" aria-hidden />
                     </AccordionTrigger>
                     <AccordionContent className="max-h-[60dvh] overflow-x-auto">
                       {config.sections.map((section, sectionIndex) => (
@@ -332,7 +330,7 @@ export function Header() {
                             <Link
                               key={link.href}
                               href={link.href}
-                              className="block py-3 px-4 font-body text-small font-medium text-[#1a1a1a] transition-colors hover:bg-gray-50"
+                              className="block py-3 px-4 font-body text-small font-medium text-text-primary transition-colors hover:bg-surface-card"
                               onClick={() => setMobileMenuOpen(false)}
                             >
                               {link.label}
@@ -346,21 +344,21 @@ export function Header() {
               </Accordion>
             </div>
             {/* 6. Divider */}
-            <div className="menu-stagger-item border-b border-[#f0f0f0]" />
+            <div className="menu-stagger-item border-b border-surface-stroke" />
             {/* 7. App store row */}
             <div className="menu-stagger-item mb-4 mt-6 flex gap-3">
               <AppStoreButton href="#" className="min-w-0 flex-1 shrink-0" />
               <GooglePlayButton href="#" className="min-w-0 flex-1 shrink-0" />
             </div>
             {/* 8. Divider */}
-            <div className="menu-stagger-item border-b border-[#f0f0f0]" />
+            <div className="menu-stagger-item border-b border-surface-stroke" />
             {/* 9. Login at bottom (mt-auto) */}
             <div className="menu-stagger-item mt-auto pt-6">
               <Button
                 href="/login"
                 color="primary"
                 size="md"
-                className="w-full !rounded-[10px] !border-0 !py-3.5 !bg-[#6B2FD9] text-[15px] font-semibold text-white"
+                className="w-full !rounded-[10px] !border-0 !py-3.5 text-[15px] font-semibold"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Login

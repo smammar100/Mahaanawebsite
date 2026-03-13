@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { Container } from "@/components/layout/Container";
-import { TextRegular, TextSmall } from "@/components/ui/Typography";
+import { H1, TextRegular, TextSmall } from "@/components/ui/Typography";
 import { Button } from "@/components/base/buttons/button";
 
 export function InvestHero() {
@@ -32,12 +32,13 @@ export function InvestHero() {
         <Container className="flex flex-1 items-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16">
           <div className="flex h-fit max-w-xl flex-col gap-10">
             <div className="flex flex-col gap-4">
-              <h1
+              <H1
                 id="invest-hero-heading"
-                className="font-heading text-[2.5rem] font-semibold leading-[1.2] tracking-heading text-white sm:text-[3rem] lg:text-[3.5rem] max-w-[592px]"
+                weight="semibold"
+                className="max-w-[592px] text-white text-[2.5rem] sm:text-[3rem] lg:text-h1"
               >
-                Changing the way Pakistani&apos;s invest
-              </h1>
+                Changing the way Pakistanis invest
+              </H1>
 
               <TextRegular
               className="max-w-[446px] text-white"

@@ -60,6 +60,23 @@ export interface BlogPostForSection {
   href: string;
 }
 
+function mapToBlogPostForSection(
+  p: SanityInvestorEducation & { _type: SanityInvestorEducationType }
+): BlogPostForSection {
+  return {
+    title: p.title ?? "Untitled",
+    excerpt: p.excerpt ?? "",
+    authorName: p.author ?? "Mahaana",
+    authorImageUrl:
+      "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/avatar-4.webp",
+    readTime: p.readingTime ?? "5 Min Read",
+    imageUrl: p.thumbnail
+      ? urlFor(p.thumbnail).width(800).height(450).url()
+      : p.thumbnailUrl ?? "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-8-wide.svg",
+    href: `/investor-education/${p.slug?.current ?? p._id}`,
+  };
+}
+
 /** Fetch latest 3 investor education items and map to BlogSection shape. */
 export async function getLatestBlogPosts(): Promise<BlogPostForSection[]> {
   const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
@@ -71,18 +88,24 @@ export async function getLatestBlogPosts(): Promise<BlogPostForSection[]> {
     )) as (SanityInvestorEducation & { _type: SanityInvestorEducationType })[] | null;
     if (!Array.isArray(raw) || raw.length === 0) return [];
 
-    return raw.map((p) => ({
-      title: p.title ?? "Untitled",
-      excerpt: p.excerpt ?? "",
-      authorName: p.author ?? "Mahaana",
-      authorImageUrl:
-        "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/avatar-4.webp",
-      readTime: p.readingTime ?? "5 Min Read",
-      imageUrl: p.thumbnail
-        ? urlFor(p.thumbnail).width(800).height(450).url()
-        : p.thumbnailUrl ?? "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-8-wide.svg",
-      href: `/investor-education/${p.slug?.current ?? p._id}`,
-    }));
+    return raw.map(mapToBlogPostForSection);
+  } catch {
+    return [];
+  }
+}
+
+/** Fetch latest 3 news items (investorEducationNews only) for BlogSection shape. */
+export async function getLatestNewsPosts(): Promise<BlogPostForSection[]> {
+  const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
+  if (!projectId) return [];
+
+  try {
+    type Raw = SanityInvestorEducation & { _type: SanityInvestorEducationType };
+    const raw = (await sanityClient.fetch(investorEducationsByTypeQuery, {
+      type: "investorEducationNews",
+    })) as Raw[] | null;
+    const list = Array.isArray(raw) ? raw.slice(0, 3) : [];
+    return list.map(mapToBlogPostForSection);
   } catch {
     return [];
   }

@@ -74,8 +74,8 @@ export function WhyMahaanaTrade() {
             </h2>
           </div>
           <TextRegular className="flex-1 text-text-secondary lg:max-w-md">
-            Mahaana Save+ helps you earn daily returns on your money locked in
-            zero or minimal returns your bank account offers.
+            Mahaana Save+ helps you earn daily returns on your money that sits in
+            the zero or minimal returns your bank account offers.
           </TextRegular>
         </div>
 
@@ -86,7 +86,7 @@ export function WhyMahaanaTrade() {
             return (
               <div
                 key={index}
-                className="flex flex-col gap-6 rounded-2xl border border-surface-stroke bg-[#f8f8f7] p-6 dark:bg-surface-card"
+                className="flex flex-col gap-6 rounded-2xl border border-surface-stroke bg-surface-card p-6"
               >
                 <div className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-primary-100 p-2">
                   <Icon className="size-6 text-primary-200" aria-hidden />

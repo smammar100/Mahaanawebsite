@@ -192,7 +192,7 @@ export function TaxCreditTableSection() {
                   "rounded-full border border-surface-stroke bg-surface-card px-4 py-2 font-body text-small font-medium transition-colors",
                   currentPage <= 1
                     ? "cursor-not-allowed text-text-tertiary opacity-70"
-                    : "text-text-primary hover:bg-gray-100"
+                    : "text-text-primary hover:bg-surface-card"
                 )}
               >
                 Previous
@@ -205,7 +205,7 @@ export function TaxCreditTableSection() {
                   "rounded-full border border-surface-stroke bg-surface-card px-4 py-2 font-body text-small font-semibold transition-colors",
                   currentPage >= totalPages
                     ? "cursor-not-allowed text-text-tertiary opacity-70"
-                    : "text-text-primary hover:bg-gray-100"
+                    : "text-text-primary hover:bg-surface-card"
                 )}
               >
                 Next

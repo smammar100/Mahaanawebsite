@@ -42,15 +42,12 @@ export function CallToAction1({
   return (
     <div
       className={cx(
-        "relative flex min-h-[280px] flex-col items-center justify-center overflow-hidden rounded-xl py-8 px-4 text-center text-white sm:p-8 md:p-10 lg:p-12",
+        "relative flex min-h-[280px] flex-col items-center justify-center overflow-hidden rounded-xl py-8 px-4 text-center text-white sm:p-8 md:p-10 lg:p-12 bg-gradient-brand",
         className
       )}
     >
       <div
-        className="absolute inset-0 z-0 rounded-xl"
-        style={{
-          background: "linear-gradient(180deg, #443087 0%, #30225F 100%)",
-        }}
+        className="absolute inset-0 z-0 rounded-xl bg-gradient-brand"
         aria-hidden
       />
       <DynamicSilkBackground
@@ -76,7 +73,7 @@ export function CallToAction1({
             {badgeText}
           </p>
         </div>
-        <H2 className="mt-5 max-w-3xl text-[2rem] font-semibold leading-tight text-gray-100 sm:text-[2.5rem] sm:leading-[1.2] lg:text-h2">
+        <H2 className="mt-5 max-w-3xl font-semibold leading-tight text-gray-100 text-[2rem] sm:text-[2.5rem] sm:leading-[1.2] lg:text-h2">
           {headline}
         </H2>
         {ctaText && ctaHref ? (

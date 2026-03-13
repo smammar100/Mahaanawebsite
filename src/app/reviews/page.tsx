@@ -38,7 +38,7 @@ export default async function ReviewsPage() {
                 return (
                   <div
                     key={review._id}
-                    className="rounded-xl border border-surface-stroke bg-[#f8f8f7] p-6 dark:bg-surface-card"
+                    className="rounded-xl border border-surface-stroke bg-surface-card p-6 dark:bg-surface-card"
                   >
                     {review.rating != null ? (
                       <div className="mb-3 flex gap-0.5" aria-label={`Rating: ${review.rating} out of 5`}>

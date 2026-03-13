@@ -68,7 +68,7 @@ export function MICFPerformanceSection() {
 
         <div className="flex flex-col gap-4 lg:gap-4">
           {/* Chart card */}
-          <div className="h-fit rounded-2xl border border-surface-stroke bg-white p-4 sm:p-6">
+          <div className="h-fit rounded-2xl border border-surface-stroke bg-surface-card p-4 sm:p-6">
             <div
               className="h-[375px] w-full min-w-0"
               role="img"
@@ -98,13 +98,13 @@ export function MICFPerformanceSection() {
           </div>
 
           {/* Table card */}
-          <div className="overflow-x-auto rounded-2xl border border-surface-stroke bg-white">
+          <div className="overflow-x-auto rounded-2xl border border-surface-stroke bg-surface-card">
             <table className="w-full min-w-[600px] border-collapse" role="table" aria-label="Performance metrics by period">
               <thead>
                 <tr>
                   <th
                     scope="col"
-                    className="bg-gray-100 px-4 py-4 text-left sm:px-6"
+                    className="bg-surface-stroke px-4 py-4 text-left sm:px-6"
                   >
                     <TextSmall
                       weight="semibold"
@@ -115,7 +115,7 @@ export function MICFPerformanceSection() {
                   </th>
                   <th
                     scope="col"
-                    className="bg-gray-100 px-4 py-4 text-center sm:px-6"
+                    className="bg-surface-stroke px-4 py-4 text-center sm:px-6"
                   >
                     <TextSmall
                       weight="semibold"
@@ -126,7 +126,7 @@ export function MICFPerformanceSection() {
                   </th>
                   <th
                     scope="col"
-                    className="bg-gray-100 px-4 py-4 text-center sm:px-6"
+                    className="bg-surface-stroke px-4 py-4 text-center sm:px-6"
                   >
                     <TextSmall
                       weight="semibold"
@@ -137,7 +137,7 @@ export function MICFPerformanceSection() {
                   </th>
                   <th
                     scope="col"
-                    className="bg-gray-100 px-4 py-4 text-center sm:px-6"
+                    className="bg-surface-stroke px-4 py-4 text-center sm:px-6"
                   >
                     <TextSmall
                       weight="semibold"
@@ -148,7 +148,7 @@ export function MICFPerformanceSection() {
                   </th>
                   <th
                     scope="col"
-                    className="bg-gray-100 px-4 py-4 text-center sm:px-6"
+                    className="bg-surface-stroke px-4 py-4 text-center sm:px-6"
                   >
                     <TextSmall
                       weight="semibold"
@@ -159,7 +159,7 @@ export function MICFPerformanceSection() {
                   </th>
                   <th
                     scope="col"
-                    className="bg-gray-100 px-4 py-4 text-center sm:px-6"
+                    className="bg-surface-stroke px-4 py-4 text-center sm:px-6"
                   >
                     <TextSmall
                       weight="semibold"
@@ -170,7 +170,7 @@ export function MICFPerformanceSection() {
                   </th>
                   <th
                     scope="col"
-                    className="bg-gray-100 px-4 py-4 text-center sm:px-6"
+                    className="bg-surface-stroke px-4 py-4 text-center sm:px-6"
                   >
                     <TextSmall
                       weight="semibold"

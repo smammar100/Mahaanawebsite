@@ -421,7 +421,7 @@ export function MIIRFSubfundsSection() {
                 <SubfundDonutChart holdings={data.topHoldings} />
               </div>
               <div className="min-w-0 flex-1 lg:w-1/2 overflow-x-auto">
-                <div className="rounded-2xl border border-surface-stroke bg-white min-w-[280px]">
+                <div className="rounded-2xl border border-surface-stroke bg-surface-card min-w-[280px]">
                   <table
                     className="w-full border-collapse"
                     role="table"
@@ -431,7 +431,7 @@ export function MIIRFSubfundsSection() {
                       <tr>
                         <th
                           scope="col"
-                          className="bg-gray-100 px-4 py-4 text-left sm:px-6"
+                          className="bg-surface-stroke px-4 py-4 text-left sm:px-6"
                         >
                           <TextSmall
                             weight="semibold"
@@ -442,7 +442,7 @@ export function MIIRFSubfundsSection() {
                         </th>
                         <th
                           scope="col"
-                          className="bg-gray-100 px-4 py-4 text-center sm:px-6"
+                          className="bg-surface-stroke px-4 py-4 text-center sm:px-6"
                         >
                           <TextSmall
                             weight="semibold"
@@ -496,7 +496,7 @@ export function MIIRFSubfundsSection() {
             <H4 className="text-text-primary text-xl lg:text-2xl" weight="semibold">
               Historical performance
             </H4>
-            <div className="h-fit rounded-2xl border border-surface-stroke bg-white p-4 sm:p-6">
+            <div className="h-fit rounded-2xl border border-surface-stroke bg-surface-card p-4 sm:p-6">
               <div
                 className="h-fit w-full min-w-0"
                 role="img"
@@ -526,7 +526,7 @@ export function MIIRFSubfundsSection() {
               </div>
             </div>
 
-            <div className="overflow-x-auto rounded-2xl border border-surface-stroke bg-white">
+            <div className="overflow-x-auto rounded-2xl border border-surface-stroke bg-surface-card">
               <table
                 className="w-full min-w-[600px] border-collapse"
                 role="table"
@@ -536,7 +536,7 @@ export function MIIRFSubfundsSection() {
                   <tr>
                     <th
                       scope="col"
-                      className="bg-gray-100 px-4 py-4 text-left sm:px-6"
+                      className="bg-surface-stroke px-4 py-4 text-left sm:px-6"
                     >
                       <TextSmall
                         weight="semibold"
@@ -549,7 +549,7 @@ export function MIIRFSubfundsSection() {
                       <th
                         key={r.period}
                         scope="col"
-                        className="bg-gray-100 px-4 py-4 text-center sm:px-6"
+                        className="bg-surface-stroke px-4 py-4 text-center sm:px-6"
                       >
                         <TextSmall
                           weight="semibold"
