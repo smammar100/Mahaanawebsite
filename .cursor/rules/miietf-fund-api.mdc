@@ -1,0 +1,25 @@
+---
+description: MIIETF fund data is loaded from the production API; use this source for all MIIETF data and future work
+alwaysApply: false
+globs: ["**/miietf/**", "**/miietf-fund-api*", "**/MIIETF*Section*"]
+---
+
+# MIIETF Fund Data API
+
+**Mahaana Islamic Index ETF (MIIETF)** data is loaded automatically from the production fund-data API. For future work on MIIETF, treat this API as the single source of truth.
+
+## API
+
+- **URL:** `https://fdepprodmahaana-gkb9bdeehudhdedy.z02.azurefd.net/marketfeedinvestmentuniverse/api/fund-data?name=miietf`
+- **Origin header:** `https://www.mahaana.com` (required so the API accepts requests)
+
+## Implementation
+
+- **Config:** `src/lib/miietf-fund-api.ts`
+  - Base URL: `FUND_DATA_API_BASE` (env `NEXT_PUBLIC_FUND_DATA_API_BASE_URL` or the URL above)
+  - Full path: `/marketfeedinvestmentuniverse/api/fund-data?name=miietf`
+  - Request origin: `MIIETF_API_ORIGIN = "https://www.mahaana.com"`
+- **Usage:** MIIETF page fetches via `getMiietfFundDataForPage()` and passes `fundData?.hero`, `fundData?.overview`, `fundData?.performance`, `fundData?.portfolio`, `fundData?.distributions` to MIIETF sections. Hero, overview, performance chart/table, portfolio (holdings + weighted exposure), and distributions all come from this API when available.
+- **Daily updates:** The MIIETF page uses `revalidate = 86400` (24 hours) so Next.js runs the fund-data API at least once per day when the cache expires. Values (NAV, performance, holdings, distributions, etc.) update automatically; no manual content updates are required.
+
+When adding or changing MIIETF features, use the API response shape (e.g. `price`, `perf`, `info`, `holdings`, `weighted_expo`, `distribution`) and keep the existing fetch + transform pattern in `miietf-fund-api.ts`.

@@ -9,8 +9,15 @@ import {
   TextMedium,
   TextTiny,
 } from "@/components/ui/Typography";
+import type { MiietfHeroFundData } from "@/lib/miietf-fund-api";
 import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
 import { cx } from "@/utils/cx";
+
+const DEFAULT_NAV = "15.5773";
+const DEFAULT_NAV_DATE = "as of 12 Mar 2026";
+const DEFAULT_MTD = "-6.34%";
+const DEFAULT_MTD_DATE = "12 Mar 2026";
+const DEFAULT_ASSET_CLASS = "Open-end Shariah Compliant Equity ETF";
 
 const MIIETF_HERO_TABS = [
   { id: "overview", label: "Overview" },
@@ -28,8 +35,13 @@ const TAB_TO_SECTION_ID: Record<(typeof MIIETF_HERO_TABS)[number]["id"], string>
   "fund-literature": "fund-literature-section-heading",
 };
 
-export function MIIETFHero() {
+export function MIIETFHero({ fundData }: { fundData?: MiietfHeroFundData | null }) {
   const [selectedTab, setSelectedTab] = useState<(typeof MIIETF_HERO_TABS)[number]["id"]>("overview");
+  const nav = fundData?.nav ?? DEFAULT_NAV;
+  const navDate = fundData?.navDate ? `as of ${fundData.navDate}` : DEFAULT_NAV_DATE;
+  const mtd = fundData?.mtd ?? DEFAULT_MTD;
+  const mtdAsOfDate = fundData?.navDate ?? DEFAULT_MTD_DATE;
+  const assetClass = fundData?.assetClass ?? DEFAULT_ASSET_CLASS;
 
   function handleTabClick(tabId: (typeof MIIETF_HERO_TABS)[number]["id"]) {
     setSelectedTab(tabId);
@@ -79,9 +91,9 @@ export function MIIETFHero() {
                 NAV
               </TextSmall>
               <TextMedium weight="semibold" className="text-text-primary text-[1.25rem] leading-[1.2]">
-                16.6325
+                {nav}
               </TextMedium>
-              <TextTiny className="text-text-tertiary">as of 1 Mar 2026</TextTiny>
+              <TextTiny className="text-text-tertiary">{navDate}</TextTiny>
             </div>
 
             {/* Risk / Reward scale */}
@@ -100,7 +112,7 @@ export function MIIETFHero() {
                 Asset class
               </TextSmall>
               <TextMedium weight="semibold" className="text-text-primary text-[1.25rem] leading-[1.2]">
-                Open-end Shariah Compliant Money Market Fund
+                {assetClass}
               </TextMedium>
             </div>
 
@@ -110,9 +122,9 @@ export function MIIETFHero() {
                 MTD
               </TextSmall>
               <TextMedium weight="semibold" className="text-text-primary text-[1.25rem] leading-[1.2]">
-                9.58%
+                {mtd}
               </TextMedium>
-              <TextTiny className="text-text-tertiary">As of 22 Feb 2026</TextTiny>
+              <TextTiny className="text-text-tertiary">As of {mtdAsOfDate}</TextTiny>
             </div>
 
             {/* Management style */}

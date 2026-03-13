@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import nextDynamic from "next/dynamic";
 import { buildPageMetadata } from "@/lib/metadata";
+import { getMiietfFundDataForPage } from "@/lib/miietf-fund-api";
 import { getFaqByProduct, getFundDocuments } from "@/lib/sanity/fetch";
 import { MIIETFHero } from "@/components/sections/MIIETFHero";
 import { MIIETFOverviewSection } from "@/components/sections/MIIETFOverviewSection";
@@ -36,14 +37,12 @@ export const metadata: Metadata = buildPageMetadata({
   path: "miietf",
 });
 
-/** Always fetch fresh fund documents from Sanity (no static cache). */
-export const revalidate = 0;
-
-/** Force server render on every request so fund documents are never stale. */
-export const dynamic = "force-dynamic";
+/** Revalidate at most every 24 hours so fund data API is run daily and NAV/performance values stay current without manual updates. */
+export const revalidate = 86400;
 
 export default async function MIIETFPage() {
-  const [faqItems, fundDocs] = await Promise.all([
+  const [fundData, faqItems, fundDocs] = await Promise.all([
+    getMiietfFundDataForPage(),
     getFaqByProduct("miietf"),
     getFundDocuments("miietf"),
   ]);
@@ -55,11 +54,11 @@ export default async function MIIETFPage() {
   }));
   return (
     <div className="-mt-[calc(4.5rem+env(safe-area-inset-top,0px))] bg-surface-bg">
-      <MIIETFHero />
-      <MIIETFOverviewSection />
-      <MIIETFPerformanceSection />
-      <MIIETFPortfolioSection />
-      <MIIETFDistributionsSection />
+      <MIIETFHero fundData={fundData?.hero} />
+      <MIIETFOverviewSection fundData={fundData?.overview} />
+      <MIIETFPerformanceSection fundData={fundData?.performance} />
+      <MIIETFPortfolioSection fundData={fundData?.portfolio} />
+      <MIIETFDistributionsSection fundData={fundData?.distributions} />
       <MIIETFFundLiteratureSection documents={documents} />
       <MIIETFFAQSection items={faqItems} />
       <Cta6Section />

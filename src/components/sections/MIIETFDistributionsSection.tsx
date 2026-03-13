@@ -3,6 +3,7 @@
 import { motion } from "motion/react";
 import { Container } from "@/components/layout/Container";
 import { H2, TextMedium, TextSmall } from "@/components/ui/Typography";
+import type { MiietfDistributionsFundData } from "@/lib/miietf-fund-api";
 import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
 
 /** Parse DD/MM/YYYY (with or without spaces) to YYYY-MM-DD for sorting. */
@@ -12,22 +13,26 @@ function toSortableDate(dateStr: string): string {
   return `${y}-${m.padStart(2, "0")}-${d.padStart(2, "0")}`;
 }
 
-const DISTRIBUTIONS_ROWS = [
+const DISTRIBUTIONS_ROWS: MiietfDistributionsFundData = [
   {
-    date: "13 / 06 / 2023",
-    pkrPerUnit: "2.375",
-    exNav: "101.5469",
-    yieldPct: "2.34%",
+    date: "24/06/2024",
+    pkrPerUnit: "0.500",
+    exNav: "10.9000",
+    yieldPct: "4.59%",
   },
   {
-    date: "13 / 06 / 2025",
-    pkrPerUnit: "14.250",
-    exNav: "106.2402",
-    yieldPct: "13.41%",
+    date: "19/06/2025",
+    pkrPerUnit: "2.250",
+    exNav: "12.8400",
+    yieldPct: "17.52%",
   },
-] as const;
+];
 
-export function MIIETFDistributionsSection() {
+export function MIIETFDistributionsSection({ fundData }: { fundData?: MiietfDistributionsFundData | null }) {
+  const rows = fundData ?? DISTRIBUTIONS_ROWS;
+  const sortedRows = [...rows].sort((a, b) =>
+    toSortableDate(b.date).localeCompare(toSortableDate(a.date))
+  );
   return (
     <motion.section
       initial="hidden"
@@ -101,11 +106,7 @@ export function MIIETFDistributionsSection() {
               </tr>
             </thead>
             <tbody>
-              {[...DISTRIBUTIONS_ROWS]
-                .sort((a, b) =>
-                  toSortableDate(b.date).localeCompare(toSortableDate(a.date))
-                )
-                .map((row) => (
+              {sortedRows.map((row) => (
                 <tr
                   key={row.date}
                   className="border-b border-surface-stroke last:border-b-0"

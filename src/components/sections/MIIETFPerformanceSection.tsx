@@ -4,62 +4,86 @@ import { motion } from "motion/react";
 import { Container } from "@/components/layout/Container";
 import { HighchartsPerformanceChart } from "@/components/ui/HighchartsPerformanceChart";
 import { H2, TextMedium, TextSmall } from "@/components/ui/Typography";
+import type { MiietfPerformanceFundData } from "@/lib/miietf-fund-api";
 import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
 
 const CHART_COLORS = {
   miietf: "var(--color-info-200)",
   benchmark: "var(--color-teal-200)",
-  km130: "var(--color-error-200)",
+  kmi30: "var(--color-error-200)",
 } as const;
 
-/** NAV adjusted price (base 100 at Apr 2023 inception). Derived from cumulative return %. */
+/** NAV adjusted price (base 10 at Mar 2024 inception). Fallback when API is unavailable. */
 const performanceChartData = [
-  { date: "Apr 2023", miietf: 100, benchmark: 100, km130: 100 },
-  { date: "Jul 2023", miietf: 102.1, benchmark: 102.0, km130: 101.2 },
-  { date: "Jan 2024", miietf: 105.2, benchmark: 105.1, km130: 103.4 },
-  { date: "Jul 2024", miietf: 108.8, benchmark: 108.7, km130: 105.9 },
-  { date: "Oct 2024", miietf: 110.2, benchmark: 110.1, km130: 106.8 },
-  { date: "Jan 2025", miietf: 112.5, benchmark: 112.4, km130: 108.2 },
-  { date: "Apr 2025", miietf: 114.1, benchmark: 114.0, km130: 109.1 },
-  { date: "Jul 2025", miietf: 116.2, benchmark: 116.1, km130: 110.0 },
-  { date: "Oct 2025", miietf: 118.0, benchmark: 117.9, km130: 110.7 },
-  { date: "Jan 2026", miietf: 119.68, benchmark: 119.68, km130: 111.3 },
+  { date: "Mar 11, 2024", miietf: 10, benchmark: 10, kmi30: 10 },
+  { date: "Jun 30, 2024", miietf: 10.64, benchmark: 10.63, kmi30: 10.41 },
+  { date: "Sep 30, 2024", miietf: 10.71, benchmark: 11.49, kmi30: 11.22 },
+  { date: "Dec 31, 2024", miietf: 15.16, benchmark: 16.36, kmi30: 16.05 },
+  { date: "Mar 31, 2025", miietf: 14.53, benchmark: 15.53, kmi30: 15.24 },
+  { date: "Jun 30, 2025", miietf: 15.31, benchmark: 16.56, kmi30: 16.26 },
+  { date: "Sep 30, 2025", miietf: 17.55, benchmark: 22.5, kmi30: 22.12 },
+  { date: "Dec 31, 2025", miietf: 17.66, benchmark: 22.72, kmi30: 22.32 },
+  { date: "Mar 12, 2026", miietf: 15.58, benchmark: 20.1, kmi30: 19.93 },
 ];
 
 const PERFORMANCE_TABLE_ROWS = [
   {
     label: "MIIETF",
     color: CHART_COLORS.miietf,
-    mtd: "9.58%",
-    ytd: "10.03%",
-    d30: "9.13%",
-    d90: "9.74%",
-    y1: "10.31%",
-    sinceInception: "19.68%",
+    mtd: "-6.34%",
+    ytd: "16.77%",
+    d30: "-14.11%",
+    d90: "-10.35%",
+    y1: "23.95%",
+    sinceInception: "91.47%",
   },
   {
     label: "Benchmark",
     color: CHART_COLORS.benchmark,
-    mtd: "9.54%",
-    ytd: "10.03%",
-    d30: "9.13%",
-    d90: "9.74%",
-    y1: "10.31%",
-    sinceInception: "19.68%",
+    mtd: "-6.45%",
+    ytd: "17.95%",
+    d30: "-14.11%",
+    d90: "-10.03%",
+    y1: "27.23%",
+    sinceInception: "101.02%",
   },
   {
-    label: "KM130",
-    color: CHART_COLORS.km130,
-    mtd: "9.54%",
-    ytd: "9.86%",
-    d30: "9.55%",
-    d90: "9.63%",
-    y1: "10.23%",
-    sinceInception: "11.3%",
+    label: "KMI30",
+    color: CHART_COLORS.kmi30,
+    mtd: "-5.69%",
+    ytd: "20.03%",
+    d30: "-13.96%",
+    d90: "-9.13%",
+    y1: "28.28%",
+    sinceInception: "99.34%",
   },
-] as const;
+];
 
-export function MIIETFPerformanceSection() {
+export function MIIETFPerformanceSection({ fundData }: { fundData?: MiietfPerformanceFundData | null }) {
+  const categories = fundData?.chartCategories ?? performanceChartData.map((d) => d.date);
+  const series = fundData?.chartSeries ?? [
+    {
+      name: "MIIETF",
+      data: performanceChartData.map((d) => d.miietf),
+      color: CHART_COLORS.miietf,
+    },
+    {
+      name: "Benchmark",
+      data: performanceChartData.map((d) => d.benchmark),
+      color: CHART_COLORS.benchmark,
+    },
+    {
+      name: "KMI30",
+      data: performanceChartData.map((d) => d.kmi30),
+      color: CHART_COLORS.kmi30,
+    },
+  ];
+  const tableRows = fundData?.tableRows ?? [...PERFORMANCE_TABLE_ROWS];
+  const chartSubtitle = fundData
+    ? "NAV adjusted price. March 2024 to present."
+    : "NAV adjusted price. March 2024 to March 2026.";
+  const ariaLabel =
+    "Performance chart: MIIETF, Benchmark, and KMI30 NAV adjusted price from March 2024 to present.";
   return (
     <motion.section
       initial="hidden"
@@ -69,7 +93,7 @@ export function MIIETFPerformanceSection() {
       className="relative overflow-hidden bg-surface-bg py-8 sm:py-12 lg:py-16"
       aria-labelledby="performance-section-heading"
     >
-      <Container className="flex flex-col gap-10 px-4 sm:px-6 md:px-8 lg:gap-10 lg:px-12 xl:px-16">
+      <Container className="flex flex-col gap-4 px-4 sm:px-6 md:px-8 lg:gap-4 lg:px-12 xl:px-16">
         <H2
           id="performance-section-heading"
           weight="bold"
@@ -78,39 +102,24 @@ export function MIIETFPerformanceSection() {
           Performance
         </H2>
 
-        <div className="flex flex-col gap-10 lg:gap-10">
+        <div className="flex flex-col gap-4 lg:gap-4">
           {/* Chart card */}
           <div className="rounded-2xl border border-surface-stroke bg-surface-card p-4 sm:p-6">
             <div
               className="h-64 w-full min-w-0 sm:h-72 lg:h-96"
               role="img"
-              aria-label="Performance chart: MIIETF, Benchmark, and KM130 NAV adjusted price from April 2023 to January 2026"
+              aria-label={ariaLabel}
             >
               <HighchartsPerformanceChart
                 title="Performance"
-                subtitle="NAV adjusted price. April 2023 to January 2026."
-                categories={performanceChartData.map((d) => d.date)}
-                series={[
-                  {
-                    name: "MIIETF",
-                    data: performanceChartData.map((d) => d.miietf),
-                    color: CHART_COLORS.miietf,
-                  },
-                  {
-                    name: "Benchmark",
-                    data: performanceChartData.map((d) => d.benchmark),
-                    color: CHART_COLORS.benchmark,
-                  },
-                  {
-                    name: "KM130",
-                    data: performanceChartData.map((d) => d.km130),
-                    color: CHART_COLORS.km130,
-                  },
-                ]}
-                ariaLabel="Performance chart: MIIETF, Benchmark, and KM130 NAV adjusted price from April 2023 to January 2026"
+                subtitle={chartSubtitle}
+                categories={categories}
+                series={series}
+                ariaLabel={ariaLabel}
                 chartType="line"
                 yAxisTitle="NAV adjusted price"
                 valueSuffix=""
+                xAxisLabelFormat="monthYear"
               />
             </div>
           </div>
@@ -200,7 +209,7 @@ export function MIIETFPerformanceSection() {
                 </tr>
               </thead>
               <tbody>
-                {PERFORMANCE_TABLE_ROWS.map((row) => (
+                {tableRows.map((row) => (
                   <tr
                     key={row.label}
                     className="border-b border-surface-stroke last:border-b-0"

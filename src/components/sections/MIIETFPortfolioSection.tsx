@@ -5,6 +5,7 @@ import { motion } from "motion/react";
 import { Container } from "@/components/layout/Container";
 import { H2, H4, TextMedium, TextSmall } from "@/components/ui/Typography";
 import { HighchartsVariablePieChart } from "@/components/ui/HighchartsVariablePieChart";
+import type { MiietfPortfolioFundData } from "@/lib/miietf-fund-api";
 import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
 import { cx } from "@/utils/cx";
 
@@ -21,52 +22,52 @@ const WEIGHTED_EXPOSURE_ROWS = [
   {
     sector: "Fertilizer",
     color: EXPOSURE_COLORS.fertilizer,
-    miietf: "45.68%",
-    km130: "45.68%",
-    weight: "45.68%",
-    value: 45.68,
+    miietf: "21.04%",
+    kmi30: "19.70%",
+    weight: "0.21%",
+    value: 21.04,
   },
   {
     sector: "Oil & Gas Exploration",
     color: EXPOSURE_COLORS.oilGas,
-    miietf: "27.98%",
-    km130: "27.98%",
-    weight: "27.98%",
-    value: 27.98,
+    miietf: "19.54%",
+    kmi30: "14.17%",
+    weight: "3.25%",
+    value: 19.54,
   },
   {
     sector: "Cements",
     color: EXPOSURE_COLORS.cements,
-    miietf: "12.79%",
-    km130: "12.79%",
-    weight: "12.79%",
-    value: 12.79,
+    miietf: "15.08%",
+    kmi30: "8.20%",
+    weight: "0.96%",
+    value: 15.08,
   },
   {
     sector: "Commercial Banks",
     color: EXPOSURE_COLORS.commercialBanks,
-    miietf: "12.79%",
-    km130: "12.79%",
-    weight: "12.79%",
-    value: 12.79,
+    miietf: "8.36%",
+    kmi30: "8.23%",
+    weight: "0.66%",
+    value: 8.36,
   },
   {
     sector: "Inv. Banks / Inv. Cos. / Securities Cos.",
     color: EXPOSURE_COLORS.invBanks,
-    miietf: "12.79%",
-    km130: "12.79%",
-    weight: "12.79%",
-    value: 12.79,
+    miietf: "8.38%",
+    kmi30: "8.63%",
+    weight: "-1.27%",
+    value: 8.38,
   },
   {
     sector: "Others",
     color: EXPOSURE_COLORS.others,
-    miietf: "13.29%",
-    km130: "13.29%",
-    weight: "13.29%",
-    value: 13.29,
+    miietf: "27.61%",
+    kmi30: "41.07%",
+    weight: "-4.74%",
+    value: 27.61,
   },
-] as const;
+];
 
 const HOLDINGS_COLORS = {
   fauji: "var(--color-info-200)",
@@ -82,43 +83,44 @@ const HOLDINGS_COLORS = {
 } as const;
 
 const TOP_HOLDINGS_ROWS = [
-  { name: "Fauji Fertilizer Limited", percentage: "3.34%", color: HOLDINGS_COLORS.fauji, value: 3.34 },
-  { name: "Engro Holdings Limited", percentage: "2.53%", color: HOLDINGS_COLORS.engro, value: 2.53 },
-  { name: "Meezan Bank Limited", percentage: "1.59%", color: HOLDINGS_COLORS.meezan, value: 1.59 },
-  { name: "Lucky Cement Limited", percentage: "1.38%", color: HOLDINGS_COLORS.lucky, value: 1.38 },
-  { name: "Pakistan Petroleum Limited", percentage: "1.18%", color: HOLDINGS_COLORS.ppl, value: 1.18 },
-  { name: "Hub Power Company Limited", percentage: "1.06%", color: HOLDINGS_COLORS.hub, value: 1.06 },
+  { name: "Fauji Fertilizer Limited", percentage: "15.63%", color: HOLDINGS_COLORS.fauji, value: 15.63 },
+  { name: "Engro Holdings Limited", percentage: "8.38%", color: HOLDINGS_COLORS.engro, value: 8.38 },
+  { name: "Meezan Bnak Limited", percentage: "7.15%", color: HOLDINGS_COLORS.meezan, value: 7.15 },
+  { name: "Lucky Cement Limited", percentage: "7.06%", color: HOLDINGS_COLORS.lucky, value: 7.06 },
+  { name: "Pakistan Petroleum Limited", percentage: "6.92%", color: HOLDINGS_COLORS.ppl, value: 6.92 },
+  { name: "Hub Power Company Limited", percentage: "6.87%", color: HOLDINGS_COLORS.hub, value: 6.87 },
   {
     name: "Oil & Gas Development Company Limited",
-    percentage: "1.01%",
+    percentage: "6.85%",
     color: HOLDINGS_COLORS.ogdcl,
-    value: 1.01,
+    value: 6.85,
   },
-  { name: "Mari Energies", percentage: "1.01%", color: HOLDINGS_COLORS.mari, value: 1.01 },
-  { name: "Systems Limited", percentage: "1.01%", color: HOLDINGS_COLORS.systems, value: 1.01 },
+  { name: "Mari Energies", percentage: "5.77%", color: HOLDINGS_COLORS.mari, value: 5.77 },
+  { name: "Systems Limited", percentage: "4.69%", color: HOLDINGS_COLORS.systems, value: 4.69 },
   {
     name: "Pakistan State Oil Company Limited",
-    percentage: "1.01%",
+    percentage: "4.34%",
     color: HOLDINGS_COLORS.pso,
-    value: 1.01,
+    value: 4.34,
   },
-] as const;
+];
 
-const exposureChartData = WEIGHTED_EXPOSURE_ROWS.map((row) => ({
-  name: row.sector,
-  value: row.value,
-  fill: row.color,
-}));
-
-const holdingsChartData = TOP_HOLDINGS_ROWS.map((row) => ({
-  name: row.name,
-  value: row.value,
-  fill: row.color,
-}));
-
-export function MIIETFPortfolioSection() {
+export function MIIETFPortfolioSection({ fundData }: { fundData?: MiietfPortfolioFundData | null }) {
   const [hoveredExposureIndex, setHoveredExposureIndex] = useState<number | null>(null);
   const [hoveredHoldingsIndex, setHoveredHoldingsIndex] = useState<number | null>(null);
+
+  const exposureRows = fundData?.weightedExposure ?? WEIGHTED_EXPOSURE_ROWS;
+  const holdingsRows = fundData?.topHoldings ?? TOP_HOLDINGS_ROWS;
+  const exposureChartData = exposureRows.map((row) => ({
+    name: row.sector,
+    value: row.value,
+    fill: row.color,
+  }));
+  const holdingsChartData = holdingsRows.map((row) => ({
+    name: row.name,
+    value: row.value,
+    fill: row.color,
+  }));
 
   return (
     <motion.section
@@ -184,7 +186,7 @@ export function MIIETFPortfolioSection() {
                             weight="semibold"
                             className="text-text-tertiary text-sm"
                           >
-                            KM130
+                            KMI30
                           </TextSmall>
                         </th>
                         <th
@@ -201,7 +203,7 @@ export function MIIETFPortfolioSection() {
                       </tr>
                     </thead>
                     <tbody>
-                      {WEIGHTED_EXPOSURE_ROWS.map((row, index) => (
+                      {exposureRows.map((row, index) => (
                         <tr
                           key={row.sector}
                           className={cx(
@@ -237,7 +239,7 @@ export function MIIETFPortfolioSection() {
                               weight="semibold"
                               className="text-text-primary text-base"
                             >
-                              {row.km130}
+                              {row.kmi30}
                             </TextMedium>
                           </td>
                           <td className="px-4 py-5 text-center sm:px-6">
@@ -311,7 +313,7 @@ export function MIIETFPortfolioSection() {
                       </tr>
                     </thead>
                     <tbody>
-                      {TOP_HOLDINGS_ROWS.map((row, index) => (
+                      {holdingsRows.map((row, index) => (
                         <tr
                           key={row.name}
                           className={cx(

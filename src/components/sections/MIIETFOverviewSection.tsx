@@ -9,6 +9,7 @@ import {
   TextSmall,
   TextMedium,
 } from "@/components/ui/Typography";
+import type { MiietfOverviewFundData } from "@/lib/miietf-fund-api";
 import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
 
 const FUND_DETAILS_LEFT = [
@@ -29,6 +30,7 @@ const FUND_DETAILS_RIGHT = [
 ] as const;
 
 function DetailRow({ label, value }: { label: string; value: string }) {
+  const displayValue = (value ?? "").trim() || "N/A";
   return (
     <div className="flex flex-col gap-1 sm:flex-row sm:gap-6 sm:items-start">
       <TextSmall
@@ -41,13 +43,23 @@ function DetailRow({ label, value }: { label: string; value: string }) {
         weight="semibold"
         className="min-w-0 text-text-primary"
       >
-        {value}
+        {displayValue}
       </TextMedium>
     </div>
   );
 }
 
-export function MIIETFOverviewSection() {
+const DEFAULT_SUMMARY =
+  "MIIETF is a Shariah-compliant equity index fund that primarily invests in the top 30, free float weighted Islamic stocks that have an annual average turnover of more than PKR 10 million. MIIETF provides investors the long term benefits of equity markets.";
+const DEFAULT_OBJECTIVE =
+  "Investment objective is to provide competitive equity market returns with maximum coverage of the broader Islamic index at lowest possible cost.";
+
+export function MIIETFOverviewSection({ fundData }: { fundData?: MiietfOverviewFundData | null }) {
+  const summary = fundData?.summary ?? DEFAULT_SUMMARY;
+  const investmentObjective = fundData?.investmentObjective ?? DEFAULT_OBJECTIVE;
+  const keyFactsLeft = fundData?.keyFactsLeft ?? [...FUND_DETAILS_LEFT];
+  const keyFactsRight = fundData?.keyFactsRight ?? [...FUND_DETAILS_RIGHT];
+
   return (
     <motion.section
       initial="hidden"
@@ -74,11 +86,7 @@ export function MIIETFOverviewSection() {
                 Product summary
               </H4>
               <TextRegular className="text-text-secondary leading-[150%]">
-                MIIETF is a Shariah-compliant equity index fund that primarily
-                invests in the top 30, free float weighted Islamic stocks that
-                have an annual average turnover of more than PKR 10 million.
-                MIIETF provides investors the long term benefits of equity
-                markets.
+                {summary}
               </TextRegular>
             </div>
             <div className="flex flex-col gap-4">
@@ -86,9 +94,7 @@ export function MIIETFOverviewSection() {
                 Investment objective
               </H4>
               <TextRegular className="text-text-secondary leading-[150%]">
-                Investment objective is to provide competitive equity market
-                returns with maximum coverage of the broader Islamic index at
-                lowest possible cost.
+                {investmentObjective}
               </TextRegular>
             </div>
           </div>
@@ -96,12 +102,12 @@ export function MIIETFOverviewSection() {
           {/* Fund details grid — two columns on lg */}
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-20">
             <div className="flex flex-col gap-6">
-              {FUND_DETAILS_LEFT.map(({ label, value }) => (
+              {keyFactsLeft.map(({ label, value }) => (
                 <DetailRow key={label} label={label} value={value} />
               ))}
             </div>
             <div className="flex flex-col gap-6">
-              {FUND_DETAILS_RIGHT.map(({ label, value }) => (
+              {keyFactsRight.map(({ label, value }) => (
                 <DetailRow key={label} label={label} value={value} />
               ))}
             </div>
