@@ -50,7 +50,7 @@ const swiperCssDefault = `
 
 const swiperCssCompact = `
 .mySwiper18 .swiper-wrapper {
-  color: rgb(255, 255, 255);
+  color: var(--color-gray-100);
 }
 
 .mySwiper18.mySwiper18--compact {

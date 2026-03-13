@@ -47,7 +47,7 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="mt-auto border-t border-surface-stroke bg-surface-card">
+    <footer role="contentinfo" className="mt-auto border-t border-surface-stroke bg-surface-card">
       <Container className="px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16">
         {/* Top section: logo + app buttons | nav grid */}
         <div className="flex flex-col gap-6 py-8 sm:py-10 md:py-12 lg:gap-6 lg:py-14 xl:flex-row xl:items-start xl:gap-12 xl:pt-14 xl:pb-4">

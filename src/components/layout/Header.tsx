@@ -85,6 +85,7 @@ export function Header() {
   return (
     <>
       <header
+        role="banner"
         className={cx(
           'fixed top-0 left-0 right-0 z-[10000000] w-full pt-[env(safe-area-inset-top)]',
           headerClasses
@@ -198,7 +199,7 @@ export function Header() {
                   icon={
                     <Image
                       src="/images/navbar/Apple-logo.png"
-                      alt=""
+                      alt="Download on App Store"
                       width={20}
                       height={20}
                       className="size-5 [&_img]:size-5"
@@ -213,7 +214,7 @@ export function Header() {
                   icon={
                     <Image
                       src="/images/navbar/Playstore-logo.png"
-                      alt=""
+                      alt="Get it on Google Play"
                       width={18}
                       height={20}
                       className="size-5 [&_img]:size-5"

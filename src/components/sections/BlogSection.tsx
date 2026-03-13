@@ -118,13 +118,13 @@ export function BlogSection({
             <a
               key={index}
               href={post.href}
-              className="rounded-xl border border-surface-stroke bg-surface-card transition-colors hover:border-gray-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-system-brand dark:bg-surface-card"
+              className="rounded-xl border border-surface-stroke bg-surface-card transition-colors hover:border-surface-stroke focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-system-brand dark:bg-surface-card"
             >
               <div className="p-2">
                 <div className="relative aspect-video w-full overflow-hidden rounded-lg">
                   <Image
                     src={post.imageUrl}
-                    alt=""
+                    alt={post.title ? `Featured image for ${post.title}` : "Blog post image"}
                     fill
                     className="object-cover"
                     sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
@@ -144,7 +144,7 @@ export function BlogSection({
                     <div className="relative size-9 shrink-0 overflow-hidden rounded-full ring-1 ring-input">
                       <Image
                         src={post.authorImageUrl}
-                        alt=""
+                        alt={post.authorName ? `Avatar of ${post.authorName}` : "Author avatar"}
                         fill
                         className="object-cover"
                         sizes="36px"

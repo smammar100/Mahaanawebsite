@@ -62,10 +62,10 @@ export function SecurityHero() {
                 <div
                   key={card.label}
                   className={cx(
-                    "flex min-w-0 flex-1 items-center gap-3 rounded-xl border border-[rgba(117,117,117,0.24)] p-3 sm:p-4"
+                    "flex min-w-0 flex-1 items-center gap-3 rounded-xl border border-surface-stroke/30 p-3 sm:p-4"
                   )}
                 >
-                  <div className="flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-[rgba(117,117,117,0.12)]">
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-surface-stroke/15">
                     <Image
                       src={card.image}
                       alt={card.alt}

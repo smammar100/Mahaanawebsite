@@ -323,20 +323,6 @@
 .mobile-menu-panel.open .menu-stagger-item:nth-child(8) { transition-delay: 0.43s; }
 .mobile-menu-panel.open .menu-stagger-item:nth-child(9) { transition-delay: 0.48s; }
 
-/* FeatureCards pin ripple (CSS-only, no motion) */
-@keyframes pin-ripple {
-  0%, 100% { opacity: 0; transform: translate(-50%, -50%) scale(0); }
-  16% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-  50% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
-  83% { opacity: 0; transform: translate(-50%, -50%) scale(1); }
-}
-.pin-ripple-circle {
-  animation: pin-ripple 6s ease-in-out infinite;
-}
-.pin-ripple-circle:nth-child(1) { animation-delay: 0s; }
-.pin-ripple-circle:nth-child(2) { animation-delay: 2s; }
-.pin-ripple-circle:nth-child(3) { animation-delay: 4s; }
-
 /* Section viewport-triggered fade-in (CSS-only, no motion lib on home) */
 .section-fade-in-up {
   opacity: 0;
@@ -365,8 +351,12 @@
     transform: translateY(0);
     transition: none;
   }
-  .pin-ripple-circle {
-    animation: none;
-    opacity: 0;
+  /* Shorten all other animations and transitions (charts, motion library, etc.) */
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }

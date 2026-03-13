@@ -84,7 +84,7 @@ export function FeatureCards() {
                   <div className={`flex shrink-0 items-center justify-center overflow-hidden rounded-xl bg-surface-bg ${feature.imageOrder}`}>
                     <Image
                       src={feature.image}
-                      alt=""
+                      alt={feature.title ? `Illustration for ${feature.title}` : "Feature illustration"}
                       width={400}
                       height={400}
                       loading="lazy"
@@ -188,25 +188,6 @@ function PinPerspective({ href }: PinPerspectiveProps) {
           >
             Open your account
           </Button>
-        </div>
-
-        {/* Ripple at the pin landing point (where the line meets the dot) */}
-        <div
-          style={{
-            perspective: "1000px",
-            transform: "rotateX(70deg) translateZ(0)",
-          }}
-          className="absolute bottom-1/2 right-1/2 -translate-x-1/2 translate-y-[14px]"
-        >
-          <div
-            className="pin-ripple-circle absolute left-1/2 top-1/2 h-[11.25rem] w-[11.25rem] -translate-x-1/2 -translate-y-1/2 rounded-[50%] bg-primary-300/[0.08] shadow-[0_8px_16px_rgb(0_0_0/0.4)]"
-          />
-          <div
-            className="pin-ripple-circle absolute left-1/2 top-1/2 h-[11.25rem] w-[11.25rem] -translate-x-1/2 -translate-y-1/2 rounded-[50%] bg-primary-300/[0.08] shadow-[0_8px_16px_rgb(0_0_0/0.4)]"
-          />
-          <div
-            className="pin-ripple-circle absolute left-1/2 top-1/2 h-[11.25rem] w-[11.25rem] -translate-x-1/2 -translate-y-1/2 rounded-[50%] bg-primary-300/[0.08] shadow-[0_8px_16px_rgb(0_0_0/0.4)]"
-          />
         </div>
 
         {/* Pin line and dot (landing point) */}

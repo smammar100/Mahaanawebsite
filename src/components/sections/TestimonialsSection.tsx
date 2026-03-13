@@ -102,7 +102,7 @@ export function TestimonialsSection({ className, viewAllHref = "#testimonials" }
                 className="font-body text-small font-semibold uppercase tracking-wide text-system-brand"
                 style={{
                   textShadow:
-                    "0 1px 2px rgb(112 66 210 / 0.2), 0 0 12px rgb(112 66 210 / 0.12)",
+                    "0 1px 2px color-mix(in srgb, var(--color-system-brand) 20%, transparent), 0 0 12px color-mix(in srgb, var(--color-system-brand) 12%, transparent)",
                 }}
               >
                 Rated 4.5 stars by 20K+ Pakistanis
@@ -155,7 +155,7 @@ export function TestimonialsSection({ className, viewAllHref = "#testimonials" }
                     <div className="flex gap-4">
                       <img
                         src={testimonial.avatar}
-                        alt=""
+                        alt={`Photo of ${testimonial.name}, ${testimonial.role}`}
                         loading="lazy"
                         className="size-14 shrink-0 rounded-full border border-surface-stroke object-cover"
                       />

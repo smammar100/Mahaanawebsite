@@ -58,7 +58,7 @@ export function AboutBoardSection() {
                 <div className="relative size-24 overflow-hidden rounded-full border-[1.5px] border-surface-stroke sm:size-[136px]">
                   <Image
                     src={person.image}
-                    alt=""
+                    alt={person.name}
                     fill
                     className="object-cover"
                     sizes="(max-width: 639px) 96px, 136px"

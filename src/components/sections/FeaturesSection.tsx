@@ -96,10 +96,10 @@ function FeatureBlock({
 
         {/* Image */}
         <div className="flex flex-1 min-w-0 order-1 lg:order-2">
-          <div className="relative w-full h-full min-h-[280px] sm:min-h-[320px] lg:min-h-0 rounded-[10px] overflow-hidden shadow-[0px_32px_64px_-12px_rgba(16,24,40,0.14)] border border-gray-200">
+          <div className="relative w-full h-full min-h-[280px] sm:min-h-[320px] lg:min-h-0 rounded-[10px] overflow-hidden shadow-[0px_32px_64px_-12px_rgba(16,24,40,0.14)] border border-surface-stroke">
             <Image
               src={imageSrc}
-              alt=""
+              alt={title ? `Illustration for ${title}` : "Feature illustration"}
               fill
               loading="lazy"
               sizes="(max-width: 768px) 100vw, 50vw"

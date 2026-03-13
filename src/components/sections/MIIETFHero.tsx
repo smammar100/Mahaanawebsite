@@ -66,8 +66,7 @@ export function MIIETFHero({ fundData }: { fundData?: MiietfHeroFundData | null 
             <h1
               id="miietf-hero-heading"
               className={cx(
-                "font-heading font-bold leading-[120%] tracking-heading",
-                "bg-gradient-brand-text",
+                "font-heading font-bold leading-[120%] tracking-heading text-system-brand",
                 "text-[2.5rem] sm:text-5xl lg:text-[4.375rem]"
               )}
             >

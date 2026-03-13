@@ -76,7 +76,7 @@ export function InvestorEducationArticleTemplate({
               <div className="relative aspect-video w-full overflow-hidden rounded-2xl border border-surface-stroke">
                 <Image
                   src={heroImageUrl}
-                  alt=""
+                  alt={title ? `Hero image for ${title}` : "Article hero image"}
                   fill
                   className="object-cover"
                   priority

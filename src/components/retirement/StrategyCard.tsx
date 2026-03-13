@@ -62,7 +62,7 @@ export function StrategyCard({
                 "flex items-center gap-3 rounded-xl border-[1.5px] px-4 py-3 text-left transition-colors",
                 isActive
                   ? "border-primary-200 bg-primary-100 text-text-primary"
-                  : "border-surface-stroke bg-surface-bg text-text-primary hover:border-gray-300 hover:bg-gray-100"
+                  : "border-surface-stroke bg-surface-bg text-text-primary hover:border-surface-stroke hover:bg-surface-card"
               )}
             >
               <span

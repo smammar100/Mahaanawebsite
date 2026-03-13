@@ -126,8 +126,8 @@ export function TaxCreditTableSection() {
         </div>
 
         <div className="overflow-hidden rounded-2xl border border-surface-stroke bg-surface-card">
-          <div className="overflow-x-auto">
-            <table className="w-full min-w-[800px]" role="table" aria-label="Tax credit by income">
+          <div className="overflow-x-auto overflow-y-visible" role="region" aria-label="Tax credit table (scroll horizontally on small screens)">
+            <table className="w-full min-w-[600px] sm:min-w-[800px]" role="table" aria-label="Tax credit by income">
               <thead>
                 <tr className="bg-primary-200">
                   <th className="px-4 py-3 text-left font-body text-tiny font-semibold uppercase tracking-wide text-white sm:px-6">

@@ -319,7 +319,7 @@ function BenefitsCard({
               <div className="relative h-full min-h-0 w-full flex-1 rounded-xl overflow-hidden bg-surface-bg">
                 <Image
                 src={image}
-                alt=""
+                alt={headline ? `Illustration for ${headline}` : "Benefits illustration"}
                 width={640}
                 height={360}
                 className="h-full w-full rounded-xl object-cover"

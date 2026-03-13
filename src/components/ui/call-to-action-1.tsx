@@ -66,6 +66,7 @@ export function CallToAction1({
                 src={src}
                 alt=""
                 loading="lazy"
+                aria-hidden
               />
             ))}
           </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { motion } from "motion/react";
 import { Container } from "@/components/layout/Container";
 import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
@@ -46,8 +47,7 @@ export function MIIRFHero() {
             <h1
               id="miirf-hero-heading"
               className={cx(
-                "font-heading font-extrabold tracking-heading",
-                "bg-gradient-brand-text",
+                "font-heading font-extrabold tracking-heading text-system-brand",
                 "text-[2.5rem] leading-[1.1] sm:text-5xl sm:leading-[68px] lg:text-[4.375rem] xl:text-[70px] xl:leading-[68px] xl:tracking-[-2.625px]"
               )}
             >
@@ -58,9 +58,11 @@ export function MIIRFHero() {
                 With our partners
               </p>
               <div className="relative h-12 w-[108px] shrink-0">
-                <img
+                <Image
                   src="/images/invest/IGI%20Life%20Logo.webp"
                   alt="IGI Life"
+                  width={108}
+                  height={48}
                   className="h-full w-full object-contain object-left"
                 />
               </div>

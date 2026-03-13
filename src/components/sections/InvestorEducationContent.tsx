@@ -33,7 +33,7 @@ function InvestorEducationCard({ item }: { item: SanityInvestorEducation }) {
       <div className="relative h-40 w-full shrink-0 overflow-hidden rounded-lg">
         <Image
           src={imageUrl}
-          alt=""
+          alt={item.title ? `Featured image for ${item.title}` : "Investor education article"}
           fill
           className="object-cover"
           sizes="(max-width: 768px) 100vw, (max-width: 1100px) 50vw, 33vw"

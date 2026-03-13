@@ -65,7 +65,7 @@ export default async function ReviewsPage() {
                         <div className="relative size-10 shrink-0 overflow-hidden rounded-full ring-1 ring-input">
                           <Image
                             src={authorImageUrl}
-                            alt=""
+                            alt={review.authorName ? `Photo of ${review.authorName}` : "Review author"}
                             fill
                             className="object-cover"
                             sizes="40px"

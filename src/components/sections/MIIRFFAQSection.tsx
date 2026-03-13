@@ -117,12 +117,17 @@ export function MIIRFFAQSection({
           {/* Right column: FAQ accordion */}
           <div className="min-w-0 flex-1 lg:max-w-[480px]">
             <div className="divide-y divide-surface-stroke">
-              {list.map((item, index) => (
+              {list.length === 0 ? (
+                <p className="py-6 font-body text-regular text-text-tertiary">
+                  No FAQs available at the moment. Please check back later or contact support.
+                </p>
+              ) : (
+              list.map((item, index) => (
                 <details
                   key={index}
                   className="group py-4 first:pt-0 last:pb-0"
                 >
-                  <summary className="flex cursor-pointer list-none flex-row items-center justify-between gap-3 font-body text-regular font-semibold leading-[150%] text-text-primary hover:text-text-secondary transition-colors [&::-webkit-details-marker]:hidden">
+                  <summary className="flex cursor-pointer list-none flex-row items-center justify-between gap-3 font-body text-regular font-semibold leading-[150%] text-text-primary hover:text-text-secondary transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-system-brand rounded [&::-webkit-details-marker]:hidden">
                     <span className="min-w-0 flex-1">{item.question}</span>
                     <ChevronDown
                       className="size-5 shrink-0 text-text-tertiary transition-transform duration-200 group-open:rotate-180"
@@ -135,7 +140,8 @@ export function MIIRFFAQSection({
                     </TextRegular>
                   </div>
                 </details>
-              ))}
+              ))
+              )}
             </div>
           </div>
         </div>

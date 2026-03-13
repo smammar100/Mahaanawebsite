@@ -114,14 +114,14 @@ const assetAllocationColumnChartOptions: Options = {
   tooltip: {
     valueSuffix: "%",
     valueDecimals: 2,
-    backgroundColor: "var(--color-surface-bg, #fff)",
+    backgroundColor: "var(--color-surface-bg)",
     borderColor: "var(--color-surface-stroke)",
     borderRadius: 8,
     shadow: {
-      color: "rgba(0,0,0,0.08)",
+      color: "var(--color-gray-900)",
       offsetX: 0,
       offsetY: 4,
-      opacity: 1,
+      opacity: 0.15,
       width: 16,
     },
     style: {
@@ -164,7 +164,7 @@ const assetAllocationColumnChartOptions: Options = {
     margin: 0,
     padding: 8,
     itemDistance: 24,
-    backgroundColor: "rgba(255, 255, 255, 0.85)",
+    backgroundColor: "var(--color-surface-card)",
     borderWidth: 0,
     shadow: false,
     itemStyle: {
