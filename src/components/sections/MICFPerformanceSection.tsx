@@ -12,40 +12,43 @@ const CHART_COLORS = {
   benchmark: "var(--color-teal-200)",
 } as const;
 
+/** NAV adjusted price (base 100 at Mar 2023 inception). Sampled quarterly for fallback when API is unavailable. */
 const performanceChartData = [
-  { date: "Apr 2023", micf: 0, benchmark: 0 },
-  { date: "Jul 2023", micf: 2.1, benchmark: 2.0 },
-  { date: "Jan 2024", micf: 5.2, benchmark: 5.1 },
-  { date: "Jul 2024", micf: 8.8, benchmark: 8.7 },
-  { date: "Oct 2024", micf: 10.2, benchmark: 10.1 },
-  { date: "Jan 2025", micf: 12.5, benchmark: 12.4 },
-  { date: "Apr 2025", micf: 14.1, benchmark: 14.0 },
-  { date: "Jul 2025", micf: 16.2, benchmark: 16.1 },
-  { date: "Oct 2025", micf: 18.0, benchmark: 17.9 },
-  { date: "Jan 2026", micf: 19.68, benchmark: 19.68 },
-  { date: "Mar 2026", micf: 19.68, benchmark: 19.68 },
+  { date: "Mar 2023", micf: 100, benchmark: 100 },
+  { date: "Jun 2023", micf: 105.03, benchmark: 101.72 },
+  { date: "Sep 2023", micf: 110.69, benchmark: 103.89 },
+  { date: "Dec 2023", micf: 117.21, benchmark: 106.62 },
+  { date: "Mar 2024", micf: 123.31, benchmark: 109.62 },
+  { date: "Jun 2024", micf: 129.63, benchmark: 112.73 },
+  { date: "Sep 2024", micf: 135.68, benchmark: 115.8 },
+  { date: "Dec 2024", micf: 140.5, benchmark: 118.31 },
+  { date: "Mar 2025", micf: 143.9, benchmark: 121.24 },
+  { date: "Jun 2025", micf: 147.61, benchmark: 124.39 },
+  { date: "Sep 2025", micf: 151.29, benchmark: 127.44 },
+  { date: "Dec 2025", micf: 155.08, benchmark: 130.54 },
+  { date: "Mar 2026", micf: 157.88, benchmark: 132.85 },
 ];
 
 const PERFORMANCE_TABLE_ROWS = [
   {
     label: "MICF",
     color: CHART_COLORS.micf,
-    mtd: "9.58%",
-    ytd: "10.03%",
-    d30: "9.13%",
-    d90: "9.74%",
-    y1: "10.31%",
-    sinceInception: "19.68%",
+    mtd: "8.12%",
+    ytd: "9.96%",
+    d30: "9.01%",
+    d90: "9.44%",
+    y1: "10.30%",
+    sinceInception: "19.58%",
   },
   {
     label: "Benchmark",
     color: CHART_COLORS.benchmark,
-    mtd: "9.54%",
-    ytd: "9.86%",
-    d30: "9.55%",
-    d90: "9.63%",
-    y1: "10.23%",
-    sinceInception: "11.3%",
+    mtd: "6.72%",
+    ytd: "9.74%",
+    d30: "8.42%",
+    d90: "9.24%",
+    y1: "10.10%",
+    sinceInception: "11.11%",
   },
 ] as const;
 
@@ -70,8 +73,8 @@ export function MICFPerformanceSection({
   const tableRows = fundData?.tableRows ?? [...PERFORMANCE_TABLE_ROWS];
   const chartSubtitle =
     categories.length >= 2
-      ? `Cumulative returns. ${categories[0]} to ${categories[categories.length - 1]}.`
-      : "Cumulative returns.";
+      ? `NAV adjusted price. ${categories[0]} to ${categories[categories.length - 1]}.`
+      : "NAV adjusted price.";
 
   return (
     <motion.section
@@ -97,17 +100,18 @@ export function MICFPerformanceSection({
             <div
               className="h-fit w-full min-w-0 overflow-visible"
               role="img"
-              aria-label="Performance chart: MICF and Benchmark cumulative returns"
+              aria-label="Performance chart: MICF and Benchmark NAV adjusted price"
             >
               <HighchartsPerformanceChart
                 title="Performance"
                 subtitle={chartSubtitle}
                 categories={categories}
                 series={series}
-                ariaLabel="Performance chart: MICF and Benchmark cumulative returns"
+                ariaLabel="Performance chart: MICF and Benchmark NAV adjusted price"
                 chartType="line"
-                valueSuffix="%"
+                valueSuffix=""
                 yAxisTitle="NAV adjusted price"
+                xAxisLabelFormat="monthYear"
               />
             </div>
           </div>

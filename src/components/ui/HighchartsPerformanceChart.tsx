@@ -20,6 +20,8 @@ export interface HighchartsPerformanceChartProps {
   valueSuffix?: string;
   /** When true, chart fills parent height only (no min-height). Use inside a card with fixed height so legend stays inside. */
   compact?: boolean;
+  /** When 'monthYear', x-axis shows labels at ~2-month intervals as "Month Year" (e.g. May 2023, Jul 2023). */
+  xAxisLabelFormat?: "default" | "monthYear";
 }
 
 const defaultYAxisTitle = "Cumulative return (%)";
@@ -60,6 +62,7 @@ function buildOptions(props: HighchartsPerformanceChartProps): Options {
     chartType = "line",
     yAxisTitle = defaultYAxisTitle,
     valueSuffix = defaultValueSuffix,
+    xAxisLabelFormat = "default",
   } = props;
 
   const seriesConfig: Options["series"] = series.map((s) => ({
@@ -155,16 +158,33 @@ function buildOptions(props: HighchartsPerformanceChartProps): Options {
         },
         rotation: 0,
         y: 20,
-        step: categories.length > 90 ? Math.max(1, Math.floor(categories.length / 10)) : 1,
-        formatter: function (this: { value: string | number }) {
-          const v = String(this.value);
-          const parts = v.split(", ");
-          if (parts.length === 2) {
-            const monthPart = parts[0].split(" ")[0];
-            return monthPart ? `${monthPart} ${parts[1]}` : v;
-          }
-          return v;
-        },
+        step:
+          xAxisLabelFormat === "monthYear"
+            ? 1
+            : categories.length > 90
+              ? Math.max(1, Math.floor(categories.length / 10))
+              : 1,
+        formatter:
+          xAxisLabelFormat === "monthYear"
+            ? function (this: { value: string | number }) {
+                const v = String(this.value);
+                const isFirstOrLast =
+                  v === categories[0] || v === categories[categories.length - 1];
+                if (!isFirstOrLast) return "";
+                const d = new Date(v);
+                if (Number.isNaN(d.getTime())) return v;
+                const monthLabel = d.toLocaleDateString("en-US", { month: "short" });
+                return `${monthLabel} ${d.getFullYear()}`;
+              }
+            : function (this: { value: string | number }) {
+                const v = String(this.value);
+                const parts = v.split(", ");
+                if (parts.length === 2) {
+                  const monthPart = parts[0].split(" ")[0];
+                  return monthPart ? `${monthPart} ${parts[1]}` : v;
+                }
+                return v;
+              },
       },
       lineColor: "var(--color-surface-stroke)",
       tickLength: 4,

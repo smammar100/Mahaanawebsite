@@ -25,9 +25,8 @@ export const metadata: Metadata = buildPageMetadata({
   path: "micf",
 });
 
-export const revalidate = 0;
-
-export const dynamic = "force-dynamic";
+/** Revalidate at most every 24 hours so fund data API is run daily and NAV/performance values stay current without manual updates. */
+export const revalidate = 86400;
 
 export default async function MICFPage() {
   const [fundData, faqItems, fundDocs] = await Promise.all([

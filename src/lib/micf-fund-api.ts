@@ -315,23 +315,19 @@ function transformOverview(raw: MicfFundDataResponse): MicfOverviewFundData {
   };
 }
 
-/** Last N days of daily price data to show in the performance chart (avoids overcrowded x-axis). */
-const PERFORMANCE_CHART_DAYS = 365;
-
-/** Chart data is capped at this date (inclusive). */
-const CHART_MAX_DATE_MS = new Date("2026-03-12").getTime();
+/** MICF inception date; chart shows full history from this date to present. */
+const MICF_INCEPTION_DATE_MS = new Date("2023-03-29").getTime();
 
 function transformPerformance(raw: MicfFundDataResponse): MicfPerformanceFundData {
   const sortedPrice = [...raw.price].sort(
     (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
   );
-  const upToMaxDate = sortedPrice.filter(
-    (p) => new Date(p.date).getTime() < CHART_MAX_DATE_MS
+  const chartPrice = sortedPrice.filter(
+    (p) => new Date(p.date).getTime() >= MICF_INCEPTION_DATE_MS
   );
-  const chartPrice = upToMaxDate.slice(-PERFORMANCE_CHART_DAYS);
   const chartCategories = chartPrice.map((p) => formatShortDate(p.date));
-  const micfData = chartPrice.map((p) => (p.nav_adjusted / 100 - 1) * 100);
-  const benchmarkData = chartPrice.map((p) => (p.benchmark / 100 - 1) * 100);
+  const micfData = chartPrice.map((p) => p.nav_adjusted);
+  const benchmarkData = chartPrice.map((p) => p.benchmark);
 
   const chartSeries = [
     { name: "MICF", data: micfData, color: CHART_COLORS.micf },

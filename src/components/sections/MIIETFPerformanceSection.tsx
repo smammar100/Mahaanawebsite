@@ -12,17 +12,18 @@ const CHART_COLORS = {
   km130: "var(--color-error-200)",
 } as const;
 
+/** NAV adjusted price (base 100 at Apr 2023 inception). Derived from cumulative return %. */
 const performanceChartData = [
-  { date: "Apr 2023", miietf: 0, benchmark: 0, km130: 0 },
-  { date: "Jul 2023", miietf: 2.1, benchmark: 2.0, km130: 1.2 },
-  { date: "Jan 2024", miietf: 5.2, benchmark: 5.1, km130: 3.4 },
-  { date: "Jul 2024", miietf: 8.8, benchmark: 8.7, km130: 5.9 },
-  { date: "Oct 2024", miietf: 10.2, benchmark: 10.1, km130: 6.8 },
-  { date: "Jan 2025", miietf: 12.5, benchmark: 12.4, km130: 8.2 },
-  { date: "Apr 2025", miietf: 14.1, benchmark: 14.0, km130: 9.1 },
-  { date: "Jul 2025", miietf: 16.2, benchmark: 16.1, km130: 10.0 },
-  { date: "Oct 2025", miietf: 18.0, benchmark: 17.9, km130: 10.7 },
-  { date: "Jan 2026", miietf: 19.68, benchmark: 19.68, km130: 11.3 },
+  { date: "Apr 2023", miietf: 100, benchmark: 100, km130: 100 },
+  { date: "Jul 2023", miietf: 102.1, benchmark: 102.0, km130: 101.2 },
+  { date: "Jan 2024", miietf: 105.2, benchmark: 105.1, km130: 103.4 },
+  { date: "Jul 2024", miietf: 108.8, benchmark: 108.7, km130: 105.9 },
+  { date: "Oct 2024", miietf: 110.2, benchmark: 110.1, km130: 106.8 },
+  { date: "Jan 2025", miietf: 112.5, benchmark: 112.4, km130: 108.2 },
+  { date: "Apr 2025", miietf: 114.1, benchmark: 114.0, km130: 109.1 },
+  { date: "Jul 2025", miietf: 116.2, benchmark: 116.1, km130: 110.0 },
+  { date: "Oct 2025", miietf: 118.0, benchmark: 117.9, km130: 110.7 },
+  { date: "Jan 2026", miietf: 119.68, benchmark: 119.68, km130: 111.3 },
 ];
 
 const PERFORMANCE_TABLE_ROWS = [
@@ -83,11 +84,11 @@ export function MIIETFPerformanceSection() {
             <div
               className="h-64 w-full min-w-0 sm:h-72 lg:h-96"
               role="img"
-              aria-label="Performance chart: MIIETF, Benchmark, and KM130 cumulative returns from April 2023 to January 2026"
+              aria-label="Performance chart: MIIETF, Benchmark, and KM130 NAV adjusted price from April 2023 to January 2026"
             >
               <HighchartsPerformanceChart
                 title="Performance"
-                subtitle="Cumulative returns. April 2023 to January 2026."
+                subtitle="NAV adjusted price. April 2023 to January 2026."
                 categories={performanceChartData.map((d) => d.date)}
                 series={[
                   {
@@ -106,9 +107,10 @@ export function MIIETFPerformanceSection() {
                     color: CHART_COLORS.km130,
                   },
                 ]}
-                ariaLabel="Performance chart: MIIETF, Benchmark, and KM130 cumulative returns from April 2023 to January 2026"
+                ariaLabel="Performance chart: MIIETF, Benchmark, and KM130 NAV adjusted price from April 2023 to January 2026"
                 chartType="line"
-                valueSuffix="%"
+                yAxisTitle="NAV adjusted price"
+                valueSuffix=""
               />
             </div>
           </div>
