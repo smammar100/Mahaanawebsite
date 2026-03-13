@@ -351,6 +351,16 @@
     transform: translateY(0);
     transition: none;
   }
+}
+
+/* Hide native search clear so our custom clear button controls state (help center) */
+.help-center-search-wrapper input[type="search"]::-webkit-search-cancel-button,
+.help-center-search-wrapper input[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
   /* Shorten all other animations and transitions (charts, motion library, etc.) */
   *,
   *::before,

@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   Accordion,
   AccordionContent,
@@ -8,10 +8,11 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Container } from "@/components/layout/Container";
+import { Input } from "@/components/ui/Input";
 import { H1, TextRegular } from "@/components/ui/Typography";
 import type { HelpCenterFaqItem } from "@/lib/sanity/fetch";
 import { cx } from "@/utils/cx";
-import { ChevronDown } from "@untitledui/icons";
+import { ChevronDown, SearchLg, X } from "@untitledui/icons";
 
 /** Display order for Help Center FAQ categories (from CSV import + legacy). */
 const CATEGORY_ORDER = [
@@ -54,15 +55,43 @@ function getOrderedCategories(items: HelpCenterFaqItem[]): string[] {
   return result;
 }
 
+/** Filter FAQs by query and rank by relevance: question > answer > category. */
+function filterAndRankFaqs(items: HelpCenterFaqItem[], query: string): HelpCenterFaqItem[] {
+  const q = query.trim().toLowerCase();
+  if (!q) return items;
+  return items
+    .map((item) => {
+      let score = 0;
+      if (item.question.toLowerCase().includes(q)) score += 3;
+      if (item.answer.toLowerCase().includes(q)) score += 2;
+      if (item.category.toLowerCase().includes(q)) score += 1;
+      return { item, score };
+    })
+    .filter(({ score }) => score > 0)
+    .sort((a, b) => b.score - a.score)
+    .map(({ item }) => item);
+}
+
 interface HelpCenterSectionProps {
   items: HelpCenterFaqItem[];
   className?: string;
 }
 
 export function HelpCenterSection({ items, className }: HelpCenterSectionProps) {
-  const categories = getOrderedCategories(items);
+  const [searchQuery, setSearchQuery] = useState("");
+  const filteredItems = useMemo(() => filterAndRankFaqs(items, searchQuery), [items, searchQuery]);
+  const categories = getOrderedCategories(filteredItems);
   const [activeCategory, setActiveCategory] = useState<Category | null>(categories[0] ?? null);
   const observerRef = useRef<IntersectionObserver | null>(null);
+
+  // Keep activeCategory in sync when search narrows categories
+  useEffect(() => {
+    if (categories.length > 0 && (!activeCategory || !categories.includes(activeCategory))) {
+      setActiveCategory(categories[0]);
+    } else if (categories.length === 0) {
+      setActiveCategory(null);
+    }
+  }, [categories, activeCategory]);
   const isScrollingRef = useRef(false);
   const categoryRefs = useRef<Partial<Record<string, HTMLDivElement | null>>>({});
 
@@ -162,7 +191,7 @@ export function HelpCenterSection({ items, className }: HelpCenterSectionProps) 
       )}
       aria-labelledby="help-center-heading"
     >
-      <Container className="flex flex-col gap-8 md:gap-12 lg:gap-16">
+      <Container className="flex flex-col gap-8 md:gap-10 lg:gap-10">
         {/* Hero */}
         <div className="text-center pt-16 pb-16 flex flex-col gap-2">
           <H1
@@ -176,10 +205,10 @@ export function HelpCenterSection({ items, className }: HelpCenterSectionProps) 
           </TextRegular>
         </div>
 
-        {/* Grid: sidebar + FAQ blocks */}
-        <div className="grid gap-8 md:grid-cols-[200px_1fr] md:gap-12 lg:gap-16">
-          {/* Sidebar - desktop */}
-          <div className="sticky top-24 hidden h-fit flex-col gap-4 md:flex">
+        {/* Search bar + categories: sidebar top-aligned with search bar, FAQ content below */}
+        <div className="grid gap-x-8 gap-y-6 md:grid-cols-[200px_1fr] md:gap-x-12 md:gap-y-8 lg:gap-x-16 lg:gap-y-10">
+          {/* Sidebar - spans 2 rows so its top aligns with search bar */}
+          <div className="sticky top-24 hidden h-fit flex-col gap-4 md:flex md:row-span-2 md:items-start">
             {categories.map((category) => (
               <button
                 key={category}
@@ -197,10 +226,39 @@ export function HelpCenterSection({ items, className }: HelpCenterSectionProps) 
             ))}
           </div>
 
-          {/* FAQ blocks - on elevated background for readability */}
-          <div className="space-y-6 rounded-xl bg-surface-card px-4 py-6 sm:px-6 md:py-8">
-            {categories.map((category) => {
-              const categoryItems = items.filter((i) => i.category === category);
+          {/* Row 1 col 2: search bar */}
+          <div className="help-center-search-wrapper relative min-w-0">
+            <Input
+              type="search"
+              value={searchQuery}
+              onChange={(value) => setSearchQuery(value ?? "")}
+              placeholder="Search FAQs…"
+              icon={SearchLg}
+              aria-label="Search help center FAQs"
+              className="w-full max-w-full"
+              inputClassName={searchQuery.length > 0 ? "pr-9" : undefined}
+            />
+            {searchQuery.length > 0 && (
+              <button
+                type="button"
+                onClick={() => setSearchQuery("")}
+                className="absolute right-3 top-1/2 -translate-y-1/2 flex size-8 items-center justify-center rounded text-text-tertiary hover:bg-surface-stroke/50 hover:text-text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-system-brand rounded-full"
+                aria-label="Clear search"
+              >
+                <X className="size-4" aria-hidden />
+              </button>
+            )}
+          </div>
+
+          {/* Row 2 col 2: FAQ blocks */}
+          <div className="space-y-6 rounded-xl bg-surface-card px-4 py-6 sm:px-6 md:py-8 min-w-0">
+            {filteredItems.length === 0 && searchQuery.trim() !== "" ? (
+              <p className="font-body text-regular text-text-secondary text-center py-8" role="status">
+                No FAQs match your search.
+              </p>
+            ) : (
+            categories.map((category) => {
+              const categoryItems = filteredItems.filter((i) => i.category === category);
               if (categoryItems.length === 0) return null;
 
               return (
@@ -235,7 +293,8 @@ export function HelpCenterSection({ items, className }: HelpCenterSectionProps) 
                   </Accordion>
                 </div>
               );
-            })}
+            })
+            )}
           </div>
         </div>
       </Container>
