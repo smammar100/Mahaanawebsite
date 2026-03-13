@@ -15,7 +15,7 @@ const CHART_COLORS = {
 
 /** NAV adjusted price (base 10 at Mar 2024 inception). Fallback when API is unavailable. */
 const performanceChartData = [
-  { date: "Mar 11, 2024", miietf: 10, benchmark: 10, kmi30: 10 },
+  { date: "Mar 10, 2024", miietf: 10, benchmark: 10, kmi30: 10 },
   { date: "Jun 30, 2024", miietf: 10.64, benchmark: 10.63, kmi30: 10.41 },
   { date: "Sep 30, 2024", miietf: 10.71, benchmark: 11.49, kmi30: 11.22 },
   { date: "Dec 31, 2024", miietf: 15.16, benchmark: 16.36, kmi30: 16.05 },
@@ -23,7 +23,7 @@ const performanceChartData = [
   { date: "Jun 30, 2025", miietf: 15.31, benchmark: 16.56, kmi30: 16.26 },
   { date: "Sep 30, 2025", miietf: 17.55, benchmark: 22.5, kmi30: 22.12 },
   { date: "Dec 31, 2025", miietf: 17.66, benchmark: 22.72, kmi30: 22.32 },
-  { date: "Mar 12, 2026", miietf: 15.58, benchmark: 20.1, kmi30: 19.93 },
+  { date: "Mar 12, 2026", miietf: 19.15, benchmark: 20.1, kmi30: 19.93 },
 ];
 
 const PERFORMANCE_TABLE_ROWS = [

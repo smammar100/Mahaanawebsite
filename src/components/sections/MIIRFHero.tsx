@@ -3,19 +3,20 @@
 import { useState } from "react";
 import { motion } from "motion/react";
 import { Container } from "@/components/layout/Container";
-import { Button } from "@/components/base/buttons/button";
 import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
 import { cx } from "@/utils/cx";
 
 const MIIRF_HERO_TABS = [
   { id: "overview", label: "Overview" },
   { id: "performance", label: "Performance" },
+  { id: "subfunds", label: "Subfunds" },
   { id: "fund-literature", label: "Fund literature" },
 ] as const;
 
 const TAB_TO_SECTION_ID: Record<(typeof MIIRF_HERO_TABS)[number]["id"], string> = {
   overview: "miirf-overview-section-heading",
   performance: "miirf-performance-section-heading",
+  subfunds: "miirf-subfunds-section-heading",
   "fund-literature": "miirf-fund-literature-section-heading",
 };
 
@@ -38,9 +39,9 @@ export function MIIRFHero() {
       aria-labelledby="miirf-hero-heading"
     >
       <Container className="flex flex-col gap-12 px-4 sm:px-6 md:px-8 lg:gap-[88px] lg:px-12 xl:px-16">
-        {/* Content row: left (title + CTA) | right (subtitle + partners) */}
+        {/* Content row: left (title + partners) | right (subtitle + partners) */}
         <div className="flex flex-col gap-10 lg:flex-row lg:items-start lg:gap-20 xl:gap-[80px]">
-          {/* Left: MIIRF title + CTA */}
+          {/* Left: MIIRF title + WITH OUR PARTNERS + IGI logo */}
           <div className="flex max-w-[550px] flex-col gap-6">
             <h1
               id="miirf-hero-heading"
@@ -52,17 +53,21 @@ export function MIIRFHero() {
             >
               MIIRF
             </h1>
-            <Button
-              href="/retirement"
-              size="lg"
-              color="primary"
-              className="w-fit rounded-xl px-6 py-3 text-base font-semibold"
-            >
-              Open retirement account
-            </Button>
+            <div className="flex flex-wrap items-center gap-4">
+              <p className="font-body text-base font-bold uppercase tracking-wide text-system-brand">
+                With our partners
+              </p>
+              <div className="relative h-12 w-[108px] shrink-0">
+                <img
+                  src="/images/invest/IGI%20Life%20Logo.webp"
+                  alt="IGI Life"
+                  className="h-full w-full object-contain object-left"
+                />
+              </div>
+            </div>
           </div>
 
-          {/* Right: full name + WITH OUR PARTNERS + logos */}
+          {/* Right: full name */}
           <div className="flex min-w-0 flex-1 flex-col gap-6 justify-start items-start lg:items-end">
             <h2
               className={cx(
@@ -72,18 +77,6 @@ export function MIIRFHero() {
             >
               Mahaana Islamic IGI Retirement Fund
             </h2>
-            <div className="flex flex-wrap items-start justify-start gap-4 lg:items-center">
-              <p className="font-body text-base font-bold uppercase tracking-wide text-left text-system-brand">
-                With our partners
-              </p>
-              <div className="relative h-12 w-[108px] shrink-0">
-                <img
-                  src="/images/invest/IGI%20Life%20Logo.webp"
-                  alt="IGI Life and Vitality partner logos"
-                  className="h-full w-full object-contain object-left"
-                />
-              </div>
-            </div>
           </div>
         </div>
 

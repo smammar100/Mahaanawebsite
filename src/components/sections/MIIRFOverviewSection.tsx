@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
+import type { MiirfOverviewFundData } from "@/lib/miirf-fund-api";
 import { Container } from "@/components/layout/Container";
 import {
   H2,
@@ -11,7 +12,7 @@ import {
 } from "@/components/ui/Typography";
 import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
 
-const KEY_FACTS = [
+const KEY_FACTS_FALLBACK = [
   { label: "Net Assets", value: "PKR 371.7mn" },
   { label: "Launch Date", value: "May 26, 2025" },
   { label: "Fund Auditors", value: "A.F. Ferguson & Co." },
@@ -19,6 +20,12 @@ const KEY_FACTS = [
   { label: "Fund Type", value: "Open-end Shariah Compliant Voluntary Pension Scheme" },
   { label: "Trustee", value: "Central Depository Company of Pakistan Limited" },
 ] as const;
+
+const SUMMARY_FALLBACK =
+  "Mahaana IGI Islamic Retirement Fund (MIIRF) is a Shariah-compliant voluntary pension scheme designed to provide secure retirement savings for participants. The fund primarily invests across three sub-funds: Equity, Debt, and Money Market, offering diverse allocation options to suit different risk preferences. It is a long-term investment vehicle for individuals seeking to build wealth for their retirement. Through MIIRF, participants gain exposure to a range of Islamic assets, including equities, sukuks, and money market instruments, providing them with a reliable source of income during retirement.";
+
+const OBJECTIVE_FALLBACK =
+  "Investment objective is to provide secure retirement savings and regular income after retirement, by investing in a diversified portfolio of Shariah-compliant assets, with a focus on long-term growth and risk mitigation.";
 
 function DetailRow({ label, value }: { label: string; value: string }) {
   return (
@@ -39,7 +46,12 @@ function DetailRow({ label, value }: { label: string; value: string }) {
   );
 }
 
-export function MIIRFOverviewSection() {
+export function MIIRFOverviewSection({ fundData }: { fundData?: MiirfOverviewFundData | null }) {
+  const summary = fundData?.summary ?? SUMMARY_FALLBACK;
+  const objective = fundData?.investmentObjective ?? OBJECTIVE_FALLBACK;
+  const keyFactsLeft = fundData?.keyFactsLeft ?? KEY_FACTS_FALLBACK.slice(0, 3);
+  const keyFactsRight = fundData?.keyFactsRight ?? KEY_FACTS_FALLBACK.slice(3, 6);
+
   return (
     <motion.section
       initial="hidden"
@@ -66,7 +78,7 @@ export function MIIRFOverviewSection() {
                 Product Summary
               </H4>
               <TextRegular className="text-text-secondary leading-[150%]">
-                Mahaana IGI Islamic Retirement Fund (MIIRF) is a Shariah-compliant voluntary pension scheme designed to provide secure retirement savings for participants. The fund primarily invests across three sub-funds: Equity, Debt, and Money Market, offering diverse allocation options to suit different risk preferences. It is a long-term investment vehicle for individuals seeking to build wealth for their retirement. Through MIIRF, participants gain exposure to a range of Islamic assets, including equities, sukuks, and money market instruments, providing them with a reliable source of income during retirement.
+                {summary}
               </TextRegular>
             </div>
             <div className="flex flex-col gap-4">
@@ -74,7 +86,7 @@ export function MIIRFOverviewSection() {
                 Investment Objective
               </H4>
               <TextRegular className="text-text-secondary leading-[150%]">
-                Investment objective is to provide secure retirement savings and regular income after retirement, by investing in a diversified portfolio of Shariah-compliant assets, with a focus on long-term growth and risk mitigation.
+                {objective}
               </TextRegular>
             </div>
           </div>
@@ -86,12 +98,12 @@ export function MIIRFOverviewSection() {
             </H4>
             <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-20">
               <div className="flex flex-col gap-6">
-                {KEY_FACTS.slice(0, 3).map(({ label, value }) => (
+                {keyFactsLeft.map(({ label, value }) => (
                   <DetailRow key={label} label={label} value={value} />
                 ))}
               </div>
               <div className="flex flex-col gap-6">
-                {KEY_FACTS.slice(3, 6).map(({ label, value }) => (
+                {keyFactsRight.map(({ label, value }) => (
                   <DetailRow key={label} label={label} value={value} />
                 ))}
               </div>

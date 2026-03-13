@@ -113,6 +113,7 @@ const assetAllocationColumnChartOptions: Options = {
   },
   tooltip: {
     valueSuffix: "%",
+    valueDecimals: 2,
     backgroundColor: "var(--color-surface-bg, #fff)",
     borderColor: "var(--color-surface-stroke)",
     borderRadius: 8,

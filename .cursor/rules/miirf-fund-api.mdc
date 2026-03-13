@@ -1,0 +1,25 @@
+---
+description: MIIRF fund data is loaded from the production API; use this source for all MIIRF data and future work
+alwaysApply: false
+globs: ["**/miirf/**", "**/miirf-fund-api*", "**/MIIRF*Section*"]
+---
+
+# MIIRF Fund Data API
+
+**Mahaana IGI Islamic Retirement Fund (MIIRF)** data is loaded automatically from the production fund-data API. For future work on MIIRF, treat this API as the single source of truth.
+
+## API
+
+- **URL:** `https://fdepprodmahaana-gkb9bdeehudhdedy.z02.azurefd.net/marketfeedinvestmentuniverse/api/fund-data?name=miirf`
+- **Origin header:** `https://www.mahaana.com` (required so the API accepts requests)
+
+## Implementation
+
+- **Config:** `src/lib/miirf-fund-api.ts`
+  - Base URL: `FUND_DATA_API_BASE` (env `NEXT_PUBLIC_FUND_DATA_API_BASE_URL` or the URL above)
+  - Full path: `/marketfeedinvestmentuniverse/api/fund-data?name=miirf`
+  - Request origin: `MIIRF_API_ORIGIN = "https://www.mahaana.com"`
+- **Usage:** MIIRF page fetches via `getMiirfFundDataForPage()` and passes `fundData?.overview`, `fundData?.performance`, `fundData?.subfunds` to MIIRFOverviewSection, MIIRFPerformanceSection, and MIIRFSubfundsSection. Overview, main fund performance (five risk profiles), and subfunds (Money Market, Debt, Equity) all come from this API when available.
+- **Daily updates:** The MIIRF page uses `revalidate = 86400` (24 hours) so Next.js runs the fund-data API at least once per day when the cache expires. Values (NAV, performance, subfund data, etc.) update automatically; no manual content updates are required.
+
+When adding or changing MIIRF features, use the API response shape (e.g. `miirf`, `miirfmmsf`, `miirfdsf`, `miirfesf` with `info`, `price`, `perf`, `holdings`, `asset_alloc`) and keep the existing fetch + transform pattern in `miirf-fund-api.ts`.

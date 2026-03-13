@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
 import { buildPageMetadata } from "@/lib/metadata";
+import { getMiirfFundDataForPage } from "@/lib/miirf-fund-api";
 import { getFaqByProduct, getFundDocuments } from "@/lib/sanity/fetch";
 import { Cta6Section } from "@/components/sections/Cta6Section";
 import { MIIRFFAQSection } from "@/components/sections/MIIRFFAQSection";
@@ -23,8 +24,12 @@ export const metadata: Metadata = buildPageMetadata({
   path: "miirf",
 });
 
+/** Revalidate at most every 24 hours so fund data API is run daily and NAV/performance values stay current. */
+export const revalidate = 86400;
+
 export default async function MIIRFPage() {
-  const [faqItems, fundDocs] = await Promise.all([
+  const [fundData, faqItems, fundDocs] = await Promise.all([
+    getMiirfFundDataForPage(),
     getFaqByProduct("miirf"),
     getFundDocuments("miirf"),
   ]);
@@ -37,9 +42,9 @@ export default async function MIIRFPage() {
   return (
     <div className="-mt-[calc(4.5rem+env(safe-area-inset-top,0px))] bg-surface-bg">
       <MIIRFHero />
-      <MIIRFOverviewSection />
-      <MIIRFSubfundsSection />
-      <MIIRFPerformanceSection />
+      <MIIRFOverviewSection fundData={fundData?.overview} />
+      <MIIRFPerformanceSection fundData={fundData?.performance} />
+      <MIIRFSubfundsSection fundData={fundData?.subfunds} />
       <MIIRFFundLiteratureSection documents={documents} />
       <MIIRFFAQSection items={faqItems} />
       <Cta6Section />

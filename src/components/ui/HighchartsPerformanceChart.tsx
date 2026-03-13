@@ -134,7 +134,10 @@ function buildOptions(props: HighchartsPerformanceChartProps): Options {
           color: "var(--color-text-secondary)",
           fontSize: "12px",
         },
-        format: `{value}${valueSuffix}`,
+        formatter: function (this: { value: number }) {
+          const v = Number(this.value);
+          return (Number.isNaN(v) ? "" : v.toFixed(2)) + (valueSuffix ?? "");
+        },
       },
     },
     xAxis: {
@@ -266,7 +269,12 @@ function buildOptions(props: HighchartsPerformanceChartProps): Options {
           "";
         const valueDecimals = 2;
         const suffix = valueSuffix ?? "";
-        const rows = points
+        // Sort by series index so tooltip order is stable (matches series order: MIIETF, Benchmark, KMI30, etc.)
+        const sortedPoints = [...points].sort(
+          (a: { series: { index: number } }, b: { series: { index: number } }) =>
+            (a.series?.index ?? 0) - (b.series?.index ?? 0)
+        );
+        const rows = sortedPoints
           .map((p: { point: { y?: number; color?: string }; series: { name: string; color?: string } }) => {
             const point = p.point as { y?: number; color?: string };
             const name = p.series.name;

@@ -52,7 +52,7 @@ const NON_SALARIED_TAX_ROWS: TaxCreditRow[] = [
 const PAGE_SIZE = 9;
 
 function formatNum(n: number): string {
-  return n.toLocaleString("en-PK");
+  return n.toLocaleString("en-PK", { minimumFractionDigits: 0, maximumFractionDigits: 2 });
 }
 
 export function TaxCreditTableSection() {

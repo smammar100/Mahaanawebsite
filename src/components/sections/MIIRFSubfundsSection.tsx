@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "motion/react";
+import type { MiirfSubfundsFundData } from "@/lib/miirf-fund-api";
 import { Container } from "@/components/layout/Container";
 import { H2, H4, TextMedium, TextRegular, TextSmall } from "@/components/ui/Typography";
 import { HighchartsVariablePieChart } from "@/components/ui/HighchartsVariablePieChart";
@@ -268,10 +269,15 @@ function SubfundDonutChart({
   );
 }
 
-export function MIIRFSubfundsSection() {
+export function MIIRFSubfundsSection({ fundData }: { fundData?: MiirfSubfundsFundData | null }) {
   const [activeTab, setActiveTab] = useState<"money-market" | "debt" | "equity">("debt");
-  const data =
-    activeTab === "money-market"
+  const data = fundData
+    ? activeTab === "money-market"
+      ? fundData.moneyMarket
+      : activeTab === "equity"
+        ? fundData.equity
+        : fundData.debt
+    : activeTab === "money-market"
       ? SUBFUND_MONEY_MARKET_DATA
       : activeTab === "equity"
         ? SUBFUND_EQUITY_DATA

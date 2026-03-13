@@ -2,28 +2,36 @@ import { CURRENCY_SYMBOL } from "./fireConfig";
 
 export const fmt = (n: number, currency: string = CURRENCY_SYMBOL): string => {
   if (n >= 1_000_000) return `${currency}${(n / 1_000_000).toFixed(2)}M`;
-  if (n >= 1_000) return `${currency}${(n / 1_000).toFixed(0)}K`;
-  return `${currency}${Math.abs(n).toFixed(0)}`;
+  if (n >= 1_000) return `${currency}${(n / 1_000).toFixed(2)}K`;
+  return `${currency}${Math.abs(n).toFixed(2)}`;
 };
 
 export const fmtAxis = (n: number, currency: string = CURRENCY_SYMBOL): string => {
-  if (n >= 1_000_000) return `${currency}${(n / 1_000_000).toFixed(1)}M`;
-  if (n >= 1_000) return `${currency}${(n / 1_000).toFixed(0)}K`;
-  return `${currency}${n}`;
+  if (n >= 1_000_000) return `${currency}${(n / 1_000_000).toFixed(2)}M`;
+  if (n >= 1_000) return `${currency}${(n / 1_000).toFixed(2)}K`;
+  return `${currency}${Number(n).toFixed(2)}`;
 };
 
-export const pct = (v: number): string => `${(v * 100).toFixed(0)}%`;
+export const pct = (v: number): string => `${(v * 100).toFixed(2)}%`;
 
-/** Format growth as "+X.X%" for display. */
+/** Format growth as "+X.XX%" for display. */
 export function formatGrowthPercent(n: number): string {
-  return `+${n.toFixed(1)}%`;
+  return `+${n.toFixed(2)}%`;
 }
 
-/** Y-axis tick formatter: K/M shorthand without currency symbol. */
+/** Format a numeric percentage for display (avoids float noise like 2.6399999999999997). Max 2 decimal places. */
+export function formatPctDisplay(raw: string | number | null | undefined): string {
+  if (raw == null || raw === "") return "—";
+  const n = typeof raw === "number" ? raw : parseFloat(String(raw));
+  if (Number.isNaN(n)) return "—";
+  return `${Number(n).toFixed(2)}%`;
+}
+
+/** Y-axis tick formatter: K/M shorthand without currency symbol. Max 2 decimal places. */
 export function formatAxisTick(n: number): string {
-  if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(1)}M`;
-  if (n >= 1_000) return `${(n / 1_000).toFixed(0)}K`;
-  return String(n);
+  if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(2)}M`;
+  if (n >= 1_000) return `${(n / 1_000).toFixed(2)}K`;
+  return Number(n).toFixed(2);
 }
 
 /**

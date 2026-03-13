@@ -1,6 +1,7 @@
 import {
   formatShortDate,
   formatDateDdMmYyyy,
+  formatPctDisplay,
 } from "./formatters";
 
 const FUND_DATA_API_BASE =
@@ -223,7 +224,7 @@ function transformHero(raw: MiietfFundDataResponse): MiietfHeroFundData {
   );
   const latestPrice = sortedByDate[0] ?? null;
 
-  const nav = latestPrice ? latestPrice.nav_adjusted.toFixed(4) : "";
+  const nav = latestPrice ? latestPrice.nav_adjusted.toFixed(2) : "";
   const navDate = latestPrice ? formatShortDate(latestPrice.date) : "";
   const assetClass = infoVal(info, "Fund Category");
 
@@ -266,11 +267,11 @@ function transformOverview(raw: MiietfFundDataResponse): MiietfOverviewFundData 
     { label: "Authorized Participant", value: infoVal(info, "Authorized Participant")?.replace(/\n/g, " ") ?? "" },
     {
       label: "Total expense ratio (without govt. levy)",
-      value: mtdWithout && ytdWithout ? `${mtdWithout}% (MTD) | ${ytdWithout}% (YTD)` : "",
+      value: mtdWithout && ytdWithout ? `${formatPctDisplay(mtdWithout)} (MTD) | ${formatPctDisplay(ytdWithout)} (YTD)` : "",
     },
     {
       label: "Total expense ratio (with govt. levy)",
-      value: mtdWith && ytdWith ? `${mtdWith}% (MTD) | ${ytdWith}% (YTD)` : "",
+      value: mtdWith && ytdWith ? `${formatPctDisplay(mtdWith)} (MTD) | ${formatPctDisplay(ytdWith)} (YTD)` : "",
     },
   ];
 
@@ -283,7 +284,7 @@ function transformOverview(raw: MiietfFundDataResponse): MiietfOverviewFundData 
 }
 
 /** MIIETF inception date; chart shows full history from this date to present. */
-const MIIETF_INCEPTION_DATE_MS = new Date("2024-03-11").getTime();
+const MIIETF_INCEPTION_DATE_MS = new Date("2024-03-10").getTime();
 
 function transformPerformance(raw: MiietfFundDataResponse): MiietfPerformanceFundData {
   const sortedPrice = [...raw.price].sort(
@@ -357,8 +358,8 @@ function transformPortfolio(raw: MiietfFundDataResponse): MiietfPortfolioFundDat
 function transformDistributions(raw: MiietfFundDataResponse): MiietfDistributionsFundData {
   return (raw.distribution ?? []).map((d) => ({
     date: formatDateDdMmYyyy(d.payout_date),
-    pkrPerUnit: d.payout_per_unit.toFixed(3),
-    exNav: d.ex_nav.toFixed(4),
+    pkrPerUnit: d.payout_per_unit.toFixed(2),
+    exNav: d.ex_nav.toFixed(2),
     yieldPct: pct2FromDecimal(d.yield),
   }));
 }

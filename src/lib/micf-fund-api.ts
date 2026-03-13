@@ -1,6 +1,7 @@
 import {
   formatShortDate,
   formatDateDdMmYyyy,
+  formatPctDisplay,
 } from "./formatters";
 
 const FUND_DATA_API_BASE =
@@ -246,7 +247,7 @@ function transformHero(raw: MicfFundDataResponse): MicfHeroFundData {
   const latestPrice = sortedByDate[0] ?? null;
   const perfMicf = raw.perf.find((p) => p.name === "MICF");
 
-  const nav = latestPrice ? latestPrice.nav_adjusted.toFixed(4) : "";
+  const nav = latestPrice ? latestPrice.nav_adjusted.toFixed(2) : "";
   const navDate = latestPrice ? formatShortDate(latestPrice.date) : "";
   const mtd = perfMicf != null ? pct2FromDecimal(perfMicf.mtd) : "";
   const assetClass = infoVal(info, "Fund Category");
@@ -294,11 +295,11 @@ function transformOverview(raw: MicfFundDataResponse): MicfOverviewFundData {
     { label: "Management Fee", value: infoVal(info, "Management Fee") },
     {
       label: "Total Expense Ratio (without govt. levy)",
-      value: mtdWithout && ytdWithout ? `${mtdWithout}% (MTD) | ${ytdWithout}% (YTD)` : "",
+      value: mtdWithout && ytdWithout ? `${formatPctDisplay(mtdWithout)} (MTD) | ${formatPctDisplay(ytdWithout)} (YTD)` : "",
     },
     {
       label: "Total Expense Ratio (with govt. levy)",
-      value: mtdWith && ytdWith ? `${mtdWith}% (MTD) | ${ytdWith}% (YTD)` : "",
+      value: mtdWith && ytdWith ? `${formatPctDisplay(mtdWith)} (MTD) | ${formatPctDisplay(ytdWith)} (YTD)` : "",
     },
     {
       label: "Weighted Average Time to Maturity (Days)",
@@ -395,8 +396,8 @@ function transformPortfolio(raw: MicfFundDataResponse): MicfPortfolioFundData {
 function transformDistributions(raw: MicfFundDataResponse): MicfDistributionsFundData {
   return raw.distribution.map((d) => ({
     date: formatDateDdMmYyyy(d.payout_date),
-    pkrPerUnit: d.payout_per_unit.toFixed(3),
-    exNav: d.ex_nav.toFixed(4),
+    pkrPerUnit: d.payout_per_unit.toFixed(2),
+    exNav: d.ex_nav.toFixed(2),
     yieldPct: pct2FromDecimal(d.yield),
   }));
 }

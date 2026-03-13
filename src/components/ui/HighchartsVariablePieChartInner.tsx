@@ -39,7 +39,7 @@ export function HighchartsVariablePieChartInner({
         headerFormat: "",
         pointFormat:
           '<span style="color:{point.color}">\u25CF</span> <b>{point.name}</b><br/>' +
-          "Percentage: <b>{point.y}%</b><br/>",
+          "Percentage: <b>{point.y:.2f}%</b><br/>",
         backgroundColor: "var(--color-surface-bg, #fff)",
         borderColor: "var(--color-surface-stroke)",
         style: { color: "var(--color-text-primary)", fontSize: "13px" },

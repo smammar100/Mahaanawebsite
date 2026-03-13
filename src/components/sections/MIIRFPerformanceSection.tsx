@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
+import type { MiirfPerformanceFundData } from "@/lib/miirf-fund-api";
 import { Container } from "@/components/layout/Container";
 import { HighchartsPerformanceChart } from "@/components/ui/HighchartsPerformanceChart";
 import { H2 } from "@/components/ui/Typography";
@@ -14,7 +15,7 @@ const CHART_COLORS = {
   aggressive: "var(--color-primary-200)",
 } as const;
 
-const performanceChartData = [
+const performanceChartDataFallback = [
   { date: "Apr 2023", conservative: 0, lowRisk: 0, balanced: 0, mediumRisk: 0, aggressive: 0 },
   { date: "Jul 2023", conservative: 1.5, lowRisk: 2, balanced: 2.5, mediumRisk: 3, aggressive: 3.5 },
   { date: "Jan 2024", conservative: 3.5, lowRisk: 4.5, balanced: 5, mediumRisk: 6, aggressive: 7 },
@@ -27,7 +28,18 @@ const performanceChartData = [
   { date: "Jan 2026", conservative: 15, lowRisk: 17, balanced: 19, mediumRisk: 21, aggressive: 25 },
 ];
 
-export function MIIRFPerformanceSection() {
+export function MIIRFPerformanceSection({ fundData }: { fundData?: MiirfPerformanceFundData | null }) {
+  const categories = fundData?.chartCategories ?? performanceChartDataFallback.map((d) => d.date);
+  const series = fundData?.chartSeries ?? [
+    { name: "Conservative", data: performanceChartDataFallback.map((d) => d.conservative), color: CHART_COLORS.conservative },
+    { name: "Low Risk", data: performanceChartDataFallback.map((d) => d.lowRisk), color: CHART_COLORS.lowRisk },
+    { name: "Balanced", data: performanceChartDataFallback.map((d) => d.balanced), color: CHART_COLORS.balanced },
+    { name: "Medium Risk", data: performanceChartDataFallback.map((d) => d.mediumRisk), color: CHART_COLORS.mediumRisk },
+    { name: "Aggressive", data: performanceChartDataFallback.map((d) => d.aggressive), color: CHART_COLORS.aggressive },
+  ];
+  const dateRange =
+    categories.length >= 2 ? `${categories[0]} to ${categories[categories.length - 1]}` : "April 2023 to January 2026";
+
   return (
     <motion.section
       initial="hidden"
@@ -50,40 +62,14 @@ export function MIIRFPerformanceSection() {
           <div
             className="h-64 w-full min-w-0 sm:h-72 lg:h-96"
             role="img"
-            aria-label="Performance chart: Conservative, Low Risk, Balanced, Medium Risk, and Aggressive cumulative returns from April 2023 to January 2026"
+            aria-label="Performance chart: Conservative, Low Risk, Balanced, Medium Risk, and Aggressive cumulative returns"
           >
             <HighchartsPerformanceChart
               title="Performance"
-              subtitle="Cumulative returns by risk profile. April 2023 to January 2026."
-              categories={performanceChartData.map((d) => d.date)}
-              series={[
-                {
-                  name: "Conservative",
-                  data: performanceChartData.map((d) => d.conservative),
-                  color: CHART_COLORS.conservative,
-                },
-                {
-                  name: "Low Risk",
-                  data: performanceChartData.map((d) => d.lowRisk),
-                  color: CHART_COLORS.lowRisk,
-                },
-                {
-                  name: "Balanced",
-                  data: performanceChartData.map((d) => d.balanced),
-                  color: CHART_COLORS.balanced,
-                },
-                {
-                  name: "Medium Risk",
-                  data: performanceChartData.map((d) => d.mediumRisk),
-                  color: CHART_COLORS.mediumRisk,
-                },
-                {
-                  name: "Aggressive",
-                  data: performanceChartData.map((d) => d.aggressive),
-                  color: CHART_COLORS.aggressive,
-                },
-              ]}
-              ariaLabel="Performance chart: Conservative, Low Risk, Balanced, Medium Risk, and Aggressive cumulative returns from April 2023 to January 2026"
+              subtitle={`Cumulative returns by risk profile. ${dateRange}.`}
+              categories={categories}
+              series={series}
+              ariaLabel="Performance chart: Conservative, Low Risk, Balanced, Medium Risk, and Aggressive cumulative returns"
               chartType="line"
               valueSuffix="%"
             />
