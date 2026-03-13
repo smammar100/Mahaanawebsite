@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import dynamic from "next/dynamic";
+import nextDynamic from "next/dynamic";
 import { buildPageMetadata } from "@/lib/metadata";
 import { getMicfFundDataForPage } from "@/lib/micf-fund-api";
 import { getFaqByProduct, getFundDocuments } from "@/lib/sanity/fetch";
@@ -10,11 +10,11 @@ import { MICFOverviewSection } from "@/components/sections/MICFOverviewSection";
 import { MICFDistributionsSection } from "@/components/sections/MICFDistributionsSection";
 import { MICFFundLiteratureSection } from "@/components/sections/MICFFundLiteratureSection";
 
-const MICFPerformanceSection = dynamic(
+const MICFPerformanceSection = nextDynamic(
   () => import("@/components/sections/MICFPerformanceSection").then((m) => ({ default: m.MICFPerformanceSection })),
   { ssr: true }
 );
-const MICFPortfolioSection = dynamic(
+const MICFPortfolioSection = nextDynamic(
   () => import("@/components/sections/MICFPortfolioSection").then((m) => ({ default: m.MICFPortfolioSection })),
   { ssr: true }
 );
@@ -25,7 +25,9 @@ export const metadata: Metadata = buildPageMetadata({
   path: "micf",
 });
 
-export const revalidate = 60;
+export const revalidate = 0;
+
+export const dynamic = "force-dynamic";
 
 export default async function MICFPage() {
   const [fundData, faqItems, fundDocs] = await Promise.all([

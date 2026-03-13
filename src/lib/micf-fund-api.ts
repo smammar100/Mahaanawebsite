@@ -141,8 +141,13 @@ export interface MicfFundDataForPage {
 
 export async function getMicfFundData(): Promise<MicfFundDataResponse | null> {
   try {
-    const res = await fetch(MICF_FUND_DATA_URL, {
-      next: { revalidate: 60 },
+    const url = `${MICF_FUND_DATA_URL}&_t=${Date.now()}`;
+    const res = await fetch(url, {
+      cache: "no-store",
+      headers: {
+        "Cache-Control": "no-store, no-cache, must-revalidate",
+        Pragma: "no-cache",
+      },
     });
     if (!res.ok) {
       if (process.env.NODE_ENV === "development") {

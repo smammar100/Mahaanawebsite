@@ -94,7 +94,7 @@ export function MICFPerformanceSection({
           {/* Chart card */}
           <div className="h-fit rounded-2xl border border-surface-stroke bg-surface-card p-4 sm:p-6">
             <div
-              className="h-[375px] w-full min-w-0"
+              className="h-[375px] w-full min-w-0 overflow-visible"
               role="img"
               aria-label="Performance chart: MICF and Benchmark cumulative returns"
             >

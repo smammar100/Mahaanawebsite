@@ -108,6 +108,7 @@ function buildOptions(props: HighchartsPerformanceChartProps): Options {
         }
       : undefined,
     yAxis: {
+      crosshair: true,
       maxPadding: 0.15,
       startOnTick: false,
       endOnTick: false,
@@ -135,6 +136,7 @@ function buildOptions(props: HighchartsPerformanceChartProps): Options {
     },
     xAxis: {
       categories,
+      crosshair: true,
       startOnTick: false,
       endOnTick: false,
       minPadding: 0.03,
@@ -214,12 +216,37 @@ function buildOptions(props: HighchartsPerformanceChartProps): Options {
           }),
     },
     tooltip: {
+      shared: true,
+      useHTML: true,
       valueSuffix,
       valueDecimals: 2,
       backgroundColor: "var(--color-background-default, #fff)",
       borderColor: "var(--color-surface-stroke)",
+      borderWidth: 1,
+      shadow: true,
       style: {
         color: "var(--color-text-primary)",
+      },
+      formatter: function (this: Highcharts.TooltipFormatterContextObject) {
+        const points = this.points ?? [];
+        const date =
+          (points[0] && "point" in points[0] && (points[0].point as { category?: string }).category) ??
+          "";
+        const valueDecimals = 2;
+        const suffix = valueSuffix ?? "";
+        const rows = points
+          .map((p) => {
+            const point = p.point as { y?: number; color?: string };
+            const name = p.series.name;
+            const color = point.color ?? p.series.color ?? "#666";
+            const val =
+              typeof point.y === "number"
+                ? point.y.toFixed(valueDecimals) + suffix
+                : "-";
+            return `<tr><td style="padding:2px 6px 2px 0"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${color};vertical-align:middle;margin-right:6px"></span></td><td style="padding:2px 0">${name}: ${val}</td></tr>`;
+          })
+          .join("");
+        return `<div style="font-size:12px"><strong style="display:block;margin-bottom:6px">${date}</strong><table>${rows}</table></div>`;
       },
     },
     credits: {
