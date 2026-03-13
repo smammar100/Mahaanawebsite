@@ -76,10 +76,10 @@ function buildOptions(props: HighchartsPerformanceChartProps): Options {
     chart: {
       backgroundColor: "transparent",
       spacing: [16, 16, 16, 16],
-      marginTop: 56,
+      marginTop: 64,
       marginRight: 32,
       marginLeft: 72,
-      marginBottom: 72,
+      marginBottom: 64,
       reflow: true,
       animation: false,
       height: null,
@@ -141,6 +141,7 @@ function buildOptions(props: HighchartsPerformanceChartProps): Options {
       endOnTick: false,
       minPadding: 0.03,
       maxPadding: 0.03,
+      visible: true,
       accessibility: {
         rangeDescription: `Range: ${categories[0] ?? ""} to ${categories[categories.length - 1] ?? ""}`,
       },
@@ -154,9 +155,20 @@ function buildOptions(props: HighchartsPerformanceChartProps): Options {
         },
         rotation: 0,
         y: 20,
+        step: categories.length > 90 ? Math.max(1, Math.floor(categories.length / 10)) : 1,
+        formatter: function (this: { value: string }) {
+          const v = this.value;
+          const parts = v.split(", ");
+          if (parts.length === 2) {
+            const monthPart = parts[0].split(" ")[0];
+            return monthPart ? `${monthPart} ${parts[1]}` : v;
+          }
+          return v;
+        },
       },
       lineColor: "var(--color-surface-stroke)",
       tickLength: 4,
+      lineWidth: 1,
     },
     legend: {
       enabled: true,
@@ -265,7 +277,7 @@ function buildOptions(props: HighchartsPerformanceChartProps): Options {
           chartOptions: {
             chart: {
               marginLeft: 56,
-              marginBottom: 72,
+              marginBottom: 64,
             },
             yAxis: {
               title: {
@@ -314,7 +326,7 @@ export function HighchartsPerformanceChart(props: HighchartsPerformanceChartProp
   const libs = useHighcharts();
   const wrapperClass = props.compact
     ? "h-fit w-full"
-    : "h-full w-full min-h-[380px] sm:min-h-[420px] md:min-h-[460px]";
+    : "h-fit w-full";
 
   if (!libs) {
     return (

@@ -9,6 +9,9 @@ const FUND_DATA_API_BASE =
 
 const MICF_FUND_DATA_URL = `${FUND_DATA_API_BASE}/marketfeedinvestmentuniverse/api/fund-data?name=micf`;
 
+/** Origin sent with MICF API requests so the API accepts requests from production. */
+const MICF_API_ORIGIN = "https://www.mahaana.com";
+
 // ---------------------------------------------------------------------------
 // Raw API response types
 // ---------------------------------------------------------------------------
@@ -147,6 +150,7 @@ export async function getMicfFundData(): Promise<MicfFundDataResponse | null> {
       headers: {
         "Cache-Control": "no-store, no-cache, must-revalidate",
         Pragma: "no-cache",
+        Origin: MICF_API_ORIGIN,
       },
     });
     if (!res.ok) {
@@ -236,11 +240,14 @@ function normalizeAssetAllocKey(key: string): string {
 
 function transformHero(raw: MicfFundDataResponse): MicfHeroFundData {
   const info = raw.info;
-  const lastPrice = raw.price.length > 0 ? raw.price[raw.price.length - 1] : null;
+  const sortedByDate = [...raw.price].sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+  );
+  const latestPrice = sortedByDate[0] ?? null;
   const perfMicf = raw.perf.find((p) => p.name === "MICF");
 
-  const nav = lastPrice ? lastPrice.nav.toFixed(4) : "";
-  const navDate = lastPrice ? formatShortDate(lastPrice.date) : "";
+  const nav = latestPrice ? latestPrice.nav_adjusted.toFixed(4) : "";
+  const navDate = latestPrice ? formatShortDate(latestPrice.date) : "";
   const mtd = perfMicf != null ? pct2FromDecimal(perfMicf.mtd) : "";
   const assetClass = infoVal(info, "Fund Category");
   const expenseRatioMtd = infoVal(info, "Monthly Total Expense Ratio");
@@ -311,13 +318,19 @@ function transformOverview(raw: MicfFundDataResponse): MicfOverviewFundData {
 /** Last N days of daily price data to show in the performance chart (avoids overcrowded x-axis). */
 const PERFORMANCE_CHART_DAYS = 365;
 
+/** Chart data is capped at this date (inclusive). */
+const CHART_MAX_DATE_MS = new Date("2026-03-12").getTime();
+
 function transformPerformance(raw: MicfFundDataResponse): MicfPerformanceFundData {
   const sortedPrice = [...raw.price].sort(
     (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
   );
-  const chartPrice = sortedPrice.slice(-PERFORMANCE_CHART_DAYS);
+  const upToMaxDate = sortedPrice.filter(
+    (p) => new Date(p.date).getTime() < CHART_MAX_DATE_MS
+  );
+  const chartPrice = upToMaxDate.slice(-PERFORMANCE_CHART_DAYS);
   const chartCategories = chartPrice.map((p) => formatShortDate(p.date));
-  const micfData = chartPrice.map((p) => (p.nav / 100 - 1) * 100);
+  const micfData = chartPrice.map((p) => (p.nav_adjusted / 100 - 1) * 100);
   const benchmarkData = chartPrice.map((p) => (p.benchmark / 100 - 1) * 100);
 
   const chartSeries = [

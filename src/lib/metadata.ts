@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 /** Base URL for canonical and Open Graph. Must match layout metadataBase. */
-export const SITE_URL = "https://mahaana.netlify.app";
+export const SITE_URL = "https://www.mahaana.com";
 
 /** Default OG image used when no page-specific image is set. */
 const defaultOgImage = {

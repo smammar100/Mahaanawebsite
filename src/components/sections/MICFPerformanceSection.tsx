@@ -23,6 +23,7 @@ const performanceChartData = [
   { date: "Jul 2025", micf: 16.2, benchmark: 16.1 },
   { date: "Oct 2025", micf: 18.0, benchmark: 17.9 },
   { date: "Jan 2026", micf: 19.68, benchmark: 19.68 },
+  { date: "Mar 2026", micf: 19.68, benchmark: 19.68 },
 ];
 
 const PERFORMANCE_TABLE_ROWS = [
@@ -94,7 +95,7 @@ export function MICFPerformanceSection({
           {/* Chart card */}
           <div className="h-fit rounded-2xl border border-surface-stroke bg-surface-card p-4 sm:p-6">
             <div
-              className="h-[375px] w-full min-w-0 overflow-visible"
+              className="h-fit w-full min-w-0 overflow-visible"
               role="img"
               aria-label="Performance chart: MICF and Benchmark cumulative returns"
             >
@@ -106,6 +107,7 @@ export function MICFPerformanceSection({
                 ariaLabel="Performance chart: MICF and Benchmark cumulative returns"
                 chartType="line"
                 valueSuffix="%"
+                yAxisTitle="NAV adjusted price"
               />
             </div>
           </div>
