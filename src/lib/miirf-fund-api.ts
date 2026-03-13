@@ -250,9 +250,9 @@ function transformPerformance(raw: MiirfMainFundRaw): MiirfPerformanceFundData {
   );
   const categories = sorted.map((p) => formatMonthYear(p.date));
   const series = MAIN_RISK_KEYS.map((key, i) => {
-    const firstNav = sorted[0] ? parseNum((sorted[0] as Record<string, string>)[key]) : 1;
+    const firstNav = sorted[0] ? parseNum((sorted[0] as unknown as Record<string, string>)[key]) : 1;
     const data = sorted.map((p) => {
-      const nav = parseNum((p as Record<string, string>)[key]);
+      const nav = parseNum((p as unknown as Record<string, string>)[key]);
       if (firstNav <= 0) return 0;
       return (nav / firstNav - 1) * 100;
     });

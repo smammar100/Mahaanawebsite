@@ -134,7 +134,7 @@ function buildOptions(props: HighchartsPerformanceChartProps): Options {
           color: "var(--color-text-secondary)",
           fontSize: "12px",
         },
-        formatter: function (this: { value: number }) {
+        formatter: function (this: any): string {
           const v = Number(this.value);
           return (Number.isNaN(v) ? "" : v.toFixed(2)) + (valueSuffix ?? "");
         },
