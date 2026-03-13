@@ -115,7 +115,7 @@ export function TestimonialsSection({ className, viewAllHref = "#testimonials" }
               Meet our happy investors
             </h2>
           </div>
-          <TextRegular className="max-w-2xl text-text-secondary">
+          <TextRegular className="min-w-0 max-w-2xl text-text-secondary sm:text-[1.125rem] sm:leading-8">
             Join a growing community of smart savers, professionals, and everyday
             Pakistanis who trust Mahaana to secure their financial future.
           </TextRegular>

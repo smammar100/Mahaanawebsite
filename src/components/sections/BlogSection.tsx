@@ -135,9 +135,6 @@ export function BlogSection({
                 <h3 className="mb-1 font-body text-large font-semibold leading-[150%] text-text-primary line-clamp-2">
                   {post.title}
                 </h3>
-                <TextSmall className="line-clamp-2 text-text-tertiary">
-                  {post.excerpt}
-                </TextSmall>
                 <div className="my-5 border-t border-surface-stroke" aria-hidden />
                 <div className="flex items-center justify-between gap-4">
                   <div className="flex min-w-0 items-center gap-3">

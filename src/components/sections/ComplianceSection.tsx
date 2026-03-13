@@ -1,6 +1,8 @@
 "use client";
 
-import { File02, Target04, Zap } from "@untitledui/icons";
+import { ChevronRight, ShieldTick, Wallet01 } from "@untitledui/icons";
+import Image from "next/image";
+import Link from "next/link";
 import { Container } from "@/components/layout/Container";
 import { H2, TextLarge, TextRegular } from "@/components/ui/Typography";
 import { useInView } from "@/hooks/useInView";
@@ -10,32 +12,43 @@ interface ComplianceSectionProps {
   className?: string;
 }
 
-const securityCards = [
+type IconCard = {
+  icon: React.ComponentType<{ className?: string; "aria-hidden"?: boolean }>;
+  title: string;
+  description: string;
+};
+type LogoCard = {
+  logo: { src: string; alt: string };
+  title: string;
+  description: string;
+};
+
+const securityCards: (IconCard | LogoCard)[] = [
   {
-    icon: Zap,
+    logo: { src: "/images/invest/SECP%20logo%20color.svg", alt: "SECP" },
     title: "Regulated by SECP",
     description:
       "We operate under strict investor protection laws as a licensed financial services provider regulated by the SECP.",
   },
   {
-    icon: File02,
+    logo: { src: "/images/invest/CDC%20color.svg", alt: "CDC" },
     title: "Assets safeguarded with CDC",
     description:
       "Your investments are securely held in your name with Pakistan's licensed central securities custodian, the CDC.",
   },
   {
-    icon: Target04,
+    icon: ShieldTick,
     title: "Secure transactions",
     description:
       "No cash handling, your payments go directly to the CDC through verified and secure banking channels.",
   },
   {
-    icon: Target04,
+    icon: Wallet01,
     title: "We can't touch your funds",
     description:
       "Mahaana never holds your money. You remain in full control of your investments at all times.",
   },
-] as const;
+];
 
 export function ComplianceSection({ className }: ComplianceSectionProps) {
   const { ref, isVisible } = useInView(0.15);
@@ -51,34 +64,52 @@ export function ComplianceSection({ className }: ComplianceSectionProps) {
       aria-labelledby="compliance-heading"
     >
       <Container className="flex flex-col gap-8 px-4 sm:gap-10 sm:px-6 md:px-8 lg:gap-14 lg:px-12 xl:px-16">
-        <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,520px)] lg:gap-10 xl:gap-20">
-          <div className="min-w-0">
-            <H2
-              id="compliance-heading"
-              className="max-w-[600px] text-[2.5rem] leading-[1.15] tracking-heading sm:text-[3rem] lg:text-[3.5rem]"
+        <div className="flex flex-col gap-2 lg:max-w-[600px]">
+          <H2
+            id="compliance-heading"
+            className="min-w-0 max-w-[600px] text-[2.5rem] leading-[1.15] tracking-heading sm:text-[3rem] lg:text-[3.5rem]"
+          >
+            How we keep your
+            <br />
+            money safe
+          </H2>
+          <div className="flex min-w-0 flex-col gap-6 lg:max-w-[520px]">
+            <TextRegular className="min-w-0 text-text-secondary sm:text-[1.125rem] sm:leading-8">
+              Your financial security is our top priority. By partnering with
+              CDC, we provide a secure environment for your investments. With
+              CDC&apos;s robust security protocols and Mahaana&apos;s transparent
+              processes, you can be confident that your money is in safe hands.
+            </TextRegular>
+            <Link
+              href="/security"
+              className="flex w-fit items-center gap-1 font-body text-medium font-semibold text-system-brand transition-colors hover:text-primary-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-system-brand"
             >
-              How we keep your money safe
-            </H2>
+              Learn more about security
+              <ChevronRight className="mt-0.5 size-5 shrink-0" aria-hidden />
+            </Link>
           </div>
-          <TextRegular className="min-w-0 text-text-secondary sm:text-[1.125rem] sm:leading-8 lg:max-w-[520px]">
-            Your financial security is our top priority. By partnering with
-            CDC, we provide a secure environment for your investments. With
-            CDC&apos;s robust security protocols and Mahaana&apos;s transparent
-            processes, you can be confident that your money is in safe hands.
-          </TextRegular>
         </div>
 
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           {securityCards.map((card) => {
-            const Icon = card.icon;
-
+            const Icon = "icon" in card ? card.icon : null;
             return (
               <div
                 key={card.title}
                 className="flex flex-col gap-6 rounded-2xl border border-surface-stroke bg-surface-card p-6 dark:bg-surface-card"
               >
-                <div className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-primary-100 p-2">
-                  <Icon className="size-6 text-primary-200" aria-hidden />
+                <div className="flex size-12 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-primary-100 p-2">
+                  {"logo" in card ? (
+                    <Image
+                      src={card.logo.src}
+                      alt={card.logo.alt}
+                      width={48}
+                      height={48}
+                      className="size-8 object-contain"
+                    />
+                  ) : Icon ? (
+                    <Icon className="size-6 text-primary-200" aria-hidden />
+                  ) : null}
                 </div>
                 <div className="flex min-w-0 flex-col gap-2">
                   <TextLarge
