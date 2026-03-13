@@ -31,3 +31,10 @@ export interface SanityFundDocument {
   category: string | null;
   publishDate: string | null;
 }
+
+export interface SanityFaq {
+  _id: string;
+  question: string | null;
+  answer: string | null;
+  category: string | null;
+}

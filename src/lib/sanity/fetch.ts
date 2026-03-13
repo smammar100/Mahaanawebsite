@@ -7,11 +7,13 @@ import {
   investorEducationSlugsQuery,
   latestInvestorEducationsQuery,
   fundDocumentsQuery,
+  faqsQuery,
 } from "./queries";
 import type {
   SanityInvestorEducation,
   SanityInvestorEducationType,
   SanityFundDocument,
+  SanityFaq,
 } from "./types";
 
 /** Map Sanity _type to app category for tabs and CTA. */
@@ -161,6 +163,33 @@ export async function getInvestorEducationSlugs(): Promise<string[]> {
     )) as string[] | null;
     const list = Array.isArray(slugs) ? slugs : [];
     return [...new Set(list)];
+  } catch {
+    return [];
+  }
+}
+
+/** Help Center FAQ item (question, answer, category). */
+export interface HelpCenterFaqItem {
+  question: string;
+  answer: string;
+  category: string;
+}
+
+/** Fetch all Help Center FAQs from Sanity, ordered by category. */
+export async function getHelpCenterFaqs(): Promise<HelpCenterFaqItem[]> {
+  const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
+  if (!projectId) return [];
+
+  try {
+    const raw = (await sanityClient.fetch(faqsQuery)) as SanityFaq[] | null;
+    if (!Array.isArray(raw)) return [];
+    return raw
+      .filter((d) => d.question && d.answer && d.category)
+      .map((d) => ({
+        question: d.question!,
+        answer: d.answer!,
+        category: d.category!,
+      }));
   } catch {
     return [];
   }

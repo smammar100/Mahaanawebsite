@@ -35,6 +35,7 @@ export default defineConfig({
                   ])
               ),
             S.documentTypeListItem("fundDocument").title("Fund Documents"),
+            S.documentTypeListItem("faq").title("Help Center FAQs"),
           ]),
     }),
   ],

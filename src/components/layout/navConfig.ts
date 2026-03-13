@@ -52,7 +52,10 @@ export const navDropdowns: NavDropdownConfig[] = [
       },
       {
         heading: 'Investor Education',
-        links: [{ href: '/investor-education', label: 'Investor Education' }],
+        links: [
+          { href: '/investor-education', label: 'Investor Education' },
+          { href: '/help-center', label: 'Help Center' },
+        ],
       },
     ],
   },

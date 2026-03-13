@@ -82,3 +82,13 @@ export const fundDocumentsQuery = `
     publishDate
   }
 `;
+
+/** Help Center FAQs: all faq documents, ordered by category then created. */
+export const faqsQuery = `
+  *[_type == "faq"] | order(category asc, _createdAt asc) {
+    _id,
+    question,
+    answer,
+    category
+  }
+`;

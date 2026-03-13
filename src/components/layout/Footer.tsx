@@ -151,7 +151,7 @@ export function Footer() {
                 heading="Investor Education"
                 links={[
                   { href: "#", label: "Articles" },
-                  { href: "#", label: "Help Center" },
+                  { href: "/help-center", label: "Help Center" },
                 ]}
               />
             </div>
