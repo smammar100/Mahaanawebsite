@@ -10,6 +10,8 @@ import { cx } from "@/utils/cx";
 
 interface ComplianceSectionProps {
   className?: string;
+  /** When false, hides the "Security" eyebrow and "Learn more about security" CTA (e.g. on the security page). Default true for homepage. */
+  showEyebrowAndCta?: boolean;
 }
 
 type IconCard = {
@@ -50,7 +52,7 @@ const securityCards: (IconCard | LogoCard)[] = [
   },
 ];
 
-export function ComplianceSection({ className }: ComplianceSectionProps) {
+export function ComplianceSection({ className, showEyebrowAndCta = true }: ComplianceSectionProps) {
   const { ref, isVisible } = useInView(0.15);
   return (
     <section
@@ -66,9 +68,11 @@ export function ComplianceSection({ className }: ComplianceSectionProps) {
       <Container className="flex flex-col gap-8 px-4 sm:gap-10 sm:px-6 md:px-8 lg:gap-14 lg:px-12 xl:px-16">
         <div className="flex flex-col items-start">
           <div className="flex flex-col items-start gap-2">
-            <p className="font-body text-small font-semibold uppercase tracking-wide text-system-brand">
-              Security
-            </p>
+            {showEyebrowAndCta && (
+              <p className="font-body text-small font-semibold uppercase tracking-wide text-system-brand">
+                Security
+              </p>
+            )}
             <H2
               id="compliance-heading"
               className="text-text-primary w-full max-w-3xl"
@@ -84,15 +88,17 @@ export function ComplianceSection({ className }: ComplianceSectionProps) {
             CDC&apos;s robust security protocols and Mahaana&apos;s transparent
             processes, you can be confident that your money is in safe hands.
           </TextRegular>
-          <Button
-            href="/security"
-            color="secondary"
-            size="md"
-            iconTrailing={ArrowRight}
-            className="mt-6 w-fit"
-          >
-            Learn more about security
-          </Button>
+          {showEyebrowAndCta && (
+            <Button
+              href="/security"
+              color="secondary"
+              size="md"
+              iconTrailing={ArrowRight}
+              className="mt-6 w-fit"
+            >
+              Learn more about security
+            </Button>
+          )}
         </div>
 
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">

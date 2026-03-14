@@ -16,7 +16,7 @@ export default function SecurityPage() {
   return (
     <div className="-mt-[calc(4.5rem+env(safe-area-inset-top,0px))]">
       <SecurityHero />
-      <ComplianceSection />
+      <ComplianceSection showEyebrowAndCta={false} />
       <SecurityBenefitsSection />
       <Cta6Section />
     </div>
