@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
 import { buildPageMetadata } from "@/lib/metadata";
-import { getLatestNewsPosts } from "@/lib/sanity/fetch";
+import { getLatestBlogPosts } from "@/lib/sanity/fetch";
 import { AboutHero } from "@/components/sections/AboutHero";
 import { LogoStrip } from "@/components/sections/LogoStrip";
 import { BlogSection } from "@/components/sections/BlogSection";
@@ -43,7 +43,7 @@ export const metadata: Metadata = buildPageMetadata({
 });
 
 export default async function AboutUsPage() {
-  const newsPosts = await getLatestNewsPosts();
+  const latestInvestorEducation = await getLatestBlogPosts();
 
   return (
     <div className="-mt-[calc(4.5rem+env(safe-area-inset-top,0px))] overflow-x-clip bg-surface-bg">
@@ -55,14 +55,14 @@ export default async function AboutUsPage() {
       <AboutTeamSection />
       <AboutBoardSection />
       <BlogSection
-        posts={newsPosts}
-        heading="In news & media"
-        eyebrow="News"
-        description="Latest coverage and announcements about Mahaana in the press and media."
+        posts={latestInvestorEducation}
+        heading="Investor education"
+        eyebrow="Latest"
+        description="The 3 most recent articles, news, and videos from our investor education library."
         viewAllHref="/investor-education"
-        viewAllLabel="View all news"
+        viewAllLabel="View all"
       />
-      <TestimonialsSection viewAllHref="/reviews" />
+      <TestimonialsSection />
       <Cta6Section />
     </div>
   );

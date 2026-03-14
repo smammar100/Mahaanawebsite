@@ -34,20 +34,20 @@ export function WhySavePlusSection() {
       className="border-t border-surface-stroke py-8 sm:py-10 md:py-12 lg:py-14 xl:py-16"
       aria-labelledby="why-save-plus-heading"
     >
-      <Container className="flex flex-col justify-center gap-6 px-4 sm:px-6 md:px-8 lg:px-16">
-        <div className="flex flex-col justify-start gap-6 lg:items-start lg:gap-2">
-          <div className="flex flex-col justify-start items-start gap-6 min-w-0">
+      <Container className="flex flex-col gap-6 px-4 sm:px-6 md:px-8 lg:px-16">
+        <div className="flex flex-col items-start">
+          <div className="flex flex-col items-start gap-2">
             <p className="font-body text-small font-semibold uppercase tracking-wide text-system-brand">
               WHY MAHAANA SAVE+
             </p>
             <H2
               id="why-save-plus-heading"
-              className="font-heading text-[2rem] font-semibold leading-[1.2] tracking-heading text-text-primary sm:text-[2.25rem] lg:text-h2 max-w-[600px]"
+              className="text-text-primary w-full max-w-3xl"
             >
               Why Mahaana Save+
             </H2>
           </div>
-          <TextRegular className="flex-1 text-text-secondary lg:max-w-[600px] lg:pb-1">
+          <TextRegular className="mt-4 max-w-2xl text-text-tertiary">
             Mahaana Save+ helps you earn daily returns on your money locked in
             zero or minimal returns your bank account offers.
           </TextRegular>

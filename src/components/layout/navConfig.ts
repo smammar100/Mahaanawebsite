@@ -68,7 +68,6 @@ export const navDropdowns: NavDropdownConfig[] = [
           { href: '/about', label: 'About' },
           { href: '/security', label: 'Security' },
           { href: '/careers', label: 'Careers' },
-          { href: '/reviews', label: 'Reviews' },
         ],
       },
     ],

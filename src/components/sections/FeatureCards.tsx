@@ -54,19 +54,19 @@ export function FeatureCards() {
     >
       <Container className="flex flex-col gap-12 sm:gap-16 lg:gap-20">
         {/* Header */}
-        <div className="flex flex-col items-start gap-4">
+        <div className="flex flex-col items-start gap-0">
           <div className="flex flex-col items-start gap-2">
             <p className="font-body text-small font-semibold uppercase tracking-wide text-system-brand">
               Investing made effortless
             </p>
             <H2
               id="feature-cards-heading"
-              className="text-text-primary w-full max-w-[600px]"
+              className="text-text-primary w-full max-w-3xl"
             >
               Open your Mahaana account in under 10 minutes
             </H2>
           </div>
-          <TextRegular className="max-w-2xl text-text-secondary">
+          <TextRegular className="mt-4 max-w-2xl text-text-tertiary">
             Your money shouldn&apos;t sit on the sidelines. Get started with Mahaana today.
           </TextRegular>
         </div>

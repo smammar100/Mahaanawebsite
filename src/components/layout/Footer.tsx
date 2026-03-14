@@ -161,12 +161,9 @@ export function Footer() {
                 links={[
                   { href: "/about", label: "About" },
                   { href: "/security", label: "Security" },
-                  { href: "#", label: "Reviews" },
                   { href: "#", label: "Careers" },
                   { href: "#", label: "Legal" },
-                  { href: "#", label: "Investor Relations" },
                   { href: "#", label: "Sitemap" },
-                  { href: "#", label: "Back to top" },
                 ]}
               />
             </div>

@@ -3,10 +3,10 @@
 import { useMemo, useRef } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import AutoScroll from "embla-carousel-auto-scroll";
-import { ChevronRight, Star01, Zap } from "@untitledui/icons";
+import { Star01, Zap } from "@untitledui/icons";
 
 import { Container } from "@/components/layout/Container";
-import { TextMedium, TextRegular, TextSmall } from "@/components/ui/Typography";
+import { H2, TextMedium, TextRegular, TextSmall } from "@/components/ui/Typography";
 import { useInView } from "@/hooks/useInView";
 import { cx } from "@/utils/cx";
 
@@ -57,11 +57,9 @@ const testimonials = [
 
 interface TestimonialsSectionProps {
   className?: string;
-  /** Link for "View all testimonials". Defaults to #testimonials. */
-  viewAllHref?: string;
 }
 
-export function TestimonialsSection({ className, viewAllHref = "#testimonials" }: TestimonialsSectionProps) {
+export function TestimonialsSection({ className }: TestimonialsSectionProps) {
   const plugin = useRef(
     AutoScroll({
       startDelay: 500,
@@ -108,24 +106,17 @@ export function TestimonialsSection({ className, viewAllHref = "#testimonials" }
                 Rated 4.5 stars by 20K+ Pakistanis
               </p>
             </div>
-            <h2
+            <H2
               id="testimonials-heading"
-              className="font-heading text-[2.25rem] font-semibold leading-[120%] tracking-heading text-text-primary lg:text-h2 w-full max-w-full"
+              className="text-text-primary w-full max-w-3xl"
             >
               Meet our happy investors
-            </h2>
+            </H2>
           </div>
-          <TextRegular className="min-w-0 max-w-2xl text-text-secondary sm:text-[1.125rem] sm:leading-8">
+          <TextRegular className="mt-0 max-w-2xl text-text-tertiary sm:text-[1.125rem] sm:leading-8">
             Join a growing community of smart savers, professionals, and everyday
             Pakistanis who trust Mahaana to secure their financial future.
           </TextRegular>
-          <a
-            href={viewAllHref}
-            className="flex items-center gap-1 font-body text-medium font-semibold text-system-brand transition-colors hover:text-primary-300"
-          >
-            View all testimonials
-            <ChevronRight className="mt-0.5 size-5 shrink-0" aria-hidden />
-          </a>
         </div>
 
         {/* Carousel */}

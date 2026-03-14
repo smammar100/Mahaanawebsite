@@ -9,7 +9,7 @@ import {
   Wallet01,
 } from "@untitledui/icons";
 import { Container } from "@/components/layout/Container";
-import { TextLarge, TextRegular } from "@/components/ui/Typography";
+import { H2, TextLarge, TextRegular } from "@/components/ui/Typography";
 import { useInView } from "@/hooks/useInView";
 import { cx } from "@/utils/cx";
 
@@ -64,16 +64,16 @@ export function WhyMahaanaTrade() {
             <p className="font-body text-small font-semibold uppercase tracking-wide text-system-brand">
               Why MAHAANA
             </p>
-            <h2
+            <H2
               id="why-mahaana-heading"
-              className="font-heading text-[2.25rem] font-semibold leading-[120%] tracking-heading text-text-primary lg:text-h2 w-full max-w-full"
+              className="text-text-primary w-full max-w-3xl"
             >
               All in one, Shariah Compliant
               <br />
               Investment Platform
-            </h2>
+            </H2>
           </div>
-          <TextRegular className="flex-1 text-text-secondary lg:max-w-md">
+          <TextRegular className="mt-4 max-w-2xl text-text-tertiary">
             Mahaana Save+ helps you earn daily returns on your money that sits in
             the zero or minimal returns your bank account offers.
           </TextRegular>

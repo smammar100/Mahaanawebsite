@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { calculateFIRE, type FIREResult } from "@/lib/calculations";
 import { RISK_PROFILES } from "@/lib/riskProfiles";
 import { Container } from "@/components/layout/Container";
+import { Button } from "@/components/ui/button";
 import { ProjectionSection } from "./ProjectionSection";
 import { ResultsBar } from "./ResultsBar";
 import { SituationCard } from "./SituationCard";
@@ -18,6 +19,7 @@ export function FIRECalculator() {
   const [annualSpending, setAnnualSpending] = useState(0);
   const [lifeExpectancy, setLifeExpectancy] = useState(90);
   const [profileId, setProfileId] = useState("balanced");
+  const [hasCalculated, setHasCalculated] = useState(false);
 
   const result = useMemo<FIREResult>(
     () =>
@@ -42,6 +44,8 @@ export function FIRECalculator() {
   const hasData =
     (initial > 0 || monthly > 0) && annualSpending > 0;
 
+  const showResults = hasCalculated && hasData;
+
   return (
     <Container className="max-w-[1080px]">
       <div className="flex flex-col gap-6 lg:grid lg:grid-cols-2 lg:gap-0 lg:rounded-2xl lg:border lg:border-surface-stroke lg:bg-surface-card lg:shadow-sm lg:overflow-hidden">
@@ -62,18 +66,30 @@ export function FIRECalculator() {
           lifeExpectancy={lifeExpectancy}
           onLifeExpectancyChange={setLifeExpectancy}
         />
-        <StrategyCard
-          className="lg:rounded-r-2xl lg:border-0"
-          profiles={RISK_PROFILES}
-          selectedId={profileId}
-          onSelect={setProfileId}
-        />
+        <div className="flex flex-col lg:rounded-r-2xl">
+          <StrategyCard
+            className="lg:rounded-t-2xl lg:rounded-b-none lg:border-0 lg:border-b-0 flex-1"
+            profiles={RISK_PROFILES}
+            selectedId={profileId}
+            onSelect={setProfileId}
+          />
+          <div className="flex justify-center p-6 pt-4 lg:rounded-b-2xl lg:bg-surface-card">
+            <Button
+              type="button"
+              size="lg"
+              onClick={() => setHasCalculated(true)}
+              className="min-w-[200px] bg-primary-200 font-semibold text-gray-900 hover:bg-primary-300"
+            >
+              {hasCalculated ? "Update my plan" : "See my plan"}
+            </Button>
+          </div>
+        </div>
       </div>
 
       <div className="mt-4 space-y-4 pb-4">
         <div className="w-screen relative left-1/2 -translate-x-1/2">
           <ResultsBar
-            hasData={hasData}
+            hasData={showResults}
             yearsToFire={result.yearsToFire}
             monthsToFire={result.monthsToFire}
             reachable={result.reachable}
@@ -81,7 +97,7 @@ export function FIRECalculator() {
           />
         </div>
         <ProjectionSection
-          hasData={hasData}
+          hasData={showResults}
           data={result.data}
           fireTarget={result.fireTarget}
           retirementAge={result.retirementAge}

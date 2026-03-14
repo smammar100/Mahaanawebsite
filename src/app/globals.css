@@ -147,7 +147,7 @@
   --color-text-tertiary: #67697c;
   --color-surface-bg: #ffffff;
   --color-surface-card: #f2f2f0;
-  --color-surface-stroke: #dcdde4;
+  --color-surface-stroke: rgba(220, 221, 228, 1);
   --color-system-brand: #7042d2;
   --color-system-error: #c73154;
   --color-system-success: #1caa50;

@@ -63,7 +63,7 @@ interface BlogSectionProps {
   description?: string;
   /** Optional: "View all" link href. Default: /investor-education */
   viewAllHref?: string;
-  /** Optional: "View all" button label. Default: View All Blogs */
+  /** Optional: "View all" button label. Default: View all */
   viewAllLabel?: string;
 }
 
@@ -74,7 +74,7 @@ export function BlogSection({
   eyebrow: eyebrowProp,
   description: descriptionProp,
   viewAllHref = "/investor-education",
-  viewAllLabel = "View All Blogs",
+  viewAllLabel = "View all",
 }: BlogSectionProps) {
   const list = posts?.length ? posts : BLOG_POSTS_FALLBACK;
   const { ref, isVisible } = useInView(0.15);

@@ -1,8 +1,8 @@
 "use client";
 
-import { ChevronRight, ShieldTick, Wallet01 } from "@untitledui/icons";
+import { ArrowRight, ShieldTick, Wallet01 } from "@untitledui/icons";
 import Image from "next/image";
-import Link from "next/link";
+import { Button } from "@/components/base/buttons/button";
 import { Container } from "@/components/layout/Container";
 import { H2, TextLarge, TextRegular } from "@/components/ui/Typography";
 import { useInView } from "@/hooks/useInView";
@@ -64,30 +64,35 @@ export function ComplianceSection({ className }: ComplianceSectionProps) {
       aria-labelledby="compliance-heading"
     >
       <Container className="flex flex-col gap-8 px-4 sm:gap-10 sm:px-6 md:px-8 lg:gap-14 lg:px-12 xl:px-16">
-        <div className="flex flex-col gap-2 lg:max-w-[600px]">
-          <H2
-            id="compliance-heading"
-            className="min-w-0 max-w-[600px] text-[2.5rem] leading-[1.15] tracking-heading sm:text-[3rem] lg:text-[3.5rem]"
-          >
-            How we keep your
-            <br />
-            money safe
-          </H2>
-          <div className="flex min-w-0 flex-col gap-6 lg:max-w-[520px]">
-            <TextRegular className="min-w-0 text-text-secondary sm:text-[1.125rem] sm:leading-8">
-              Your financial security is our top priority. By partnering with
-              CDC, we provide a secure environment for your investments. With
-              CDC&apos;s robust security protocols and Mahaana&apos;s transparent
-              processes, you can be confident that your money is in safe hands.
-            </TextRegular>
-            <Link
-              href="/security"
-              className="flex w-fit items-center gap-1 font-body text-medium font-semibold text-system-brand transition-colors hover:text-primary-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-system-brand"
+        <div className="flex flex-col items-start">
+          <div className="flex flex-col items-start gap-2">
+            <p className="font-body text-small font-semibold uppercase tracking-wide text-system-brand">
+              Security
+            </p>
+            <H2
+              id="compliance-heading"
+              className="text-text-primary w-full max-w-3xl"
             >
-              Learn more about security
-              <ChevronRight className="mt-0.5 size-5 shrink-0" aria-hidden />
-            </Link>
+              How we keep your
+              <br />
+              money safe
+            </H2>
           </div>
+          <TextRegular className="mt-4 max-w-2xl text-text-tertiary">
+            Your financial security is our top priority. By partnering with
+            CDC, we provide a secure environment for your investments. With
+            CDC&apos;s robust security protocols and Mahaana&apos;s transparent
+            processes, you can be confident that your money is in safe hands.
+          </TextRegular>
+          <Button
+            href="/security"
+            color="secondary"
+            size="md"
+            iconTrailing={ArrowRight}
+            className="mt-6 w-fit"
+          >
+            Learn more about security
+          </Button>
         </div>
 
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
