@@ -78,7 +78,7 @@ export function FIRECalculator() {
               type="button"
               size="lg"
               onClick={() => setHasCalculated(true)}
-              className="min-w-[200px] bg-primary-200 font-semibold text-gray-900 hover:bg-primary-300"
+              className="w-full rounded-lg border-0 bg-primary-200 font-semibold text-white hover:bg-primary-300"
             >
               {hasCalculated ? "Update my plan" : "See my plan"}
             </Button>
