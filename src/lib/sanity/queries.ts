@@ -1,8 +1,9 @@
-/** Investor Education: all three types, most recent first. List view (no bodyHtml). */
+/** Investor Education: all three types, latest added first (_createdAt). List view (no bodyHtml). */
 export const investorEducationsQuery = `
-  *[_type in ["investorEducationArticle", "investorEducationNews", "investorEducationVideoPodcast"]] | order(publishedAt desc, _updatedAt desc) {
+  *[_type in ["investorEducationArticle", "investorEducationNews", "investorEducationVideoPodcast"]] | order(_createdAt desc) {
     _id,
     _type,
+    _createdAt,
     title,
     slug,
     publishedAt,
@@ -15,11 +16,12 @@ export const investorEducationsQuery = `
   }
 `;
 
-/** Investor Education by document type (for tab filter). */
+/** Investor Education by document type (for tab filter). Latest added first. */
 export const investorEducationsByTypeQuery = `
-  *[_type == $type] | order(publishedAt desc, _updatedAt desc) {
+  *[_type == $type] | order(_createdAt desc) {
     _id,
     _type,
+    _createdAt,
     title,
     slug,
     publishedAt,

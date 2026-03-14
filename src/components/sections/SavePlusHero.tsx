@@ -38,7 +38,7 @@ export function SavePlusHero() {
 
       {/* Content */}
       <div className="relative z-10 flex min-h-[90vh] w-full flex-col items-start justify-center py-8 sm:py-10 md:py-12 lg:py-14 xl:py-16">
-        <Container className="flex w-full flex-1 items-center justify-start px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16">
+        <Container className="flex w-full flex-1 items-start justify-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16">
           <div className="flex h-fit w-full max-w-xl flex-col items-start gap-10">
             <div className="flex flex-col items-start gap-4">
               <H1

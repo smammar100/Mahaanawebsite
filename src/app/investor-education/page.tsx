@@ -4,7 +4,7 @@ import { getInvestorEducations } from "@/lib/sanity/fetch";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { Container } from "@/components/layout/Container";
 import { TextRegular } from "@/components/ui/Typography";
-import { InvestorEducationLayout } from "@/components/sections/InvestorEducationLayout";
+import { InvestorEducationResourcesSection } from "@/components/sections/InvestorEducationResourcesSection";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Investor Education | Mahaana",
@@ -12,21 +12,13 @@ export const metadata: Metadata = buildPageMetadata({
   path: "investor-education",
 });
 
-const HERO_HEADLINE = "Resources and insights";
-const HERO_SUBTITLE =
-  "The latest industry news, interviews, technologies, and resources.";
-
 export default async function InvestorEducationPage() {
   const allItems = await getInvestorEducations();
 
   return (
-    <div className="bg-surface-bg">
+    <div className="-mt-[calc(4.5rem+env(safe-area-inset-top,0px))] bg-white">
       {allItems.length > 0 ? (
-        <InvestorEducationLayout
-          items={allItems}
-          headline={HERO_HEADLINE}
-          subtitle={HERO_SUBTITLE}
-        />
+        <InvestorEducationResourcesSection items={allItems} />
       ) : (
         <AnimatedSection className="border-t border-surface-stroke py-12">
           <Container>

@@ -73,7 +73,7 @@ export function WhyMahaanaTrade() {
               Investment Platform
             </H2>
           </div>
-          <TextRegular className="mt-4 max-w-2xl text-text-tertiary">
+          <TextRegular className="max-w-2xl text-text-tertiary">
             Mahaana Save+ helps you earn daily returns on your money that sits in
             the zero or minimal returns your bank account offers.
           </TextRegular>

@@ -1,10 +1,10 @@
 "use client";
 
-import Image from "next/image";
 import { ArrowRight } from "@untitledui/icons";
 import { Container } from "@/components/layout/Container";
 import { Button } from "@/components/base/buttons/button";
-import { H2, TextRegular, TextSmall } from "@/components/ui/Typography";
+import { BlogCard } from "@/components/sections/BlogCard";
+import { H2, TextRegular } from "@/components/ui/Typography";
 import { useInView } from "@/hooks/useInView";
 import { cn } from "@/lib/utils";
 
@@ -115,48 +115,12 @@ export function BlogSection({
         {/* Cards grid */}
         <div className="grid gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
           {list.map((post, index) => (
-            <a
+            <BlogCard
               key={index}
+              title={post.title}
+              imageUrl={post.imageUrl}
               href={post.href}
-              className="rounded-xl border border-surface-stroke bg-surface-card transition-colors hover:border-surface-stroke focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-system-brand dark:bg-surface-card"
-            >
-              <div className="p-2">
-                <div className="relative aspect-video w-full overflow-hidden rounded-lg">
-                  <Image
-                    src={post.imageUrl}
-                    alt={post.title ? `Featured image for ${post.title}` : "Blog post image"}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  />
-                </div>
-              </div>
-              <div className="px-3 pt-2 pb-4 min-w-0">
-                <h3 className="mb-1 font-body text-large font-semibold leading-[150%] text-text-primary line-clamp-2">
-                  {post.title}
-                </h3>
-                <div className="my-5 border-t border-surface-stroke" aria-hidden />
-                <div className="flex items-center justify-between gap-4">
-                  <div className="flex min-w-0 items-center gap-3">
-                    <div className="relative size-9 shrink-0 overflow-hidden rounded-full ring-1 ring-input">
-                      <Image
-                        src={post.authorImageUrl}
-                        alt={post.authorName ? `Avatar of ${post.authorName}` : "Author avatar"}
-                        fill
-                        className="object-cover"
-                        sizes="36px"
-                      />
-                    </div>
-                    <TextSmall weight="medium" className="truncate text-text-primary">
-                      {post.authorName}
-                    </TextSmall>
-                  </div>
-                  <span className="shrink-0 rounded-full bg-surface-card px-2 py-0.5 font-body text-tiny font-medium text-text-tertiary">
-                    {post.readTime}
-                  </span>
-                </div>
-              </div>
-            </a>
+            />
           ))}
         </div>
       </Container>

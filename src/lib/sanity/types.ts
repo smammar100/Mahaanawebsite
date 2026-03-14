@@ -9,6 +9,8 @@ export type SanityInvestorEducationType =
 export interface SanityInvestorEducation {
   _id: string;
   _type: SanityInvestorEducationType;
+  /** ISO date when the document was created in Sanity (for "latest added" ordering) */
+  _createdAt?: string | null;
   /** Derived in fetch from _type: Article | News | Video */
   category?: "Video" | "Article" | "News" | null;
   title: string | null;

@@ -28,9 +28,9 @@ export function InvestHero() {
       />
 
       {/* Content */}
-      <div className="relative z-10 flex h-full min-h-0 items-center py-8 sm:py-10 md:py-12 lg:py-14 xl:py-16">
-        <Container className="flex flex-1 items-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16">
-          <div className="flex h-fit max-w-xl flex-col gap-10">
+      <div className="relative z-10 flex h-full min-h-0 items-center justify-start py-8 sm:py-10 md:py-12 lg:py-14 xl:py-16">
+        <Container className="flex flex-1 items-start px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16">
+          <div className="flex h-fit max-w-xl flex-col items-start gap-10">
             <div className="flex flex-col gap-4">
               <H1
                 id="invest-hero-heading"
