@@ -14,7 +14,7 @@ export const metadata: Metadata = buildPageMetadata({
 
 export default function SecurityPage() {
   return (
-    <div className="-mt-[calc(4.5rem+env(safe-area-inset-top,0px))] bg-surface-bg">
+    <div className="-mt-[calc(4.5rem+env(safe-area-inset-top,0px))]">
       <SecurityHero />
       <ComplianceSection />
       <SecurityBenefitsSection />

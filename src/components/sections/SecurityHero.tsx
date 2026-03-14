@@ -35,13 +35,13 @@ export function SecurityHero() {
       <Container className="px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16">
         <div
           className={cx(
-            "flex flex-col overflow-hidden rounded-lg bg-surface-card",
+            "grid grid-cols-1 grid-rows-1 overflow-hidden rounded-lg bg-transparent",
             "min-h-[280px] sm:min-h-[320px] lg:min-h-0",
-            "lg:flex-row lg:items-center lg:justify-center"
+            "lg:grid-cols-2"
           )}
         >
-          {/* Left column: content — equal width on desktop */}
-          <div className="flex min-w-0 flex-1 flex-col justify-center gap-8 py-8 px-4 sm:p-8 md:py-10 md:pr-10 md:pl-0 lg:gap-10 lg:pr-12 lg:py-12 xl:pr-20 xl:py-16">
+          {/* Left column: content — 50% width on desktop */}
+          <div className="flex min-w-0 flex-col justify-center gap-8 py-8 px-4 sm:p-8 md:py-10 md:pr-10 md:pl-0 lg:gap-10 lg:pr-12 lg:py-12 xl:pr-20 xl:py-16">
             <div className="flex flex-col gap-4">
               <h1
                 id="security-hero-heading"
@@ -57,12 +57,12 @@ export function SecurityHero() {
               </TextRegular>
             </div>
 
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-4">
               {INFO_CARDS.map((card) => (
                 <div
                   key={card.label}
                   className={cx(
-                    "flex min-w-0 flex-1 items-center gap-3 rounded-xl border border-surface-stroke/30 p-3 sm:p-4"
+                    "flex min-w-0 w-fit items-center gap-3 rounded-xl border border-surface-stroke/30 p-3 sm:p-4"
                   )}
                 >
                   <div className="flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-surface-stroke/15">
@@ -93,14 +93,14 @@ export function SecurityHero() {
             </div>
           </div>
 
-          {/* Right column: visual — equal width on desktop */}
-          <div className="relative flex min-h-[280px] min-w-0 flex-1 items-center justify-center overflow-hidden rounded-2xl bg-surface-card p-6 sm:min-h-[320px] sm:p-8 lg:h-fit lg:min-h-0 lg:w-fit lg:flex-none lg:p-10">
+          {/* Right column: visual — 50% width on desktop */}
+          <div className="relative flex min-h-[280px] min-w-0 flex-1 items-center justify-center overflow-hidden rounded-2xl p-0 sm:min-h-[320px] lg:min-h-0">
             <Image
               src="/images/invest/Card.webp"
               alt="Security card illustration"
               width={426}
               height={400}
-              className="h-fit w-full max-w-[426px] object-contain"
+              className="h-fit w-full max-w-[426px] object-contain lg:w-full"
               sizes="(max-width: 1023px) 100vw, 50vw"
               priority
             />
