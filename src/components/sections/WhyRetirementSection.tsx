@@ -5,6 +5,7 @@ import { motion } from "motion/react";
 import { Container } from "@/components/layout/Container";
 import { H3, TextLarge, TextRegular } from "@/components/ui/Typography";
 import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
+import { cleanCopy } from "@/lib/copy-utils";
 
 const features = [
   {
@@ -38,7 +39,7 @@ export function WhyRetirementSection() {
         <div className="flex flex-col items-start">
           <div className="flex flex-col items-start gap-2">
             <p className="text-label text-system-brand">
-              WHY RETIREMENT
+              {cleanCopy("WHY RETIREMENT")}
             </p>
             <H3
               id="why-retirement-heading"
@@ -48,9 +49,9 @@ export function WhyRetirementSection() {
             </H3>
           </div>
           <TextRegular className="mt-4 max-w-2xl text-text-tertiary">
-            Mahaana Retirement is a Shariah-compliant, tax-efficient way to grow
-            your savings for the future. You continuously receive Investment
-            advice from us based on your goals and risk level.
+            {cleanCopy(
+              "Mahaana Retirement is a Shariah-compliant, tax-efficient way to grow your savings for the future. You continuously receive Investment advice from us based on your goals and risk level."
+            )}
           </TextRegular>
         </div>
 
@@ -74,7 +75,7 @@ export function WhyRetirementSection() {
                     {feature.title}
                   </TextLarge>
                   <TextRegular className="text-text-tertiary">
-                    {feature.desc}
+                    {cleanCopy(feature.desc)}
                   </TextRegular>
                 </div>
               </div>

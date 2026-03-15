@@ -9,6 +9,7 @@ import {
   TextMedium,
   TextTiny,
 } from "@/components/ui/Typography";
+import { cleanCopy } from "@/lib/copy-utils";
 import type { MiietfHeroFundData } from "@/lib/miietf-fund-api";
 import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
 import { cx } from "@/utils/cx";
@@ -67,12 +68,12 @@ export function MIIETFHero({ fundData }: { fundData?: MiietfHeroFundData | null 
               id="miietf-hero-heading"
               className="text-system-brand"
             >
-              MIIETF
+              {cleanCopy("MIIETF", { fixWidows: false })}
             </h1>
             <H2 className="text-text-primary">
-              Mahaana Islamic
+              {cleanCopy("Mahaana Islamic", { fixWidows: false })}
               <br aria-hidden />
-              Index ETF
+              {cleanCopy("Index ETF", { fixWidows: false })}
             </H2>
           </div>
 

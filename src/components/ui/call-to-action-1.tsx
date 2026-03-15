@@ -5,6 +5,7 @@ import { AppStoreButton, GooglePlayButton } from "@/components/base/buttons/app-
 import { Button } from "@/components/base/buttons/button";
 import { H2 } from "@/components/ui/Typography";
 import { cx } from "@/utils/cx";
+import { cleanCopy } from "@/lib/copy-utils";
 
 const DynamicSilkBackground = dynamic(
   () => import("@/components/ui/SilkBackground").then((m) => m.SilkBackground),
@@ -71,7 +72,7 @@ export function CallToAction1({
             ))}
           </div>
           <p className="text-body-sm text-white">
-            {badgeText}
+            {typeof badgeText === "string" ? cleanCopy(badgeText) : badgeText}
           </p>
         </div>
         <H2 className="mt-5 max-w-3xl text-white">

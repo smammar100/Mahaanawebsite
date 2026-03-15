@@ -6,6 +6,7 @@ import { motion } from "motion/react";
 import { Container } from "@/components/layout/Container";
 import { H3, TextRegular } from "@/components/ui/Typography";
 import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
+import { cleanCopy } from "@/lib/copy-utils";
 import { cx } from "@/utils/cx";
 
 interface SecurityBenefitsSectionProps {
@@ -55,9 +56,9 @@ export function SecurityBenefitsSection({
                   Institutional grade asset protections
                 </H3>
                 <TextRegular className="max-w-[520px] text-text-secondary">
-                  With SECP regulation and CDC safekeeping, your investments
-                  enjoy the same protections as the nation&apos;s largest
-                  financial institutions.
+                  {cleanCopy(
+                    "With SECP regulation and CDC safekeeping, your investments enjoy the same protections as the nation's largest financial institutions."
+                  )}
                 </TextRegular>
               </div>
 

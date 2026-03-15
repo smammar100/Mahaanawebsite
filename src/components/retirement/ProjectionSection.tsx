@@ -15,9 +15,10 @@ import {
   ChartTooltipContent,
   type ChartConfig,
 } from "@/components/ui/chart";
+import type { ProjectionRow } from "@/lib/calculations";
+import { cleanCopy } from "@/lib/copy-utils";
 import { fmt, fmtAxis } from "@/lib/formatters";
 import { CHART_COLORS } from "@/lib/fireConfig";
-import type { ProjectionRow } from "@/lib/calculations";
 
 const chartConfig = {
   portfolio: { label: "Portfolio", color: CHART_COLORS.portfolio },
@@ -66,10 +67,10 @@ export function ProjectionSection({
     <div className="rounded-2xl border border-surface-stroke bg-surface-card p-6 shadow-sm sm:p-8 lg:p-9">
         <div className="text-center">
           <p className="text-label text-system-brand">
-            THE JOURNEY AHEAD
+            {cleanCopy("THE JOURNEY AHEAD")}
           </p>
           <h2 className="text-card-title mt-1 mb-6 text-text-primary sm:mb-8">
-            Your FIRE projection
+            {cleanCopy("Your FIRE projection", { fixWidows: false })}
           </h2>
         </div>
 

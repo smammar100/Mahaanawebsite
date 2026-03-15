@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { buildPageMetadata } from "@/lib/metadata";
 import { Container } from "@/components/layout/Container";
 import { H1, H3 } from "@/components/ui/Typography";
+import { cleanCopy } from "@/lib/copy-utils";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Privacy Policy | Mahaana",
@@ -23,25 +24,14 @@ export default function PrivacyPolicyPage() {
 
         {/* Content */}
         <section className="pt-10 pb-16">
-          <Container className="max-w-3xl">
+          <Container className="max-w-3xl readable-line-length">
             <H3 className="mt-8 mb-3 text-text-primary">
               Your Personal Information
             </H3>
             <p className="mb-4 leading-relaxed text-text-secondary">
-              This Privacy Statement relates solely to information supplied to you
-              on this Web Site. Mahaana Wealth Ltd. respects the privacy of your
-              personal information and will treat it confidentially and
-              securely. Any personal information provided by you to Mahaana
-              Wealth through this Website will be used for the purpose of
-              providing and operating the products and services you have
-              requested at this Website and for other related purposes which may
-              include updating and enhancing our records, understanding your
-              financial needs, and advising you of products and services which
-              may be of interest to you, for purposes required by law or
-              regulations, and to plan, conduct and monitor Mahaana Wealth&apos;s
-              business. The information collected from you by Mahaana Wealth will
-              be valuable in improving the design and marketing of our range of
-              services and related products for customers.
+              {cleanCopy(
+                "This Privacy Statement relates solely to information supplied to you on this Web Site. Mahaana Wealth Ltd. respects the privacy of your personal information and will treat it confidentially and securely. Any personal information provided by you to Mahaana Wealth through this Website will be used for the purpose of providing and operating the products and services you have requested at this Website and for other related purposes which may include updating and enhancing our records, understanding your financial needs, and advising you of products and services which may be of interest to you, for purposes required by law or regulations, and to plan, conduct and monitor Mahaana Wealth's business. The information collected from you by Mahaana Wealth will be valuable in improving the design and marketing of our range of services and related products for customers."
+              )}
             </p>
             <p className="mb-4 leading-relaxed text-text-secondary">
               This Policy will not alter or affect any information otherwise

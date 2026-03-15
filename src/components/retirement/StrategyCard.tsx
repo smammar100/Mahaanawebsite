@@ -1,6 +1,7 @@
 "use client";
 
 import { TextSmall } from "@/components/ui/Typography";
+import { cleanCopy } from "@/lib/copy-utils";
 import { pct } from "@/lib/formatters";
 import type { RiskProfile } from "@/lib/riskProfiles";
 import type { AssetAllocation } from "@/lib/riskProfiles";
@@ -44,10 +45,10 @@ export function StrategyCard({
       )}
     >
       <p className="text-label text-system-brand">
-        THE PLAN
+        {cleanCopy("THE PLAN")}
       </p>
       <h2 className="text-card-title mt-1 mb-6 text-text-primary sm:mb-8">
-        Your investing strategy
+        {cleanCopy("Your investing strategy", { fixWidows: false })}
       </h2>
 
       <div className="flex flex-col gap-2">

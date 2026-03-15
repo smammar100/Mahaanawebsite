@@ -6,6 +6,7 @@ import { Button } from "@/components/base/buttons/button";
 import { Container } from "@/components/layout/Container";
 import { H3, TextLarge, TextRegular } from "@/components/ui/Typography";
 import { useInView } from "@/hooks/useInView";
+import { cleanCopy } from "@/lib/copy-utils";
 import { cx } from "@/utils/cx";
 
 interface ComplianceSectionProps {
@@ -70,7 +71,7 @@ export function ComplianceSection({ className, showEyebrowAndCta = true }: Compl
           <div className="flex flex-col items-start gap-2">
             {showEyebrowAndCta && (
               <p className="text-label text-system-brand">
-                Security
+                {cleanCopy("Security")}
               </p>
             )}
             <H3
@@ -83,10 +84,9 @@ export function ComplianceSection({ className, showEyebrowAndCta = true }: Compl
             </H3>
           </div>
           <TextRegular className="mt-4 max-w-2xl text-text-tertiary">
-            Your financial security is our top priority. By partnering with
-            CDC, we provide a secure environment for your investments. With
-            CDC&apos;s robust security protocols and Mahaana&apos;s transparent
-            processes, you can be confident that your money is in safe hands.
+            {cleanCopy(
+              "Your financial security is our top priority. By partnering with CDC, we provide a secure environment for your investments. With CDC's robust security protocols and Mahaana's transparent processes, you can be confident that your money is in safe hands."
+            )}
           </TextRegular>
           {showEyebrowAndCta && (
             <Button
@@ -130,7 +130,7 @@ export function ComplianceSection({ className, showEyebrowAndCta = true }: Compl
                     {card.title}
                   </TextLarge>
                   <TextRegular className="text-text-tertiary">
-                    {card.description}
+                    {cleanCopy(card.description)}
                   </TextRegular>
                 </div>
               </div>

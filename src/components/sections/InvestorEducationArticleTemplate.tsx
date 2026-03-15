@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Container } from "@/components/layout/Container";
 import { H1, TextLarge, TextRegular, TextSmall } from "@/components/ui/Typography";
+import { cleanCopy } from "@/lib/copy-utils";
 import { formatPublishedDate } from "@/lib/formatters";
 
 export interface InvestorEducationArticleTemplateProps {
@@ -45,7 +46,7 @@ export function InvestorEducationArticleTemplate({
             <H1 className="max-w-3xl text-text-primary">{title}</H1>
             {description ? (
               <TextLarge className="max-w-3xl text-text-secondary">
-                {description}
+                {cleanCopy(description)}
               </TextLarge>
             ) : null}
             {hasMeta ? (
@@ -89,7 +90,7 @@ export function InvestorEducationArticleTemplate({
 
         {/* Prose + CTA */}
         <section className="pt-10 pb-10">
-          <Container className="max-w-3xl">
+          <Container className="max-w-3xl readable-line-length">
             {bodyContent ?? null}
             {externalLink ? (
               <div className="mt-8">

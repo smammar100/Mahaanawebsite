@@ -7,6 +7,7 @@ import { Container } from "@/components/layout/Container";
 import { H3, TextRegular } from "@/components/ui/Typography";
 import { Button } from "@/components/base/buttons/button";
 import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
+import { cleanCopy } from "@/lib/copy-utils";
 
 const FAQ_ITEMS: { question: string; answer: string }[] = [
   {
@@ -87,7 +88,7 @@ export function FAQSection({
           {/* Left column: Need Help? */}
           <div className="flex flex-col gap-4 lg:min-w-0 lg:flex-1">
             <div className="flex flex-col items-start gap-2">
-              <p className="text-label text-system-brand">FAQs</p>
+              <p className="text-label text-system-brand">{cleanCopy("FAQs")}</p>
               <H3
                 id="faq-heading"
                 className="text-text-primary w-full max-w-3xl"
@@ -98,14 +99,14 @@ export function FAQSection({
               </H3>
             </div>
             <TextRegular className="mt-4 text-text-secondary">
-              Still have questions? Feel free to contact our friendly{" "}
+              {cleanCopy("Still have questions? Feel free to contact our friendly ")}
               <Link
                 href="/contact"
                 className="text-text-secondary underline underline-offset-2 hover:text-text-primary"
               >
                 support team
-              </Link>{" "}
-              specialists.
+              </Link>
+              {cleanCopy(" specialists.")}
             </TextRegular>
             <Button
               href="#faq-heading"
@@ -134,7 +135,7 @@ export function FAQSection({
                   </summary>
                   <div className="mt-3 pl-0">
                     <TextRegular className="whitespace-pre-line text-text-secondary">
-                      {item.answer}
+                      {cleanCopy(item.answer)}
                     </TextRegular>
                   </div>
                 </details>

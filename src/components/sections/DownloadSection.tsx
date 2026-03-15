@@ -5,8 +5,9 @@ import { Container } from "@/components/layout/Container";
 import { H3 } from "@/components/ui/Typography";
 import { PhoneMockup } from "@/components/ui/PhoneMockup";
 import { AppStoreButton, GooglePlayButton } from "@/components/base/buttons/app-store-buttons";
-import { cx } from "@/utils/cx";
+import { cleanCopy } from "@/lib/copy-utils";
 import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
+import { cx } from "@/utils/cx";
 
 const PLACEHOLDER_PHONE_1 =
   "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-phone-1.svg";
@@ -35,7 +36,7 @@ export function DownloadSection({ className }: DownloadSectionProps) {
       <Container>
         <div className="flex flex-col items-center gap-10">
           <p className="text-label text-system-brand">
-            Get Started
+            {cleanCopy("Get Started")}
           </p>
           <H3
             id="download-heading"

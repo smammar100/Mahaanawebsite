@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Container } from "@/components/layout/Container";
 import { H1, TextRegular, TextSmall } from "@/components/ui/Typography";
 import { Button } from "@/components/base/buttons/button";
+import { cleanCopy } from "@/lib/copy-utils";
 
 export function InvestHero() {
   return (
@@ -40,11 +41,10 @@ export function InvestHero() {
                 Changing the way Pakistanis invest
               </H1>
 
-              <TextRegular
-              className="max-w-[446px] text-white"
-            >
-              For ambitious dreamers who believe in saving smarter, spending
-              wisely, and rising together
+              <TextRegular className="max-w-[446px] text-white">
+              {cleanCopy(
+                "For ambitious dreamers who believe in saving smarter, spending wisely, and rising together"
+              )}
             </TextRegular>
             </div>
 

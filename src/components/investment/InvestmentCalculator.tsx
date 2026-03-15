@@ -8,6 +8,7 @@ import { SummaryCard } from "@/components/investment/SummaryCard";
 import { ResultsBand } from "@/components/investment/ResultsBand";
 import { ProjectionChart } from "@/components/investment/ProjectionChart";
 import { ProjectionTable } from "@/components/investment/ProjectionTable";
+import { cleanCopy } from "@/lib/copy-utils";
 import { fmt } from "@/lib/formatters";
 import { CHART_COLORS, INVESTMENT_CURRENCY } from "@/lib/investmentConfig";
 import { cx } from "@/utils/cx";
@@ -72,10 +73,10 @@ export function InvestmentCalculator() {
         <div className="rounded-2xl border border-surface-stroke bg-surface-card p-6 shadow-sm sm:p-8 lg:p-9">
           <div className="text-center">
             <p className="text-label text-system-brand">
-              THE JOURNEY AHEAD
+              {cleanCopy("THE JOURNEY AHEAD")}
             </p>
             <h2 className="text-card-title mt-1 mb-6 text-text-primary sm:mb-8">
-              Your investment projection
+              {cleanCopy("Your investment projection", { fixWidows: false })}
             </h2>
           </div>
 

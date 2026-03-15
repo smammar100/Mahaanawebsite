@@ -5,6 +5,7 @@ import { Container } from "@/components/layout/Container";
 import { Button } from "@/components/base/buttons/button";
 import { BlogCard } from "@/components/sections/BlogCard";
 import { H3, TextRegular } from "@/components/ui/Typography";
+import { cleanCopy } from "@/lib/copy-utils";
 import { useInView } from "@/hooks/useInView";
 import { cn } from "@/lib/utils";
 
@@ -98,17 +99,17 @@ export function BlogSection({
         <div className="flex flex-col items-start">
           <div className="flex flex-col items-start gap-2">
             <p className="text-label text-system-brand">
-              {eyebrow}
+              {cleanCopy(eyebrow)}
             </p>
             <H3 id="blog-heading" className="text-text-primary w-full max-w-3xl">
               {heading}
             </H3>
           </div>
           <TextRegular className="mt-4 max-w-2xl text-text-tertiary">
-            {description}
+            {cleanCopy(description)}
           </TextRegular>
             <Button href={viewAllHref} color="secondary" size="md" iconTrailing={ArrowRight} className="mt-6 w-fit">
-            {viewAllLabel}
+            {cleanCopy(viewAllLabel)}
           </Button>
         </div>
 

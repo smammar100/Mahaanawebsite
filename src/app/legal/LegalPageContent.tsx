@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/dialog";
 import { H1, H2, H3, TextLarge } from "@/components/ui/Typography";
 import type { LegalDocumentForSection } from "@/lib/sanity/fetch";
+import { cleanCopy } from "@/lib/copy-utils";
 
 const COMPANY_DATA = [
   { label: "Legal Name", value: "Mahaana Wealth Limited" },
@@ -101,27 +102,28 @@ export function LegalPageContent({
             </span>
           </H1>
           <TextLarge className="max-w-2xl text-text-secondary">
-            Transparency and regulatory compliance form the foundation of trust
-            at Mahaana Wealth. Explore our corporate information, active
-            licenses, and governance policies.
+            {cleanCopy(
+              "Transparency and regulatory compliance form the foundation of trust at Mahaana Wealth. Explore our corporate information, active licenses, and governance policies."
+            )}
           </TextLarge>
         </Container>
       </section>
 
       {/* Content */}
       <main className="pb-16 pt-10 md:pb-20">
-        <Container className="max-w-[960px] space-y-16">
+        <Container className="max-w-[960px] readable-line-length space-y-16">
           {/* Company Information */}
           <div>
                 <span className="text-label mb-3 block text-system-brand">
-                  Corporate Details
+                  {cleanCopy("Corporate Details")}
                 </span>
                 <H3 className="mb-3 text-text-primary">
                   Company Information
                 </H3>
                 <p className="mb-8 max-w-[580px] text-body text-text-secondary">
-                  Key corporate and registration details for Mahaana Wealth
-                  Limited.
+                  {cleanCopy(
+                    "Key corporate and registration details for Mahaana Wealth Limited."
+                  )}
                 </p>
                 <div className="overflow-hidden rounded-2xl border border-surface-stroke bg-[#F9F9F9] shadow-sm">
                   {COMPANY_DATA.map((item, i) => (
@@ -160,11 +162,11 @@ export function LegalPageContent({
           {legalDocuments.length > 0 && (
             <div>
               <span className="text-label mb-3 block text-system-brand">
-                Reports & Documents
+                {cleanCopy("Reports & Documents")}
               </span>
               <H3 className="mb-3 text-text-primary">Legal Documents</H3>
               <p className="mb-8 max-w-[580px] text-body text-text-secondary">
-                Download key legal and regulatory documents.
+                {cleanCopy("Download key legal and regulatory documents.")}
               </p>
               <div className="overflow-hidden rounded-2xl border border-surface-stroke bg-[#F9F9F9] shadow-sm">
                 {legalDocuments.map((doc, index) => (

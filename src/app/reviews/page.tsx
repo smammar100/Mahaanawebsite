@@ -6,6 +6,7 @@ import { urlFor } from "@/lib/sanity/image";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { Container } from "@/components/layout/Container";
 import { H1, TextRegular } from "@/components/ui/Typography";
+import { cleanCopy } from "@/lib/copy-utils";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Reviews | Mahaana",
@@ -22,7 +23,7 @@ export default async function ReviewsPage() {
         <Container>
           <H1 className="text-text-primary">Reviews</H1>
           <TextRegular className="mt-4 max-w-prose text-text-secondary">
-            See what our users say about Mahaana.
+            {cleanCopy("See what our users say about Mahaana.")}
           </TextRegular>
         </Container>
       </AnimatedSection>
@@ -58,7 +59,7 @@ export default async function ReviewsPage() {
                       </div>
                     ) : null}
                     <blockquote className="text-text-secondary">
-                      &ldquo;{review.quote ?? ""}&rdquo;
+                      &ldquo;{cleanCopy(review.quote ?? "")}&rdquo;
                     </blockquote>
                     <div className="mt-5 flex items-center gap-3 border-t border-surface-stroke pt-4">
                       {authorImageUrl ? (

@@ -5,6 +5,7 @@ import { User01, Lightbulb05, LineChartUp01 } from "@untitledui/icons";
 import { Container } from "@/components/layout/Container";
 import { H3, TextLarge, TextRegular } from "@/components/ui/Typography";
 import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
+import { cleanCopy } from "@/lib/copy-utils";
 
 const VALUES = [
   {
@@ -38,7 +39,7 @@ export function AboutValuesSection() {
         <div className="flex flex-col items-start">
           <div className="flex flex-col items-start gap-2">
             <p className="text-label text-system-brand">
-              OUR VALUES
+              {cleanCopy("OUR VALUES")}
             </p>
             <H3
               id="about-values-heading"
@@ -48,8 +49,9 @@ export function AboutValuesSection() {
             </H3>
           </div>
           <TextRegular className="mt-4 max-w-2xl text-text-tertiary">
-            The principles that guide everything we do — from how we build
-            products to how we serve our clients.
+            {cleanCopy(
+              "The principles that guide everything we do — from how we build products to how we serve our clients."
+            )}
           </TextRegular>
         </div>
 
@@ -66,7 +68,7 @@ export function AboutValuesSection() {
                 <TextLarge weight="semibold" className="text-text-primary">
                   {title}
                 </TextLarge>
-                <TextRegular className="text-text-tertiary">{body}</TextRegular>
+                <TextRegular className="text-text-tertiary">{cleanCopy(body)}</TextRegular>
               </div>
             </div>
           ))}

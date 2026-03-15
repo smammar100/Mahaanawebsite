@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import { cleanCopy } from "@/lib/copy-utils";
 
 type Weight = "light" | "normal" | "medium" | "semibold" | "bold" | "extrabold";
 
@@ -29,9 +30,13 @@ function withHeading(
     weight = defaultWeight,
     id,
   }: TypographyProps) {
+    const polished =
+      typeof children === "string"
+        ? cleanCopy(children, { fixWidows: false })
+        : children;
     return (
       <Tag id={id} className={`${weightMap[weight]} ${className}`.trim()}>
-        {children}
+        {polished}
       </Tag>
     );
   };
@@ -46,16 +51,18 @@ function withText(
     className = "",
     weight = defaultWeight,
   }: TypographyProps) {
+    const polished =
+      typeof children === "string" ? cleanCopy(children) : children;
     return (
       <span className={`${baseClass} ${weightMap[weight]} ${className}`.trim()}>
-        {children}
+        {polished}
       </span>
     );
   };
 }
 
 /* Heading components: size/line-height/font-family come from globals.css base styles; only weight and color/spacing via className are applied here. */
-export const H1 = withHeading("h1", "bold");
+export const H1 = withHeading("h1", "semibold");
 export const H2 = withHeading("h2", "bold");
 export const H3 = withHeading("h3", "semibold");
 export const H4 = withHeading("h4", "semibold");

@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { motion } from "motion/react";
 import { Container } from "@/components/layout/Container";
+import { cleanCopy } from "@/lib/copy-utils";
 import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
 import { cx } from "@/utils/cx";
 
@@ -48,11 +49,11 @@ export function MIIRFHero() {
               id="miirf-hero-heading"
               className="text-system-brand"
             >
-              MIIRF
+              {cleanCopy("MIIRF", { fixWidows: false })}
             </h1>
             <div className="flex flex-wrap items-center gap-4">
               <p className="text-label text-system-brand">
-                With our partners
+                {cleanCopy("With our partners")}
               </p>
               <div className="relative h-12 w-[108px] shrink-0">
                 <Image
@@ -71,7 +72,7 @@ export function MIIRFHero() {
             <h2
               className="text-text-primary text-left lg:text-right"
             >
-              Mahaana Islamic IGI Retirement Fund
+              {cleanCopy("Mahaana Islamic IGI Retirement Fund", { fixWidows: false })}
             </h2>
           </div>
         </div>

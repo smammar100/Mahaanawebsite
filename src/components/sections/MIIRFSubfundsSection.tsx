@@ -9,6 +9,7 @@ import { HighchartsVariablePieChart } from "@/components/ui/HighchartsVariablePi
 import { HighchartsPerformanceChart } from "@/components/ui/HighchartsPerformanceChart";
 import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
 import { cx } from "@/utils/cx";
+import { cleanCopy } from "@/lib/copy-utils";
 
 // ─── Data: update this object to change all content on this section ───
 const SUBFUND_TABS = [
@@ -385,7 +386,7 @@ export function MIIRFSubfundsSection({ fundData }: { fundData?: MiirfSubfundsFun
                 Product summary
               </H4>
               <TextRegular className="text-text-secondary leading-[150%]">
-                {data.productSummary}
+                {cleanCopy(data.productSummary)}
               </TextRegular>
             </div>
             <div className="flex flex-col gap-4">
@@ -393,7 +394,7 @@ export function MIIRFSubfundsSection({ fundData }: { fundData?: MiirfSubfundsFun
                 Investment objective
               </H4>
               <TextRegular className="text-text-secondary leading-[150%]">
-                {data.investmentObjective}
+                {cleanCopy(data.investmentObjective)}
               </TextRegular>
             </div>
           </div>

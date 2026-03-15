@@ -4,6 +4,7 @@ import Image from "next/image";
 import { motion } from "motion/react";
 import { Container } from "@/components/layout/Container";
 import { TextRegular } from "@/components/ui/Typography";
+import { cleanCopy } from "@/lib/copy-utils";
 import {
   AppStoreButton,
   GooglePlayButton,
@@ -46,15 +47,16 @@ export function RetirementHero() {
                 id="retirement-hero-heading"
                 className="max-w-[592px] text-white"
               >
-                Introducing
+                {cleanCopy("Introducing", { fixWidows: false })}
                 <br aria-hidden />
-                Mahaana Retirement
+                {cleanCopy("Mahaana Retirement", { fixWidows: false })}
               </h1>
 
               {/* Subtext - same as InvestHero (TextRegular, max-w-[446px]) */}
               <TextRegular className="max-w-[446px] text-white">
-                Turn your retirement dreams into reality with Mahaana and enjoy
-                up to 20% tax savings along the way.
+                {cleanCopy(
+                  "Turn your retirement dreams into reality with Mahaana and enjoy up to 20% tax savings along the way."
+                )}
               </TextRegular>
             </div>
 

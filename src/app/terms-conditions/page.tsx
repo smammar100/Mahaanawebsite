@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { buildPageMetadata } from "@/lib/metadata";
 import { Container } from "@/components/layout/Container";
 import { H1, H3 } from "@/components/ui/Typography";
+import { cleanCopy } from "@/lib/copy-utils";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Terms and Conditions | Mahaana",
@@ -25,9 +26,9 @@ export default function TermsConditionsPage() {
 
         {/* Content */}
         <section className="pt-10 pb-16">
-          <Container className="max-w-3xl">
+          <Container className="max-w-3xl readable-line-length">
             <p className="mb-4 leading-relaxed text-text-secondary">
-              Dynasty Financial Advisors (DFA) owns and maintains website{" "}
+              {cleanCopy("Dynasty Financial Advisors (DFA) owns and maintains website ")}
               <a
                 href="https://www.mahaana.com"
                 target="_blank"
@@ -35,23 +36,8 @@ export default function TermsConditionsPage() {
                 className="underline transition-colors hover:text-text-primary"
               >
                 www.mahaana.com
-              </a>{" "}
-              (&quot;the Site&quot;). The site has been developed to provide a
-              platform for various parties, including mutual funds, beneficial
-              owners, corporates, clearing members, participants, investors, and
-              regulator(s). By accessing, browsing, and using this site, you agree
-              that the following Terms and Conditions (T&C) apply to your use
-              of this Site. DFA reserves the right to amend these T&C at any
-              time without prior intimation. You are responsible for regularly
-              reviewing these T&C since such changed terms will govern your
-              continued use of the Site. If you do not agree to these Terms and
-              Conditions, do not use this site. The T&C – as may be amended from
-              time to time – constitute the entire agreement and supersede any
-              other agreements or understandings (oral or written), between you
-              and us with respect to their subject matters unless explicitly
-              stated otherwise. DFA accepts no liability for any losses, damages,
-              costs, or expenses which may be incurred by you as a result of
-              any changes to the terms and conditions.
+              </a>
+              {cleanCopy(' ("the Site"). The site has been developed to provide a platform for various parties, including mutual funds, beneficial owners, corporates, clearing members, participants, investors, and regulator(s). By accessing, browsing, and using this site, you agree that the following Terms and Conditions (T&C) apply to your use of this Site. DFA reserves the right to amend these T&C at any time without prior intimation. You are responsible for regularly reviewing these T&C since such changed terms will govern your continued use of the Site. If you do not agree to these Terms and Conditions, do not use this site. The T&C – as may be amended from time to time – constitute the entire agreement and supersede any other agreements or understandings (oral or written), between you and us with respect to their subject matters unless explicitly stated otherwise. DFA accepts no liability for any losses, damages, costs, or expenses which may be incurred by you as a result of any changes to the terms and conditions.')}
             </p>
 
             <H3 className="mt-8 mb-3 text-text-primary">No Warranties</H3>

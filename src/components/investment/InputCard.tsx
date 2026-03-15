@@ -2,6 +2,7 @@
 
 import { Input } from "@/components/ui/Input";
 import { Field, FieldLabel } from "@/components/ui/Field";
+import { cleanCopy } from "@/lib/copy-utils";
 import { INVESTMENT_CURRENCY } from "@/lib/investmentConfig";
 import { cx } from "@/utils/cx";
 
@@ -39,10 +40,10 @@ export function InputCard({
       )}
     >
       <p className="text-label text-system-brand">
-        YOUR DETAILS
+        {cleanCopy("YOUR DETAILS")}
       </p>
       <h2 className="text-card-title mt-1 mb-6 text-text-primary sm:mb-8">
-        Your investment
+        {cleanCopy("Your investment", { fixWidows: false })}
       </h2>
 
       <div className="space-y-4">

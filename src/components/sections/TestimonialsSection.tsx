@@ -8,6 +8,7 @@ import { Star01, Zap } from "@untitledui/icons";
 import { Container } from "@/components/layout/Container";
 import { H3, TextMedium, TextRegular, TextSmall } from "@/components/ui/Typography";
 import { useInView } from "@/hooks/useInView";
+import { cleanCopy } from "@/lib/copy-utils";
 import { cx } from "@/utils/cx";
 
 const testimonials = [
@@ -103,7 +104,7 @@ export function TestimonialsSection({ className }: TestimonialsSectionProps) {
                     "0 1px 2px color-mix(in srgb, var(--color-system-brand) 20%, transparent), 0 0 12px color-mix(in srgb, var(--color-system-brand) 12%, transparent)",
                 }}
               >
-                Rated 4.5 stars by 20K+ Pakistanis
+                {cleanCopy("Rated 4.5 stars by 20K+ Pakistanis")}
               </p>
             </div>
             <H3
@@ -169,7 +170,7 @@ export function TestimonialsSection({ className }: TestimonialsSectionProps) {
                     </div>
                   </div>
                   <blockquote className="font-body text-regular leading-7 text-text-tertiary">
-                    &ldquo;{testimonial.content}&rdquo;
+                    &ldquo;{cleanCopy(testimonial.content)}&rdquo;
                   </blockquote>
                 </div>
               ))}

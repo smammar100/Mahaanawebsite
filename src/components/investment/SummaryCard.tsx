@@ -1,5 +1,6 @@
 "use client";
 
+import { cleanCopy } from "@/lib/copy-utils";
 import { fmt, formatGrowthPercent } from "@/lib/formatters";
 import { INVESTMENT_CURRENCY } from "@/lib/investmentConfig";
 import { cx } from "@/utils/cx";
@@ -37,15 +38,15 @@ export function SummaryCard({
       )}
     >
       <p className="text-label text-system-brand">
-        PROJECTION
+        {cleanCopy("PROJECTION")}
       </p>
       <h2 className="text-card-title mt-1 mb-6 text-text-primary sm:mb-8">
-        Your future value
+        {cleanCopy("Your future value", { fixWidows: false })}
       </h2>
 
       <div className="flex flex-col justify-center">
         <p className="text-label text-text-tertiary">
-          FUTURE VALUE
+          {cleanCopy("FUTURE VALUE")}
         </p>
         <p
           className={cx(
@@ -71,7 +72,7 @@ export function SummaryCard({
         >
           <div className="rounded-xl border border-surface-stroke bg-surface-bg p-3 sm:p-4">
             <p className="text-label text-text-tertiary mb-1">
-              Principal
+              {cleanCopy("Principal")}
             </p>
             <p className="text-stat text-text-primary">
               {fmt(initial, INVESTMENT_CURRENCY)}
@@ -79,7 +80,7 @@ export function SummaryCard({
           </div>
           <div className="rounded-xl border border-surface-stroke bg-surface-bg p-3 sm:p-4">
             <p className="text-label text-text-tertiary mb-1">
-              Contributions
+              {cleanCopy("Contributions")}
             </p>
             <p className="text-stat text-text-primary">
               {fmt(totalContribs, INVESTMENT_CURRENCY)}
@@ -87,7 +88,7 @@ export function SummaryCard({
           </div>
           <div className="rounded-xl border border-surface-stroke bg-surface-bg p-3 sm:p-4">
             <p className="text-label text-text-tertiary mb-1">
-              Return Earned
+              {cleanCopy("Return Earned")}
             </p>
             <p className="text-stat text-system-success">
               {fmt(interestEarned, INVESTMENT_CURRENCY)}
@@ -95,7 +96,7 @@ export function SummaryCard({
           </div>
           <div className="rounded-xl border border-surface-stroke bg-surface-bg p-3 sm:p-4">
             <p className="text-label text-text-tertiary mb-1">
-              Total Growth
+              {cleanCopy("Total Growth")}
             </p>
             <p className="text-stat text-system-success">
               {formatGrowthPercent(growthPercent)}

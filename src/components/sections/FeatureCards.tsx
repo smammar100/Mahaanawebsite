@@ -5,6 +5,7 @@ import { useState } from "react";
 import { Container } from "@/components/layout/Container";
 import { H3, TextLarge, TextRegular } from "@/components/ui/Typography";
 import { Button } from "@/components/base/buttons/button";
+import { cleanCopy } from "@/lib/copy-utils";
 import { useInView } from "@/hooks/useInView";
 import { cx } from "@/utils/cx";
 
@@ -57,7 +58,7 @@ export function FeatureCards() {
         <div className="flex flex-col items-start gap-0">
           <div className="flex flex-col items-start gap-2">
             <p className="text-label text-system-brand">
-              Investing made effortless
+              {cleanCopy("Investing made effortless")}
             </p>
             <H3
               id="feature-cards-heading"

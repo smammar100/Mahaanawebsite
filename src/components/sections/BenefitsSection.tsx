@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/chart";
 import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
 import { cx } from "@/utils/cx";
+import { cleanCopy } from "@/lib/copy-utils";
 
 /** Shape of one benefits card for the section (used by retirement and save-plus pages). */
 export interface BenefitsCardItem {
@@ -240,7 +241,7 @@ function BenefitsCard({
         </H3>
         {body && (
           <TextRegular className="mt-4 text-text-secondary">
-            {body}
+            {cleanCopy(body)}
           </TextRegular>
         )}
       </div>

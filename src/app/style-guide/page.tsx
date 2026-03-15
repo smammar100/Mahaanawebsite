@@ -148,7 +148,7 @@ export default function StyleGuidePage() {
               <div className="border-b border-surface-stroke pb-4">
                 <H1 className="text-text-primary">Heading 1</H1>
                 <TextSmall className="mt-2 text-text-tertiary">
-                  font-heading · 40px → 56px (lg) · 120%
+                  font-heading · 600 · 40px → 56px (lg) · -1px · 105%
                 </TextSmall>
               </div>
               <div className="border-b border-surface-stroke pb-4">

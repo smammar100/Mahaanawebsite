@@ -11,6 +11,7 @@ import {
 import { Container } from "@/components/layout/Container";
 import { H3, TextLarge, TextRegular } from "@/components/ui/Typography";
 import { useInView } from "@/hooks/useInView";
+import { cleanCopy } from "@/lib/copy-utils";
 import { cx } from "@/utils/cx";
 
 const features = [
@@ -62,7 +63,7 @@ export function WhyMahaanaTrade() {
         <div className="flex flex-col items-start justify-start gap-4">
           <div className="flex flex-col gap-2">
             <p className="text-label text-system-brand">
-              Why MAHAANA
+              {cleanCopy("Why MAHAANA")}
             </p>
             <H3
               id="why-mahaana-heading"
@@ -74,8 +75,9 @@ export function WhyMahaanaTrade() {
             </H3>
           </div>
           <TextRegular className="max-w-2xl text-text-tertiary">
-            Mahaana Save+ helps you earn daily returns on your money that sits in
-            the zero or minimal returns your bank account offers.
+            {cleanCopy(
+              "Mahaana Save+ helps you earn daily returns on your money that sits in the zero or minimal returns your bank account offers."
+            )}
           </TextRegular>
         </div>
 
@@ -99,7 +101,7 @@ export function WhyMahaanaTrade() {
                     {feature.title}
                   </TextLarge>
                   <TextRegular className="text-text-tertiary">
-                    {feature.desc}
+                    {cleanCopy(feature.desc)}
                   </TextRegular>
                 </div>
               </div>

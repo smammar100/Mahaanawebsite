@@ -12,6 +12,7 @@ import { Input } from "@/components/ui/Input";
 import { H1, TextMedium, TextRegular } from "@/components/ui/Typography";
 import type { HelpCenterFaqItem } from "@/lib/sanity/fetch";
 import { cx } from "@/utils/cx";
+import { cleanCopy } from "@/lib/copy-utils";
 import { ChevronDown, SearchLg, X } from "@untitledui/icons";
 
 /** Display order for Help Center FAQ categories (from CSV import + legacy). */
@@ -285,7 +286,7 @@ export function HelpCenterSection({ items, className }: HelpCenterSectionProps) 
                         </AccordionTrigger>
                         <AccordionContent>
                           <p className="text-body font-normal whitespace-pre-line text-text-secondary">
-                            {item.answer}
+                            {cleanCopy(item.answer)}
                           </p>
                         </AccordionContent>
                       </AccordionItem>

@@ -6,6 +6,7 @@ import { Container } from "@/components/layout/Container";
 import { H3, TextRegular } from "@/components/ui/Typography";
 import { Button } from "@/components/base/buttons/button";
 import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
+import { cleanCopy } from "@/lib/copy-utils";
 
 const FAQ_ITEMS: { question: string; answer: string }[] = [
   {
@@ -55,7 +56,7 @@ export function FAQSavePlusSection({
         <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-12 xl:gap-16">
           <div className="flex flex-col gap-4 lg:min-w-0 lg:flex-1">
             <div className="flex flex-col items-start gap-2">
-              <p className="text-label text-system-brand">FAQs</p>
+              <p className="text-label text-system-brand">{cleanCopy("FAQs")}</p>
               <H3
                 id="faq-save-plus-heading"
                 className="text-text-primary w-full max-w-3xl"
@@ -64,7 +65,7 @@ export function FAQSavePlusSection({
               </H3>
             </div>
             <TextRegular className="mt-4 text-text-secondary">
-              Everything you need to know about Mahaana Save+
+              {cleanCopy("Everything you need to know about Mahaana Save+")}
             </TextRegular>
             <Button
               href="#faq-save-plus-heading"
@@ -92,7 +93,7 @@ export function FAQSavePlusSection({
                   </summary>
                   <div className="mt-3 pl-0">
                     <TextRegular className="whitespace-pre-line text-text-secondary">
-                      {item.answer}
+                      {cleanCopy(item.answer)}
                     </TextRegular>
                   </div>
                 </details>

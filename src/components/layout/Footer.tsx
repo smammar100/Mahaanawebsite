@@ -3,6 +3,7 @@ import Image from "next/image";
 import type { ReactNode } from "react";
 import { Container } from "./Container";
 import { TextSmall } from "@/components/ui/Typography";
+import { cleanCopy } from "@/lib/copy-utils";
 
 const SECURITY_BADGES = [
   {
@@ -236,44 +237,43 @@ export function Footer() {
         {/* Legal section */}
         <div className="space-y-4 py-6 sm:py-8">
           <p className="text-body-xs leading-relaxed text-text-tertiary">
-            Mahaana and its products are offered by Mahaana Capital (Pvt) Ltd.
-            Investment products are not bank deposits and are not insured by the
-            deposit protection scheme. Returns are not guaranteed and you may
-            get back less than you invest.
+            {cleanCopy(
+              "Mahaana and its products are offered by Mahaana Capital (Pvt) Ltd. Investment products are not bank deposits and are not insured by the deposit protection scheme. Returns are not guaranteed and you may get back less than you invest."
+            )}
           </p>
           <p className="text-body-xs leading-relaxed text-text-tertiary">
-            Past performance is not a reliable indicator of future results. The
-            information on this site is for general information only and does
-            not constitute financial, tax or legal advice. Please see our{" "}
+            {cleanCopy("Past performance is not a reliable indicator of future results. The information on this site is for general information only and does not constitute financial, tax or legal advice. Please see our ")}
             <Link
               href="/terms-conditions"
               className="underline transition-colors hover:text-text-primary"
             >
               terms and conditions
-            </Link>{" "}
-            and{" "}
+            </Link>
+            {cleanCopy(" and ")}
             <Link
               href="/privacy-policy"
               className="underline transition-colors hover:text-text-primary"
             >
               privacy policy
             </Link>
-            .
+            {cleanCopy(".")}
           </p>
           <p className="text-body-xs leading-relaxed text-text-tertiary">
             © {currentYear} Mahaana. All rights reserved.
           </p>
           <ol className="list-inside list-decimal space-y-1 text-body-xs leading-relaxed text-text-tertiary">
             <li>
-              Shariah compliance is subject to oversight by our Shariah advisory
-              board. Product availability may vary by jurisdiction.
+              {cleanCopy(
+                "Shariah compliance is subject to oversight by our Shariah advisory board. Product availability may vary by jurisdiction."
+              )}
             </li>
             <li>
-              App available on iOS and Android. Data rates may apply.
+              {cleanCopy("App available on iOS and Android. Data rates may apply.")}
             </li>
             <li>
-              Calculators and projections are for illustrative purposes only and
-              do not constitute a guarantee of future performance.
+              {cleanCopy(
+                "Calculators and projections are for illustrative purposes only and do not constitute a guarantee of future performance."
+              )}
             </li>
           </ol>
         </div>

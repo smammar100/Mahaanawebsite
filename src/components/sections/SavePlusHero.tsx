@@ -4,6 +4,7 @@ import Image from "next/image";
 import { motion } from "motion/react";
 import { Container } from "@/components/layout/Container";
 import { H1, TextRegular } from "@/components/ui/Typography";
+import { cleanCopy } from "@/lib/copy-utils";
 import {
   AppStoreButton,
   GooglePlayButton,
@@ -49,8 +50,9 @@ export function SavePlusHero() {
               </H1>
 
               <TextRegular className="max-w-[446px] text-white">
-                The smart alternative to your traditional bank account, offering
-                daily shariah compliant returns.
+                {cleanCopy(
+                  "The smart alternative to your traditional bank account, offering daily shariah compliant returns."
+                )}
               </TextRegular>
             </div>
 

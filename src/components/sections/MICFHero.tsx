@@ -9,6 +9,7 @@ import {
   TextMedium,
   TextTiny,
 } from "@/components/ui/Typography";
+import { cleanCopy } from "@/lib/copy-utils";
 import type { MicfHeroFundData } from "@/lib/micf-fund-api";
 import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
 import { cx } from "@/utils/cx";
@@ -74,12 +75,12 @@ export function MICFHero({ fundData }: { fundData?: MicfHeroFundData | null }) {
               id="micf-hero-heading"
               className="text-system-brand"
             >
-              MICF
+              {cleanCopy("MICF", { fixWidows: false })}
             </h1>
             <H2 className="text-text-primary">
-              Mahaana Islamic
+              {cleanCopy("Mahaana Islamic", { fixWidows: false })}
               <br aria-hidden />
-              Cash Fund
+              {cleanCopy("Cash Fund", { fixWidows: false })}
             </H2>
           </div>
 

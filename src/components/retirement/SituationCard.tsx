@@ -3,6 +3,7 @@
 import { Input } from "@/components/ui/Input";
 import { Field, FieldLabel } from "@/components/ui/Field";
 import { Tooltip, TooltipTrigger } from "@/components/base/tooltip/tooltip";
+import { cleanCopy } from "@/lib/copy-utils";
 import { INVESTMENT_CURRENCY } from "@/lib/investmentConfig";
 import { cx } from "@/utils/cx";
 
@@ -80,10 +81,10 @@ export function SituationCard({
       )}
     >
       <p className="text-label text-system-brand">
-        YOUR DETAILS
+        {cleanCopy("YOUR DETAILS")}
       </p>
       <h2 className="text-card-title mt-1 mb-6 text-text-primary sm:mb-8">
-        Your investment
+        {cleanCopy("Your investment", { fixWidows: false })}
       </h2>
 
       {/* Same 4 fields as Investment calculator – units in labels */}
@@ -160,9 +161,11 @@ export function SituationCard({
       {/* Retirement section */}
       <div className="mt-6 border-t border-surface-stroke pt-6">
         <p className="text-label text-text-tertiary">
-          RETIREMENT
+          {cleanCopy("RETIREMENT")}
         </p>
-        <h2 className="text-card-title mt-1 mb-6 text-text-primary sm:mb-8">Your retirement</h2>
+        <h2 className="text-card-title mt-1 mb-6 text-text-primary sm:mb-8">
+          {cleanCopy("Your retirement", { fixWidows: false })}
+        </h2>
         <div className="space-y-4">
           <FieldRow label="Current age">
             <Input

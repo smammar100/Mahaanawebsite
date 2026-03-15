@@ -5,6 +5,7 @@ import { motion } from "motion/react";
 import { Container } from "@/components/layout/Container";
 import { H3, TextLarge, TextRegular } from "@/components/ui/Typography";
 import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
+import { cleanCopy } from "@/lib/copy-utils";
 
 const features = [
   {
@@ -38,7 +39,7 @@ export function WhySavePlusSection() {
         <div className="flex flex-col items-start">
           <div className="flex flex-col items-start gap-2">
             <p className="text-label text-system-brand">
-              WHY MAHAANA SAVE+
+              {cleanCopy("WHY MAHAANA SAVE+")}
             </p>
             <H3
               id="why-save-plus-heading"
@@ -48,8 +49,9 @@ export function WhySavePlusSection() {
             </H3>
           </div>
           <TextRegular className="mt-4 max-w-2xl text-text-tertiary">
-            Mahaana Save+ helps you earn daily returns on your money locked in
-            zero or minimal returns your bank account offers.
+            {cleanCopy(
+              "Mahaana Save+ helps you earn daily returns on your money locked in zero or minimal returns your bank account offers."
+            )}
           </TextRegular>
         </div>
 
@@ -72,7 +74,7 @@ export function WhySavePlusSection() {
                     {feature.title}
                   </TextLarge>
                   <TextRegular className="text-text-tertiary">
-                    {feature.desc}
+                    {cleanCopy(feature.desc)}
                   </TextRegular>
                 </div>
               </div>

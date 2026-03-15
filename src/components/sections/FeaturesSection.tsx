@@ -5,6 +5,7 @@ import { CheckCircle } from "@untitledui/icons";
 import { Container } from "@/components/layout/Container";
 import { H3, TextRegular } from "@/components/ui/Typography";
 import { Button } from "@/components/base/buttons/button";
+import { cleanCopy } from "@/lib/copy-utils";
 import { useInView } from "@/hooks/useInView";
 import { cx } from "@/utils/cx";
 
@@ -29,7 +30,7 @@ function CheckItem({ children }: { children: React.ReactNode }) {
       >
         <CheckCircle className="size-4 text-primary-200" />
       </div>
-          <TextRegular className="flex-1 text-white/95 text-medium leading-7 min-w-0">
+          <TextRegular className="flex-1 text-white/95 leading-7 min-w-0">
         {children}
       </TextRegular>
     </div>
@@ -67,17 +68,17 @@ function FeatureBlock({
         {/* Content */}
         <div className="flex flex-1 flex-col order-2 lg:order-1">
           <p className="text-label text-primary-150 mb-2">
-            {badge}
+            {cleanCopy(badge)}
           </p>
           <H3 className="text-white/95 mb-4">
             {title}
           </H3>
           <TextRegular className="text-white/95 max-w-xl mb-6">
-            {description}
+            {cleanCopy(description)}
           </TextRegular>
           <div className="flex flex-col gap-2 mb-10">
             {features.map((feature, i) => (
-              <CheckItem key={i}>{feature}</CheckItem>
+              <CheckItem key={i}>{cleanCopy(feature)}</CheckItem>
             ))}
           </div>
           <Button
@@ -86,7 +87,7 @@ function FeatureBlock({
             size="lg"
             className="w-fit rounded-lg"
           >
-            {cta}
+            {cleanCopy(cta)}
           </Button>
         </div>
 
@@ -124,7 +125,7 @@ export function FeaturesSection() {
         <div className="flex flex-col gap-4 sm:gap-5 items-center text-center px-0 sm:px-4">
           <div className="inline-flex items-center justify-center rounded-2xl px-2 py-0.5">
             <p className="text-label text-white">
-              Investing made effortless
+              {cleanCopy("Investing made effortless")}
             </p>
           </div>
           <H3

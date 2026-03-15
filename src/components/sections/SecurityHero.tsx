@@ -5,6 +5,7 @@ import { motion } from "motion/react";
 import { Container } from "@/components/layout/Container";
 import { TextRegular, TextSmall } from "@/components/ui/Typography";
 import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
+import { cleanCopy } from "@/lib/copy-utils";
 import { cx } from "@/utils/cx";
 
 const INFO_CARDS = [
@@ -47,13 +48,12 @@ export function SecurityHero() {
                 id="security-hero-heading"
                 className="max-w-[592px] text-text-primary"
               >
-                Your money fully protected
+                {cleanCopy("Your money fully protected", { fixWidows: false })}
               </h1>
               <TextRegular className="max-w-[446px] text-text-secondary">
-                At Mahaana, we understand that investment security is your
-                primary concern. To address this we&apos;ve partnered with
-                Central Depository Company (CDC) and are licensed by Securities
-                &amp; Exchange Commission of Pakistan (SECP).
+                {cleanCopy(
+                  "At Mahaana, we understand that investment security is your primary concern. To address this we've partnered with Central Depository Company (CDC) and are licensed by Securities & Exchange Commission of Pakistan (SECP)."
+                )}
               </TextRegular>
             </div>
 
