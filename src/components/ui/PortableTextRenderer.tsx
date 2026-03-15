@@ -6,24 +6,16 @@ import type { PortableTextBlock } from "@portabletext/types";
 const components: PortableTextComponents = {
   block: {
     h1: ({ children }) => (
-      <h1 className="font-heading tracking-heading text-[2rem] font-semibold leading-[120%] text-text-primary mt-8 mb-3 lg:text-h2">
-        {children}
-      </h1>
+      <h1 className="mt-8 mb-3 text-text-primary">{children}</h1>
     ),
     normal: ({ children }) => (
-      <p className="font-body text-regular leading-[150%] text-text-secondary mb-4">
-        {children}
-      </p>
+      <p className="mb-4 text-text-secondary">{children}</p>
     ),
     h2: ({ children }) => (
-      <h2 className="font-heading text-xl font-semibold text-text-primary mt-8 mb-3">
-        {children}
-      </h2>
+      <h2 className="mt-8 mb-3 text-text-primary">{children}</h2>
     ),
     h3: ({ children }) => (
-      <h3 className="font-heading text-large font-semibold text-text-primary mt-6 mb-2">
-        {children}
-      </h3>
+      <h3 className="mt-6 mb-2 text-text-primary">{children}</h3>
     ),
   },
   list: {

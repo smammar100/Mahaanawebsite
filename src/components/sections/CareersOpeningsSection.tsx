@@ -5,7 +5,7 @@ import { ArrowRight } from "@untitledui/icons";
 import { Container } from "@/components/layout/Container";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { H2, TextLarge } from "@/components/ui/Typography";
+import { H3, TextLarge } from "@/components/ui/Typography";
 import { cn } from "@/lib/utils";
 
 export interface JobListing {
@@ -42,9 +42,9 @@ export function CareersOpeningsSection({
     >
       <Container>
         <div className="mb-16 flex w-full flex-col items-center gap-4 text-center">
-          <H2 id="careers-openings-heading" className="h-fit text-text-primary">
+          <H3 id="careers-openings-heading" className="h-fit text-text-primary">
             Current Openings
-          </H2>
+          </H3>
           <TextLarge className="h-fit w-full max-w-2xl text-center text-text-secondary">
             Join our team and help shape the future. We&apos;re looking for
             passionate people who are excited to tackle challenging problems and

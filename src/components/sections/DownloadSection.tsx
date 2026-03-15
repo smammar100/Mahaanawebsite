@@ -2,6 +2,7 @@
 
 import { motion } from "motion/react";
 import { Container } from "@/components/layout/Container";
+import { H3 } from "@/components/ui/Typography";
 import { PhoneMockup } from "@/components/ui/PhoneMockup";
 import { AppStoreButton, GooglePlayButton } from "@/components/base/buttons/app-store-buttons";
 import { cx } from "@/utils/cx";
@@ -33,15 +34,15 @@ export function DownloadSection({ className }: DownloadSectionProps) {
     >
       <Container>
         <div className="flex flex-col items-center gap-10">
-          <p className="font-body text-small font-semibold uppercase tracking-wide text-system-brand">
+          <p className="text-label text-system-brand">
             Get Started
           </p>
-          <h2
+          <H3
             id="download-heading"
-            className="text-center font-heading text-4xl font-bold leading-tight text-balance text-text-primary sm:text-5xl md:text-6xl"
+            className="text-center text-balance text-text-primary"
           >
             Download our app and transform your workflow today
-          </h2>
+          </H3>
         </div>
         <div className="mt-16 flex flex-col items-center justify-center gap-6 sm:flex-row">
           <AppStoreButton className="shrink-0" />

@@ -4,7 +4,7 @@ import { ArrowRight, ShieldTick, Wallet01 } from "@untitledui/icons";
 import Image from "next/image";
 import { Button } from "@/components/base/buttons/button";
 import { Container } from "@/components/layout/Container";
-import { H2, TextLarge, TextRegular } from "@/components/ui/Typography";
+import { H3, TextLarge, TextRegular } from "@/components/ui/Typography";
 import { useInView } from "@/hooks/useInView";
 import { cx } from "@/utils/cx";
 
@@ -69,18 +69,18 @@ export function ComplianceSection({ className, showEyebrowAndCta = true }: Compl
         <div className="flex flex-col items-start">
           <div className="flex flex-col items-start gap-2">
             {showEyebrowAndCta && (
-              <p className="font-body text-small font-semibold uppercase tracking-wide text-system-brand">
+              <p className="text-label text-system-brand">
                 Security
               </p>
             )}
-            <H2
+            <H3
               id="compliance-heading"
               className="text-text-primary w-full max-w-3xl"
             >
               How we keep your
               <br />
               money safe
-            </H2>
+            </H3>
           </div>
           <TextRegular className="mt-4 max-w-2xl text-text-tertiary">
             Your financial security is our top priority. By partnering with

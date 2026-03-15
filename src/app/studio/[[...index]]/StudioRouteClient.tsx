@@ -37,7 +37,7 @@ export function StudioRouteClient({
     return (
       <div className="flex min-h-screen w-full flex-col items-center justify-center gap-6 bg-surface-bg px-4">
         <div className="max-w-md rounded-xl border border-warning-200 bg-warning-100 p-6 text-center dark:border-warning-400 dark:bg-warning-400/20">
-          <h1 className="font-heading text-xl font-semibold text-system-warning">
+          <h1 className="text-system-warning">
             Sanity Studio is not configured
           </h1>
           <p className="mt-3 font-body text-regular text-text-secondary">

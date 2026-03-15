@@ -97,7 +97,7 @@ export function InvestorEducationArticleTemplate({
                   href={externalLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center rounded-full bg-system-brand px-6 py-3 font-body text-regular font-semibold text-white transition-colors hover:bg-system-brand/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-system-brand"
+                  className="inline-flex items-center justify-center rounded-full bg-system-brand px-6 py-3 text-white transition-colors hover:bg-system-brand/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-system-brand"
                 >
                   {category === "Video" ? "Watch" : "Read more"}
                 </Link>

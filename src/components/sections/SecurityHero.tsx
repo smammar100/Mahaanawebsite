@@ -45,7 +45,7 @@ export function SecurityHero() {
             <div className="flex flex-col gap-4">
               <h1
                 id="security-hero-heading"
-                className="max-w-[592px] font-heading text-[2.5rem] font-semibold leading-[1.2] tracking-heading text-text-primary sm:text-[3rem] lg:text-[3.5rem]"
+                className="max-w-[592px] text-text-primary"
               >
                 Your money fully protected
               </h1>

@@ -65,17 +65,11 @@ export function MIIETFHero({ fundData }: { fundData?: MiietfHeroFundData | null 
           <div className="flex max-w-[550px] flex-col gap-2">
             <h1
               id="miietf-hero-heading"
-              className={cx(
-                "font-heading font-bold leading-[120%] tracking-heading text-system-brand",
-                "text-[2.5rem] sm:text-5xl lg:text-[4.375rem]"
-              )}
+              className="text-system-brand"
             >
               MIIETF
             </h1>
-            <H2
-              weight="medium"
-              className="text-text-primary text-2xl sm:text-3xl lg:text-[3.5rem]"
-            >
+            <H2 className="text-text-primary">
               Mahaana Islamic
               <br aria-hidden />
               Index ETF
@@ -89,7 +83,7 @@ export function MIIETFHero({ fundData }: { fundData?: MiietfHeroFundData | null 
               <TextSmall weight="medium" className="text-text-tertiary">
                 NAV
               </TextSmall>
-              <TextMedium weight="semibold" className="text-text-primary text-[1.25rem] leading-[1.2]">
+              <TextMedium className="text-stat text-text-primary">
                 {nav}
               </TextMedium>
               <TextTiny className="text-text-tertiary">{navDate}</TextTiny>
@@ -100,7 +94,7 @@ export function MIIETFHero({ fundData }: { fundData?: MiietfHeroFundData | null 
               <TextSmall weight="medium" className="text-text-tertiary">
                 Risk / Reward scale
               </TextSmall>
-              <TextMedium weight="semibold" className="text-text-primary text-[1.25rem] leading-[1.2]">
+              <TextMedium className="text-stat text-text-primary">
                 Low Risk
               </TextMedium>
             </div>
@@ -110,7 +104,7 @@ export function MIIETFHero({ fundData }: { fundData?: MiietfHeroFundData | null 
               <TextSmall weight="medium" className="text-text-tertiary">
                 Asset class
               </TextSmall>
-              <TextMedium weight="semibold" className="text-text-primary text-[1.25rem] leading-[1.2]">
+              <TextMedium className="text-stat text-text-primary">
                 {assetClass}
               </TextMedium>
             </div>
@@ -120,7 +114,7 @@ export function MIIETFHero({ fundData }: { fundData?: MiietfHeroFundData | null 
               <TextSmall weight="medium" className="text-text-tertiary">
                 MTD
               </TextSmall>
-              <TextMedium weight="semibold" className="text-text-primary text-[1.25rem] leading-[1.2]">
+              <TextMedium className="text-stat text-text-primary">
                 {mtd}
               </TextMedium>
               <TextTiny className="text-text-tertiary">As of {mtdAsOfDate}</TextTiny>
@@ -131,7 +125,7 @@ export function MIIETFHero({ fundData }: { fundData?: MiietfHeroFundData | null 
               <TextSmall weight="medium" className="text-text-tertiary">
                 Management style
               </TextSmall>
-              <TextMedium weight="semibold" className="text-text-primary text-[1.25rem] leading-[1.2]">
+              <TextMedium className="text-stat text-text-primary">
                 Active
               </TextMedium>
             </div>
@@ -143,11 +137,11 @@ export function MIIETFHero({ fundData }: { fundData?: MiietfHeroFundData | null 
               </TextSmall>
               <div className="flex flex-col gap-0.5">
                 <div className="flex items-center gap-2">
-                  <TextMedium weight="semibold" className="text-text-primary text-[1.25rem] leading-[1.2]">
+                  <TextMedium className="text-stat text-text-primary">
                     0.9% (MTD)
                   </TextMedium>
                   <span className="h-4 w-px shrink-0 bg-gray-200" aria-hidden />
-                  <TextMedium weight="semibold" className="text-text-primary text-[1.25rem] leading-[1.2]">
+                  <TextMedium className="text-stat text-text-primary">
                     0.83% (YTD)
                   </TextMedium>
                 </div>
@@ -171,7 +165,7 @@ export function MIIETFHero({ fundData }: { fundData?: MiietfHeroFundData | null 
               aria-selected={selectedTab === tab.id}
               onClick={() => handleTabClick(tab.id)}
               className={cx(
-                "min-h-[44px] shrink-0 snap-start rounded-full px-4 py-3 text-center font-body text-base font-medium whitespace-nowrap transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-system-brand sm:flex-1 sm:min-w-0 sm:px-5",
+                "min-h-[44px] shrink-0 snap-start rounded-full px-4 py-3 text-center whitespace-nowrap transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-system-brand sm:flex-1 sm:min-w-0 sm:px-5",
                 selectedTab === tab.id
                   ? "bg-white text-text-primary shadow-sm"
                   : "text-text-tertiary hover:bg-white/80 hover:text-text-primary"

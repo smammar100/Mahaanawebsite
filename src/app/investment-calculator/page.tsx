@@ -18,13 +18,10 @@ export default function InvestmentCalculatorPage() {
     <div className="bg-surface-bg">
       <AnimatedSection className="pt-12 pb-8 sm:pt-14 sm:pb-10">
         <Container className="text-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16">
-          <H1
-            className="text-text-primary text-[28px] sm:text-[36px] lg:text-[48px]"
-            weight="extrabold"
-          >
+          <H1 className="text-text-primary">
             Investment Calculator
           </H1>
-          <TextMedium className="mx-auto mt-3 max-w-[520px] text-text-secondary leading-[1.65]">
+          <TextMedium className="mx-auto mt-3 max-w-[520px] text-text-secondary">
             See how your money grows over time with compound return. Enter
             your details to instantly project your future value.
           </TextMedium>

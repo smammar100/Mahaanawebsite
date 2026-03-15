@@ -2,7 +2,7 @@
 
 import { motion } from "motion/react";
 import { Container } from "@/components/layout/Container";
-import { H2, TextMedium, TextSmall } from "@/components/ui/Typography";
+import { H3, TextMedium, TextSmall } from "@/components/ui/Typography";
 import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
 
 /** Parse DD/MM/YYYY (with or without spaces) to YYYY-MM-DD for sorting. */
@@ -38,13 +38,13 @@ export function MIIRFDistributionsSection() {
       aria-labelledby="miirf-distributions-section-heading"
     >
       <Container className="flex flex-col gap-10 px-4 sm:px-6 md:px-8 lg:gap-10 lg:px-12 xl:px-16">
-        <H2
+        <H3
           id="miirf-distributions-section-heading"
           weight="bold"
-          className="text-text-primary text-2xl sm:text-3xl lg:text-h2"
+          className="text-text-primary"
         >
           Distributions
-        </H2>
+        </H3>
 
         <div className="overflow-x-auto rounded-2xl border border-surface-stroke bg-surface-card">
           <table
@@ -60,7 +60,7 @@ export function MIIRFDistributionsSection() {
                 >
                   <TextSmall
                     weight="semibold"
-                    className="text-text-tertiary text-sm"
+                    className="text-text-tertiary"
                   >
                     Date
                   </TextSmall>
@@ -71,7 +71,7 @@ export function MIIRFDistributionsSection() {
                 >
                   <TextSmall
                     weight="semibold"
-                    className="text-text-tertiary text-sm"
+                    className="text-text-tertiary"
                   >
                     PKR / Unit
                   </TextSmall>
@@ -82,7 +82,7 @@ export function MIIRFDistributionsSection() {
                 >
                   <TextSmall
                     weight="semibold"
-                    className="text-text-tertiary text-sm"
+                    className="text-text-tertiary"
                   >
                     Ex-NAV
                   </TextSmall>
@@ -93,7 +93,7 @@ export function MIIRFDistributionsSection() {
                 >
                   <TextSmall
                     weight="semibold"
-                    className="text-text-tertiary text-sm"
+                    className="text-text-tertiary"
                   >
                     Yield (%)
                   </TextSmall>
@@ -113,7 +113,7 @@ export function MIIRFDistributionsSection() {
                   <td className="px-4 py-5 text-center sm:px-6">
                     <TextMedium
                       weight="semibold"
-                      className="text-text-primary text-base"
+                      className="text-text-primary"
                     >
                       {row.date}
                     </TextMedium>
@@ -121,7 +121,7 @@ export function MIIRFDistributionsSection() {
                   <td className="px-4 py-5 text-center sm:px-6">
                     <TextMedium
                       weight="semibold"
-                      className="text-text-primary text-base"
+                      className="text-text-primary"
                     >
                       {row.pkrPerUnit}
                     </TextMedium>
@@ -129,7 +129,7 @@ export function MIIRFDistributionsSection() {
                   <td className="px-4 py-5 text-center sm:px-6">
                     <TextMedium
                       weight="semibold"
-                      className="text-text-primary text-base"
+                      className="text-text-primary"
                     >
                       {row.exNav}
                     </TextMedium>
@@ -137,7 +137,7 @@ export function MIIRFDistributionsSection() {
                   <td className="px-4 py-5 text-center sm:px-6">
                     <TextMedium
                       weight="semibold"
-                      className="text-text-primary text-base"
+                      className="text-text-primary"
                     >
                       {row.yieldPct}
                     </TextMedium>

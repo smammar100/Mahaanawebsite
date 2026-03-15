@@ -4,7 +4,7 @@ import { useState } from "react";
 import { motion } from "motion/react";
 import type { MiirfSubfundsFundData } from "@/lib/miirf-fund-api";
 import { Container } from "@/components/layout/Container";
-import { H2, H4, TextMedium, TextRegular, TextSmall } from "@/components/ui/Typography";
+import { H3, H4, TextMedium, TextRegular, TextSmall } from "@/components/ui/Typography";
 import { HighchartsVariablePieChart } from "@/components/ui/HighchartsVariablePieChart";
 import { HighchartsPerformanceChart } from "@/components/ui/HighchartsPerformanceChart";
 import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
@@ -293,13 +293,13 @@ export function MIIRFSubfundsSection({ fundData }: { fundData?: MiirfSubfundsFun
       aria-labelledby="miirf-subfunds-section-heading"
     >
       <Container className="flex flex-col gap-10 px-4 sm:px-6 md:px-8 lg:gap-10 lg:px-12 xl:px-16">
-        <H2
+        <H3
           id="miirf-subfunds-section-heading"
           weight="bold"
-          className="text-text-primary text-2xl sm:text-3xl lg:text-h2"
+          className="text-text-primary"
         >
           Subfunds
-        </H2>
+        </H3>
 
         {/* Tabs */}
         <div
@@ -315,10 +315,10 @@ export function MIIRFSubfundsSection({ fundData }: { fundData?: MiirfSubfundsFun
               aria-selected={activeTab === tab.id}
               onClick={() => setActiveTab(tab.id)}
               className={cx(
-                "flex min-h-[40px] min-w-0 flex-1 items-center justify-center rounded-full px-5 py-3 text-center font-body text-base transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-system-brand sm:min-h-[44px]",
+                "flex min-h-[40px] min-w-0 flex-1 items-center justify-center rounded-full px-5 py-3 text-center transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-system-brand sm:min-h-[44px]",
                 activeTab === tab.id
-                  ? "bg-white text-text-primary font-semibold shadow-sm border border-white"
-                  : "font-medium text-text-tertiary hover:bg-white/80 hover:text-text-primary"
+                  ? "bg-white text-text-primary shadow-sm border border-white"
+                  : "text-text-tertiary hover:bg-white/80 hover:text-text-primary"
               )}
             >
               {tab.label}
@@ -330,49 +330,49 @@ export function MIIRFSubfundsSection({ fundData }: { fundData?: MiirfSubfundsFun
           {/* Metrics: 4 columns, 1 row */}
           <div className="grid grid-cols-4 grid-rows-1 gap-6 lg:gap-8">
             <div className="flex flex-col gap-1">
-              <TextSmall weight="medium" className="text-text-tertiary text-sm">
+              <TextSmall weight="medium" className="text-text-tertiary">
                 {data.navLabel ?? "NAV"}
               </TextSmall>
-              <TextMedium weight="semibold" className="text-text-primary text-lg sm:text-xl">
+              <TextMedium weight="semibold" className="text-stat text-text-primary">
                 {data.nav.value}
               </TextMedium>
-              <TextSmall weight="medium" className="text-text-tertiary text-xs">
+              <TextSmall weight="medium" className="text-text-tertiary">
                 {data.nav.asOf}
               </TextSmall>
             </div>
             <div className="flex flex-col gap-1">
-              <TextSmall weight="medium" className="text-text-tertiary text-sm">
+              <TextSmall weight="medium" className="text-text-tertiary">
                 Risk / Reward scale
               </TextSmall>
-              <TextMedium weight="semibold" className="text-text-primary text-lg sm:text-xl">
+              <TextMedium weight="semibold" className="text-stat text-text-primary">
                 {data.riskReward}
               </TextMedium>
             </div>
             <div className="flex flex-col gap-1">
-              <TextSmall weight="medium" className="text-text-tertiary text-sm">
+              <TextSmall weight="medium" className="text-text-tertiary">
                 MTD
               </TextSmall>
-              <TextMedium weight="semibold" className="text-text-primary text-lg sm:text-xl">
+              <TextMedium weight="semibold" className="text-stat text-text-primary">
                 {data.mtd.value}
               </TextMedium>
-              <TextSmall weight="medium" className="text-text-tertiary text-xs">
+              <TextSmall weight="medium" className="text-text-tertiary">
                 {data.mtd.asOf}
               </TextSmall>
             </div>
             <div className="flex flex-col gap-1">
-              <TextSmall weight="medium" className="text-text-tertiary text-sm">
+              <TextSmall weight="medium" className="text-text-tertiary">
                 Expense ratio
               </TextSmall>
               <div className="flex flex-wrap items-center gap-2">
-                <TextMedium weight="semibold" className="text-text-primary text-lg sm:text-xl">
+                <TextMedium weight="semibold" className="text-stat text-text-primary">
                   {data.expenseRatio.mtd}
                 </TextMedium>
                 <span className="h-[18px] w-px shrink-0 rounded-full bg-surface-stroke" aria-hidden />
-                <TextMedium weight="semibold" className="text-text-primary text-lg sm:text-xl">
+                <TextMedium weight="semibold" className="text-stat text-text-primary">
                   {data.expenseRatio.ytd}
                 </TextMedium>
               </div>
-              <TextSmall weight="medium" className="text-text-tertiary text-xs">
+              <TextSmall weight="medium" className="text-text-tertiary">
                 {data.expenseRatio.asOf}
               </TextSmall>
             </div>
@@ -381,7 +381,7 @@ export function MIIRFSubfundsSection({ fundData }: { fundData?: MiirfSubfundsFun
           {/* Product summary + Investment objective */}
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-20">
             <div className="flex flex-col gap-4">
-              <H4 className="text-text-primary text-lg sm:text-xl">
+              <H4 className="text-stat text-text-primary">
                 Product summary
               </H4>
               <TextRegular className="text-text-secondary leading-[150%]">
@@ -389,7 +389,7 @@ export function MIIRFSubfundsSection({ fundData }: { fundData?: MiirfSubfundsFun
               </TextRegular>
             </div>
             <div className="flex flex-col gap-4">
-              <H4 className="text-text-primary text-lg sm:text-xl">
+              <H4 className="text-stat text-text-primary">
                 Investment objective
               </H4>
               <TextRegular className="text-text-secondary leading-[150%]">
@@ -400,7 +400,7 @@ export function MIIRFSubfundsSection({ fundData }: { fundData?: MiirfSubfundsFun
 
           {/* Key facts */}
           <div className="flex flex-col gap-6">
-            <H4 className="text-text-primary text-lg sm:text-xl">
+            <H4 className="text-stat text-text-primary">
               Key facts
             </H4>
             <div className="grid grid-cols-1 gap-6 sm:gap-8 lg:grid-cols-2 lg:gap-x-6 lg:gap-y-6">
@@ -419,7 +419,7 @@ export function MIIRFSubfundsSection({ fundData }: { fundData?: MiirfSubfundsFun
 
           {/* Top holdings: chart + table */}
           <div className="flex flex-col gap-6">
-            <H4 className="text-text-primary text-xl lg:text-2xl" weight="semibold">
+            <H4 className="text-text-primary" weight="semibold">
               Top holdings
             </H4>
             <div className="flex min-w-0 flex-col gap-6 lg:flex-row lg:gap-6">
@@ -441,7 +441,7 @@ export function MIIRFSubfundsSection({ fundData }: { fundData?: MiirfSubfundsFun
                         >
                           <TextSmall
                             weight="semibold"
-                            className="text-text-tertiary text-sm"
+                            className="text-text-tertiary"
                           >
                             Holdings
                           </TextSmall>
@@ -452,7 +452,7 @@ export function MIIRFSubfundsSection({ fundData }: { fundData?: MiirfSubfundsFun
                         >
                           <TextSmall
                             weight="semibold"
-                            className="text-text-tertiary text-sm"
+                            className="text-text-tertiary"
                           >
                             Percentage
                           </TextSmall>
@@ -474,7 +474,7 @@ export function MIIRFSubfundsSection({ fundData }: { fundData?: MiirfSubfundsFun
                               />
                               <TextMedium
                                 weight="semibold"
-                                className="text-text-primary text-base"
+                                className="text-text-primary"
                               >
                                 {row.name}
                               </TextMedium>
@@ -483,7 +483,7 @@ export function MIIRFSubfundsSection({ fundData }: { fundData?: MiirfSubfundsFun
                           <td className="px-4 py-5 text-center sm:px-6">
                             <TextMedium
                               weight="semibold"
-                              className="text-text-primary text-base"
+                              className="text-text-primary"
                             >
                               {row.percentage}
                             </TextMedium>
@@ -499,7 +499,7 @@ export function MIIRFSubfundsSection({ fundData }: { fundData?: MiirfSubfundsFun
 
           {/* Historical performance: Highcharts line chart + table */}
           <div className="flex flex-col gap-6">
-            <H4 className="text-text-primary text-xl lg:text-2xl" weight="semibold">
+            <H4 className="text-text-primary" weight="semibold">
               Historical performance
             </H4>
             <div className="h-fit rounded-2xl border border-surface-stroke bg-surface-card p-4 sm:p-6">
@@ -546,7 +546,7 @@ export function MIIRFSubfundsSection({ fundData }: { fundData?: MiirfSubfundsFun
                     >
                       <TextSmall
                         weight="semibold"
-                        className="text-text-tertiary text-sm"
+                        className="text-text-tertiary"
                       >
                         Subfund
                       </TextSmall>
@@ -559,7 +559,7 @@ export function MIIRFSubfundsSection({ fundData }: { fundData?: MiirfSubfundsFun
                       >
                         <TextSmall
                           weight="semibold"
-                          className="text-text-tertiary text-sm"
+                          className="text-text-tertiary"
                         >
                           {r.period}
                         </TextSmall>
@@ -580,7 +580,7 @@ export function MIIRFSubfundsSection({ fundData }: { fundData?: MiirfSubfundsFun
                         />
                         <TextMedium
                           weight="semibold"
-                          className="text-text-primary text-base"
+                          className="text-text-primary"
                         >
                           {data.performanceTable.subfundLabel}
                         </TextMedium>
@@ -593,7 +593,7 @@ export function MIIRFSubfundsSection({ fundData }: { fundData?: MiirfSubfundsFun
                       >
                         <TextMedium
                           weight="semibold"
-                          className="text-text-primary text-base"
+                          className="text-text-primary"
                         >
                           {r.subfund}
                         </TextMedium>
@@ -612,7 +612,7 @@ export function MIIRFSubfundsSection({ fundData }: { fundData?: MiirfSubfundsFun
                         />
                         <TextMedium
                           weight="semibold"
-                          className="text-text-primary text-base"
+                          className="text-text-primary"
                         >
                           {data.performanceTable.benchmarkLabel}
                         </TextMedium>
@@ -625,7 +625,7 @@ export function MIIRFSubfundsSection({ fundData }: { fundData?: MiirfSubfundsFun
                       >
                         <TextMedium
                           weight="semibold"
-                          className="text-text-primary text-base"
+                          className="text-text-primary"
                         >
                           {r.benchmark}
                         </TextMedium>

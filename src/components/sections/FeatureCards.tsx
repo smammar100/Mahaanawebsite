@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import { Container } from "@/components/layout/Container";
-import { H2, TextLarge, TextRegular } from "@/components/ui/Typography";
+import { H3, TextLarge, TextRegular } from "@/components/ui/Typography";
 import { Button } from "@/components/base/buttons/button";
 import { useInView } from "@/hooks/useInView";
 import { cx } from "@/utils/cx";
@@ -56,15 +56,15 @@ export function FeatureCards() {
         {/* Header */}
         <div className="flex flex-col items-start gap-0">
           <div className="flex flex-col items-start gap-2">
-            <p className="font-body text-small font-semibold uppercase tracking-wide text-system-brand">
+            <p className="text-label text-system-brand">
               Investing made effortless
             </p>
-            <H2
+            <H3
               id="feature-cards-heading"
               className="text-text-primary w-full max-w-3xl"
             >
               Open your Mahaana account in under 10 minutes
-            </H2>
+            </H3>
           </div>
           <TextRegular className="mt-4 max-w-2xl text-text-tertiary">
             Your money shouldn&apos;t sit on the sidelines. Get started with Mahaana today.
@@ -93,7 +93,7 @@ export function FeatureCards() {
                     />
                   </div>
                   <div className={`mt-4 flex flex-1 flex-col p-2 ${feature.contentOrder}`}>
-                  <p className="font-body text-small font-medium leading-none tracking-tight text-text-tertiary">
+                  <p className="text-text-tertiary">
                     {feature.number}
                   </p>
                   <TextLarge

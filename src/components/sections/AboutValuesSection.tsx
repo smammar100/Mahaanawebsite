@@ -3,7 +3,7 @@
 import { motion } from "motion/react";
 import { User01, Lightbulb05, LineChartUp01 } from "@untitledui/icons";
 import { Container } from "@/components/layout/Container";
-import { H2, TextLarge, TextRegular } from "@/components/ui/Typography";
+import { H3, TextLarge, TextRegular } from "@/components/ui/Typography";
 import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
 
 const VALUES = [
@@ -37,15 +37,15 @@ export function AboutValuesSection() {
       <Container className="flex flex-col justify-center gap-10 px-4 sm:px-6 sm:gap-12 md:px-8 lg:gap-10 lg:px-16">
         <div className="flex flex-col items-start">
           <div className="flex flex-col items-start gap-2">
-            <p className="font-body text-small font-semibold uppercase tracking-wide text-system-brand">
+            <p className="text-label text-system-brand">
               OUR VALUES
             </p>
-            <H2
+            <H3
               id="about-values-heading"
               className="text-text-primary w-full max-w-3xl"
             >
               Our values
-            </H2>
+            </H3>
           </div>
           <TextRegular className="mt-4 max-w-2xl text-text-tertiary">
             The principles that guide everything we do — from how we build

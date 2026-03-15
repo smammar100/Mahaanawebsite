@@ -43,8 +43,7 @@ export function SavePlusHero() {
             <div className="flex flex-col items-start gap-4">
               <H1
                 id="save-plus-hero-heading"
-                weight="semibold"
-                className="max-w-[592px] text-white text-[2.5rem] sm:text-[3rem] lg:text-h1"
+                className="max-w-[592px] text-white"
               >
                 Your Savings Account, You wished your bank could offer
               </H1>

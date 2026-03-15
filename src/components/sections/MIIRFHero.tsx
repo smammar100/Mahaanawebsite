@@ -46,15 +46,12 @@ export function MIIRFHero() {
           <div className="flex max-w-[550px] flex-col gap-6">
             <h1
               id="miirf-hero-heading"
-              className={cx(
-                "font-heading font-extrabold tracking-heading text-system-brand",
-                "text-[2.5rem] leading-[1.1] sm:text-5xl sm:leading-[68px] lg:text-[4.375rem] xl:text-[70px] xl:leading-[68px] xl:tracking-[-2.625px]"
-              )}
+              className="text-system-brand"
             >
               MIIRF
             </h1>
             <div className="flex flex-wrap items-center gap-4">
-              <p className="font-body text-base font-bold uppercase tracking-wide text-system-brand">
+              <p className="text-label text-system-brand">
                 With our partners
               </p>
               <div className="relative h-12 w-[108px] shrink-0">
@@ -72,10 +69,7 @@ export function MIIRFHero() {
           {/* Right: full name */}
           <div className="flex min-w-0 flex-1 flex-col gap-6 justify-start items-start lg:items-end">
             <h2
-              className={cx(
-                "font-heading font-medium tracking-heading text-text-primary text-left lg:text-right",
-                "text-3xl leading-tight sm:text-4xl lg:text-5xl lg:leading-[60px] xl:text-[56px] xl:leading-[60px] xl:tracking-[-1.12px]"
-              )}
+              className="text-text-primary text-left lg:text-right"
             >
               Mahaana Islamic IGI Retirement Fund
             </h2>
@@ -96,7 +90,7 @@ export function MIIRFHero() {
               aria-selected={selectedTab === tab.id}
               onClick={() => handleTabClick(tab.id)}
               className={cx(
-                "min-h-[44px] shrink-0 snap-start rounded-full px-4 py-3 text-center font-body text-base font-medium whitespace-nowrap transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-system-brand sm:flex-1 sm:min-w-0 sm:px-5",
+                "min-h-[44px] shrink-0 snap-start rounded-full px-4 py-3 text-center whitespace-nowrap transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-system-brand sm:flex-1 sm:min-w-0 sm:px-5",
                 selectedTab === tab.id
                   ? "bg-white text-text-primary shadow-sm"
                   : "text-text-tertiary hover:bg-white/80 hover:text-text-primary"

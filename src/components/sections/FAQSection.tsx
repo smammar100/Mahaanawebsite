@@ -4,7 +4,7 @@ import { motion } from "motion/react";
 import Link from "next/link";
 import { ChevronDown } from "@untitledui/icons";
 import { Container } from "@/components/layout/Container";
-import { H2, TextRegular } from "@/components/ui/Typography";
+import { H3, TextRegular } from "@/components/ui/Typography";
 import { Button } from "@/components/base/buttons/button";
 import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
 
@@ -86,19 +86,22 @@ export function FAQSection({
         <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-12 xl:gap-16">
           {/* Left column: Need Help? */}
           <div className="flex flex-col gap-4 lg:min-w-0 lg:flex-1">
-            <H2
-              id="faq-heading"
-              className="font-heading text-[1.75rem] font-semibold leading-[1.2] tracking-heading text-text-primary sm:text-[2rem] lg:text-[2.25rem]"
-            >
-              Need Help?
-              <br />
-              We&apos;re here to assist.
-            </H2>
-            <TextRegular className="text-text-secondary">
+            <div className="flex flex-col items-start gap-2">
+              <p className="text-label text-system-brand">FAQs</p>
+              <H3
+                id="faq-heading"
+                className="text-text-primary w-full max-w-3xl"
+              >
+                Need Help?
+                <br />
+                We&apos;re here to assist.
+              </H3>
+            </div>
+            <TextRegular className="mt-4 text-text-secondary">
               Still have questions? Feel free to contact our friendly{" "}
               <Link
                 href="/contact"
-                className="font-body text-regular font-normal text-text-secondary underline underline-offset-2 hover:text-text-primary"
+                className="text-text-secondary underline underline-offset-2 hover:text-text-primary"
               >
                 support team
               </Link>{" "}
@@ -122,7 +125,7 @@ export function FAQSection({
                   key={index}
                   className="group py-4 first:pt-0 last:pb-0"
                 >
-                  <summary className="flex cursor-pointer list-none flex-row items-center justify-between gap-3 font-body text-regular font-semibold leading-[150%] text-text-primary hover:text-text-secondary transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-system-brand rounded [&::-webkit-details-marker]:hidden">
+                  <summary className="flex cursor-pointer list-none flex-row items-center justify-between gap-3 text-text-primary hover:text-text-secondary transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-system-brand rounded [&::-webkit-details-marker]:hidden">
                     <span className="min-w-0 flex-1">{item.question}</span>
                     <ChevronDown
                       className="size-5 shrink-0 text-text-tertiary transition-transform duration-200 group-open:rotate-180"

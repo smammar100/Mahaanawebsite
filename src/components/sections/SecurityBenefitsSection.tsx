@@ -4,7 +4,7 @@ import Image from "next/image";
 import { File02, LineChartUp01, ShieldTick, Zap } from "@untitledui/icons";
 import { motion } from "motion/react";
 import { Container } from "@/components/layout/Container";
-import { H2, TextRegular } from "@/components/ui/Typography";
+import { H3, TextRegular } from "@/components/ui/Typography";
 import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
 import { cx } from "@/utils/cx";
 
@@ -48,13 +48,13 @@ export function SecurityBenefitsSection({
           <div className="grid items-center gap-x-10 gap-y-0 p-0 lg:grid-cols-[minmax(0,520px)_minmax(0,1fr)]">
             <div className="flex min-w-0 flex-col gap-8 lg:gap-10">
               <div className="flex max-w-[520px] flex-col gap-4">
-                <H2
+                <H3
                   id="security-benefits-heading"
-                  className="max-w-[520px] text-[2.5rem] leading-[1.12] tracking-heading sm:text-[3rem] lg:text-h1"
+                  className="max-w-[520px]"
                 >
                   Institutional grade asset protections
-                </H2>
-                <TextRegular className="max-w-[520px] text-text-secondary sm:text-[1.125rem] sm:leading-8">
+                </H3>
+                <TextRegular className="max-w-[520px] text-text-secondary">
                   With SECP regulation and CDC safekeeping, your investments
                   enjoy the same protections as the nation&apos;s largest
                   financial institutions.
@@ -72,7 +72,7 @@ export function SecurityBenefitsSection({
                       </div>
                       <TextRegular
                         weight="medium"
-                        className="text-text-secondary sm:text-[1.125rem] sm:leading-8"
+                        className="text-text-secondary"
                       >
                         {item.label}
                       </TextRegular>

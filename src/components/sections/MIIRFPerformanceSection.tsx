@@ -4,7 +4,7 @@ import { motion } from "motion/react";
 import type { MiirfPerformanceFundData } from "@/lib/miirf-fund-api";
 import { Container } from "@/components/layout/Container";
 import { HighchartsPerformanceChart } from "@/components/ui/HighchartsPerformanceChart";
-import { H2 } from "@/components/ui/Typography";
+import { H3 } from "@/components/ui/Typography";
 import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
 
 const CHART_COLORS = {
@@ -50,13 +50,13 @@ export function MIIRFPerformanceSection({ fundData }: { fundData?: MiirfPerforma
       aria-labelledby="miirf-performance-section-heading"
     >
       <Container className="flex flex-col gap-10 px-4 sm:px-6 md:px-8 lg:gap-10 lg:px-12 xl:px-16">
-        <H2
+        <H3
           id="miirf-performance-section-heading"
           weight="bold"
-          className="text-text-primary text-2xl sm:text-3xl lg:text-h2"
+          className="text-text-primary"
         >
           Performance
-        </H2>
+        </H3>
 
         <div className="rounded-2xl border border-surface-stroke bg-surface-card p-4 sm:p-6">
           <div

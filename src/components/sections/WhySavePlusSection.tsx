@@ -3,7 +3,7 @@
 import { File02, LineChartUp01, ShieldTick } from "@untitledui/icons";
 import { motion } from "motion/react";
 import { Container } from "@/components/layout/Container";
-import { H2, TextLarge, TextRegular } from "@/components/ui/Typography";
+import { H3, TextLarge, TextRegular } from "@/components/ui/Typography";
 import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
 
 const features = [
@@ -37,15 +37,15 @@ export function WhySavePlusSection() {
       <Container className="flex flex-col gap-6 px-4 sm:px-6 md:px-8 lg:px-16">
         <div className="flex flex-col items-start">
           <div className="flex flex-col items-start gap-2">
-            <p className="font-body text-small font-semibold uppercase tracking-wide text-system-brand">
+            <p className="text-label text-system-brand">
               WHY MAHAANA SAVE+
             </p>
-            <H2
+            <H3
               id="why-save-plus-heading"
               className="text-text-primary w-full max-w-3xl"
             >
               Why Mahaana Save+
-            </H2>
+            </H3>
           </div>
           <TextRegular className="mt-4 max-w-2xl text-text-tertiary">
             Mahaana Save+ helps you earn daily returns on your money locked in

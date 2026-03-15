@@ -2,10 +2,22 @@ import Link from "next/link";
 import Image from "next/image";
 import type { ReactNode } from "react";
 import { Container } from "./Container";
-import {
-  AppStoreButton,
-  GooglePlayButton,
-} from "@/components/base/buttons/app-store-buttons";
+import { TextSmall } from "@/components/ui/Typography";
+
+const SECURITY_BADGES = [
+  {
+    label: "CUSTODIAN",
+    title: "Central Depository Company (CDC)",
+    image: "/images/invest/CDC%20color.svg",
+    alt: "CDC",
+  },
+  {
+    label: "LICENSED BY",
+    title: "Securities & Exchange Commission of Pakistan (SECP)",
+    image: "/images/invest/SECP%20logo%20color.svg",
+    alt: "SECP",
+  },
+] as const;
 
 function NavColumn({
   heading,
@@ -18,21 +30,21 @@ function NavColumn({
 }) {
   return (
     <div className="flex flex-col gap-4">
-      <h3
+      <div
         className={
           subheading
-            ? "font-body text-tiny font-semibold uppercase tracking-wide text-text-secondary max-[768px]:text-xs max-[768px]:font-bold max-[768px]:uppercase max-[768px]:tracking-[0.08em] max-[768px]:text-text-primary max-[768px]:mb-3 md:mb-0"
-            : "font-heading text-small font-semibold tracking-heading text-text-primary max-[768px]:text-xs max-[768px]:font-bold max-[768px]:uppercase max-[768px]:tracking-[0.08em] max-[768px]:text-text-primary max-[768px]:mb-3 md:mb-0"
+            ? "text-nav-heading text-text-secondary max-[768px]:mb-3 md:mb-0"
+            : "text-nav-heading text-text-primary max-[768px]:mb-3 md:mb-0"
         }
       >
         {heading}
-      </h3>
+      </div>
       <ul className="flex flex-col gap-2">
         {links.map(({ href, label }) => (
           <li key={label}>
             <Link
               href={href}
-              className="font-body text-small text-text-tertiary transition-colors hover:text-text-primary max-[768px]:block max-[768px]:text-sm max-[768px]:font-normal max-[768px]:text-text-tertiary max-[768px]:py-1 max-[768px]:leading-[1.5]"
+              className="text-body-sm text-text-tertiary transition-colors hover:text-text-primary max-[768px]:block max-[768px]:py-1"
             >
               {label}
             </Link>
@@ -66,9 +78,37 @@ export function Footer() {
                 className="h-6 w-auto"
               />
             </Link>
-            <div className="flex flex-row gap-3">
-              <AppStoreButton href="#" className="shrink-0" />
-              <GooglePlayButton href="#" className="shrink-0" />
+            <div className="flex flex-col gap-3 sm:gap-4">
+              {SECURITY_BADGES.map((card) => (
+                <div
+                  key={card.label}
+                  className="flex min-w-0 w-full items-center gap-3 rounded-xl border border-surface-stroke/30 bg-white p-3 sm:p-4"
+                >
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-surface-stroke/15">
+                    <Image
+                      src={card.image}
+                      alt={card.alt}
+                      width={44}
+                      height={44}
+                      className="h-8 w-8 object-contain sm:h-9 sm:w-9"
+                    />
+                  </div>
+                  <div className="flex min-w-0 flex-1 flex-col gap-0.5">
+                    <TextSmall
+                      weight="medium"
+                      className="text-text-tertiary uppercase tracking-wide"
+                    >
+                      {card.label}
+                    </TextSmall>
+                    <TextSmall
+                      weight="semibold"
+                      className="text-text-primary leading-[1.35]"
+                    >
+                      {card.title}
+                    </TextSmall>
+                  </div>
+                </div>
+              ))}
             </div>
             <div className="flex items-center gap-4">
               <a
@@ -175,35 +215,35 @@ export function Footer() {
 
         {/* Legal section */}
         <div className="space-y-4 py-6 sm:py-8">
-          <p className="font-body text-tiny leading-relaxed text-text-tertiary">
+          <p className="text-body-xs leading-relaxed text-text-tertiary">
             Mahaana and its products are offered by Mahaana Capital (Pvt) Ltd.
             Investment products are not bank deposits and are not insured by the
             deposit protection scheme. Returns are not guaranteed and you may
             get back less than you invest.
           </p>
-          <p className="font-body text-tiny leading-relaxed text-text-tertiary">
+          <p className="text-body-xs leading-relaxed text-text-tertiary">
             Past performance is not a reliable indicator of future results. The
             information on this site is for general information only and does
             not constitute financial, tax or legal advice. Please see our{" "}
             <Link
-              href="#"
+              href="/terms-conditions"
               className="underline transition-colors hover:text-text-primary"
             >
               terms and conditions
             </Link>{" "}
             and{" "}
             <Link
-              href="#"
+              href="/privacy-policy"
               className="underline transition-colors hover:text-text-primary"
             >
               privacy policy
             </Link>
             .
           </p>
-          <p className="font-body text-tiny leading-relaxed text-text-tertiary">
+          <p className="text-body-xs leading-relaxed text-text-tertiary">
             © {currentYear} Mahaana. All rights reserved.
           </p>
-          <ol className="list-inside list-decimal space-y-1 font-body text-tiny leading-relaxed text-text-tertiary">
+          <ol className="list-inside list-decimal space-y-1 text-body-xs leading-relaxed text-text-tertiary">
             <li>
               Shariah compliance is subject to oversight by our Shariah advisory
               board. Product availability may vary by jurisdiction.

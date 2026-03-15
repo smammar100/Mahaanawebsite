@@ -46,12 +46,12 @@ export function ResultsBand({
   return (
     <section className="w-full py-6">
       <Container className="max-w-[680px] text-center">
-        <p className="text-sm font-semibold uppercase tracking-wide text-text-tertiary">
+        <p className="text-label text-text-tertiary">
           After {years} year{years === 1 ? "" : "s"} at {rate}% p.a.
         </p>
-        <p className="mt-2 font-heading text-4xl font-extrabold tracking-heading text-text-primary sm:text-5xl lg:text-6xl mb-8">
+        <h2 className="mt-2 mb-8 text-text-primary">
           {fmt(futureValue, INVESTMENT_CURRENCY)}
-        </p>
+        </h2>
 
         <div className="flex flex-col overflow-hidden rounded-xl border border-surface-stroke bg-white sm:flex-row">
           {stats.map((stat, i) => (
@@ -62,12 +62,12 @@ export function ResultsBand({
                 i < stats.length - 1 && "border-b border-surface-stroke sm:border-b-0 sm:border-r"
               )}
             >
-              <p className="text-[11px] font-medium uppercase tracking-wide text-text-tertiary mb-1">
+              <p className="text-label text-text-tertiary mb-1">
                 {stat.label}
               </p>
               <p
                 className={cx(
-                  "text-base font-bold sm:text-lg",
+                  "text-stat",
                   stat.green ? "text-system-success" : "text-text-primary"
                 )}
               >

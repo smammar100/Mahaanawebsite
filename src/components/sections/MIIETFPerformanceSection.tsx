@@ -3,7 +3,7 @@
 import { motion } from "motion/react";
 import { Container } from "@/components/layout/Container";
 import { HighchartsPerformanceChart } from "@/components/ui/HighchartsPerformanceChart";
-import { H2, TextMedium, TextSmall } from "@/components/ui/Typography";
+import { H3, TextMedium, TextSmall } from "@/components/ui/Typography";
 import type { MiietfPerformanceFundData } from "@/lib/miietf-fund-api";
 import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
 
@@ -94,13 +94,13 @@ export function MIIETFPerformanceSection({ fundData }: { fundData?: MiietfPerfor
       aria-labelledby="performance-section-heading"
     >
       <Container className="flex flex-col gap-4 px-4 sm:px-6 md:px-8 lg:gap-4 lg:px-12 xl:px-16">
-        <H2
+        <H3
           id="performance-section-heading"
           weight="bold"
-          className="text-text-primary text-2xl sm:text-3xl lg:text-h2"
+          className="text-text-primary"
         >
           Performance
-        </H2>
+        </H3>
 
         <div className="flex flex-col gap-4 lg:gap-4">
           {/* Chart card */}
@@ -135,7 +135,7 @@ export function MIIETFPerformanceSection({ fundData }: { fundData?: MiietfPerfor
                   >
                     <TextSmall
                       weight="semibold"
-                      className="text-text-tertiary text-sm"
+                      className="text-text-tertiary"
                     >
                       Sectors
                     </TextSmall>
@@ -146,7 +146,7 @@ export function MIIETFPerformanceSection({ fundData }: { fundData?: MiietfPerfor
                   >
                     <TextSmall
                       weight="semibold"
-                      className="text-text-tertiary text-sm"
+                      className="text-text-tertiary"
                     >
                       MTD
                     </TextSmall>
@@ -157,7 +157,7 @@ export function MIIETFPerformanceSection({ fundData }: { fundData?: MiietfPerfor
                   >
                     <TextSmall
                       weight="semibold"
-                      className="text-text-tertiary text-sm"
+                      className="text-text-tertiary"
                     >
                       YTD
                     </TextSmall>
@@ -168,7 +168,7 @@ export function MIIETFPerformanceSection({ fundData }: { fundData?: MiietfPerfor
                   >
                     <TextSmall
                       weight="semibold"
-                      className="text-text-tertiary text-sm"
+                      className="text-text-tertiary"
                     >
                       30D
                     </TextSmall>
@@ -179,7 +179,7 @@ export function MIIETFPerformanceSection({ fundData }: { fundData?: MiietfPerfor
                   >
                     <TextSmall
                       weight="semibold"
-                      className="text-text-tertiary text-sm"
+                      className="text-text-tertiary"
                     >
                       90D
                     </TextSmall>
@@ -190,7 +190,7 @@ export function MIIETFPerformanceSection({ fundData }: { fundData?: MiietfPerfor
                   >
                     <TextSmall
                       weight="semibold"
-                      className="text-text-tertiary text-sm"
+                      className="text-text-tertiary"
                     >
                       1Y
                     </TextSmall>
@@ -201,7 +201,7 @@ export function MIIETFPerformanceSection({ fundData }: { fundData?: MiietfPerfor
                   >
                     <TextSmall
                       weight="semibold"
-                      className="text-text-tertiary text-sm"
+                      className="text-text-tertiary"
                     >
                       Since inception
                     </TextSmall>
@@ -223,7 +223,7 @@ export function MIIETFPerformanceSection({ fundData }: { fundData?: MiietfPerfor
                         />
                         <TextMedium
                           weight="semibold"
-                          className="text-text-primary text-base"
+                          className="text-text-primary"
                         >
                           {row.label}
                         </TextMedium>
@@ -232,7 +232,7 @@ export function MIIETFPerformanceSection({ fundData }: { fundData?: MiietfPerfor
                     <td className="px-4 py-5 text-center sm:px-6">
                       <TextMedium
                         weight="semibold"
-                        className="text-text-primary text-base"
+                        className="text-text-primary"
                       >
                         {row.mtd}
                       </TextMedium>
@@ -240,7 +240,7 @@ export function MIIETFPerformanceSection({ fundData }: { fundData?: MiietfPerfor
                     <td className="px-4 py-5 text-center sm:px-6">
                       <TextMedium
                         weight="semibold"
-                        className="text-text-primary text-base"
+                        className="text-text-primary"
                       >
                         {row.ytd}
                       </TextMedium>
@@ -248,7 +248,7 @@ export function MIIETFPerformanceSection({ fundData }: { fundData?: MiietfPerfor
                     <td className="px-4 py-5 text-center sm:px-6">
                       <TextMedium
                         weight="semibold"
-                        className="text-text-primary text-base"
+                        className="text-text-primary"
                       >
                         {row.d30}
                       </TextMedium>
@@ -256,7 +256,7 @@ export function MIIETFPerformanceSection({ fundData }: { fundData?: MiietfPerfor
                     <td className="px-4 py-5 text-center sm:px-6">
                       <TextMedium
                         weight="semibold"
-                        className="text-text-primary text-base"
+                        className="text-text-primary"
                       >
                         {row.d90}
                       </TextMedium>
@@ -264,7 +264,7 @@ export function MIIETFPerformanceSection({ fundData }: { fundData?: MiietfPerfor
                     <td className="px-4 py-5 text-center sm:px-6">
                       <TextMedium
                         weight="semibold"
-                        className="text-text-primary text-base"
+                        className="text-text-primary"
                       >
                         {row.y1}
                       </TextMedium>
@@ -272,7 +272,7 @@ export function MIIETFPerformanceSection({ fundData }: { fundData?: MiietfPerfor
                     <td className="px-4 py-5 text-center sm:px-6">
                       <TextMedium
                         weight="semibold"
-                        className="text-text-primary text-base"
+                        className="text-text-primary"
                       >
                         {row.sinceInception}
                       </TextMedium>

@@ -19,7 +19,7 @@ export default function RetirementCalculatorPage() {
       {/* Section 1 — Hero */}
       <AnimatedSection className="pt-[52px] pb-9">
         <Container className="text-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16">
-          <H1 className="text-text-primary" weight="extrabold">
+          <H1 className="text-text-primary">
             FIRE calculator
           </H1>
           <TextMedium className="mx-auto mt-3 max-w-[540px] text-text-secondary">

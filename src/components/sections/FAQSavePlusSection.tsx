@@ -3,7 +3,7 @@
 import { motion } from "motion/react";
 import { ChevronDown } from "@untitledui/icons";
 import { Container } from "@/components/layout/Container";
-import { H2, TextRegular } from "@/components/ui/Typography";
+import { H3, TextRegular } from "@/components/ui/Typography";
 import { Button } from "@/components/base/buttons/button";
 import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
 
@@ -54,13 +54,16 @@ export function FAQSavePlusSection({
       <Container className="flex flex-col gap-10 px-4 sm:px-6 md:px-8 lg:px-16 sm:gap-6">
         <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-12 xl:gap-16">
           <div className="flex flex-col gap-4 lg:min-w-0 lg:flex-1">
-            <H2
-              id="faq-save-plus-heading"
-              className="font-heading text-[1.75rem] font-semibold leading-[1.2] tracking-heading text-text-primary sm:text-[2rem] lg:text-[2.25rem]"
-            >
-              Frequently asked questions
-            </H2>
-            <TextRegular className="text-text-secondary">
+            <div className="flex flex-col items-start gap-2">
+              <p className="text-label text-system-brand">FAQs</p>
+              <H3
+                id="faq-save-plus-heading"
+                className="text-text-primary w-full max-w-3xl"
+              >
+                Frequently asked questions
+              </H3>
+            </div>
+            <TextRegular className="mt-4 text-text-secondary">
               Everything you need to know about Mahaana Save+
             </TextRegular>
             <Button
@@ -80,7 +83,7 @@ export function FAQSavePlusSection({
                   key={index}
                   className="group py-4 first:pt-0 last:pb-0"
                 >
-                  <summary className="flex cursor-pointer list-none flex-row items-center justify-between gap-3 font-body text-regular font-semibold leading-[150%] text-text-primary hover:text-text-secondary transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-system-brand rounded [&::-webkit-details-marker]:hidden">
+                  <summary className="flex cursor-pointer list-none flex-row items-center justify-between gap-3 text-text-primary hover:text-text-secondary transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-system-brand rounded [&::-webkit-details-marker]:hidden">
                     <span className="min-w-0 flex-1">{item.question}</span>
                     <ChevronDown
                       className="size-5 shrink-0 text-text-tertiary transition-transform duration-200 group-open:rotate-180"

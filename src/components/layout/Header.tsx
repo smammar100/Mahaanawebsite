@@ -29,6 +29,11 @@ export function Header() {
   const [navOpenValue, setNavOpenValue] = useState<string>('');
   const pathname = usePathname();
   const [scrolledPastHero, setScrolledPastHero] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const isHeroPage = pathname === '/' || pathname === '/retirement' || pathname === '/save-plus';
 
@@ -110,19 +115,20 @@ export function Header() {
               />
             </Link>
 
-            <NavigationMenu
-              className="hidden lg:block flex-1"
-              value={navOpenValue}
-              onValueChange={setNavOpenValue}
-              viewportWrapperClassName={
-                navOpenValue === `nav-${navDropdowns.length - 1}`
-                  ? 'justify-end'
-                  : navOpenValue === 'nav-0'
-                    ? 'justify-start'
-                    : undefined
-              }
-            >
-              <NavigationMenuList className="flex flex-1 list-none items-center justify-center gap-8">
+            {mounted ? (
+              <NavigationMenu
+                className="hidden lg:block flex-1"
+                value={navOpenValue}
+                onValueChange={setNavOpenValue}
+                viewportWrapperClassName={
+                  navOpenValue === `nav-${navDropdowns.length - 1}`
+                    ? 'justify-end'
+                    : navOpenValue === 'nav-0'
+                      ? 'justify-start'
+                      : undefined
+                }
+              >
+                <NavigationMenuList className="flex flex-1 list-none items-center justify-center gap-8">
                 {navDropdowns.map((config, index) => (
                   <NavigationMenuItem key={config.label} value={`nav-${index}`}>
                     <NavigationMenuTrigger
@@ -183,6 +189,26 @@ export function Header() {
                 ))}
               </NavigationMenuList>
             </NavigationMenu>
+            ) : (
+              <nav
+                className="hidden lg:flex flex-1 list-none items-center justify-center gap-8"
+                aria-label="Main navigation"
+              >
+                {navDropdowns.map((config) => (
+                  <span
+                    key={config.label}
+                    className={cx(
+                      'h-auto bg-transparent px-2.5 font-body font-medium text-base tracking-[-0.24px]',
+                      isTransparent
+                        ? 'text-white'
+                        : 'text-text-primary text-text-tertiary'
+                    )}
+                  >
+                    {config.label}
+                  </span>
+                ))}
+              </nav>
+            )}
 
             <div className="flex flex-1 items-center justify-end gap-2 lg:flex-initial">
               <Button
@@ -314,7 +340,7 @@ export function Header() {
                     className="border-b border-surface-stroke"
                   >
                     <AccordionTrigger
-                      className="w-full cursor-pointer border-b border-surface-stroke py-4 text-base font-medium text-text-primary hover:bg-surface-card hover:no-underline [&[data-state=open]>svg]:rotate-180"
+                      className="w-full cursor-pointer border-b border-surface-stroke py-4 text-text-primary hover:bg-surface-card hover:no-underline [&[data-state=open]>svg]:rotate-180"
                     >
                       <span>{config.label}</span>
                       <ChevronDown className="size-5 shrink-0 text-text-tertiary transition-transform duration-200 [&[data-state=open]>svg]:rotate-180" aria-hidden />
@@ -323,7 +349,7 @@ export function Header() {
                       {config.sections.map((section, sectionIndex) => (
                         <div key={section.heading || `s-${sectionIndex}`}>
                           {section.heading ? (
-                            <div className="px-4 pt-3 pb-1 font-body text-tiny font-semibold uppercase tracking-wide text-system-brand">
+                            <div className="px-4 pt-3 pb-1 text-label text-system-brand">
                               {section.heading}
                             </div>
                           ) : null}
@@ -331,7 +357,7 @@ export function Header() {
                             <Link
                               key={link.href}
                               href={link.href}
-                              className="block py-3 px-4 font-body text-small font-medium text-text-primary transition-colors hover:bg-surface-card"
+                              className="block py-3 px-4 text-text-primary transition-colors hover:bg-surface-card"
                               onClick={() => setMobileMenuOpen(false)}
                             >
                               {link.label}

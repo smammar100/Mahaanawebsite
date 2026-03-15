@@ -20,7 +20,6 @@ interface TypographyProps {
 
 function withHeading(
   as: "h1" | "h2" | "h3" | "h4" | "h5" | "h6",
-  baseClasses: string,
   defaultWeight: Weight = "semibold"
 ) {
   const Tag = as;
@@ -31,61 +30,42 @@ function withHeading(
     id,
   }: TypographyProps) {
     return (
-      <Tag
-        id={id}
-        className={`${baseClasses} ${weightMap[weight]} ${className}`}
-      >
+      <Tag id={id} className={`${weightMap[weight]} ${className}`.trim()}>
         {children}
       </Tag>
     );
   };
 }
 
-function withText(baseClasses: string, defaultWeight: Weight = "normal") {
+function withText(
+  baseClass: string,
+  defaultWeight: Weight = "normal"
+) {
   return function TypographyComponent({
     children,
     className = "",
     weight = defaultWeight,
   }: TypographyProps) {
     return (
-      <span className={`${baseClasses} ${weightMap[weight]} ${className}`}>
+      <span className={`${baseClass} ${weightMap[weight]} ${className}`.trim()}>
         {children}
       </span>
     );
   };
 }
 
-export const H1 = withHeading(
-  "h1",
-  "font-heading tracking-heading text-[2.5rem] lg:text-h1 leading-[120%]"
-);
-export const H2 = withHeading(
-  "h2",
-  "font-heading tracking-heading text-[2.25rem] lg:text-h2 leading-[120%]"
-);
-export const H3 = withHeading(
-  "h3",
-  "font-heading tracking-heading text-[2rem] lg:text-h3 leading-[120%]"
-);
-export const H4 = withHeading(
-  "h4",
-  "font-heading tracking-heading text-h4 leading-[140%]",
-  "semibold"
-);
-export const H5 = withHeading(
-  "h5",
-  "font-heading tracking-heading text-h5 leading-[140%]",
-  "semibold"
-);
-export const H6 = withHeading(
-  "h6",
-  "font-heading tracking-heading text-h6 leading-[140%]",
-  "semibold"
-);
+/* Heading components: size/line-height/font-family come from globals.css base styles; only weight and color/spacing via className are applied here. */
+export const H1 = withHeading("h1", "bold");
+export const H2 = withHeading("h2", "bold");
+export const H3 = withHeading("h3", "semibold");
+export const H4 = withHeading("h4", "semibold");
+export const H5 = withHeading("h5", "semibold");
+export const H6 = withHeading("h6", "semibold");
 
-export const TextLarge = withText("font-body text-large leading-[150%]");
-export const TextMedium = withText("font-body text-medium leading-[150%]");
-export const TextRegular = withText("font-body text-regular leading-[150%]");
-export const TextSmall = withText("font-body text-small leading-[150%]");
-export const TextTiny = withText("font-body text-tiny leading-[150%]");
-export const Tagline = withText("font-body text-tagline leading-[150%]");
+/* Text components: use global body-text classes from globals.css; only weight and color/spacing via className. */
+export const TextLarge = withText("text-body-lg");
+export const TextMedium = withText("text-body-md");
+export const TextRegular = withText("text-body");
+export const TextSmall = withText("text-body-sm");
+export const TextTiny = withText("text-body-xs");
+export const Tagline = withText("text-body");

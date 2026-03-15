@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { motion } from "motion/react";
 import { Container } from "@/components/layout/Container";
-import { H2, TextRegular } from "@/components/ui/Typography";
+import { H3, TextRegular } from "@/components/ui/Typography";
 import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
 import { cx } from "@/utils/cx";
 
@@ -83,12 +83,12 @@ export function TaxCreditTableSection() {
     >
       <Container className="flex flex-col gap-10 px-4 sm:px-6 md:px-8 lg:px-16 sm:gap-6">
         <div className="mx-auto max-w-3xl flex flex-col text-center">
-          <H2
+          <H3
             id="tax-credit-heading"
-            className="font-heading text-[1.75rem] font-semibold leading-[1.2] tracking-heading text-text-primary sm:text-[2rem] lg:text-[2.25rem]"
+            className="text-text-primary"
           >
             Visualize your tax savings with Mahaana Retirement
-          </H2>
+          </H3>
           <TextRegular className="mt-4 text-text-secondary">
             View detailed tax credit calculations across all income slabs and understand exactly how much you can save by investing in Mahaana Retirement.
           </TextRegular>
@@ -103,7 +103,7 @@ export function TaxCreditTableSection() {
             type="button"
             onClick={() => switchClass("salaried")}
             className={cx(
-              "rounded-full px-5 py-2.5 font-body text-small font-semibold transition-colors",
+              "rounded-full px-5 py-2.5 transition-colors",
               classType === "salaried"
                 ? "bg-surface-card border border-surface-stroke text-text-primary shadow-sm"
                 : "text-text-tertiary hover:text-text-secondary"
@@ -115,7 +115,7 @@ export function TaxCreditTableSection() {
             type="button"
             onClick={() => switchClass("non-salaried")}
             className={cx(
-              "rounded-full px-5 py-2.5 font-body text-small font-semibold transition-colors",
+              "rounded-full px-5 py-2.5 transition-colors",
               classType === "non-salaried"
                 ? "bg-surface-card border border-surface-stroke text-text-primary shadow-sm"
                 : "text-text-tertiary hover:text-text-secondary"
@@ -130,22 +130,22 @@ export function TaxCreditTableSection() {
             <table className="w-full min-w-[600px] sm:min-w-[800px]" role="table" aria-label="Tax credit by income">
               <thead>
                 <tr className="bg-primary-200">
-                  <th className="px-4 py-3 text-left font-body text-tiny font-semibold uppercase tracking-wide text-white sm:px-6">
+                  <th className="px-4 py-3 text-left text-label text-white sm:px-6">
                     Monthly income
                   </th>
-                  <th className="px-4 py-3 text-left font-body text-tiny font-semibold uppercase tracking-wide text-white sm:px-6">
+                  <th className="px-4 py-3 text-left text-label text-white sm:px-6">
                     Annual income
                   </th>
-                  <th className="px-4 py-3 text-left font-body text-tiny font-semibold uppercase tracking-wide text-white sm:px-6">
+                  <th className="px-4 py-3 text-left text-label text-white sm:px-6">
                     Annual income tax
                   </th>
-                  <th className="px-4 py-3 text-left font-body text-tiny font-semibold uppercase tracking-wide text-white sm:px-6">
+                  <th className="px-4 py-3 text-left text-label text-white sm:px-6">
                     Effective tax rate
                   </th>
-                  <th className="px-4 py-3 text-left font-body text-tiny font-semibold uppercase tracking-wide text-white sm:px-6">
+                  <th className="px-4 py-3 text-left text-label text-white sm:px-6">
                     VPS investment permissible for tax credit
                   </th>
-                  <th className="px-4 py-3 text-left font-body text-tiny font-semibold uppercase tracking-wide text-white sm:px-6">
+                  <th className="px-4 py-3 text-left text-label text-white sm:px-6">
                     Maximum tax credit amount
                   </th>
                 </tr>
@@ -156,22 +156,22 @@ export function TaxCreditTableSection() {
                     key={`${classType}-${start + i}`}
                     className={i % 2 === 0 ? "bg-surface-card" : "bg-surface-bg"}
                   >
-                    <td className="px-4 py-4 font-body text-small text-text-primary sm:px-6">
+                    <td className="px-4 py-4 text-text-primary sm:px-6">
                       {formatNum(row.monthlyIncome)}
                     </td>
-                    <td className="px-4 py-4 font-body text-small text-text-primary sm:px-6">
+                    <td className="px-4 py-4 text-text-primary sm:px-6">
                       {formatNum(row.annualIncome)}
                     </td>
-                    <td className="px-4 py-4 font-body text-small text-text-primary sm:px-6">
+                    <td className="px-4 py-4 text-text-primary sm:px-6">
                       {formatNum(row.annualIncomeTax)}
                     </td>
-                    <td className="px-4 py-4 font-body text-small text-text-primary sm:px-6">
+                    <td className="px-4 py-4 text-text-primary sm:px-6">
                       {row.effectiveTaxRate}
                     </td>
-                    <td className="px-4 py-4 font-body text-small text-text-primary sm:px-6">
+                    <td className="px-4 py-4 text-text-primary sm:px-6">
                       {formatNum(row.vpsInvestmentPermissible)}
                     </td>
-                    <td className="px-4 py-4 font-body text-small text-text-primary sm:px-6">
+                    <td className="px-4 py-4 text-text-primary sm:px-6">
                       {formatNum(row.maxTaxCredit)}
                     </td>
                   </tr>
@@ -180,7 +180,7 @@ export function TaxCreditTableSection() {
             </table>
           </div>
           <div className="flex flex-wrap items-center justify-between gap-2 border-t border-surface-stroke px-4 py-4 sm:px-6">
-            <p className="font-body text-small text-text-secondary">
+            <p className="text-text-secondary">
               Page {currentPage} of {totalPages}
             </p>
             <div className="flex gap-2">
@@ -189,7 +189,7 @@ export function TaxCreditTableSection() {
                 onClick={goPrev}
                 disabled={currentPage <= 1}
                 className={cx(
-                  "rounded-full border border-surface-stroke bg-surface-card px-4 py-2 font-body text-small font-medium transition-colors",
+                  "rounded-full border border-surface-stroke bg-surface-card px-4 py-2 transition-colors",
                   currentPage <= 1
                     ? "cursor-not-allowed text-text-tertiary opacity-70"
                     : "text-text-primary hover:bg-surface-card"
@@ -202,7 +202,7 @@ export function TaxCreditTableSection() {
                 onClick={goNext}
                 disabled={currentPage >= totalPages}
                 className={cx(
-                  "rounded-full border border-surface-stroke bg-surface-card px-4 py-2 font-body text-small font-semibold transition-colors",
+                  "rounded-full border border-surface-stroke bg-surface-card px-4 py-2 transition-colors",
                   currentPage >= totalPages
                     ? "cursor-not-allowed text-text-tertiary opacity-70"
                     : "text-text-primary hover:bg-surface-card"

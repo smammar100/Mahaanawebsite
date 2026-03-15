@@ -4,7 +4,7 @@ import { useId, useState, useEffect } from "react";
 import type { Options } from "highcharts";
 import { motion } from "motion/react";
 import { Container } from "@/components/layout/Container";
-import { H2, H4, TextMedium, TextSmall } from "@/components/ui/Typography";
+import { H3, H4, TextMedium, TextSmall } from "@/components/ui/Typography";
 import { HighchartsVariablePieChart } from "@/components/ui/HighchartsVariablePieChart";
 import type { MicfPortfolioFundData } from "@/lib/micf-fund-api";
 import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
@@ -428,18 +428,18 @@ export function MICFPortfolioSection({
       aria-labelledby="micf-portfolio-section-heading"
     >
       <Container className="flex flex-col gap-10 px-4 sm:px-6 md:px-8 lg:gap-10 lg:px-12 xl:px-16">
-        <H2
+        <H3
           id="micf-portfolio-section-heading"
           weight="bold"
-          className="text-text-primary text-2xl sm:text-3xl lg:text-h2"
+          className="text-text-primary"
         >
           Portfolio
-        </H2>
+        </H3>
 
         <div className="flex flex-col gap-10 lg:gap-10">
           {/* 1. Asset Allocation: column chart + table */}
           <div className="flex flex-col gap-6">
-            <H4 className="text-text-primary text-xl lg:text-2xl" weight="semibold">
+            <H4 className="text-text-primary" weight="semibold">
               Asset Allocation
             </H4>
             <div className="flex flex-col gap-6">
@@ -463,17 +463,17 @@ export function MICFPortfolioSection({
                   <thead>
                     <tr>
                       <th scope="col" className="bg-surface-stroke px-4 py-4 text-left sm:px-6">
-                        <TextSmall weight="semibold" className="text-text-tertiary text-sm">
+                        <TextSmall weight="semibold" className="text-text-tertiary">
                           Items
                         </TextSmall>
                       </th>
                       <th scope="col" className="bg-surface-stroke px-4 py-4 text-center sm:px-6">
-                        <TextSmall weight="semibold" className="text-text-tertiary text-sm">
+                        <TextSmall weight="semibold" className="text-text-tertiary">
                           Current month
                         </TextSmall>
                       </th>
                       <th scope="col" className="bg-surface-stroke px-4 py-4 text-center sm:px-6">
-                        <TextSmall weight="semibold" className="text-text-tertiary text-sm">
+                        <TextSmall weight="semibold" className="text-text-tertiary">
                           Previous month
                         </TextSmall>
                       </th>
@@ -489,18 +489,18 @@ export function MICFPortfolioSection({
                               style={{ backgroundColor: row.color }}
                               aria-hidden
                             />
-                            <TextMedium weight="semibold" className="text-text-primary text-base">
+                            <TextMedium weight="semibold" className="text-text-primary">
                               {row.item}
                             </TextMedium>
                           </div>
                         </td>
                         <td className="px-4 py-5 text-center sm:px-6">
-                          <TextMedium weight="semibold" className="text-text-primary text-base">
+                          <TextMedium weight="semibold" className="text-text-primary">
                             {row.currentMonth}
                           </TextMedium>
                         </td>
                         <td className="px-4 py-5 text-center sm:px-6">
-                          <TextMedium weight="semibold" className="text-text-primary text-base">
+                          <TextMedium weight="semibold" className="text-text-primary">
                             {row.previousMonth}
                           </TextMedium>
                         </td>
@@ -514,7 +514,7 @@ export function MICFPortfolioSection({
 
           {/* 2. Credit quality: table (left) + donut (right) */}
           <div className="flex flex-col gap-6 justify-start items-start">
-            <H4 className="text-text-primary text-xl lg:text-2xl" weight="semibold">
+            <H4 className="text-text-primary" weight="semibold">
               Credit quality
             </H4>
             <div className="flex min-w-0 w-full flex-col gap-6 lg:flex-row lg:gap-6">
@@ -528,12 +528,12 @@ export function MICFPortfolioSection({
                     <thead>
                       <tr>
                         <th scope="col" className="bg-surface-stroke px-4 py-4 text-left sm:px-6">
-                          <TextSmall weight="semibold" className="text-text-tertiary text-sm">
+                          <TextSmall weight="semibold" className="text-text-tertiary">
                             Items
                           </TextSmall>
                         </th>
                         <th scope="col" className="bg-surface-stroke px-4 py-4 text-center sm:px-6">
-                          <TextSmall weight="semibold" className="text-text-tertiary text-sm">
+                          <TextSmall weight="semibold" className="text-text-tertiary">
                             Percentage
                           </TextSmall>
                         </th>
@@ -555,13 +555,13 @@ export function MICFPortfolioSection({
                                 style={{ backgroundColor: row.color }}
                                 aria-hidden
                               />
-                              <TextMedium weight="semibold" className="text-text-primary text-base">
+                              <TextMedium weight="semibold" className="text-text-primary">
                                 {row.item}
                               </TextMedium>
                             </div>
                           </td>
                           <td className="px-4 py-5 text-center sm:px-6">
-                            <TextMedium weight="semibold" className="text-text-primary text-base">
+                            <TextMedium weight="semibold" className="text-text-primary">
                               {row.percentage}
                             </TextMedium>
                           </td>
@@ -583,7 +583,7 @@ export function MICFPortfolioSection({
 
           {/* 3. Top holdings: donut (left) + table (right) */}
           <div className="flex flex-col gap-6">
-            <H4 className="text-text-primary text-xl lg:text-2xl" weight="semibold">
+            <H4 className="text-text-primary" weight="semibold">
               Top holdings
             </H4>
             <div className="flex min-w-0 flex-col gap-6 lg:flex-row lg:gap-6">
@@ -604,12 +604,12 @@ export function MICFPortfolioSection({
                     <thead>
                       <tr>
                         <th scope="col" className="bg-surface-stroke px-4 py-4 text-left sm:px-6">
-                          <TextSmall weight="semibold" className="text-text-tertiary text-sm">
+                          <TextSmall weight="semibold" className="text-text-tertiary">
                             Instrument
                           </TextSmall>
                         </th>
                         <th scope="col" className="bg-surface-stroke px-4 py-4 text-center sm:px-6">
-                          <TextSmall weight="semibold" className="text-text-tertiary text-sm">
+                          <TextSmall weight="semibold" className="text-text-tertiary">
                             Percentage
                           </TextSmall>
                         </th>
@@ -631,13 +631,13 @@ export function MICFPortfolioSection({
                                 style={{ backgroundColor: row.color }}
                                 aria-hidden
                               />
-                              <TextMedium weight="semibold" className="text-text-primary text-base">
+                              <TextMedium weight="semibold" className="text-text-primary">
                                 {row.name}
                               </TextMedium>
                             </div>
                           </td>
                           <td className="px-4 py-5 text-center sm:px-6">
-                            <TextMedium weight="semibold" className="text-text-primary text-base">
+                            <TextMedium weight="semibold" className="text-text-primary">
                               {row.percentage}
                             </TextMedium>
                           </td>

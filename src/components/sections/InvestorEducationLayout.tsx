@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Container } from "@/components/layout/Container";
-import { H2, TextLarge } from "@/components/ui/Typography";
+import { H3, TextLarge } from "@/components/ui/Typography";
 import { InvestorEducationContent } from "@/components/sections/InvestorEducationContent";
 import { cx } from "@/utils/cx";
 import type { SanityInvestorEducation } from "@/lib/sanity/types";
@@ -43,7 +43,7 @@ export function InvestorEducationLayout({
       <section className="bg-gradient-brand py-12 sm:py-16 lg:py-24">
         <Container className="flex flex-col items-center gap-10 text-center">
           <div className="flex flex-col items-center gap-4">
-            <H2 className="text-white">{headline}</H2>
+            <H3 className="text-white">{headline}</H3>
             <TextLarge className="text-primary-100">{subtitle}</TextLarge>
           </div>
           <div
@@ -61,7 +61,7 @@ export function InvestorEducationLayout({
                   aria-selected={isActive}
                   onClick={() => setSelectedCategory(id)}
                   className={cx(
-                    "min-h-[44px] w-fit shrink-0 snap-start rounded-full px-4 py-3 text-center font-body text-base font-medium whitespace-nowrap transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-system-brand sm:px-5",
+                    "min-h-[44px] w-fit shrink-0 snap-start rounded-full px-4 py-3 text-center whitespace-nowrap transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-system-brand sm:px-5",
                     isActive
                       ? "bg-white text-text-primary shadow-sm"
                       : "text-text-tertiary hover:bg-white/80 hover:text-text-primary"

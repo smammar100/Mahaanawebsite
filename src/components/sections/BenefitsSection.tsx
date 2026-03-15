@@ -77,7 +77,7 @@ function PortfolioPieChartTooltip({
   const value = item.value;
   return (
     <div className="rounded-lg border border-surface-stroke bg-surface-card px-2.5 py-1.5 shadow-lg dark:bg-surface-card dark:border-surface-stroke">
-      <p className="text-[11px] font-medium text-text-primary sm:text-tiny">
+      <p className="text-label text-text-primary">
         {name}: {Number(value).toFixed(2)}%
       </p>
     </div>
@@ -104,7 +104,7 @@ function PortfolioPieChart() {
             aria-selected={selectedTab === tab}
             onClick={() => setSelectedTab(tab)}
             className={cx(
-              "rounded-lg px-2.5 py-1.5 font-body text-tiny font-medium transition-colors sm:px-3 sm:py-2 sm:text-small",
+              "rounded-lg px-2.5 py-1.5 transition-colors sm:px-3 sm:py-2",
               selectedTab === tab
                 ? "bg-primary-200 text-white dark:bg-system-brand dark:text-white"
                 : "bg-gray-100 text-text-primary hover:bg-gray-200 dark:bg-gray-700 dark:text-text-primary dark:hover:bg-gray-600"
@@ -234,7 +234,7 @@ function BenefitsCard({
       <div className="flex min-w-0 w-full flex-col lg:w-1/2 lg:flex-[1_1_0%] justify-center items-start">
         <H3
           id={index === 0 ? "benefits-heading" : undefined}
-          className="font-heading text-[1.75rem] font-semibold leading-[1.2] tracking-heading text-text-primary sm:text-[2rem] lg:text-[2.25rem]"
+          className="text-text-primary"
         >
           {headline}
         </H3>
@@ -270,7 +270,7 @@ function BenefitsCard({
                     type="button"
                     onClick={() => setSelectedRisk(risk)}
                     className={cx(
-                      "rounded-lg px-2.5 py-1.5 font-body text-tiny font-medium transition-colors sm:px-3 sm:py-2 sm:text-small",
+                      "rounded-lg px-2.5 py-1.5 transition-colors sm:px-3 sm:py-2",
                       selectedRisk === risk
                         ? "bg-primary-200 text-white dark:bg-system-brand dark:text-white"
                         : "bg-gray-100 text-text-primary hover:bg-gray-200 dark:bg-gray-700 dark:text-text-primary dark:hover:bg-gray-600"
@@ -303,7 +303,7 @@ function BenefitsCard({
                       <LabelList
                         dataKey="label"
                         position="inside"
-                        className="fill-text-primary font-body text-small font-medium"
+                        className="fill-text-primary text-body-sm font-medium"
                       />
                     </Pie>
                   </PieChart>

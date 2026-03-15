@@ -1,6 +1,6 @@
 "use client";
 
-import { H4, TextSmall } from "@/components/ui/Typography";
+import { TextSmall } from "@/components/ui/Typography";
 import { pct } from "@/lib/formatters";
 import type { RiskProfile } from "@/lib/riskProfiles";
 import type { AssetAllocation } from "@/lib/riskProfiles";
@@ -43,14 +43,14 @@ export function StrategyCard({
         className
       )}
     >
-      <p className="text-[11px] font-bold uppercase tracking-widest text-system-brand">
+      <p className="text-label text-system-brand">
         THE PLAN
       </p>
-      <H4 className="mt-1 font-bold text-text-primary">
+      <h2 className="text-card-title mt-1 mb-6 text-text-primary sm:mb-8">
         Your investing strategy
-      </H4>
+      </h2>
 
-      <div className="mt-6 flex flex-col gap-2">
+      <div className="flex flex-col gap-2">
         {profiles.map((profile, index) => {
           const isActive = profile.id === selectedId;
           return (
@@ -67,14 +67,14 @@ export function StrategyCard({
             >
               <span
                 className={cx(
-                  "flex h-[26px] w-[26px] shrink-0 items-center justify-center rounded-full text-tiny font-semibold",
+                  "flex h-[26px] w-[26px] shrink-0 items-center justify-center rounded-full text-body-xs font-semibold",
                   isActive ? "bg-primary-200 text-gray-100" : "bg-surface-stroke text-text-tertiary"
                 )}
               >
                 {index + 1}
               </span>
               <div className="min-w-0 flex-1">
-                <p className="w-28 text-small font-semibold text-text-primary">
+                <p className="w-28 text-stat text-text-primary">
                   {profile.label}
                 </p>
                 <p

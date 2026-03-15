@@ -35,7 +35,7 @@ export function InvestHero() {
               <H1
                 id="invest-hero-heading"
                 weight="semibold"
-                className="max-w-[592px] text-white text-[2.5rem] sm:text-[3rem] lg:text-h1"
+                className="max-w-[592px] text-white"
               >
                 Changing the way Pakistanis invest
               </H1>

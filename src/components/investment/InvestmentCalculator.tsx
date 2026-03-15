@@ -71,12 +71,12 @@ export function InvestmentCalculator() {
       <div className="mt-4 space-y-4 pb-4">
         <div className="rounded-2xl border border-surface-stroke bg-surface-card p-6 shadow-sm sm:p-8 lg:p-9">
           <div className="text-center">
-            <p className="text-[11px] font-bold uppercase tracking-widest text-system-brand">
+            <p className="text-label text-system-brand">
               THE JOURNEY AHEAD
             </p>
-            <h3 className="mt-1 font-heading text-2xl font-bold tracking-heading text-text-primary">
+            <h2 className="text-card-title mt-1 mb-6 text-text-primary sm:mb-8">
               Your investment projection
-            </h3>
+            </h2>
           </div>
 
           <div className="mt-1 mb-6 flex justify-center gap-6 border-b border-surface-stroke">
@@ -84,7 +84,7 @@ export function InvestmentCalculator() {
               type="button"
               onClick={() => setActiveTab("chart")}
               className={cx(
-                "pb-2 text-base font-semibold transition-colors",
+                "pb-2 text-stat transition-colors",
                 activeTab === "chart"
                   ? "border-b-2 border-system-brand text-system-brand"
                   : "text-text-tertiary hover:text-text-primary"
@@ -96,7 +96,7 @@ export function InvestmentCalculator() {
               type="button"
               onClick={() => setActiveTab("table")}
               className={cx(
-                "pb-2 text-base font-semibold transition-colors",
+                "pb-2 text-stat transition-colors",
                 activeTab === "table"
                   ? "border-b-2 border-system-brand text-system-brand"
                   : "text-text-tertiary hover:text-text-primary"
@@ -153,7 +153,7 @@ export function InvestmentCalculator() {
         </div>
       </div>
 
-      <p className="mt-0 pt-0 text-small text-text-tertiary">
+      <p className="mt-0 pt-0 text-text-tertiary">
         All projections are for illustrative purposes. This calculator is for
         educational purposes only and does not constitute financial advice.
       </p>

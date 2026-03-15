@@ -38,10 +38,10 @@ export function InputCard({
         className
       )}
     >
-      <p className="text-[11px] font-bold uppercase tracking-widest text-system-brand">
+      <p className="text-label text-system-brand">
         YOUR DETAILS
       </p>
-      <h2 className="mt-1 font-heading text-2xl font-bold tracking-heading text-text-primary lg:text-3xl mb-6 sm:mb-8">
+      <h2 className="text-card-title mt-1 mb-6 text-text-primary sm:mb-8">
         Your investment
       </h2>
 

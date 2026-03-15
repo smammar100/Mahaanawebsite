@@ -4,7 +4,7 @@ import { ArrowRight } from "@untitledui/icons";
 import { Container } from "@/components/layout/Container";
 import { Button } from "@/components/base/buttons/button";
 import { BlogCard } from "@/components/sections/BlogCard";
-import { H2, TextRegular } from "@/components/ui/Typography";
+import { H3, TextRegular } from "@/components/ui/Typography";
 import { useInView } from "@/hooks/useInView";
 import { cn } from "@/lib/utils";
 
@@ -97,12 +97,12 @@ export function BlogSection({
         {/* Header - left aligned, eyebrow matches other sections */}
         <div className="flex flex-col items-start">
           <div className="flex flex-col items-start gap-2">
-            <p className="font-body text-small font-semibold uppercase tracking-wide text-system-brand">
+            <p className="text-label text-system-brand">
               {eyebrow}
             </p>
-            <H2 id="blog-heading" className="text-text-primary w-full max-w-3xl">
+            <H3 id="blog-heading" className="text-text-primary w-full max-w-3xl">
               {heading}
-            </H2>
+            </H3>
           </div>
           <TextRegular className="mt-4 max-w-2xl text-text-tertiary">
             {description}

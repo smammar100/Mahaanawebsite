@@ -40,9 +40,9 @@ function InvestorEducationCard({ item }: { item: SanityInvestorEducation }) {
         />
       </div>
       <div className="flex min-w-0 flex-1 flex-col gap-1">
-        <h3 className="font-heading text-[20px] font-medium leading-[30px] tracking-heading text-text-primary line-clamp-2">
+        <p className="text-card-title text-text-primary line-clamp-2">
           {item.title ?? "Untitled"}
-        </h3>
+        </p>
         <TextSmall className="mt-auto pt-2 text-text-tertiary">
           {meta}
         </TextSmall>

@@ -8,6 +8,8 @@ type BlurTextProps = {
   delay?: number;
   className?: string;
   id?: string;
+  /** Root element for the animated text. Default "p". Use "h3" for heading semantics. */
+  as?: "p" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
   animateBy?: "words" | "letters" | "lines";
   direction?: "top" | "bottom";
   threshold?: number;
@@ -40,6 +42,7 @@ const BlurText: React.FC<BlurTextProps> = ({
   delay = 200,
   className = "",
   id,
+  as: Tag = "p",
   animateBy = "words",
   direction = "top",
   threshold = 0.1,
@@ -56,7 +59,7 @@ const BlurText: React.FC<BlurTextProps> = ({
     return text.split("");
   }, [text, animateBy]);
   const [inView, setInView] = useState(false);
-  const ref = useRef<HTMLParagraphElement>(null);
+  const ref = useRef<HTMLElement>(null);
 
   const observerRef = useRef<IntersectionObserver | null>(null);
 
@@ -112,8 +115,8 @@ const BlurText: React.FC<BlurTextProps> = ({
   );
 
   return (
-    <p
-      ref={ref}
+    <Tag
+      ref={ref as React.RefObject<HTMLElement>}
       id={id}
       className={className}
       style={{
@@ -155,7 +158,7 @@ const BlurText: React.FC<BlurTextProps> = ({
           </motion.span>
         );
       })}
-    </p>
+    </Tag>
   );
 };
 

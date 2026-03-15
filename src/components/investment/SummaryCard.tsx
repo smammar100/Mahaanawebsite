@@ -36,26 +36,26 @@ export function SummaryCard({
         className
       )}
     >
-      <p className="text-[11px] font-bold uppercase tracking-widest text-system-brand">
+      <p className="text-label text-system-brand">
         PROJECTION
       </p>
-      <h2 className="mt-1 font-heading text-2xl font-bold tracking-heading text-text-primary lg:text-3xl mb-6 sm:mb-8">
+      <h2 className="text-card-title mt-1 mb-6 text-text-primary sm:mb-8">
         Your future value
       </h2>
 
       <div className="flex flex-col justify-center">
-        <p className="text-[11px] font-semibold uppercase tracking-wide text-text-tertiary">
+        <p className="text-label text-text-tertiary">
           FUTURE VALUE
         </p>
         <p
           className={cx(
-            "mt-1 font-heading text-4xl font-extrabold tracking-heading lg:text-5xl transition-colors duration-300",
+            "mt-1 text-stat transition-colors duration-300",
             hasData ? "text-text-primary" : "text-text-tertiary"
           )}
         >
           {hasData ? fmt(futureValue, INVESTMENT_CURRENCY) : "—"}
         </p>
-        <p className="mt-1 min-h-[1.25rem] text-[13px] text-text-tertiary">
+        <p className="mt-1 min-h-[1.25rem] text-body-sm text-text-tertiary">
           {hasData
             ? `After ${years} year${years === 1 ? "" : "s"} at ${rate}% p.a.`
             : "Enter values to see your projection"}
@@ -70,34 +70,34 @@ export function SummaryCard({
           )}
         >
           <div className="rounded-xl border border-surface-stroke bg-surface-bg p-3 sm:p-4">
-            <p className="text-[11px] font-medium uppercase tracking-wide text-text-tertiary mb-1">
+            <p className="text-label text-text-tertiary mb-1">
               Principal
             </p>
-            <p className="text-base font-bold text-text-primary sm:text-lg">
+            <p className="text-stat text-text-primary">
               {fmt(initial, INVESTMENT_CURRENCY)}
             </p>
           </div>
           <div className="rounded-xl border border-surface-stroke bg-surface-bg p-3 sm:p-4">
-            <p className="text-[11px] font-medium uppercase tracking-wide text-text-tertiary mb-1">
+            <p className="text-label text-text-tertiary mb-1">
               Contributions
             </p>
-            <p className="text-base font-bold text-text-primary sm:text-lg">
+            <p className="text-stat text-text-primary">
               {fmt(totalContribs, INVESTMENT_CURRENCY)}
             </p>
           </div>
           <div className="rounded-xl border border-surface-stroke bg-surface-bg p-3 sm:p-4">
-            <p className="text-[11px] font-medium uppercase tracking-wide text-text-tertiary mb-1">
+            <p className="text-label text-text-tertiary mb-1">
               Return Earned
             </p>
-            <p className="text-base font-bold text-system-success sm:text-lg">
+            <p className="text-stat text-system-success">
               {fmt(interestEarned, INVESTMENT_CURRENCY)}
             </p>
           </div>
           <div className="rounded-xl border border-surface-stroke bg-surface-bg p-3 sm:p-4">
-            <p className="text-[11px] font-medium uppercase tracking-wide text-text-tertiary mb-1">
+            <p className="text-label text-text-tertiary mb-1">
               Total Growth
             </p>
-            <p className="text-base font-bold text-system-success sm:text-lg">
+            <p className="text-stat text-system-success">
               {formatGrowthPercent(growthPercent)}
             </p>
           </div>

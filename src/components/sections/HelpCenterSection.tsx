@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/accordion";
 import { Container } from "@/components/layout/Container";
 import { Input } from "@/components/ui/Input";
-import { H1, TextRegular } from "@/components/ui/Typography";
+import { H1, TextMedium, TextRegular } from "@/components/ui/Typography";
 import type { HelpCenterFaqItem } from "@/lib/sanity/fetch";
 import { cx } from "@/utils/cx";
 import { ChevronDown, SearchLg, X } from "@untitledui/icons";
@@ -175,9 +175,9 @@ export function HelpCenterSection({ items, className }: HelpCenterSectionProps) 
           <H1 id="help-center-heading" className="text-center text-white">
             Help Center
           </H1>
-          <TextRegular className="mx-auto mt-4 max-w-xl text-center text-gray-200">
+          <TextMedium className="mx-auto mt-4 max-w-xl text-center text-white/90">
             No FAQs yet. Check back soon.
-          </TextRegular>
+          </TextMedium>
         </Container>
       </section>
     );
@@ -196,13 +196,13 @@ export function HelpCenterSection({ items, className }: HelpCenterSectionProps) 
         <div className="text-center pt-16 pb-16 flex flex-col gap-2">
           <H1
             id="help-center-heading"
-            className="text-center text-white text-[2.5rem] leading-tight sm:text-[3rem] lg:text-[3.5rem]"
+            className="text-center text-white"
           >
             We&apos;ve got answers
           </H1>
-          <TextRegular className="mx-auto mt-4 max-w-xl text-center text-gray-200">
+          <TextMedium className="mx-auto mt-4 max-w-xl text-center text-white/90">
             Find answers to common questions about your account, security, and Mahaana products.
-          </TextRegular>
+          </TextMedium>
         </div>
 
         {/* Search bar + categories: sidebar top-aligned with search bar, FAQ content below */}
@@ -215,10 +215,10 @@ export function HelpCenterSection({ items, className }: HelpCenterSectionProps) 
                 type="button"
                 onClick={() => handleCategoryClick(category)}
                 className={cx(
-                  "text-left font-body text-regular transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-system-brand rounded",
+                  "text-nav-heading text-left transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-system-brand rounded",
                   activeCategory === category
-                    ? "font-semibold text-white"
-                    : "font-normal text-gray-200 hover:text-white"
+                    ? "text-white"
+                    : "text-white/80 hover:text-white"
                 )}
               >
                 {category}
@@ -253,7 +253,7 @@ export function HelpCenterSection({ items, className }: HelpCenterSectionProps) 
           {/* Row 2 col 2: FAQ blocks */}
           <div className="space-y-6 rounded-xl bg-surface-card px-4 py-6 sm:px-6 md:py-8 min-w-0">
             {filteredItems.length === 0 && searchQuery.trim() !== "" ? (
-              <p className="font-body text-regular text-text-secondary text-center py-8" role="status">
+              <p className="text-text-secondary text-center py-8" role="status">
                 No FAQs match your search.
               </p>
             ) : (
@@ -279,7 +279,7 @@ export function HelpCenterSection({ items, className }: HelpCenterSectionProps) 
                         value={`${category}-${i}`}
                         className="border-b border-surface-stroke last:border-0"
                       >
-                        <AccordionTrigger className="font-body text-regular font-semibold text-text-primary hover:no-underline hover:text-system-brand py-4">
+                        <AccordionTrigger className="font-normal text-text-primary hover:no-underline hover:text-system-brand py-4">
                           <span className="min-w-0 flex-1 text-left">{item.question}</span>
                           <ChevronDown className="size-5 shrink-0 transition-transform duration-200" aria-hidden />
                         </AccordionTrigger>

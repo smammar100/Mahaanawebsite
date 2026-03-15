@@ -33,9 +33,9 @@ export function ResultsBar({
   return (
     <section className="w-full py-4">
       <Container className="max-w-[680px] text-center">
-        <p className="font-heading text-4xl font-extrabold tracking-heading text-text-primary sm:text-5xl lg:text-6xl">
+        <h2 className="text-text-primary">
           {primaryText}
-        </p>
+        </h2>
         <TextSmall className="mt-3 text-text-tertiary">{subtitleText}</TextSmall>
       </Container>
     </section>

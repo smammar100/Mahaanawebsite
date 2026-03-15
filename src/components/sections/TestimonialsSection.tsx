@@ -6,7 +6,7 @@ import AutoScroll from "embla-carousel-auto-scroll";
 import { Star01, Zap } from "@untitledui/icons";
 
 import { Container } from "@/components/layout/Container";
-import { H2, TextMedium, TextRegular, TextSmall } from "@/components/ui/Typography";
+import { H3, TextMedium, TextRegular, TextSmall } from "@/components/ui/Typography";
 import { useInView } from "@/hooks/useInView";
 import { cx } from "@/utils/cx";
 
@@ -97,7 +97,7 @@ export function TestimonialsSection({ className }: TestimonialsSectionProps) {
             <div className="flex items-center gap-1">
               <Zap className="size-6 shrink-0 fill-primary-200 text-primary-200" aria-hidden />
               <p
-                className="font-body text-small font-semibold uppercase tracking-wide text-system-brand"
+                className="text-label text-system-brand"
                 style={{
                   textShadow:
                     "0 1px 2px color-mix(in srgb, var(--color-system-brand) 20%, transparent), 0 0 12px color-mix(in srgb, var(--color-system-brand) 12%, transparent)",
@@ -106,14 +106,14 @@ export function TestimonialsSection({ className }: TestimonialsSectionProps) {
                 Rated 4.5 stars by 20K+ Pakistanis
               </p>
             </div>
-            <H2
+            <H3
               id="testimonials-heading"
               className="text-text-primary w-full max-w-3xl"
             >
               Meet our happy investors
-            </H2>
+            </H3>
           </div>
-          <TextRegular className="mt-0 max-w-2xl text-text-tertiary sm:text-[1.125rem] sm:leading-8">
+          <TextRegular className="mt-0 max-w-2xl text-text-tertiary">
             Join a growing community of smart savers, professionals, and everyday
             Pakistanis who trust Mahaana to secure their financial future.
           </TextRegular>

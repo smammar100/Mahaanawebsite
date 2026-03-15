@@ -3,11 +3,7 @@
 import Image from "next/image";
 import { CheckCircle } from "@untitledui/icons";
 import { Container } from "@/components/layout/Container";
-import {
-  H2,
-  H3,
-  TextRegular,
-} from "@/components/ui/Typography";
+import { H3, TextRegular } from "@/components/ui/Typography";
 import { Button } from "@/components/base/buttons/button";
 import { useInView } from "@/hooks/useInView";
 import { cx } from "@/utils/cx";
@@ -70,13 +66,13 @@ function FeatureBlock({
       >
         {/* Content */}
         <div className="flex flex-1 flex-col order-2 lg:order-1">
-          <p className="font-body text-small font-bold uppercase tracking-wide text-primary-150 mb-2">
+          <p className="text-label text-primary-150 mb-2">
             {badge}
           </p>
-          <H3 className="font-heading text-white/95 text-[1.75rem] sm:text-[1.875rem] lg:text-h4 leading-[1.3] tracking-heading mb-4">
+          <H3 className="text-white/95 mb-4">
             {title}
           </H3>
-          <TextRegular className="text-white/95 text-medium leading-7 max-w-xl mb-6">
+          <TextRegular className="text-white/95 max-w-xl mb-6">
             {description}
           </TextRegular>
           <div className="flex flex-col gap-2 mb-10">
@@ -127,16 +123,16 @@ export function FeaturesSection() {
         {/* Header */}
         <div className="flex flex-col gap-4 sm:gap-5 items-center text-center px-0 sm:px-4">
           <div className="inline-flex items-center justify-center rounded-2xl px-2 py-0.5">
-            <p className="font-body text-tiny font-semibold uppercase tracking-wide text-white">
+            <p className="text-label text-white">
               Investing made effortless
             </p>
           </div>
-          <H2
+          <H3
             id="features-heading"
-            className="font-heading text-white/95 leading-[1.2] tracking-heading max-w-[28rem] text-[2rem] sm:text-[2.5rem] lg:text-h2"
+            className="text-white/95 max-w-[28rem]"
           >
             Find the perfect ways to Invest
-          </H2>
+          </H3>
         </div>
 
         {/* Feature blocks */}

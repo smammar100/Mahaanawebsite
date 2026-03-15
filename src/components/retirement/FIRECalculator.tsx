@@ -108,7 +108,7 @@ export function FIRECalculator() {
         />
       </div>
 
-      <p className="mt-0 pt-0 text-small text-text-tertiary">
+      <p className="mt-0 pt-0 text-text-tertiary">
         Returns used: Money Market 6% · Debt 8% · Equity 12%. Blended return is
         weighted by allocation. All projections are for illustrative purposes.
         This calculator is for educational purposes only and does not constitute

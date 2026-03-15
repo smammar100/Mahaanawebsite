@@ -65,19 +65,19 @@ export function ProjectionSection({
   return (
     <div className="rounded-2xl border border-surface-stroke bg-surface-card p-6 shadow-sm sm:p-8 lg:p-9">
         <div className="text-center">
-          <p className="text-[11px] font-bold uppercase tracking-widest text-system-brand">
+          <p className="text-label text-system-brand">
             THE JOURNEY AHEAD
           </p>
-          <h3 className="mt-1 font-heading text-2xl font-bold tracking-heading text-text-primary">
+          <h2 className="text-card-title mt-1 mb-6 text-text-primary sm:mb-8">
             Your FIRE projection
-          </h3>
+          </h2>
         </div>
 
         <div className="mt-1 mb-6 flex justify-center gap-6 border-b border-surface-stroke">
           <button
             type="button"
             onClick={() => setActiveTab("chart")}
-            className={`pb-2 text-base font-semibold transition-colors ${
+            className={`pb-2 text-stat transition-colors ${
               activeTab === "chart"
                 ? "border-b-2 border-system-brand text-system-brand"
                 : "text-text-tertiary hover:text-text-primary"
@@ -88,7 +88,7 @@ export function ProjectionSection({
           <button
             type="button"
             onClick={() => setActiveTab("table")}
-            className={`pb-2 text-base font-semibold transition-colors ${
+            className={`pb-2 text-stat transition-colors ${
               activeTab === "table"
                 ? "border-b-2 border-system-brand text-system-brand"
                 : "text-text-tertiary hover:text-text-primary"
@@ -100,7 +100,7 @@ export function ProjectionSection({
 
         {!hasData ? (
           <div className="flex h-56 flex-col items-center justify-center rounded-lg border border-surface-stroke bg-surface-bg p-6 text-center sm:h-64 lg:h-80">
-            <p className="text-small text-text-tertiary">
+            <p className="text-text-tertiary">
               Enter your details above to see the chart
             </p>
           </div>
@@ -269,19 +269,19 @@ export function ProjectionSection({
             <table className="w-full min-w-[500px] text-left">
               <thead>
                 <tr className="border-b-2 border-surface-stroke">
-                  <th className="pb-2 pr-4 text-tiny font-medium uppercase tracking-wide text-text-tertiary">
+                  <th className="pb-2 pr-4 text-label text-text-tertiary">
                     Year
                   </th>
-                  <th className="pb-2 pr-4 text-tiny font-medium uppercase tracking-wide text-text-tertiary">
+                  <th className="pb-2 pr-4 text-label text-text-tertiary">
                     Age
                   </th>
-                  <th className="pb-2 pr-4 text-tiny font-medium uppercase tracking-wide text-text-tertiary">
+                  <th className="pb-2 pr-4 text-label text-text-tertiary">
                     Portfolio Value
                   </th>
-                  <th className="pb-2 pr-4 text-tiny font-medium uppercase tracking-wide text-text-tertiary">
+                  <th className="pb-2 pr-4 text-label text-text-tertiary">
                     Contributions (cum.)
                   </th>
-                  <th className="pb-2 text-tiny font-medium uppercase tracking-wide text-text-tertiary">
+                  <th className="pb-2 text-label text-text-tertiary">
                     Growth (cum.)
                   </th>
                 </tr>
@@ -294,7 +294,7 @@ export function ProjectionSection({
                       firstFireYear === row.year ? "font-semibold" : ""
                     }`}
                   >
-                    <td className="py-2 pr-4 text-small text-text-primary">
+                    <td className="py-2 pr-4 text-text-primary">
                       {row.year}
                       {firstFireYear === row.year && (
                         <span className="ml-2 rounded-full bg-success-400 px-2 py-0.5 text-tiny text-white">
@@ -302,16 +302,16 @@ export function ProjectionSection({
                         </span>
                       )}
                     </td>
-                    <td className="py-2 pr-4 text-small text-text-primary">
+                    <td className="py-2 pr-4 text-text-primary">
                       {row.age}
                     </td>
-                    <td className="py-2 pr-4 font-mono text-small text-text-primary">
+                    <td className="py-2 pr-4 font-mono text-text-primary">
                       {fmt(row.portfolio)}
                     </td>
-                    <td className="py-2 pr-4 font-mono text-small text-text-secondary">
+                    <td className="py-2 pr-4 font-mono text-text-secondary">
                       {fmt(row.contributions)}
                     </td>
-                    <td className="py-2 font-mono text-small text-text-secondary">
+                    <td className="py-2 font-mono text-text-secondary">
                       {fmt(row.growth)}
                     </td>
                   </tr>

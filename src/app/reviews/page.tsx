@@ -57,7 +57,7 @@ export default async function ReviewsPage() {
                         ))}
                       </div>
                     ) : null}
-                    <blockquote className="font-body text-regular leading-[150%] text-text-secondary">
+                    <blockquote className="text-text-secondary">
                       &ldquo;{review.quote ?? ""}&rdquo;
                     </blockquote>
                     <div className="mt-5 flex items-center gap-3 border-t border-surface-stroke pt-4">
@@ -73,11 +73,11 @@ export default async function ReviewsPage() {
                         </div>
                       ) : null}
                       <div className="min-w-0">
-                        <p className="font-body text-regular font-semibold text-text-primary">
+                        <p className="text-text-primary">
                           {review.authorName ?? "Anonymous"}
                         </p>
                         {review.source ? (
-                          <p className="font-body text-small text-text-tertiary">
+                          <p className="text-text-tertiary">
                             {review.source}
                           </p>
                         ) : null}

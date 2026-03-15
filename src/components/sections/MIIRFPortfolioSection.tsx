@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { motion } from "motion/react";
 import { Container } from "@/components/layout/Container";
-import { H2, H4, TextMedium, TextSmall } from "@/components/ui/Typography";
+import { H3, H4, TextMedium, TextSmall } from "@/components/ui/Typography";
 import { HighchartsVariablePieChart } from "@/components/ui/HighchartsVariablePieChart";
 import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
 import { cx } from "@/utils/cx";
@@ -130,18 +130,18 @@ export function MIIRFPortfolioSection() {
       aria-labelledby="miirf-portfolio-section-heading"
     >
       <Container className="flex flex-col gap-10 px-4 sm:px-6 md:px-8 lg:gap-10 lg:px-12 xl:px-16">
-        <H2
+        <H3
           id="miirf-portfolio-section-heading"
           weight="bold"
-          className="text-text-primary text-2xl sm:text-3xl lg:text-h2"
+          className="text-text-primary"
         >
           Portfolio
-        </H2>
+        </H3>
 
         <div className="flex flex-col gap-10 lg:gap-10">
           {/* Weighted exposure: table (50%) + chart (50%) */}
           <div className="flex flex-col gap-6">
-            <H4 className="text-text-primary text-xl lg:text-2xl" weight="semibold">
+            <H4 className="text-text-primary" weight="semibold">
               Weighted exposure
             </H4>
             <div className="flex min-w-0 flex-col gap-6 lg:flex-row lg:gap-6">
@@ -160,7 +160,7 @@ export function MIIRFPortfolioSection() {
                         >
                           <TextSmall
                             weight="semibold"
-                            className="text-text-tertiary text-sm"
+                            className="text-text-tertiary"
                           >
                             Sectors
                           </TextSmall>
@@ -171,7 +171,7 @@ export function MIIRFPortfolioSection() {
                         >
                           <TextSmall
                             weight="semibold"
-                            className="text-text-tertiary text-sm"
+                            className="text-text-tertiary"
                           >
                             MIIRF
                           </TextSmall>
@@ -182,7 +182,7 @@ export function MIIRFPortfolioSection() {
                         >
                           <TextSmall
                             weight="semibold"
-                            className="text-text-tertiary text-sm"
+                            className="text-text-tertiary"
                           >
                             KM130
                           </TextSmall>
@@ -193,7 +193,7 @@ export function MIIRFPortfolioSection() {
                         >
                           <TextSmall
                             weight="semibold"
-                            className="text-text-tertiary text-sm"
+                            className="text-text-tertiary"
                           >
                             Weight
                           </TextSmall>
@@ -218,7 +218,7 @@ export function MIIRFPortfolioSection() {
                               />
                               <TextMedium
                                 weight="semibold"
-                                className="text-text-primary text-base"
+                                className="text-text-primary"
                               >
                                 {row.sector}
                               </TextMedium>
@@ -227,7 +227,7 @@ export function MIIRFPortfolioSection() {
                           <td className="px-4 py-5 text-center sm:px-6">
                             <TextMedium
                               weight="semibold"
-                              className="text-text-primary text-base"
+                              className="text-text-primary"
                             >
                               {row.miirf}
                             </TextMedium>
@@ -235,7 +235,7 @@ export function MIIRFPortfolioSection() {
                           <td className="px-4 py-5 text-center sm:px-6">
                             <TextMedium
                               weight="semibold"
-                              className="text-text-primary text-base"
+                              className="text-text-primary"
                             >
                               {row.km130}
                             </TextMedium>
@@ -243,7 +243,7 @@ export function MIIRFPortfolioSection() {
                           <td className="px-4 py-5 text-center sm:px-6">
                             <TextMedium
                               weight="semibold"
-                              className="text-text-primary text-base"
+                              className="text-text-primary"
                             >
                               {row.weight}
                             </TextMedium>
@@ -266,7 +266,7 @@ export function MIIRFPortfolioSection() {
 
           {/* Top holdings: chart (50%) + table (50%) */}
           <div className="flex flex-col gap-6">
-            <H4 className="text-text-primary text-xl lg:text-2xl" weight="semibold">
+            <H4 className="text-text-primary" weight="semibold">
               Top holdings
             </H4>
             <div className="flex min-w-0 flex-col gap-6 lg:flex-row lg:gap-6">
@@ -292,7 +292,7 @@ export function MIIRFPortfolioSection() {
                         >
                           <TextSmall
                             weight="semibold"
-                            className="text-text-tertiary text-sm"
+                            className="text-text-tertiary"
                           >
                             Holdings
                           </TextSmall>
@@ -303,7 +303,7 @@ export function MIIRFPortfolioSection() {
                         >
                           <TextSmall
                             weight="semibold"
-                            className="text-text-tertiary text-sm"
+                            className="text-text-tertiary"
                           >
                             Percentage
                           </TextSmall>
@@ -328,7 +328,7 @@ export function MIIRFPortfolioSection() {
                               />
                               <TextMedium
                                 weight="semibold"
-                                className="text-text-primary text-base"
+                                className="text-text-primary"
                               >
                                 {row.name}
                               </TextMedium>
@@ -337,7 +337,7 @@ export function MIIRFPortfolioSection() {
                           <td className="px-4 py-5 text-center sm:px-6">
                             <TextMedium
                               weight="semibold"
-                              className="text-text-primary text-base"
+                              className="text-text-primary"
                             >
                               {row.percentage}
                             </TextMedium>

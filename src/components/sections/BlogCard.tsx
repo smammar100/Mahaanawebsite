@@ -58,9 +58,9 @@ export function BlogCard({
         )}
       </div>
       <div className="px-5 pt-5 pb-5 min-w-0">
-        <h3 className="font-body text-medium font-bold leading-[150%] text-text-primary line-clamp-2">
+        <p className="text-card-title text-text-primary line-clamp-2">
           {title}
-        </h3>
+        </p>
       </div>
     </>
   );

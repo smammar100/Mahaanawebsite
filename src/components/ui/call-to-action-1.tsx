@@ -70,11 +70,11 @@ export function CallToAction1({
               />
             ))}
           </div>
-          <p className="font-body text-small font-medium text-gray-100">
+          <p className="text-body-sm text-white">
             {badgeText}
           </p>
         </div>
-        <H2 className="mt-5 max-w-3xl font-semibold leading-tight text-gray-100 text-[2rem] sm:text-[2.5rem] sm:leading-[1.2] lg:text-h2">
+        <H2 className="mt-5 max-w-3xl text-white">
           {headline}
         </H2>
         {ctaText && ctaHref ? (

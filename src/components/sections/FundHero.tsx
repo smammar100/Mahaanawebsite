@@ -47,8 +47,7 @@ export function FundHero({
           <div className="flex flex-col gap-6 lg:max-w-[340px]">
             <H1
               id="fund-hero-heading"
-              className="text-[2rem] text-text-primary sm:text-[2.5rem] lg:text-h1"
-              weight="semibold"
+              className="text-text-primary"
             >
               {shortTitle}
             </H1>
@@ -64,7 +63,7 @@ export function FundHero({
 
           <div className="flex min-w-0 flex-1 flex-col gap-6">
             <H2
-              className="text-xl text-text-primary sm:text-2xl lg:text-h2"
+              className="text-text-primary"
               weight="semibold"
             >
               {fullTitle}
@@ -102,7 +101,7 @@ export function FundHero({
               href={`#${tab.id}`}
               role="tab"
               className={cx(
-                "flex min-h-[40px] shrink-0 snap-start items-center justify-center whitespace-nowrap rounded-full px-4 py-3 text-center font-body text-base font-medium text-text-tertiary transition-colors hover:bg-white hover:text-text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-system-brand sm:min-h-[44px] sm:flex-1 sm:min-w-0"
+                "flex min-h-[40px] shrink-0 snap-start items-center justify-center whitespace-nowrap rounded-full px-4 py-3 text-center text-text-tertiary transition-colors hover:bg-white hover:text-text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-system-brand sm:min-h-[44px] sm:flex-1 sm:min-w-0"
               )}
             >
               {tab.label}

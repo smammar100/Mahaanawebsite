@@ -138,7 +138,7 @@ export default function StyleGuidePage() {
 
         {/* Typography */}
         <section className="space-y-8">
-          <H2 className="text-text-primary">Typography</H2>
+          <H3 className="text-text-primary">Typography</H3>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
             {/* Left column — Headings */}
             <div className="space-y-6">
@@ -240,7 +240,7 @@ export default function StyleGuidePage() {
 
         {/* Buttons */}
         <section className="space-y-8">
-          <H2 className="text-text-primary">Buttons</H2>
+          <H3 className="text-text-primary">Buttons</H3>
           <TextLarge className="text-text-secondary max-w-2xl">
             Untitled UI button components styled with Mahaana design system
             colors (primary-200, surface-card, text-primary, system-brand,
@@ -293,7 +293,7 @@ export default function StyleGuidePage() {
 
         {/* App Store buttons */}
         <section className="space-y-8">
-          <H2 className="text-text-primary">App Store buttons</H2>
+          <H3 className="text-text-primary">App Store buttons</H3>
           <TextLarge className="text-text-secondary max-w-2xl">
             Untitled UI App Store and Google Play badge buttons, styled with
             design system tokens (surface-stroke, text-primary, system-brand).
@@ -324,7 +324,7 @@ export default function StyleGuidePage() {
 
         {/* Font families */}
         <section className="space-y-4">
-          <H2 className="text-text-primary">Font families</H2>
+          <H3 className="text-text-primary">Font families</H3>
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="rounded-lg border border-surface-stroke bg-surface-card p-6">
               <p className="font-heading text-lg text-text-primary">
@@ -347,7 +347,7 @@ export default function StyleGuidePage() {
 
         {/* Semantic tokens */}
         <section className="space-y-6">
-          <H2 className="text-text-primary">Semantic tokens</H2>
+          <H3 className="text-text-primary">Semantic tokens</H3>
           <div>
             <H4 className="mb-4 text-text-primary">Text colors</H4>
             <div className="flex flex-wrap gap-4">
@@ -383,7 +383,7 @@ export default function StyleGuidePage() {
 
         {/* Primitive colors */}
         <section className="space-y-8">
-          <H2 className="text-text-primary">Primitive colors</H2>
+          <H3 className="text-text-primary">Primitive colors</H3>
           {colorSwatches.map((swatches, i) => (
             <div key={paletteLabels[i]}>
               <H4 className="mb-4 text-text-primary capitalize">
@@ -408,7 +408,7 @@ export default function StyleGuidePage() {
 
         {/* Breakpoints */}
         <section className="space-y-4">
-          <H2 className="text-text-primary">Breakpoints</H2>
+          <H3 className="text-text-primary">Breakpoints</H3>
           <div className="overflow-x-auto rounded-lg border border-surface-stroke">
             <table className="w-full min-w-[400px] text-left">
               <thead>

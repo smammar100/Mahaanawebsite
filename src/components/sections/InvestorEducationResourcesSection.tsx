@@ -184,7 +184,7 @@ export function InvestorEducationResourcesSection({
                   aria-selected={isActive}
                   onClick={() => handleTabChange(value)}
                   className={cn(
-                    "min-h-[44px] shrink-0 snap-start rounded-full px-4 py-3 text-center font-body text-base whitespace-nowrap transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-system-brand sm:px-5",
+                    "min-h-[44px] shrink-0 snap-start rounded-full px-4 py-3 text-center whitespace-nowrap transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-system-brand sm:px-5",
                     isActive
                       ? "bg-white border border-white text-text-primary font-semibold shadow-sm"
                       : "font-medium text-text-tertiary hover:bg-white/80 hover:text-text-primary"

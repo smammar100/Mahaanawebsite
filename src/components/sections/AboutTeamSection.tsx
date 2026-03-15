@@ -4,7 +4,7 @@ import Image from "next/image";
 import { motion } from "motion/react";
 import { Container } from "@/components/layout/Container";
 import { LinkedInIcon } from "@/components/ui/LinkedInIcon";
-import { H2, TextSmall } from "@/components/ui/Typography";
+import { H3, TextSmall } from "@/components/ui/Typography";
 import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
 
 const TEAM = [
@@ -40,9 +40,9 @@ export function AboutTeamSection() {
     >
       <Container className="px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16">
         <div className="flex flex-col gap-8 sm:gap-10">
-          <H2 id="about-team-heading" className="text-text-primary">
+          <H3 id="about-team-heading" className="text-text-primary">
             Introducing our dedicated team
-          </H2>
+          </H3>
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {TEAM.map((person) => (
               <div
@@ -68,7 +68,7 @@ export function AboutTeamSection() {
                 </div>
                 <div className="flex flex-col gap-1">
                   <div className="flex flex-wrap items-center justify-center gap-2">
-                    <p className="font-body text-medium font-semibold text-text-primary">
+                    <p className="text-stat text-text-primary">
                       {person.name}
                     </p>
                     <a

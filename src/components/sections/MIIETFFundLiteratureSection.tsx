@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { motion } from "motion/react";
 import { Container } from "@/components/layout/Container";
-import { H2, TextMedium } from "@/components/ui/Typography";
+import { H3, TextMedium } from "@/components/ui/Typography";
 import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
 import { cx } from "@/utils/cx";
 
@@ -35,7 +35,7 @@ const FALLBACK_DOCUMENTS: Record<TabId, { title: string; href: string }[]> = {
 const isDocumentUrl = (href: string) => /^https?:\/\//i.test(href);
 
 const downloadReportClassName =
-  "flex items-center justify-end gap-1 font-body text-base font-semibold text-system-brand hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-system-brand";
+  "flex items-center justify-end gap-1 text-system-brand hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-system-brand";
 
 function ArrowUpRightIcon({ className }: { className?: string }) {
   return (
@@ -123,13 +123,13 @@ export function MIIETFFundLiteratureSection({
       aria-labelledby="fund-literature-section-heading"
     >
       <Container className="flex flex-col gap-10 px-4 sm:px-6 md:px-8 lg:gap-10 lg:px-12 xl:px-16">
-        <H2
+        <H3
           id="fund-literature-section-heading"
           weight="bold"
-          className="text-text-primary text-2xl sm:text-3xl lg:text-h2"
+          className="text-text-primary"
         >
           Fund literature
-        </H2>
+        </H3>
 
         <div className="flex flex-col gap-6 sm:gap-6">
           {/* Tab bar */}
@@ -146,10 +146,10 @@ export function MIIETFFundLiteratureSection({
                 aria-selected={activeTab === tab.id}
                 onClick={() => setActiveTab(tab.id)}
                 className={cx(
-                  "min-h-[44px] shrink-0 snap-start rounded-full px-4 py-3 text-center font-body text-base whitespace-nowrap transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-system-brand sm:flex-1 sm:min-w-0 sm:px-5",
+                  "min-h-[44px] shrink-0 snap-start rounded-full px-4 py-3 text-center whitespace-nowrap transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-system-brand sm:flex-1 sm:min-w-0 sm:px-5",
                   activeTab === tab.id
-                    ? "bg-white border border-white text-text-primary font-semibold shadow-sm"
-                    : "font-medium text-text-tertiary hover:bg-white/80 hover:text-text-primary"
+                    ? "bg-white border border-white text-text-primary shadow-sm"
+                    : "text-text-tertiary hover:bg-white/80 hover:text-text-primary"
                 )}
               >
                 {tab.label}
@@ -172,7 +172,7 @@ export function MIIETFFundLiteratureSection({
                   >
                     <TextMedium
                       weight="semibold"
-                      className="text-text-primary text-base"
+                      className="text-text-primary"
                     >
                       {doc.title}
                     </TextMedium>
@@ -211,7 +211,7 @@ export function MIIETFFundLiteratureSection({
                   >
                     <TextMedium
                       weight="semibold"
-                      className="text-text-primary text-base"
+                      className="text-text-primary"
                     >
                       {doc.title}
                     </TextMedium>

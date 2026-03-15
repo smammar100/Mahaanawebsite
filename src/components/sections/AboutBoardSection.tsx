@@ -4,7 +4,7 @@ import Image from "next/image";
 import { motion } from "motion/react";
 import { Container } from "@/components/layout/Container";
 import { LinkedInIcon } from "@/components/ui/LinkedInIcon";
-import { H2, TextSmall } from "@/components/ui/Typography";
+import { H3, TextSmall } from "@/components/ui/Typography";
 import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
 
 const BOARD = [
@@ -46,9 +46,9 @@ export function AboutBoardSection() {
     >
       <Container className="px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16">
         <div className="flex flex-col gap-8 sm:gap-10">
-          <H2 id="about-board-heading" className="text-text-primary">
+          <H3 id="about-board-heading" className="text-text-primary">
             Our esteemed board & advisors
-          </H2>
+          </H3>
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {BOARD.map((person) => (
               <div

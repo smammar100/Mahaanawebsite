@@ -2,7 +2,7 @@
 
 import { motion } from "motion/react";
 import { Container } from "@/components/layout/Container";
-import { H2, TextRegular } from "@/components/ui/Typography";
+import { H3, TextRegular } from "@/components/ui/Typography";
 import { Button } from "@/components/base/buttons/button";
 import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
 
@@ -19,9 +19,9 @@ export function AboutHiringSection() {
       <Container className="px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16">
         <div className="flex flex-col items-center gap-6 text-center">
           <div className="flex flex-col gap-4">
-            <H2 id="about-hiring-heading" className="text-text-primary">
+            <H3 id="about-hiring-heading" className="text-text-primary">
               We&apos;re hiring!
-            </H2>
+            </H3>
             <TextRegular className="text-text-secondary">
               Join us in digitizing the wealth management space.
             </TextRegular>

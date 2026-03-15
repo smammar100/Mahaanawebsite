@@ -44,7 +44,7 @@ export function RetirementHero() {
               {/* Headline - same typography as InvestHero */}
               <h1
                 id="retirement-hero-heading"
-                className="max-w-[592px] font-heading text-[2.5rem] font-semibold leading-[1.2] tracking-heading text-white sm:text-[3rem] lg:text-[3.5rem]"
+                className="max-w-[592px] text-white"
               >
                 Introducing
                 <br aria-hidden />

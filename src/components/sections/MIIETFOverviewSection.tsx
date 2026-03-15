@@ -3,7 +3,7 @@
 import { motion } from "motion/react";
 import { Container } from "@/components/layout/Container";
 import {
-  H2,
+  H3,
   H4,
   TextRegular,
   TextSmall,
@@ -70,19 +70,19 @@ export function MIIETFOverviewSection({ fundData }: { fundData?: MiietfOverviewF
       aria-labelledby="overview-section-heading"
     >
       <Container className="flex flex-col gap-10 px-4 sm:px-6 md:px-8 lg:gap-10 lg:px-12 xl:px-16">
-        <H2
+        <H3
           id="overview-section-heading"
           weight="bold"
-          className="text-text-primary text-2xl sm:text-3xl lg:text-h2"
+          className="text-text-primary"
         >
           Overview
-        </H2>
+        </H3>
 
         <div className="flex flex-col gap-10 lg:gap-10">
           {/* Product summary + Investment objective — two columns on lg */}
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-20">
             <div className="flex flex-col gap-4">
-              <H4 className="text-text-primary text-lg sm:text-xl">
+              <H4 className="text-stat text-text-primary">
                 Product summary
               </H4>
               <TextRegular className="text-text-secondary leading-[150%]">
@@ -90,7 +90,7 @@ export function MIIETFOverviewSection({ fundData }: { fundData?: MiietfOverviewF
               </TextRegular>
             </div>
             <div className="flex flex-col gap-4">
-              <H4 className="text-text-primary text-lg sm:text-xl">
+              <H4 className="text-stat text-text-primary">
                 Investment objective
               </H4>
               <TextRegular className="text-text-secondary leading-[150%]">
