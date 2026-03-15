@@ -113,7 +113,9 @@ export function Footer() {
             </div>
             <div className="flex items-center gap-4">
               <a
-                href="#"
+                href="https://www.youtube.com/@mahaanawealth"
+                target="_blank"
+                rel="noopener noreferrer"
                 aria-label="YouTube"
                 className="text-text-tertiary transition-colors hover:text-text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-system-brand"
               >
