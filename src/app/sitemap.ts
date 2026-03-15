@@ -1,9 +1,9 @@
 import type { MetadataRoute } from "next";
-import { getInvestorEducationSlugs } from "@/lib/sanity/fetch";
+import { SITE_URL } from "@/lib/metadata";
+import { getInvestorEducationSitemapEntries } from "@/lib/sanity/fetch";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = "https://www.mahaana.com";
-
+  // Exclude noindex routes: /style-guide, /studio (see robots.ts).
   const staticPages = [
     { path: "", priority: 1.0, changeFrequency: "weekly" as const },
     { path: "/about", priority: 0.8, changeFrequency: "monthly" as const },
@@ -25,16 +25,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ];
 
   const staticEntries = staticPages.map(({ path, priority, changeFrequency }) => ({
-    url: `${baseUrl}${path}`,
+    url: `${SITE_URL}${path}`,
     lastModified: new Date(),
     changeFrequency,
     priority,
   }));
 
-  const slugs = await getInvestorEducationSlugs();
-  const articleEntries = slugs.map((slug) => ({
-    url: `${baseUrl}/investor-education/${slug}`,
-    lastModified: new Date(),
+  const articleEntriesRaw = await getInvestorEducationSitemapEntries();
+  const articleEntries = articleEntriesRaw.map((entry) => ({
+    url: `${SITE_URL}/investor-education/${entry.slug}`,
+    lastModified: new Date(entry.lastModified),
     changeFrequency: "monthly" as const,
     priority: 0.7,
   }));

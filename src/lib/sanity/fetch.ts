@@ -5,6 +5,7 @@ import {
   investorEducationsByTypeQuery,
   investorEducationBySlugQuery,
   investorEducationSlugsQuery,
+  investorEducationSitemapQuery,
   latestInvestorEducationsQuery,
   fundDocumentsQuery,
   faqsQuery,
@@ -165,6 +166,27 @@ export async function getInvestorEducationSlugs(): Promise<string[]> {
     )) as string[] | null;
     const list = Array.isArray(slugs) ? slugs : [];
     return [...new Set(list)];
+  } catch {
+    return [];
+  }
+}
+
+export interface InvestorEducationSitemapEntry {
+  slug: string;
+  lastModified: string;
+}
+
+/** Investor education entries for sitemap (slug + lastmod from Sanity). */
+export async function getInvestorEducationSitemapEntries(): Promise<InvestorEducationSitemapEntry[]> {
+  const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
+  if (!projectId) return [];
+
+  try {
+    const raw = (await sanityClient.fetch(
+      investorEducationSitemapQuery
+    )) as { slug: string; lastModified: string }[] | null;
+    if (!Array.isArray(raw)) return [];
+    return raw.filter((r) => r?.slug);
   } catch {
     return [];
   }

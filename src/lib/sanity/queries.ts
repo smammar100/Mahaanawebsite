@@ -57,6 +57,14 @@ export const investorEducationSlugsQuery = `
   *[_type in ["investorEducationArticle", "investorEducationNews", "investorEducationVideoPodcast"] && defined(slug.current)].slug.current
 `;
 
+/** Investor Education slug + _updatedAt for sitemap lastmod. */
+export const investorEducationSitemapQuery = `
+  *[_type in ["investorEducationArticle", "investorEducationNews", "investorEducationVideoPodcast"] && defined(slug.current)] {
+    "slug": slug.current,
+    "lastModified": coalesce(_updatedAt, publishedAt)
+  }
+`;
+
 /** Latest 3 Investor Education items (most recent first, any type). */
 export const latestInvestorEducationsQuery = `
   *[_type in ["investorEducationArticle", "investorEducationNews", "investorEducationVideoPodcast"]] | order(publishedAt desc, _updatedAt desc)[0...3] {
