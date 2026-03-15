@@ -135,7 +135,9 @@ export function Header() {
                       className={cx(
                         'h-auto bg-transparent px-2.5 font-body font-medium text-base tracking-[-0.24px]',
                         isTransparent
-                          ? 'text-white hover:text-white'
+                          ? navOpenValue === `nav-${index}`
+                            ? 'text-text-primary hover:text-system-brand'
+                            : 'text-white hover:text-white'
                           : 'text-text-primary text-text-tertiary hover:text-system-brand'
                       )}
                     >
