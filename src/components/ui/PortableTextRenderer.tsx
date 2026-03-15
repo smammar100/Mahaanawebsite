@@ -19,7 +19,7 @@ const components: PortableTextComponents = {
       children,
     }: {
       value?: { children?: BlockChild[] };
-      children: React.ReactNode;
+      children?: React.ReactNode;
     }) => {
       const plain = headingPlainText(value as { children?: BlockChild[] });
       return (
@@ -33,7 +33,7 @@ const components: PortableTextComponents = {
       children,
     }: {
       value?: { children?: BlockChild[] };
-      children: React.ReactNode;
+      children?: React.ReactNode;
     }) => {
       const block = value as { children?: BlockChild[] } | undefined;
       const hasPlainText =
@@ -52,7 +52,7 @@ const components: PortableTextComponents = {
       children,
     }: {
       value?: { children?: BlockChild[] };
-      children: React.ReactNode;
+      children?: React.ReactNode;
     }) => {
       const plain = headingPlainText(value as { children?: BlockChild[] });
       return (
@@ -66,7 +66,7 @@ const components: PortableTextComponents = {
       children,
     }: {
       value?: { children?: BlockChild[] };
-      children: React.ReactNode;
+      children?: React.ReactNode;
     }) => {
       const plain = headingPlainText(value as { children?: BlockChild[] });
       return (
