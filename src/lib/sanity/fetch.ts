@@ -8,12 +8,14 @@ import {
   latestInvestorEducationsQuery,
   fundDocumentsQuery,
   faqsQuery,
+  legalDocumentsQuery,
 } from "./queries";
 import type {
   SanityInvestorEducation,
   SanityInvestorEducationType,
   SanityFundDocument,
   SanityFaq,
+  SanityLegalDocument,
 } from "./types";
 
 /** Map Sanity _type to app category for tabs and CTA. */
@@ -255,6 +257,35 @@ export async function getFundDocuments(
   } catch (e) {
     if (process.env.NODE_ENV === "development") {
       console.error("getFundDocuments failed:", e);
+    }
+    return [];
+  }
+}
+
+export interface LegalDocumentForSection {
+  _id: string;
+  title: string;
+  fileUrl: string | null;
+}
+
+/** Fetch all legal documents from Sanity (Legal Documents schema), ordered by _createdAt asc. */
+export async function getLegalDocuments(): Promise<LegalDocumentForSection[]> {
+  const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
+  if (!projectId) return [];
+
+  try {
+    const raw = (await sanityClient.fetch(
+      legalDocumentsQuery
+    )) as SanityLegalDocument[] | null;
+    if (!Array.isArray(raw)) return [];
+    return raw.map((d) => ({
+      _id: d._id,
+      title: d.title ?? "",
+      fileUrl: d.fileUrl ?? null,
+    }));
+  } catch (e) {
+    if (process.env.NODE_ENV === "development") {
+      console.error("getLegalDocuments failed:", e);
     }
     return [];
   }

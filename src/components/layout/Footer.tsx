@@ -202,7 +202,7 @@ export function Footer() {
                   { href: "/about", label: "About" },
                   { href: "/security", label: "Security" },
                   { href: "#", label: "Careers" },
-                  { href: "#", label: "Legal" },
+                  { href: "/legal", label: "Legal" },
                   { href: "#", label: "Sitemap" },
                 ]}
               />
@@ -269,6 +269,17 @@ export function Footer() {
           />
         </div>
       </Container>
+
+      {/* Full-bleed Skyline at bottom; no horizontal or bottom padding */}
+      <div className="w-screen relative left-1/2 -translate-x-1/2 pb-0">
+        <Image
+          src="/images/invest/Skyline.svg"
+          alt="Skyline"
+          width={595}
+          height={107}
+          className="w-full h-auto object-cover"
+        />
+      </div>
     </footer>
   );
 }

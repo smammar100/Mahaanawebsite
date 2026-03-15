@@ -94,3 +94,12 @@ export const faqsQuery = `
     category
   }
 `;
+
+/** Legal documents: all legalDocument items with title and PDF URL, ordered by creation. */
+export const legalDocumentsQuery = `
+  *[_type == "legalDocument"] | order(_createdAt asc) {
+    _id,
+    title,
+    "fileUrl": pdf.asset->url
+  }
+`;

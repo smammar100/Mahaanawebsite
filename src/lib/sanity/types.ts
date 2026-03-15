@@ -40,3 +40,9 @@ export interface SanityFaq {
   answer: string | null;
   category: string | null;
 }
+
+export interface SanityLegalDocument {
+  _id: string;
+  title: string | null;
+  fileUrl: string | null;
+}
