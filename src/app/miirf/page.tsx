@@ -3,6 +3,8 @@ import dynamic from "next/dynamic";
 import { buildPageMetadata } from "@/lib/metadata";
 import { getMiirfFundDataForPage } from "@/lib/miirf-fund-api";
 import { getFaqByProduct, getFundDocuments } from "@/lib/sanity/fetch";
+import { FAQStructuredData } from "@/components/FAQStructuredData";
+import { BreadcrumbStructuredData } from "@/components/BreadcrumbStructuredData";
 import { Cta6Section } from "@/components/sections/Cta6Section";
 import { MIIRFFAQSection } from "@/components/sections/MIIRFFAQSection";
 import { MIIRFHero } from "@/components/sections/MIIRFHero";
@@ -20,7 +22,8 @@ const MIIRFPerformanceSection = dynamic(
 
 export const metadata: Metadata = buildPageMetadata({
   title: "MIIRF | Mahaana",
-  description: "Discover MIIRF with Mahaana. More details coming soon.",
+  description:
+    "Mahaana Islamic Income & Return Fund (MIIRF) — Shariah-compliant fund targeting income and growth. SECP-regulated, professionally managed. Explore sub-funds and performance.",
   path: "miirf",
 });
 
@@ -41,6 +44,8 @@ export default async function MIIRFPage() {
   }));
   return (
     <div className="-mt-[calc(4.5rem+env(safe-area-inset-top,0px))] bg-surface-bg">
+      <BreadcrumbStructuredData items={[{ name: "MIIRF", path: "miirf" }]} />
+      <FAQStructuredData items={faqItems} />
       <MIIRFHero />
       <MIIRFOverviewSection fundData={fundData?.overview} />
       <MIIRFPerformanceSection fundData={fundData?.performance} />

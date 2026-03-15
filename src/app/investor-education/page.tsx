@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { buildPageMetadata } from "@/lib/metadata";
 import { getInvestorEducations } from "@/lib/sanity/fetch";
+import { BreadcrumbStructuredData } from "@/components/BreadcrumbStructuredData";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { Container } from "@/components/layout/Container";
 import { TextRegular } from "@/components/ui/Typography";
@@ -17,6 +18,7 @@ export default async function InvestorEducationPage() {
 
   return (
     <div className="-mt-[calc(4.5rem+env(safe-area-inset-top,0px))] bg-white">
+      <BreadcrumbStructuredData items={[{ name: "Investor Education", path: "investor-education" }]} />
       {allItems.length > 0 ? (
         <InvestorEducationResourcesSection items={allItems} />
       ) : (

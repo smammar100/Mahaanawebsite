@@ -6,6 +6,8 @@ import {
   getInvestorEducationSlugs,
 } from "@/lib/sanity/fetch";
 import { urlFor } from "@/lib/sanity/image";
+import { ArticleStructuredData } from "@/components/ArticleStructuredData";
+import { BreadcrumbStructuredData } from "@/components/BreadcrumbStructuredData";
 import { InvestorEducationArticleTemplate } from "@/components/sections/InvestorEducationArticleTemplate";
 import { PortableTextRenderer } from "@/components/ui/PortableTextRenderer";
 import type { PortableTextBlock } from "@portabletext/types";
@@ -97,21 +99,37 @@ export default async function InvestorEducationSlugPage({ params }: Props) {
     ) : undefined;
 
   return (
-    <InvestorEducationArticleTemplate
-      title={title}
-      description={excerpt}
-      author={author}
-      publishedAt={publishedAt}
-      readingTime={readingTime}
-      heroImageUrl={isVideo ? undefined : imageUrl ?? undefined}
-      heroVideoEmbed={heroVideoEmbed}
-      bodyContent={
-        bodyBlocks && bodyBlocks.length > 0 ? (
-          <PortableTextRenderer value={bodyBlocks} />
-        ) : undefined
-      }
-      externalLink={item.externalLink ?? undefined}
-      category={item.category ?? undefined}
-    />
+    <>
+      <BreadcrumbStructuredData
+        items={[
+          { name: "Investor Education", path: "investor-education" },
+          { name: title, path: `investor-education/${slug}` },
+        ]}
+      />
+      <ArticleStructuredData
+        title={title}
+        description={excerpt ?? ""}
+        slug={slug}
+        author={author}
+        publishedAt={publishedAt}
+        imageUrl={imageUrl}
+      />
+      <InvestorEducationArticleTemplate
+        title={title}
+        description={excerpt}
+        author={author}
+        publishedAt={publishedAt}
+        readingTime={readingTime}
+        heroImageUrl={isVideo ? undefined : imageUrl ?? undefined}
+        heroVideoEmbed={heroVideoEmbed}
+        bodyContent={
+          bodyBlocks && bodyBlocks.length > 0 ? (
+            <PortableTextRenderer value={bodyBlocks} />
+          ) : undefined
+        }
+        externalLink={item.externalLink ?? undefined}
+        category={item.category ?? undefined}
+      />
+    </>
   );
 }

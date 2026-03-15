@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { buildPageMetadata } from "@/lib/metadata";
 import { getHelpCenterFaqs } from "@/lib/sanity/fetch";
+import { FAQStructuredData } from "@/components/FAQStructuredData";
+import { BreadcrumbStructuredData } from "@/components/BreadcrumbStructuredData";
 import { HelpCenterSection } from "@/components/sections/HelpCenterSection";
 
 export const metadata: Metadata = buildPageMetadata({
@@ -15,6 +17,8 @@ export default async function HelpCenterPage() {
 
   return (
     <div className="-mt-[calc(4.5rem+env(safe-area-inset-top,0px))] bg-surface-bg">
+      <BreadcrumbStructuredData items={[{ name: "Help Center", path: "help-center" }]} />
+      <FAQStructuredData items={faqs} />
       <HelpCenterSection items={faqs} />
     </div>
   );

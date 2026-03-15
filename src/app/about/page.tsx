@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import dynamic from "next/dynamic";
 import { buildPageMetadata } from "@/lib/metadata";
 import { getLatestBlogPosts } from "@/lib/sanity/fetch";
+import { BreadcrumbStructuredData } from "@/components/BreadcrumbStructuredData";
 import { AboutHero } from "@/components/sections/AboutHero";
 import { LogoStrip } from "@/components/sections/LogoStrip";
 import { BlogSection } from "@/components/sections/BlogSection";
@@ -47,6 +48,7 @@ export default async function AboutUsPage() {
 
   return (
     <div className="-mt-[calc(4.5rem+env(safe-area-inset-top,0px))] overflow-x-clip bg-surface-bg">
+      <BreadcrumbStructuredData items={[{ name: "About", path: "about" }]} />
       <AboutHero />
       <LogoStrip />
       <AboutCultureSection />

@@ -3,6 +3,8 @@ import nextDynamic from "next/dynamic";
 import { buildPageMetadata } from "@/lib/metadata";
 import { getMiietfFundDataForPage } from "@/lib/miietf-fund-api";
 import { getFaqByProduct, getFundDocuments } from "@/lib/sanity/fetch";
+import { FAQStructuredData } from "@/components/FAQStructuredData";
+import { BreadcrumbStructuredData } from "@/components/BreadcrumbStructuredData";
 import { MIIETFHero } from "@/components/sections/MIIETFHero";
 import { MIIETFOverviewSection } from "@/components/sections/MIIETFOverviewSection";
 
@@ -33,7 +35,8 @@ const Cta6Section = nextDynamic(
 
 export const metadata: Metadata = buildPageMetadata({
   title: "MIIETF | Mahaana",
-  description: "Discover MIIETF with Mahaana. More details coming soon.",
+  description:
+    "Mahaana Islamic Index ETF (MIIETF) — Pakistan's first broader market Shariah-compliant ETF. Track the index, diversify your portfolio, invest with low cost.",
   path: "miietf",
 });
 
@@ -54,6 +57,8 @@ export default async function MIIETFPage() {
   }));
   return (
     <div className="-mt-[calc(4.5rem+env(safe-area-inset-top,0px))] bg-surface-bg">
+      <BreadcrumbStructuredData items={[{ name: "MIIETF", path: "miietf" }]} />
+      <FAQStructuredData items={faqItems} />
       <MIIETFHero fundData={fundData?.hero} />
       <MIIETFOverviewSection fundData={fundData?.overview} />
       <MIIETFPerformanceSection fundData={fundData?.performance} />

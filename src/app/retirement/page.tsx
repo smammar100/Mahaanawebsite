@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import dynamic from "next/dynamic";
 import { buildPageMetadata } from "@/lib/metadata";
 import { getFaqByProduct } from "@/lib/sanity/fetch";
+import { FAQStructuredData } from "@/components/FAQStructuredData";
+import { BreadcrumbStructuredData } from "@/components/BreadcrumbStructuredData";
 import { RetirementHero } from "@/components/sections/RetirementHero";
 import { retirementBenefitsCards } from "./benefitsCards";
 
@@ -33,6 +35,8 @@ export default async function RetirementPage() {
   const faqItems = await getFaqByProduct("retirement");
   return (
     <div className="-mt-[calc(4.5rem+env(safe-area-inset-top,0px))] bg-surface-bg">
+      <BreadcrumbStructuredData items={[{ name: "Retirement", path: "retirement" }]} />
+      <FAQStructuredData items={faqItems} />
       <RetirementHero />
       <WhyRetirementSection />
       <BenefitsSection cards={retirementBenefitsCards} />

@@ -3,6 +3,8 @@ import nextDynamic from "next/dynamic";
 import { buildPageMetadata } from "@/lib/metadata";
 import { getMicfFundDataForPage } from "@/lib/micf-fund-api";
 import { getFaqByProduct, getFundDocuments } from "@/lib/sanity/fetch";
+import { FAQStructuredData } from "@/components/FAQStructuredData";
+import { BreadcrumbStructuredData } from "@/components/BreadcrumbStructuredData";
 import { Cta6Section } from "@/components/sections/Cta6Section";
 import { MICFFAQSection } from "@/components/sections/MICFFAQSection";
 import { MICFHero } from "@/components/sections/MICFHero";
@@ -21,7 +23,8 @@ const MICFPortfolioSection = nextDynamic(
 
 export const metadata: Metadata = buildPageMetadata({
   title: "MICF | Mahaana",
-  description: "Discover MICF with Mahaana. More details coming soon.",
+  description:
+    "Mahaana Islamic Cash Fund (MICF) — SECP-regulated, Shariah-compliant money market fund. Low risk, daily returns, and instant liquidity. Invest from PKR 5,000.",
   path: "micf",
 });
 
@@ -42,6 +45,8 @@ export default async function MICFPage() {
   }));
   return (
     <div className="-mt-[calc(4.5rem+env(safe-area-inset-top,0px))] bg-surface-bg">
+      <BreadcrumbStructuredData items={[{ name: "MICF", path: "micf" }]} />
+      <FAQStructuredData items={faqItems} />
       <MICFHero fundData={fundData?.hero} />
       <MICFOverviewSection fundData={fundData?.overview} />
       <MICFPerformanceSection fundData={fundData?.performance} />

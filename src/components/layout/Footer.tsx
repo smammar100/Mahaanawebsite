@@ -297,7 +297,7 @@ export function Footer() {
           alt="Skyline"
           width={595}
           height={107}
-          className="w-full h-auto object-cover"
+          className="w-full h-auto object-cover opacity-85"
         />
       </div>
     </footer>

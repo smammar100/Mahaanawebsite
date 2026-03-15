@@ -20,43 +20,11 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://mahaana.netlify.app"),
+  metadataBase: new URL("https://www.mahaana.com"),
   title: "Mahaana — Changing the way Pakistanis Invest",
   description:
     "Mahaana is Pakistan's leading SECP-licensed, Shariah-compliant investment platform. Earn daily returns, plan your retirement, and grow your wealth — starting from PKR 5,000.",
-  keywords: [
-    "investment pakistan",
-    "shariah compliant investment",
-    "mahaana",
-    "mutual funds",
-    "retirement planning",
-    "SECP licensed",
-    "daily returns",
-  ],
-  openGraph: {
-    title: "Mahaana — Changing the way Pakistanis Invest",
-    description:
-      "Pakistan's #1 SECP-licensed, Shariah-compliant investment platform. Earn daily returns, cut your tax bill by 20%, and invest from PKR 5,000.",
-    type: "website",
-    url: "https://mahaana.netlify.app/",
-    siteName: "Mahaana",
-    images: [
-      {
-        url: "/images/invest/hero-bg.webp",
-        width: 1200,
-        height: 630,
-        alt: "Mahaana Investment Platform",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Mahaana — Changing the way Pakistanis Invest",
-    description:
-      "Pakistan's #1 SECP-licensed investment platform. Earn daily, save smart, retire rich.",
-  },
   robots: { index: true, follow: true },
-  alternates: { canonical: "https://mahaana.netlify.app/" },
 };
 
 export const viewport: Viewport = {

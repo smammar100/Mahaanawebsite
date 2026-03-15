@@ -279,14 +279,14 @@ export function HelpCenterSection({ items, className }: HelpCenterSectionProps) 
                         value={`${category}-${i}`}
                         className="border-b border-surface-stroke last:border-0"
                       >
-                        <AccordionTrigger className="font-normal text-text-primary hover:no-underline hover:text-system-brand py-4">
+                        <AccordionTrigger className="text-base font-normal font-body text-text-primary hover:no-underline hover:text-system-brand py-4">
                           <span className="min-w-0 flex-1 text-left">{item.question}</span>
                           <ChevronDown className="size-5 shrink-0 transition-transform duration-200" aria-hidden />
                         </AccordionTrigger>
                         <AccordionContent>
-                          <TextRegular className="whitespace-pre-line text-text-secondary">
+                          <p className="text-body font-normal whitespace-pre-line text-text-secondary">
                             {item.answer}
-                          </TextRegular>
+                          </p>
                         </AccordionContent>
                       </AccordionItem>
                     ))}
