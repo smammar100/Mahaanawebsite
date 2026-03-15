@@ -48,7 +48,7 @@ export function SecurityHero() {
                 id="security-hero-heading"
                 className="max-w-[592px] text-text-primary"
               >
-                {cleanCopy("Your money fully protected", { fixWidows: false })}
+                {cleanCopy("Your money fully protected")}
               </h1>
               <TextRegular className="max-w-[446px] text-text-secondary">
                 {cleanCopy(

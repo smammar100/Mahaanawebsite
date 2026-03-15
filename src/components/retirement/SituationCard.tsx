@@ -84,7 +84,7 @@ export function SituationCard({
         {cleanCopy("YOUR DETAILS")}
       </p>
       <h2 className="text-card-title mt-1 mb-6 text-text-primary sm:mb-8">
-        {cleanCopy("Your investment", { fixWidows: false })}
+        {cleanCopy("Your investment")}
       </h2>
 
       {/* Same 4 fields as Investment calculator – units in labels */}
@@ -164,7 +164,7 @@ export function SituationCard({
           {cleanCopy("RETIREMENT")}
         </p>
         <h2 className="text-card-title mt-1 mb-6 text-text-primary sm:mb-8">
-          {cleanCopy("Your retirement", { fixWidows: false })}
+          {cleanCopy("Your retirement")}
         </h2>
         <div className="space-y-4">
           <FieldRow label="Current age">

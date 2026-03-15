@@ -49,7 +49,7 @@ export function MIIRFHero() {
               id="miirf-hero-heading"
               className="text-system-brand"
             >
-              {cleanCopy("MIIRF", { fixWidows: false })}
+              {cleanCopy("MIIRF")}
             </h1>
             <div className="flex flex-wrap items-center gap-4">
               <p className="text-label text-system-brand">
@@ -72,7 +72,7 @@ export function MIIRFHero() {
             <h2
               className="text-text-primary text-left lg:text-right"
             >
-              {cleanCopy("Mahaana Islamic IGI Retirement Fund", { fixWidows: false })}
+              {cleanCopy("Mahaana Islamic IGI Retirement Fund")}
             </h2>
           </div>
         </div>

@@ -41,7 +41,7 @@ export function SummaryCard({
         {cleanCopy("PROJECTION")}
       </p>
       <h2 className="text-card-title mt-1 mb-6 text-text-primary sm:mb-8">
-        {cleanCopy("Your future value", { fixWidows: false })}
+        {cleanCopy("Your future value")}
       </h2>
 
       <div className="flex flex-col justify-center">

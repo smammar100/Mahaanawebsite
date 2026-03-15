@@ -70,7 +70,7 @@ export function ProjectionSection({
             {cleanCopy("THE JOURNEY AHEAD")}
           </p>
           <h2 className="text-card-title mt-1 mb-6 text-text-primary sm:mb-8">
-            {cleanCopy("Your FIRE projection", { fixWidows: false })}
+            {cleanCopy("Your FIRE projection")}
           </h2>
         </div>
 

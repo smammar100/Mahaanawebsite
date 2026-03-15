@@ -32,7 +32,7 @@ function withHeading(
   }: TypographyProps) {
     const polished =
       typeof children === "string"
-        ? cleanCopy(children, { fixWidows: false })
+        ? cleanCopy(children)
         : children;
     return (
       <Tag id={id} className={`${weightMap[weight]} ${className}`.trim()}>

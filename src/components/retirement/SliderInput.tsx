@@ -1,5 +1,7 @@
 "use client";
 
+import { cleanCopy } from "@/lib/copy-utils";
+
 interface SliderInputProps {
   label: string;
   value: number;
@@ -41,7 +43,7 @@ export function SliderInput({
         className="h-2 w-full cursor-pointer appearance-none rounded-lg border border-surface-stroke bg-surface-bg accent-system-brand focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-system-brand focus-visible:ring-offset-0"
       />
       {hint && (
-        <p className="text-tiny text-text-tertiary">{hint}</p>
+        <p className="text-tiny text-text-tertiary">{cleanCopy(hint)}</p>
       )}
     </div>
   );

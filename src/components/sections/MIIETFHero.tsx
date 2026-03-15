@@ -68,12 +68,12 @@ export function MIIETFHero({ fundData }: { fundData?: MiietfHeroFundData | null 
               id="miietf-hero-heading"
               className="text-system-brand"
             >
-              {cleanCopy("MIIETF", { fixWidows: false })}
+              {cleanCopy("MIIETF")}
             </h1>
             <H2 className="text-text-primary">
-              {cleanCopy("Mahaana Islamic", { fixWidows: false })}
+              {cleanCopy("Mahaana Islamic")}
               <br aria-hidden />
-              {cleanCopy("Index ETF", { fixWidows: false })}
+              {cleanCopy("Index ETF")}
             </H2>
           </div>
 

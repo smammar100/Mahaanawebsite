@@ -24,7 +24,7 @@ const components: PortableTextComponents = {
       const plain = headingPlainText(value as { children?: BlockChild[] });
       return (
         <h1 className="mt-8 mb-3 text-text-primary">
-          {plain != null ? cleanCopy(plain, { fixWidows: false }) : children}
+          {plain != null ? cleanCopy(plain) : children}
         </h1>
       );
     },
@@ -57,7 +57,7 @@ const components: PortableTextComponents = {
       const plain = headingPlainText(value as { children?: BlockChild[] });
       return (
         <h2 className="mt-8 mb-3 text-text-primary">
-          {plain != null ? cleanCopy(plain, { fixWidows: false }) : children}
+          {plain != null ? cleanCopy(plain) : children}
         </h2>
       );
     },
@@ -71,7 +71,7 @@ const components: PortableTextComponents = {
       const plain = headingPlainText(value as { children?: BlockChild[] });
       return (
         <h3 className="mt-6 mb-2 text-text-primary">
-          {plain != null ? cleanCopy(plain, { fixWidows: false }) : children}
+          {plain != null ? cleanCopy(plain) : children}
         </h3>
       );
     },

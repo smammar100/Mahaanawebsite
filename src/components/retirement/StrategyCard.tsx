@@ -48,7 +48,7 @@ export function StrategyCard({
         {cleanCopy("THE PLAN")}
       </p>
       <h2 className="text-card-title mt-1 mb-6 text-text-primary sm:mb-8">
-        {cleanCopy("Your investing strategy", { fixWidows: false })}
+        {cleanCopy("Your investing strategy")}
       </h2>
 
       <div className="flex flex-col gap-2">

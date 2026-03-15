@@ -1,0 +1,33 @@
+---
+description: Typography Polisher — all user-facing copy must run through the shared polish pipeline so typography and widow/hyphen rules are applied consistently.
+globs: 
+  - "**/*.tsx"
+  - "**/*.jsx"
+alwaysApply: false
+---
+
+# Typography Polisher
+
+Typography polishing is implemented in code and runs at **runtime** (not as a separate script over source files).
+
+## Implementation
+
+- **Pipeline:** [src/lib/typography-polisher.ts](src/lib/typography-polisher.ts) — whitespace cleanup, dash normalization, smart punctuation (with URL/code protection).
+- **Orchestration:** [src/lib/copy-utils.ts](src/lib/copy-utils.ts) — `cleanCopy(text, options)` runs: typography polish → compound-hyphen removal → smart punctuation → optional widow fix.
+
+**Order (per skill):** whitespace → dashes → compound hyphens → smart punctuation → widows.
+
+## Where it runs
+
+- **Headings:** Use `H1`–`H6` from [src/components/ui/Typography.tsx](src/components/ui/Typography.tsx). They call `cleanCopy(children)` for string children (widow fix applies when ≥4 words). Base styles in [src/app/globals.css](src/app/globals.css) set `text-wrap: balance` on headings.
+- **Body text:** Use `TextRegular`, `TextLarge`, `TextMedium`, `TextSmall`, `TextTiny`, or `Tagline` from Typography. They call `cleanCopy(children)` for string children.
+- **Raw labels, CTAs, paragraphs:** Wrap any user-facing string in `cleanCopy("...")` or `cleanCopy(variable)`.
+- **Sanity/CMS:** [src/components/ui/PortableTextRenderer.tsx](src/components/ui/PortableTextRenderer.tsx) runs `cleanCopy` on plain-text paragraph and heading blocks.
+
+## Rules (do not modify)
+
+- **Never touch:** code blocks, `<pre>`, `<code>`, backticks, URLs, file paths, CLI commands, Markdown front matter, JSON/YAML, template expressions in JSX, `node_modules/`, `dist/`.
+- **Widows:** Non-breaking space between last two words for paragraphs and headings/titles with ≥4 words; skip for short lines (&lt;4 words) and code. Paragraphs use `text-wrap: pretty`, headings use `text-wrap: balance` in globals.css.
+- **Compound hyphens:** Remove in common phrases (e.g. well-known → well known); keep prefix-hyphens (re-, non-), CSS identifiers, proper nouns, numeric ranges.
+
+When adding new copy (headings, paragraphs, labels, button text), use the Typography components or `cleanCopy` so the skill is applied everywhere.

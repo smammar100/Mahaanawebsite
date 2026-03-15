@@ -3,6 +3,7 @@
 import type React from "react";
 import { useRef, useMemo, useCallback, useState, useEffect } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
+import { cleanCopy } from "@/lib/copy-utils";
 import { useTexture } from "@react-three/drei";
 import * as THREE from "three";
 
@@ -440,7 +441,7 @@ function FallbackGallery({ images }: { images: ImageItem[] }) {
 
   return (
     <div className="flex h-full flex-col items-center justify-center bg-gray-100 p-4">
-      <p className="mb-4 text-gray-600">WebGL not supported. Showing image list:</p>
+      <p className="mb-4 text-gray-600">{cleanCopy("WebGL not supported. Showing image list:")}</p>
       <div className="grid max-h-96 grid-cols-2 gap-4 overflow-y-auto md:grid-cols-3">
         {normalizedImages.map((img, i) => (
           <img

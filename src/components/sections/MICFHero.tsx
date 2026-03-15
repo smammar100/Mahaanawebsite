@@ -75,12 +75,12 @@ export function MICFHero({ fundData }: { fundData?: MicfHeroFundData | null }) {
               id="micf-hero-heading"
               className="text-system-brand"
             >
-              {cleanCopy("MICF", { fixWidows: false })}
+              {cleanCopy("MICF")}
             </h1>
             <H2 className="text-text-primary">
-              {cleanCopy("Mahaana Islamic", { fixWidows: false })}
+              {cleanCopy("Mahaana Islamic")}
               <br aria-hidden />
-              {cleanCopy("Cash Fund", { fixWidows: false })}
+              {cleanCopy("Cash Fund")}
             </H2>
           </div>
 

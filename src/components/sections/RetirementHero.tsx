@@ -47,9 +47,9 @@ export function RetirementHero() {
                 id="retirement-hero-heading"
                 className="max-w-[592px] text-white"
               >
-                {cleanCopy("Introducing", { fixWidows: false })}
+                {cleanCopy("Introducing")}
                 <br aria-hidden />
-                {cleanCopy("Mahaana Retirement", { fixWidows: false })}
+                {cleanCopy("Mahaana Retirement")}
               </h1>
 
               {/* Subtext - same as InvestHero (TextRegular, max-w-[446px]) */}

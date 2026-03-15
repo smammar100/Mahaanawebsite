@@ -2,6 +2,7 @@
 
 import { type HTMLAttributes, type ReactNode, cloneElement, isValidElement } from "react";
 import { HintText } from "@/components/ui/base/input/hint-text";
+import { cleanCopy } from "@/lib/copy-utils";
 import type { InputBaseProps } from "@/components/ui/base/input/input";
 import { TextField } from "@/components/ui/base/input/input";
 import { Label } from "@/components/ui/base/input/label";
@@ -99,7 +100,7 @@ export const InputGroup = ({ size = "sm", prefix, leadingAddon, trailingAddon, l
 
                         {prefix && (
                             <span className={cx("my-auto grow pr-2", paddings[size].leadingText)}>
-                                <p className={cx("text-small font-body text-text-tertiary", isDisabled && "opacity-60")}>{prefix}</p>
+                                <p className={cx("text-small font-body text-text-tertiary", isDisabled && "opacity-60")}>{cleanCopy(prefix)}</p>
                             </span>
                         )}
 

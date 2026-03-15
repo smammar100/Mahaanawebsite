@@ -26,6 +26,7 @@ import {
 } from "@/components/base/buttons/app-store-buttons-outline";
 import { IconButtonsShowcase } from "./IconButtonsShowcase";
 import { breakpoints } from "@/lib/breakpoints";
+import { cleanCopy } from "@/lib/copy-utils";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Style Guide | Mahaana",
@@ -253,7 +254,7 @@ export default function StyleGuidePage() {
               <div className="flex flex-wrap gap-4 items-center">
                 {buttonVariants.map(({ color, label }) => (
                   <div key={color} className="flex flex-col gap-2 items-center">
-                    <Button color={color}>{label}</Button>
+                    <Button color={color}>{cleanCopy(label)}</Button>
                     <TextTiny className="text-text-tertiary">{color}</TextTiny>
                   </div>
                 ))}
@@ -356,7 +357,7 @@ export default function StyleGuidePage() {
                   key={t.name}
                   className="rounded-lg border border-surface-stroke bg-surface-card px-4 py-3"
                 >
-                  <p className={`text-sm font-medium ${t.class}`}>{t.label}</p>
+                  <p className={`text-sm font-medium ${t.class}`}>{cleanCopy(t.label)}</p>
                   <TextTiny className="text-text-tertiary">{t.name}</TextTiny>
                 </div>
               ))}

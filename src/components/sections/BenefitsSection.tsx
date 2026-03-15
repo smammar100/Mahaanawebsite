@@ -79,7 +79,7 @@ function PortfolioPieChartTooltip({
   return (
     <div className="rounded-lg border border-surface-stroke bg-surface-card px-2.5 py-1.5 shadow-lg dark:bg-surface-card dark:border-surface-stroke">
       <p className="text-label text-text-primary">
-        {name}: {Number(value).toFixed(2)}%
+        {cleanCopy(String(name))}: {Number(value).toFixed(2)}%
       </p>
     </div>
   );

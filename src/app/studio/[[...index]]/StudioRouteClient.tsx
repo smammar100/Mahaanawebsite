@@ -39,7 +39,7 @@ export function StudioRouteClient({
       <div className="flex min-h-screen w-full flex-col items-center justify-center gap-6 bg-surface-bg px-4">
         <div className="max-w-md rounded-xl border border-warning-200 bg-warning-100 p-6 text-center dark:border-warning-400 dark:bg-warning-400/20">
           <h1 className="text-system-warning">
-            {cleanCopy("Sanity Studio is not configured", { fixWidows: false })}
+            {cleanCopy("Sanity Studio is not configured")}
           </h1>
           <p className="mt-3 font-body text-regular text-text-secondary">
             Set <code className="rounded bg-warning-150 px-1.5 py-0.5 font-mono text-small">NEXT_PUBLIC_SANITY_PROJECT_ID</code> and{" "}

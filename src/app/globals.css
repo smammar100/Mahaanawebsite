@@ -209,6 +209,7 @@
     font-family: var(--font-heading);
     letter-spacing: var(--tracking-heading);
     line-height: var(--leading-heading);
+    text-wrap: balance;
   }
   h1 {
     font-size: 2rem;
@@ -265,6 +266,7 @@
     font-weight: 400;
     line-height: var(--leading-body);
     letter-spacing: normal;
+    text-wrap: pretty;
   }
 
   /* Body-text spans (Typography Text* components): same scale as p, one size per variant */
@@ -273,30 +275,35 @@
     font-size: var(--text-large);
     font-weight: 400;
     line-height: var(--leading-body);
+    text-wrap: pretty;
   }
   .text-body-md {
     font-family: var(--font-body);
     font-size: var(--text-medium);
     font-weight: 400;
     line-height: var(--leading-body);
+    text-wrap: pretty;
   }
   .text-body {
     font-family: var(--font-body);
     font-size: var(--text-regular);
     font-weight: 400;
     line-height: var(--leading-body);
+    text-wrap: pretty;
   }
   .text-body-sm {
     font-family: var(--font-body);
     font-size: var(--text-small);
     font-weight: 400;
     line-height: var(--leading-body);
+    text-wrap: pretty;
   }
   .text-body-xs {
     font-family: var(--font-body);
     font-size: var(--text-tiny);
     font-weight: 400;
     line-height: var(--leading-body);
+    text-wrap: pretty;
   }
 
   /* Intentional exception: highlighted stat/display numbers (e.g. NAV, hero stats) */
