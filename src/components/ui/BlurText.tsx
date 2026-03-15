@@ -116,7 +116,7 @@ const BlurText: React.FC<BlurTextProps> = ({
 
   return (
     <Tag
-      ref={ref as React.RefObject<HTMLElement>}
+      ref={ref as React.Ref<HTMLParagraphElement & HTMLHeadingElement>}
       id={id}
       className={className}
       style={{
