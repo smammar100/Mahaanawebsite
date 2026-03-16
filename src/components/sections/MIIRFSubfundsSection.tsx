@@ -528,6 +528,7 @@ export function MIIRFSubfundsSection({ fundData }: { fundData?: MiirfSubfundsFun
                   ariaLabel={`Historical performance: ${data.performanceTable.subfundLabel} vs ${data.performanceTable.benchmarkLabel}`}
                   chartType="line"
                   valueSuffix="%"
+                  xAxisLabelFormat="firstLastOnly"
                   compact
                 />
               </div>

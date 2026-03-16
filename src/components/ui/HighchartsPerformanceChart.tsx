@@ -20,8 +20,8 @@ export interface HighchartsPerformanceChartProps {
   valueSuffix?: string;
   /** When true, chart fills parent height only (no min-height). Use inside a card with fixed height so legend stays inside. */
   compact?: boolean;
-  /** When 'monthYear', x-axis shows labels at ~2-month intervals as "Month Year" (e.g. May 2023, Jul 2023). */
-  xAxisLabelFormat?: "default" | "monthYear";
+  /** When 'monthYear', x-axis shows labels as "Month Year". When 'shortDate', shows daily dates. When 'firstLastOnly', only inception and latest date. */
+  xAxisLabelFormat?: "default" | "monthYear" | "shortDate" | "firstLastOnly";
 }
 
 const defaultYAxisTitle = "Cumulative return (%)";
@@ -65,6 +65,19 @@ function buildOptions(props: HighchartsPerformanceChartProps): Options {
     xAxisLabelFormat = "default",
   } = props;
 
+  const isShortDate = xAxisLabelFormat === "shortDate";
+  const isFirstLastOnly = xAxisLabelFormat === "firstLastOnly";
+  const xAxisStep =
+    xAxisLabelFormat === "monthYear" || isFirstLastOnly
+      ? 1
+      : isShortDate
+        ? categories.length > 30
+          ? Math.max(1, Math.floor(categories.length / 12))
+          : 1
+        : categories.length > 90
+          ? Math.max(1, Math.floor(categories.length / 10))
+          : 1;
+
   const seriesConfig: Options["series"] = series.map((s) => ({
     type: chartType,
     name: s.name,
@@ -75,14 +88,15 @@ function buildOptions(props: HighchartsPerformanceChartProps): Options {
     ...(chartType === "area" ? { fillOpacity: 0.4 } : {}),
   }));
 
+  const chartMargins = isFirstLastOnly
+    ? { marginTop: 64, marginRight: 56, marginLeft: 100, marginBottom: 72 }
+    : { marginTop: 64, marginRight: 32, marginLeft: 88, marginBottom: 64 };
+
   return {
     chart: {
       backgroundColor: "transparent",
       spacing: [16, 16, 16, 16],
-      marginTop: 64,
-      marginRight: 32,
-      marginLeft: 72,
-      marginBottom: 64,
+      ...chartMargins,
       reflow: true,
       animation: false,
       height: null,
@@ -117,7 +131,7 @@ function buildOptions(props: HighchartsPerformanceChartProps): Options {
       endOnTick: false,
       title: {
         text: yAxisTitle,
-        margin: 16,
+        margin: 20,
         reserveSpace: true,
         style: {
           fontSize: "12px",
@@ -145,8 +159,8 @@ function buildOptions(props: HighchartsPerformanceChartProps): Options {
       crosshair: true,
       startOnTick: false,
       endOnTick: false,
-      minPadding: 0.03,
-      maxPadding: 0.03,
+      minPadding: isFirstLastOnly ? 0.18 : 0.03,
+      maxPadding: isFirstLastOnly ? 0.18 : 0.03,
       visible: true,
       accessibility: {
         rangeDescription: `Range: ${categories[0] ?? ""} to ${categories[categories.length - 1] ?? ""}`,
@@ -154,40 +168,46 @@ function buildOptions(props: HighchartsPerformanceChartProps): Options {
       labels: {
         enabled: true,
         reserveSpace: true,
-        overflow: "justify",
+        overflow: isFirstLastOnly ? "allow" : "justify",
         style: {
           color: "var(--color-text-secondary)",
           fontSize: "12px",
         },
-        rotation: 0,
+        rotation: isShortDate && categories.length > 20 ? -30 : 0,
         y: 20,
-        step:
-          xAxisLabelFormat === "monthYear"
-            ? 1
-            : categories.length > 90
-              ? Math.max(1, Math.floor(categories.length / 10))
-              : 1,
+        step: xAxisStep,
         formatter:
-          xAxisLabelFormat === "monthYear"
+          isFirstLastOnly
             ? function (this: { value: string | number }) {
                 const v = String(this.value);
-                const isFirstOrLast =
-                  v === categories[0] || v === categories[categories.length - 1];
-                if (!isFirstOrLast) return "";
-                const d = new Date(v);
-                if (Number.isNaN(d.getTime())) return v;
-                const monthLabel = d.toLocaleDateString("en-US", { month: "short" });
-                return `${monthLabel} ${d.getFullYear()}`;
+                return v === categories[0] || v === categories[categories.length - 1]
+                  ? v
+                  : "";
               }
-            : function (this: { value: string | number }) {
-                const v = String(this.value);
-                const parts = v.split(", ");
-                if (parts.length === 2) {
-                  const monthPart = parts[0].split(" ")[0];
-                  return monthPart ? `${monthPart} ${parts[1]}` : v;
+            : xAxisLabelFormat === "monthYear"
+              ? function (this: { value: string | number }) {
+                  const v = String(this.value);
+                  const isFirstOrLast =
+                    v === categories[0] || v === categories[categories.length - 1];
+                  if (!isFirstOrLast) return "";
+                  const d = new Date(v);
+                  if (Number.isNaN(d.getTime())) return v;
+                  const monthLabel = d.toLocaleDateString("en-US", { month: "short" });
+                  return `${monthLabel} ${d.getFullYear()}`;
                 }
-                return v;
-              },
+              : isShortDate
+                ? function (this: { value: string | number }) {
+                    return String(this.value);
+                  }
+                : function (this: { value: string | number }) {
+                    const v = String(this.value);
+                    const parts = v.split(", ");
+                    if (parts.length === 2) {
+                      const monthPart = parts[0].split(" ")[0];
+                      return monthPart ? `${monthPart} ${parts[1]}` : v;
+                    }
+                    return v;
+                  },
       },
       lineColor: "var(--color-surface-stroke)",
       tickLength: 4,
@@ -333,7 +353,7 @@ function buildOptions(props: HighchartsPerformanceChartProps): Options {
           },
           chartOptions: {
             chart: {
-              marginLeft: 60,
+              marginLeft: 80,
             },
             yAxis: {
               labels: {

@@ -15,17 +15,30 @@ const CHART_COLORS = {
   aggressive: "var(--color-primary-200)",
 } as const;
 
+/** Value-based fallback (PKR 1,000 assumed), daily granularity; all series start at 1000. */
 const performanceChartDataFallback = [
-  { date: "Apr 2023", conservative: 0, lowRisk: 0, balanced: 0, mediumRisk: 0, aggressive: 0 },
-  { date: "Jul 2023", conservative: 1.5, lowRisk: 2, balanced: 2.5, mediumRisk: 3, aggressive: 3.5 },
-  { date: "Jan 2024", conservative: 3.5, lowRisk: 4.5, balanced: 5, mediumRisk: 6, aggressive: 7 },
-  { date: "Jul 2024", conservative: 6, lowRisk: 7.5, balanced: 8, mediumRisk: 9, aggressive: 10.5 },
-  { date: "Oct 2024", conservative: 7.5, lowRisk: 9, balanced: 10, mediumRisk: 11.5, aggressive: 13 },
-  { date: "Jan 2025", conservative: 9, lowRisk: 11, balanced: 12, mediumRisk: 14, aggressive: 16 },
-  { date: "Apr 2025", conservative: 10.5, lowRisk: 12.5, balanced: 14, mediumRisk: 16, aggressive: 18.5 },
-  { date: "Jul 2025", conservative: 12, lowRisk: 14, balanced: 16, mediumRisk: 18, aggressive: 21 },
-  { date: "Oct 2025", conservative: 13.5, lowRisk: 15.5, balanced: 18, mediumRisk: 19.5, aggressive: 23 },
-  { date: "Jan 2026", conservative: 15, lowRisk: 17, balanced: 19, mediumRisk: 21, aggressive: 25 },
+  { date: "Jun 2, 2025", conservative: 1000, lowRisk: 1000, balanced: 1000, mediumRisk: 1000, aggressive: 1000 },
+  { date: "Jun 9, 2025", conservative: 995, lowRisk: 998, balanced: 1002, mediumRisk: 1005, aggressive: 1008 },
+  { date: "Jun 16, 2025", conservative: 1002, lowRisk: 1005, balanced: 1008, mediumRisk: 1012, aggressive: 1018 },
+  { date: "Jun 23, 2025", conservative: 1005, lowRisk: 1010, balanced: 1015, mediumRisk: 1022, aggressive: 1032 },
+  { date: "Jul 1, 2025", conservative: 1008, lowRisk: 1015, balanced: 1022, mediumRisk: 1032, aggressive: 1045 },
+  { date: "Jul 15, 2025", conservative: 1012, lowRisk: 1020, balanced: 1030, mediumRisk: 1045, aggressive: 1065 },
+  { date: "Aug 1, 2025", conservative: 1015, lowRisk: 1025, balanced: 1038, mediumRisk: 1052, aggressive: 1072 },
+  { date: "Aug 15, 2025", conservative: 1018, lowRisk: 1030, balanced: 1045, mediumRisk: 1065, aggressive: 1095 },
+  { date: "Sep 1, 2025", conservative: 1022, lowRisk: 1035, balanced: 1052, mediumRisk: 1075, aggressive: 1105 },
+  { date: "Sep 15, 2025", conservative: 1025, lowRisk: 1040, balanced: 1060, mediumRisk: 1088, aggressive: 1125 },
+  { date: "Oct 1, 2025", conservative: 1030, lowRisk: 1045, balanced: 1068, mediumRisk: 1098, aggressive: 1145 },
+  { date: "Oct 15, 2025", conservative: 1035, lowRisk: 1052, balanced: 1078, mediumRisk: 1110, aggressive: 1170 },
+  { date: "Nov 1, 2025", conservative: 1040, lowRisk: 1058, balanced: 1085, mediumRisk: 1122, aggressive: 1195 },
+  { date: "Nov 15, 2025", conservative: 1042, lowRisk: 1062, balanced: 1092, mediumRisk: 1135, aggressive: 1210 },
+  { date: "Dec 1, 2025", conservative: 1045, lowRisk: 1068, balanced: 1100, mediumRisk: 1148, aggressive: 1225 },
+  { date: "Dec 15, 2025", conservative: 1048, lowRisk: 1072, balanced: 1105, mediumRisk: 1155, aggressive: 1235 },
+  { date: "Jan 1, 2026", conservative: 1050, lowRisk: 1075, balanced: 1110, mediumRisk: 1162, aggressive: 1240 },
+  { date: "Jan 15, 2026", conservative: 1052, lowRisk: 1078, balanced: 1115, mediumRisk: 1165, aggressive: 1230 },
+  { date: "Feb 1, 2026", conservative: 1053, lowRisk: 1080, balanced: 1118, mediumRisk: 1158, aggressive: 1215 },
+  { date: "Feb 15, 2026", conservative: 1054, lowRisk: 1082, balanced: 1120, mediumRisk: 1152, aggressive: 1195 },
+  { date: "Mar 1, 2026", conservative: 1055, lowRisk: 1078, balanced: 1112, mediumRisk: 1148, aggressive: 1175 },
+  { date: "Mar 9, 2026", conservative: 1055, lowRisk: 1075, balanced: 1110, mediumRisk: 1145, aggressive: 1155 },
 ];
 
 export function MIIRFPerformanceSection({ fundData }: { fundData?: MiirfPerformanceFundData | null }) {
@@ -37,8 +50,6 @@ export function MIIRFPerformanceSection({ fundData }: { fundData?: MiirfPerforma
     { name: "Medium Risk", data: performanceChartDataFallback.map((d) => d.mediumRisk), color: CHART_COLORS.mediumRisk },
     { name: "Aggressive", data: performanceChartDataFallback.map((d) => d.aggressive), color: CHART_COLORS.aggressive },
   ];
-  const dateRange =
-    categories.length >= 2 ? `${categories[0]} to ${categories[categories.length - 1]}` : "April 2023 to January 2026";
 
   return (
     <motion.section
@@ -58,20 +69,25 @@ export function MIIRFPerformanceSection({ fundData }: { fundData?: MiirfPerforma
           Performance
         </H3>
 
-        <div className="rounded-2xl border border-surface-stroke bg-surface-card p-4 sm:p-6">
+        <div className="relative rounded-2xl border border-surface-stroke bg-surface-card p-4 sm:p-6">
+          <p className="absolute top-4 right-4 z-10 text-xs text-text-tertiary sm:top-6 sm:right-6">
+            *assuming you have invested PKR 1,000
+          </p>
           <div
             className="h-64 w-full min-w-0 sm:h-72 lg:h-96"
             role="img"
-            aria-label="Performance chart: Conservative, Low Risk, Balanced, Medium Risk, and Aggressive cumulative returns"
+            aria-label="Performance chart: Risk profile returns assuming PKR 1,000 invested. Conservative, Low Risk, Balanced, Medium Risk, Aggressive."
           >
             <HighchartsPerformanceChart
               title="Performance"
-              subtitle={`Cumulative returns by risk profile. ${dateRange}.`}
+              subtitle="Risk profile returns"
               categories={categories}
               series={series}
-              ariaLabel="Performance chart: Conservative, Low Risk, Balanced, Medium Risk, and Aggressive cumulative returns"
+              ariaLabel="Performance chart: Risk profile returns assuming PKR 1,000 invested. Conservative, Low Risk, Balanced, Medium Risk, Aggressive."
               chartType="line"
-              valueSuffix="%"
+              valueSuffix=""
+              yAxisTitle="Value (PKR)"
+              xAxisLabelFormat="firstLastOnly"
             />
           </div>
         </div>

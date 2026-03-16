@@ -239,22 +239,25 @@ function transformOverview(raw: MiirfMainFundRaw): MiirfOverviewFundData {
 }
 
 // ---------------------------------------------------------------------------
-// Transform: Performance (main fund – 5 risk profiles, cumulative return %)
+// Transform: Performance (main fund – 5 risk profiles, value-based PKR 1,000)
 // ---------------------------------------------------------------------------
 
 const MAIN_RISK_KEYS = ["Conservative", "Low Risk", "Balanced", "Medium Risk", "Aggressive"] as const;
 
+const ASSUMED_INVESTMENT = 1000;
+
+/** Value-based series: ASSUMED_INVESTMENT * (NAV at date / NAV at first date). */
 function transformPerformance(raw: MiirfMainFundRaw): MiirfPerformanceFundData {
   const sorted = [...raw.price].sort(
     (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
   );
-  const categories = sorted.map((p) => formatMonthYear(p.date));
-  const series = MAIN_RISK_KEYS.map((key, i) => {
+  const categories = sorted.map((p) => formatShortDate(p.date));
+  const series = MAIN_RISK_KEYS.map((key) => {
     const firstNav = sorted[0] ? parseNum((sorted[0] as unknown as Record<string, string>)[key]) : 1;
     const data = sorted.map((p) => {
       const nav = parseNum((p as unknown as Record<string, string>)[key]);
       if (firstNav <= 0) return 0;
-      return (nav / firstNav - 1) * 100;
+      return ASSUMED_INVESTMENT * (nav / firstNav);
     });
     const colorKey = key === "Conservative" ? "conservative" : key === "Low Risk" ? "lowRisk" : key === "Balanced" ? "balanced" : key === "Medium Risk" ? "mediumRisk" : "aggressive";
     return {
@@ -356,7 +359,7 @@ function transformSubfund(
     const nav = parseNum(p.nav || p.ad_nav);
     const bench = parseNum(p.benchmark);
     return {
-      date: formatMonthYear(p.date),
+      date: formatShortDate(p.date),
       subfund: firstNav > 0 ? (nav / firstNav - 1) * 100 : 0,
       benchmark: firstBench > 0 ? (bench / firstBench - 1) * 100 : 0,
     };
