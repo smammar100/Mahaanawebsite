@@ -294,7 +294,7 @@ function transformPerformance(raw: MiietfFundDataResponse): MiietfPerformanceFun
     (p) => new Date(p.date).getTime() >= MIIETF_INCEPTION_DATE_MS
   );
   const chartCategories = chartPrice.map((p) => formatShortDate(p.date));
-  const miietfData = chartPrice.map((p) => p.nav_adjusted);
+  const miietfData = chartPrice.map((p) => p.nav);
   const benchmarkData = chartPrice.map((p) => p.benchmark);
   const kmi30Data = chartPrice.map((p) => p.kmi30);
 
