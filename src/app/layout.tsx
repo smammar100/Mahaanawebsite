@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Outfit, DM_Sans } from "next/font/google";
+import { Outfit } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import "./globals.css";
 import { LayoutContent } from "@/components/layout/LayoutContent";
@@ -10,13 +10,6 @@ const outfit = Outfit({
   display: "swap",
   variable: "--font-outfit",
   weight: ["300", "400", "500", "600", "700", "800"],
-});
-
-const dmSans = DM_Sans({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-body-sans",
-  weight: ["300", "400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -38,7 +31,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning className={`${outfit.variable} ${dmSans.variable}`}>
+    <html lang="en" suppressHydrationWarning className={outfit.variable}>
       <head>
         <link rel="preload" href="/images/invest/Logo.svg" as="image" />
         <link rel="preload" href="/images/invest/hero-bg.webp" as="image" />
