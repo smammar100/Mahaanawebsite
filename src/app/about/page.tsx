@@ -39,7 +39,7 @@ const Cta6Section = dynamic(
 export const metadata: Metadata = buildPageMetadata({
   title: "About Us | Mahaana",
   description:
-    "Learn about Mahaana — Pakistan's leading SECP-licensed, Shariah-compliant investment platform. Our mission, team, and how we're changing the way Pakistanis invest.",
+    "Learn about Mahaana — Pakistan's leading SECP-licensed, Shariah compliant investment platform. Our mission, team, and how we're changing the way Pakistanis invest.",
   path: "about",
 });
 

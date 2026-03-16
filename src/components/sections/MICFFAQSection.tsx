@@ -13,10 +13,10 @@ const MICF_FAQ_ITEMS: { question: string; answer: string }[] = [
   {
     question: "What are the risks of investing in Mahaana Save+ (MICF)?",
     answer:
-      "Cash deposited into Mahaana Save+ is invested into Mahaana Islamic Cash Fund (MICF). MICF invests this cash into short term Shariah-compliant securities including corporate sukuks, government sukuks and bank placements. These investment avenues are considered low risk and stable compared to other assets. However MICF may get negative returns.\n\nMahaana is a member of Mutual Funds Association of Pakistan (MUFAP) and regulated by the Securities & Exchange Commission of Pakistan (SECP) as a non-bank financial company (NBFC). All of your funds are stored with the Central Depository Company (CDC). Mahaana does not have direct access to your funds and all transactions on your account are validated by CDC. Additionally, funds can only be withdrawn into a bank account that's in your name.",
+      "Cash deposited into Mahaana Save+ is invested into Mahaana Islamic Cash Fund (MICF). MICF invests this cash into short term Shariah compliant securities including corporate sukuks, government sukuks and bank placements. These investment avenues are considered low risk and stable compared to other assets. However MICF may get negative returns.\n\nMahaana is a member of Mutual Funds Association of Pakistan (MUFAP) and regulated by the Securities & Exchange Commission of Pakistan (SECP) as a non-bank financial company (NBFC). All of your funds are stored with the Central Depository Company (CDC). Mahaana does not have direct access to your funds and all transactions on your account are validated by CDC. Additionally, funds can only be withdrawn into a bank account that's in your name.",
   },
   {
-    question: "Is Mahaana Save+ (MICF) Shariah-compliant?",
+    question: "Is Mahaana Save+ (MICF) Shariah compliant?",
     answer:
       "Yes, please view the documents under Financial Literature > Shariah Compliance.",
   },

@@ -16,9 +16,9 @@ export const retirementBenefitsCards: BenefitsCardItem[] = [
   {
     label: "RETIREMENT, SIMPLIFIED",
     headline: "Stay focused with Mahaana Retirement",
-    body: "With Mahaana Retirement, your long-term goals get dedicated attention. Our focused approach ensures a clear, simplified financial strategy that grows your wealth steadily toward the retirement you deserve.",
+    body: "With Mahaana Retirement, your long term goals get dedicated attention. Our focused approach ensures a clear, simplified financial strategy that grows your wealth steadily toward the retirement you deserve.",
     items: [
-      "Dedicated attention to long-term goals",
+      "Dedicated attention to long term goals",
       "Clear, simplified financial strategy",
       "Steady growth toward the retirement you deserve",
     ],

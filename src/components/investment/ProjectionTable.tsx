@@ -3,6 +3,7 @@
 import { fmt } from "@/lib/formatters";
 import { INVESTMENT_CURRENCY } from "@/lib/investmentConfig";
 import type { YearlySnapshot } from "@/hooks/useInvestmentCalculation";
+import { cleanCopy } from "@/lib/copy-utils";
 
 interface ProjectionTableProps {
   yearlyData: YearlySnapshot[];
@@ -17,19 +18,19 @@ export function ProjectionTable({ yearlyData }: ProjectionTableProps) {
         <thead>
           <tr className="border-b-2 border-surface-stroke">
             <th className="whitespace-nowrap pb-2 pr-4 text-label text-text-tertiary">
-              Year
+              {cleanCopy("Year")}
             </th>
             <th className="whitespace-nowrap pb-2 pr-4 text-label text-text-tertiary">
-              Portfolio Value
+              {cleanCopy("Portfolio Value")}
             </th>
             <th className="whitespace-nowrap pb-2 pr-4 text-label text-text-tertiary">
-              Amount Invested
+              {cleanCopy("Amount Invested")}
             </th>
             <th className="whitespace-nowrap pb-2 pr-4 text-label text-text-tertiary">
-              Return Earned
+              {cleanCopy("Return Earned")}
             </th>
             <th className="whitespace-nowrap pb-2 text-label text-text-tertiary">
-              Annual Growth
+              {cleanCopy("Annual Growth")}
             </th>
           </tr>
         </thead>

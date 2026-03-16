@@ -63,7 +63,7 @@ const FAQ_ITEMS: { question: string; answer: string }[] = [
   {
     question: "Who is this product ideal for?",
     answer:
-      "The Mahaana IGI Islamic Retirement Fund is perfect for long-term investors in the salaried class who are tax filers in Pakistan. It's designed for those earning above PKR 600,000 annually who want to save up to 20% on their taxes while building a Shari'ah-compliant retirement nest egg. The tax credit is especially attractive for higher earners (e.g., PKR 500,000 monthly income saves PKR 17,090 monthly in taxes with a 20% contribution).",
+      "The Mahaana IGI Islamic Retirement Fund is perfect for long term investors in the salaried class who are tax filers in Pakistan. It's designed for those earning above PKR 600,000 annually who want to save up to 20% on their taxes while building a Shari'ah compliant retirement nest egg. The tax credit is especially attractive for higher earners (e.g., PKR 500,000 monthly income saves PKR 17,090 monthly in taxes with a 20% contribution).",
   },
 ];
 

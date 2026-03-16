@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://www.mahaana.com"),
   title: "Mahaana — Changing the way Pakistanis Invest",
   description:
-    "Mahaana is Pakistan's leading SECP-licensed, Shariah-compliant investment platform. Earn daily returns, plan your retirement, and grow your wealth — starting from PKR 5,000.",
+    "Mahaana is Pakistan's leading SECP-licensed, Shariah compliant investment platform. Earn daily returns, plan your retirement, and grow your wealth — starting from PKR 5,000.",
   robots: { index: true, follow: true },
 };
 

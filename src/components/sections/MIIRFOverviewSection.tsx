@@ -22,10 +22,10 @@ const KEY_FACTS_FALLBACK = [
 ] as const;
 
 const SUMMARY_FALLBACK =
-  "Mahaana IGI Islamic Retirement Fund (MIIRF) is a Shariah-compliant voluntary pension scheme designed to provide secure retirement savings for participants. The fund primarily invests across three sub-funds: Equity, Debt, and Money Market, offering diverse allocation options to suit different risk preferences. It is a long-term investment vehicle for individuals seeking to build wealth for their retirement. Through MIIRF, participants gain exposure to a range of Islamic assets, including equities, sukuks, and money market instruments, providing them with a reliable source of income during retirement.";
+  "Mahaana IGI Islamic Retirement Fund (MIIRF) is a Shariah compliant voluntary pension scheme designed to provide secure retirement savings for participants. The fund primarily invests across three sub-funds: Equity, Debt, and Money Market, offering diverse allocation options to suit different risk preferences. It is a long term investment vehicle for individuals seeking to build wealth for their retirement. Through MIIRF, participants gain exposure to a range of Islamic assets, including equities, sukuks, and money market instruments, providing them with a reliable source of income during retirement.";
 
 const OBJECTIVE_FALLBACK =
-  "Investment objective is to provide secure retirement savings and regular income after retirement, by investing in a diversified portfolio of Shariah-compliant assets, with a focus on long-term growth and risk mitigation.";
+  "Investment objective is to provide secure retirement savings and regular income after retirement, by investing in a diversified portfolio of Shariah compliant assets, with a focus on long term growth and risk mitigation.";
 
 function DetailRow({ label, value }: { label: string; value: string }) {
   return (

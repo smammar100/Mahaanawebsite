@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { buildPageMetadata } from "@/lib/metadata";
 import { Container } from "@/components/layout/Container";
+import { cleanCopy } from "@/lib/copy-utils";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Sitemap | Mahaana",
@@ -54,11 +55,11 @@ export default function SitemapPage() {
   return (
     <main className="min-h-screen bg-surface-bg py-12 md:py-16">
       <Container className="max-w-[65ch] readable-line-length">
-        <h1 className="mb-2 text-2xl font-semibold text-text-primary">Sitemap</h1>
+        <h1 className="mb-2 text-2xl font-semibold text-text-primary">{cleanCopy("Sitemap")}</h1>
         <p className="mb-8 text-text-secondary">
-          A list of all main pages on Mahaana. For search engines, use the{" "}
+          {cleanCopy("A list of all main pages on Mahaana. For search engines, use the ")}
           <Link href="/sitemap.xml" className="text-system-brand underline underline-offset-2 hover:no-underline">
-            XML sitemap
+            {cleanCopy("XML sitemap")}
           </Link>
           .
         </p>
@@ -66,7 +67,7 @@ export default function SitemapPage() {
           {SITEMAP_GROUPS.map((group) => (
             <section key={group.heading}>
               <h2 className="mb-3 font-body text-sm font-semibold uppercase tracking-wide text-text-tertiary">
-                {group.heading}
+                {cleanCopy(group.heading)}
               </h2>
               <ul className="flex flex-col gap-2">
                 {group.links.map((link) => (
@@ -75,7 +76,7 @@ export default function SitemapPage() {
                       href={link.href}
                       className="text-text-primary underline underline-offset-2 hover:text-system-brand hover:no-underline"
                     >
-                      {link.label}
+                      {cleanCopy(link.label)}
                     </Link>
                   </li>
                 ))}

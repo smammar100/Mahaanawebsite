@@ -7,6 +7,7 @@ import { H1, H2, TextMedium } from "@/components/ui/Typography";
 import { Button } from "@/components/base/buttons/button";
 import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
 import { cx } from "@/utils/cx";
+import { cleanCopy } from "@/lib/copy-utils";
 
 const FUND_HERO_TABS = [
   { id: "overview", label: "Overview" },
@@ -57,7 +58,7 @@ export function FundHero({
               size="lg"
               className="w-full rounded-xl sm:w-auto"
             >
-              {ctaLabel}
+              {cleanCopy(ctaLabel)}
             </Button>
           </div>
 
@@ -104,7 +105,7 @@ export function FundHero({
                 "flex min-h-[40px] shrink-0 snap-start items-center justify-center whitespace-nowrap rounded-full px-4 py-3 text-center text-text-tertiary transition-colors hover:bg-white hover:text-text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-system-brand sm:min-h-[44px] sm:flex-1 sm:min-w-0"
               )}
             >
-              {tab.label}
+              {cleanCopy(tab.label)}
             </a>
           ))}
         </div>

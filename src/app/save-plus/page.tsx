@@ -13,7 +13,7 @@ import { savePlusBenefitsCards } from "./benefitsCards";
 export const metadata: Metadata = buildPageMetadata({
   title: "Save+ | Mahaana",
   description:
-    "Save more with Mahaana Save+. Build your safety net with institutional-level, low-risk funds and access your money whenever you need it.",
+    "Save more with Mahaana Save+. Build your safety net with institutional level, low risk funds and access your money whenever you need it.",
   path: "save-plus",
 });
 

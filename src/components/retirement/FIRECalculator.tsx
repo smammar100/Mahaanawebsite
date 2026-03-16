@@ -9,6 +9,7 @@ import { ProjectionSection } from "./ProjectionSection";
 import { ResultsBar } from "./ResultsBar";
 import { SituationCard } from "./SituationCard";
 import { StrategyCard } from "./StrategyCard";
+import { cleanCopy } from "@/lib/copy-utils";
 
 export function FIRECalculator() {
   const [initial, setInitial] = useState(0);
@@ -80,7 +81,7 @@ export function FIRECalculator() {
               onClick={() => setHasCalculated(true)}
               className="w-full rounded-lg border-0 bg-primary-200 font-semibold text-white hover:bg-primary-300"
             >
-              {hasCalculated ? "Update my plan" : "See my plan"}
+              {hasCalculated ? cleanCopy("Update my plan") : cleanCopy("See my plan")}
             </Button>
           </div>
         </div>

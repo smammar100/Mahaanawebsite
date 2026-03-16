@@ -13,7 +13,7 @@ export default function StructuredData() {
       url: `${SITE_URL}/images/invest/Logo.svg`,
     },
     description:
-      "Pakistan's first licensed digital-only asset management company offering SECP-regulated, Shariah-compliant investment products.",
+      "Pakistan's first licensed digital only asset management company offering SECP-regulated, Shariah compliant investment products.",
     foundingDate: "2021",
     areaServed: { "@type": "Country", name: "Pakistan" },
     address: {
@@ -57,7 +57,7 @@ export default function StructuredData() {
     "@id": `${SITE_URL}/#financialservice`,
     name: "Mahaana",
     description:
-      "SECP-licensed, Shariah-compliant digital investment platform offering mutual funds, ETFs, and retirement products in Pakistan.",
+      "SECP-licensed, Shariah compliant digital investment platform offering mutual funds, ETFs, and retirement products in Pakistan.",
     url: SITE_URL,
     provider: { "@id": `${SITE_URL}/#organization` },
     areaServed: { "@type": "Country", name: "Pakistan" },
@@ -77,7 +77,7 @@ export default function StructuredData() {
             "@type": "FinancialProduct",
             name: "Save+",
             description:
-              "Low-risk Shariah-compliant money market fund with daily returns",
+              "Low risk Shariah compliant money market fund with daily returns",
           },
         },
         {
@@ -86,7 +86,7 @@ export default function StructuredData() {
             "@type": "FinancialProduct",
             name: "Retirement",
             description:
-              "Automated Shariah-compliant retirement planning with 20% tax credit",
+              "Automated Shariah compliant retirement planning with 20% tax credit",
           },
         },
         {
@@ -95,7 +95,7 @@ export default function StructuredData() {
             "@type": "FinancialProduct",
             name: "MICF",
             description:
-              "Mahaana Islamic Cash Fund — low-risk money market mutual fund",
+              "Mahaana Islamic Cash Fund — low risk money market mutual fund",
           },
         },
         {

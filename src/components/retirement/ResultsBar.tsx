@@ -3,6 +3,7 @@
 import { Container } from "@/components/layout/Container";
 import { TextSmall } from "@/components/ui/Typography";
 import { formatYearsMonths } from "@/lib/formatters";
+import { cleanCopy } from "@/lib/copy-utils";
 
 interface ResultsBarProps {
   hasData: boolean;
@@ -34,9 +35,9 @@ export function ResultsBar({
     <section className="w-full py-4">
       <Container className="max-w-[680px] text-center">
         <h2 className="text-text-primary">
-          {primaryText}
+          {cleanCopy(primaryText)}
         </h2>
-        <TextSmall className="mt-3 text-text-tertiary">{subtitleText}</TextSmall>
+        <TextSmall className="mt-3 text-text-tertiary">{cleanCopy(subtitleText)}</TextSmall>
       </Container>
     </section>
   );

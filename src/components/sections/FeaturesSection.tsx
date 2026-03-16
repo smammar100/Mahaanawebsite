@@ -10,14 +10,14 @@ import { useInView } from "@/hooks/useInView";
 import { cx } from "@/utils/cx";
 
 const savePlusFeatures = [
-  "Build wealth securely with low-risk, optimized funds",
-  "Completely liquid — withdraw your money anytime you want",
+  "Build wealth securely with low risk, optimized funds",
+  "Completely liquid: withdraw your money anytime you want",
   "Secure, SECP-regulated, and built for your peace of mind",
 ];
 
 const retirementFeatures = [
   "Claim up to a 20% income tax credit on your contributions",
-  "100% Shariah-compliant, expert-curated portfolios",
+  "100% Shariah compliant, expert curated portfolios",
   "Personalized to your unique risk level and retirement goals",
 ];
 
@@ -140,8 +140,8 @@ export function FeaturesSection() {
         <div className="flex flex-col gap-16 sm:gap-20 lg:gap-24">
           <FeatureBlock
             badge="MAHAANA SAVE+"
-            title="High-yield savings, without the bank restrictions."
-            description="Protect your purchasing power and build your safety net. Save+ gives you access to institutional-level, low-risk funds that deliver steady growth, all with the flexibility to access your money whenever you need it."
+            title="High yield savings, without the bank restrictions."
+            description="Protect your purchasing power and build your safety net. Save+ gives you access to institutional level, low risk funds that deliver steady growth, all with the flexibility to access your money whenever you need it."
             features={savePlusFeatures}
             cta="Learn more about Save+"
             ctaHref="/retirement"
@@ -150,7 +150,7 @@ export function FeaturesSection() {
           <FeatureBlock
             badge="MAHAANA RETIREMENT"
             title="Build your future. Cut your tax bill by up to 20%."
-            description="Grow your long-term savings with a Shariah-compliant, tax-efficient retirement plan. We build a personalized portfolio based on your goals, allowing you to build wealth securely while significantly reducing your monthly income tax."
+            description="Grow your long term savings with a Shariah compliant, tax efficient retirement plan. We build a personalized portfolio based on your goals, allowing you to build wealth securely while significantly reducing your monthly income tax."
             features={retirementFeatures}
             cta="Learn more about Retirement"
             ctaHref="#retirement"

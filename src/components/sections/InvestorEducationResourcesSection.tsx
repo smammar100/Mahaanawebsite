@@ -9,6 +9,7 @@ import { H1, TextLarge } from "@/components/ui/Typography";
 import { urlFor } from "@/lib/sanity/image";
 import type { SanityInvestorEducation } from "@/lib/sanity/types";
 import { cn } from "@/lib/utils";
+import { cleanCopy } from "@/lib/copy-utils";
 
 const AUTHOR_AVATAR_FALLBACK =
   "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/avatar-4.webp";
@@ -64,18 +65,18 @@ function mapItemToPost(item: SanityInvestorEducation): PostShape {
       ? urlFor(item.thumbnail).width(600).height(340).url()
       : item.thumbnailUrl ??
         "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-8-wide.svg";
-  const cta = category === "Video" ? "Watch" : "Read more";
+  const cta = category === "Video" ? cleanCopy("Watch") : cleanCopy("Read more");
   return {
     id: item._id,
     categoryLabel: CATEGORY_LABELS[category],
     categoryValue: category,
-    title: item.title ?? "Untitled",
+    title: cleanCopy(item.title ?? "Untitled"),
     summary: item.excerpt ?? "",
     link,
     cta,
     thumbnail: imageUrl,
     openExternal,
-    authorName: item.author ?? "Mahaana",
+    authorName: item.author ? cleanCopy(item.author) : cleanCopy("Mahaana"),
     authorImageUrl: AUTHOR_AVATAR_FALLBACK,
     readTime: item.readingTime ?? "5 Min Read",
     imageUrl,
@@ -190,7 +191,7 @@ export function InvestorEducationResourcesSection({
                       : "font-medium text-text-tertiary hover:bg-white/80 hover:text-text-primary"
                   )}
                 >
-                  {tab.label}
+                  {cleanCopy(tab.label)}
                 </button>
               );
             })}
@@ -215,7 +216,7 @@ export function InvestorEducationResourcesSection({
                 className="w-full"
                 onClick={handleLoadMore}
               >
-                Load more
+                {cleanCopy("Load more")}
               </Button>
             )}
           </div>

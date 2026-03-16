@@ -62,10 +62,10 @@ function DetailRow({ label, value }: { label: string; value: string }) {
 }
 
 const DEFAULT_SUMMARY =
-  "MICF is a Shariah-compliant fund that primarily invests in cash and cash equivalents, such as short-term government bonds and money market instruments. Cash funds are often used as a short-term investment vehicle or as a way to preserve capital while earning a low return. They are typically considered low-risk investments, as they are invested in highly liquid assets, such as islamic sukuks, that are not subject to significant price fluctuations. Through MICF, our clients gain direct exposure to government Sukuks at a fraction of the cost compared to banks.";
+  "MICF is a Shariah compliant fund that primarily invests in cash and cash equivalents, such as short term government bonds and money market instruments. Cash funds are often used as a short term investment vehicle or as a way to preserve capital while earning a low return. They are typically considered low risk investments, as they are invested in highly liquid assets, such as islamic sukuks, that are not subject to significant price fluctuations. Through MICF, our clients gain direct exposure to government Sukuks at a fraction of the cost compared to banks.";
 
 const DEFAULT_OBJECTIVE =
-  "Investment objective is to provide competitive returns with maximum possible capital preservation by Investing in low risk and liquid Shariah-compliant authorized instruments.";
+  "Investment objective is to provide competitive returns with maximum possible capital preservation by Investing in low risk and liquid Shariah compliant authorized instruments.";
 
 export function MICFOverviewSection({
   fundData,

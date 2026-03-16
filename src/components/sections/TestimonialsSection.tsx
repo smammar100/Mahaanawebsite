@@ -17,7 +17,7 @@ const testimonials = [
     role: "CEO & Founder",
     avatar: "/images/testimonials/testimonial-avatar-1.webp",
     content:
-      "This platform has revolutionized the way we manage projects. It is incredibly user-friendly and efficient.",
+      "This platform has revolutionized the way we manage projects. It is incredibly user friendly and efficient.",
   },
   {
     name: "David Lee",
@@ -31,7 +31,7 @@ const testimonials = [
     role: "COO",
     avatar: "/images/testimonials/testimonial-avatar-3.webp",
     content:
-      "Managing our day-to-day tasks has never been easier. The interface is intuitive and saves us a lot of time.",
+      "Managing our day to day tasks has never been easier. The interface is intuitive and saves us a lot of time.",
   },
   {
     name: "Emily Carter",

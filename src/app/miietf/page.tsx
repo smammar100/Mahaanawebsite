@@ -36,7 +36,7 @@ const Cta6Section = nextDynamic(
 export const metadata: Metadata = buildPageMetadata({
   title: "MIIETF | Mahaana",
   description:
-    "Mahaana Islamic Index ETF (MIIETF) — Pakistan's first broader market Shariah-compliant ETF. Track the index, diversify your portfolio, invest with low cost.",
+    "Mahaana Islamic Index ETF (MIIETF) — Pakistan's first broader market Shariah compliant ETF. Track the index, diversify your portfolio, invest with low cost.",
   path: "miietf",
 });
 

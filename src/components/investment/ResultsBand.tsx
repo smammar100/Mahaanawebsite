@@ -4,6 +4,7 @@ import { Container } from "@/components/layout/Container";
 import { fmt } from "@/lib/formatters";
 import { INVESTMENT_CURRENCY } from "@/lib/investmentConfig";
 import { cx } from "@/utils/cx";
+import { cleanCopy } from "@/lib/copy-utils";
 
 interface ResultsBandProps {
   futureValue: number;
@@ -25,19 +26,19 @@ export function ResultsBand({
   rate,
 }: ResultsBandProps) {
   const stats = [
-    { label: "Initial", value: fmt(initial, INVESTMENT_CURRENCY), green: false },
+    { label: cleanCopy("Initial"), value: fmt(initial, INVESTMENT_CURRENCY), green: false },
     {
-      label: "Contributions",
+      label: cleanCopy("Contributions"),
       value: fmt(totalContribs, INVESTMENT_CURRENCY),
       green: false,
     },
     {
-      label: "Total Invested",
+      label: cleanCopy("Total Invested"),
       value: fmt(totalInvested, INVESTMENT_CURRENCY),
       green: false,
     },
     {
-      label: "Return Earned",
+      label: cleanCopy("Return Earned"),
       value: fmt(interestEarned, INVESTMENT_CURRENCY),
       green: true,
     },
@@ -47,7 +48,7 @@ export function ResultsBand({
     <section className="w-full py-6">
       <Container className="max-w-[680px] text-center">
         <p className="text-label text-text-tertiary">
-          After {years} year{years === 1 ? "" : "s"} at {rate}% p.a.
+          {cleanCopy(`After ${years} year${years === 1 ? "" : "s"} at ${rate}% p.a.`)}
         </p>
         <h2 className="mt-2 mb-8 text-text-primary">
           {fmt(futureValue, INVESTMENT_CURRENCY)}

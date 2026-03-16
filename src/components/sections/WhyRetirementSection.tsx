@@ -50,7 +50,7 @@ export function WhyRetirementSection() {
           </div>
           <TextRegular className="mt-4 max-w-2xl text-text-tertiary">
             {cleanCopy(
-              "Mahaana Retirement is a Shariah-compliant, tax-efficient way to grow your savings for the future. You continuously receive Investment advice from us based on your goals and risk level."
+              "Mahaana Retirement is a Shariah compliant, tax efficient way to grow your savings for the future. You continuously receive Investment advice from us based on your goals and risk level."
             )}
           </TextRegular>
         </div>

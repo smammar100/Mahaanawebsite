@@ -1,5 +1,5 @@
 ---
-description: Typography Polisher — all user-facing copy must run through the shared polish pipeline so typography and widow/hyphen rules are applied consistently.
+description: Typography Polisher — all user-facing copy must run through the shared polish pipeline so typography and widow/hyphen rules are applied consistently. Aligned with smammar100/Typography-polisher skill.
 globs: 
   - "**/*.tsx"
   - "**/*.jsx"
@@ -8,7 +8,7 @@ alwaysApply: false
 
 # Typography Polisher
 
-Typography polishing is implemented in code and runs at **runtime** (not as a separate script over source files).
+Typography polishing is implemented in code and runs at **runtime** (not as a separate script over source files). Behavior follows the **Typography-polisher** skill (smammar100/Typography-polisher): widows, compound-hyphen removal, smart punctuation, dash normalization, whitespace cleanup.
 
 ## Implementation
 

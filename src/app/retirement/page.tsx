@@ -27,7 +27,7 @@ const Cta6Section = dynamic(
 export const metadata: Metadata = buildPageMetadata({
   title: "Retirement | Mahaana",
   description:
-    "Plan for retirement with Mahaana. Build your safety net with institutional-level, low-risk funds and access your money whenever you need it.",
+    "Plan for retirement with Mahaana. Build your safety net with institutional level, low risk funds and access your money whenever you need it.",
   path: "retirement",
 });
 

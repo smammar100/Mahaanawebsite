@@ -29,9 +29,9 @@ const SUBFUND_DEBT_DATA = {
     asOf: "As of 31 Jan 2026",
   },
   productSummary:
-    "Debt Sub-Fund invests in Shariah-compliant fixed-income instruments, including corporate sukuks and government bonds with a longer duration, offering moderate returns with a balanced risk profile.",
+    "Debt Sub-Fund invests in Shariah compliant fixed income instruments, including corporate sukuks and government bonds with a longer duration, offering moderate returns with a balanced risk profile.",
   investmentObjective:
-    "Investment objective is to generate moderate returns with controlled risk exposure, by investing in Shariah-compliant fixed-income instruments, including sukuks and government bonds, aimed at providing income and preserving capital.",
+    "Investment objective is to generate moderate returns with controlled risk exposure, by investing in Shariah compliant fixed income instruments, including sukuks and government bonds, aimed at providing income and preserving capital.",
   keyFacts: [
     { label: "Net assets", value: "PKR 83.7mn" },
     { label: "Launch date", value: "May 26, 2025" },
@@ -101,9 +101,9 @@ const SUBFUND_MONEY_MARKET_DATA = {
     asOf: "As of 31 Jan 2026",
   },
   productSummary:
-    "Money Market Sub-Fund focuses on low-risk, liquid investments such as Islamic sukuks, corporate sukuks and short-term treasury instruments, providing stable returns with minimal volatility.",
+    "Money Market Sub-Fund focuses on low risk, liquid investments such as Islamic sukuks, corporate sukuks and short term treasury instruments, providing stable returns with minimal volatility.",
   investmentObjective:
-    "Investment objective is to provide stable returns with a high level of capital preservation, by investing in low-risk, liquid Shariah-compliant instruments, such as short-term government sukuks and money market instruments.",
+    "Investment objective is to provide stable returns with a high level of capital preservation, by investing in low risk, liquid Shariah compliant instruments, such as short term government sukuks and money market instruments.",
   keyFacts: [
     { label: "Net assets", value: "PKR 74.5mn" },
     { label: "Launch date", value: "May 26, 2025" },
@@ -172,9 +172,9 @@ const SUBFUND_EQUITY_DATA = {
     asOf: "As of 31 Jan 2026",
   },
   productSummary:
-    "Equity Sub-Fund targets Shariah-compliant stocks and equities in leading industries, aiming for higher returns through capital appreciation and attractive dividend yields while adhering to Islamic investment principles.",
+    "Equity Sub-Fund targets Shariah compliant stocks and equities in leading industries, aiming for higher returns through capital appreciation and attractive dividend yields while adhering to Islamic investment principles.",
   investmentObjective:
-    "Investment objective is to achieve long-term capital growth by investing in Shariah-compliant equity securities, with a focus on high-quality companies and industries, while managing risk through diversification.",
+    "Investment objective is to achieve long term capital growth by investing in Shariah compliant equity securities, with a focus on high quality companies and industries, while managing risk through diversification.",
   keyFacts: [
     { label: "Net assets", value: "PKR 213.5mn" },
     { label: "Launch date", value: "May 26, 2025" },

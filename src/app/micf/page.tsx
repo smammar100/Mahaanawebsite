@@ -24,7 +24,7 @@ const MICFPortfolioSection = nextDynamic(
 export const metadata: Metadata = buildPageMetadata({
   title: "MICF | Mahaana",
   description:
-    "Mahaana Islamic Cash Fund (MICF) — SECP-regulated, Shariah-compliant money market fund. Low risk, daily returns, and instant liquidity. Invest from PKR 5,000.",
+    "Mahaana Islamic Cash Fund (MICF) — SECP-regulated, Shariah compliant money market fund. Low risk, daily returns, and instant liquidity. Invest from PKR 5,000.",
   path: "micf",
 });
 

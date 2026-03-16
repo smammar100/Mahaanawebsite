@@ -23,7 +23,7 @@ const MIIRFPerformanceSection = dynamic(
 export const metadata: Metadata = buildPageMetadata({
   title: "MIIRF | Mahaana",
   description:
-    "Mahaana Islamic Income & Return Fund (MIIRF) — Shariah-compliant fund targeting income and growth. SECP-regulated, professionally managed. Explore sub-funds and performance.",
+    "Mahaana Islamic Income & Return Fund (MIIRF) — Shariah compliant fund targeting income and growth. SECP-regulated, professionally managed. Explore sub-funds and performance.",
   path: "miirf",
 });
 

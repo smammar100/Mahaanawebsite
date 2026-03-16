@@ -50,7 +50,7 @@ function DetailRow({ label, value }: { label: string; value: string }) {
 }
 
 const DEFAULT_SUMMARY =
-  "MIIETF is a Shariah-compliant equity index fund that primarily invests in the top 30, free float weighted Islamic stocks that have an annual average turnover of more than PKR 10 million. MIIETF provides investors the long term benefits of equity markets.";
+  "MIIETF is a Shariah compliant equity index fund that primarily invests in the top 30, free float weighted Islamic stocks that have an annual average turnover of more than PKR 10 million. MIIETF provides investors the long term benefits of equity markets.";
 const DEFAULT_OBJECTIVE =
   "Investment objective is to provide competitive equity market returns with maximum coverage of the broader Islamic index at lowest possible cost.";
 

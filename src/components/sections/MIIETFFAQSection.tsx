@@ -23,16 +23,16 @@ const MIIETF_FAQ_ITEMS: { question: string; answer: string }[] = [
   {
     question: "What is MIIETF?",
     answer:
-      "MIIETF, Mahaana Islamic Index Exchange Traded Fund is an ETF listed on the Pakistan Stock Exchange. It is Pakistan's first broader index Islamic ETF that tracks the performance of top 30 Shariah-compliant companies in Pakistan.",
+      "MIIETF, Mahaana Islamic Index Exchange Traded Fund is an ETF listed on the Pakistan Stock Exchange. It is Pakistan's first broader index Islamic ETF that tracks the performance of top 30 Shariah compliant companies in Pakistan.",
   },
   {
-    question: "Is MIIETF Shariah-compliant?",
-    answer: "Yes, MIIETF invests only in Shariah-compliant assets.",
+    question: "Is MIIETF Shariah compliant?",
+    answer: "Yes, MIIETF invests only in Shariah compliant assets.",
   },
   {
     question: "What are the benefits of investing in MIIETF?",
     answer:
-      "Diversified portfolio: Exposure to a basket of stocks: Oil & Gas Exploration, Fertilizer, Cement, Power Generation and Distribution, Commercial Banks and other sectors.\n\nLong-term growth potential: ETFs invest in companies across various sectors that are positioned for growth in the long term. Factors like technological advancements, increasing global demand, and economic development can drive these companies' value, potentially benefiting the ETF's overall performance.\n\nLower costs: ETFs tend to have lower expense ratios, resulting in reduced fees for investors over time.\n\nTransparency: ETFs provide real-time pricing and transparency of holdings, allowing you to see what assets you own at any given time.\n\nTax Efficiency: ETFs tend to have lower turnover ratios compared to actively managed funds. This means fewer taxable events.",
+      "Diversified portfolio: Exposure to a basket of stocks: Oil & Gas Exploration, Fertilizer, Cement, Power Generation and Distribution, Commercial Banks and other sectors.\n\nLong term growth potential: ETFs invest in companies across various sectors that are positioned for growth in the long term. Factors like technological advancements, increasing global demand, and economic development can drive these companies' value, potentially benefiting the ETF's overall performance.\n\nLower costs: ETFs tend to have lower expense ratios, resulting in reduced fees for investors over time.\n\nTransparency: ETFs provide real time pricing and transparency of holdings, allowing you to see what assets you own at any given time.\n\nTax Efficiency: ETFs tend to have lower turnover ratios compared to actively managed funds. This means fewer taxable events.",
   },
   {
     question: "How can I buy ETFs?",

@@ -6,6 +6,7 @@ import { Container } from "@/components/layout/Container";
 import { HighchartsPerformanceChart } from "@/components/ui/HighchartsPerformanceChart";
 import { H3 } from "@/components/ui/Typography";
 import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
+import { cleanCopy } from "@/lib/copy-utils";
 
 const CHART_COLORS = {
   conservative: "var(--color-info-200)",
@@ -44,11 +45,11 @@ const performanceChartDataFallback = [
 export function MIIRFPerformanceSection({ fundData }: { fundData?: MiirfPerformanceFundData | null }) {
   const categories = fundData?.chartCategories ?? performanceChartDataFallback.map((d) => d.date);
   const series = fundData?.chartSeries ?? [
-    { name: "Conservative", data: performanceChartDataFallback.map((d) => d.conservative), color: CHART_COLORS.conservative },
-    { name: "Low Risk", data: performanceChartDataFallback.map((d) => d.lowRisk), color: CHART_COLORS.lowRisk },
-    { name: "Balanced", data: performanceChartDataFallback.map((d) => d.balanced), color: CHART_COLORS.balanced },
-    { name: "Medium Risk", data: performanceChartDataFallback.map((d) => d.mediumRisk), color: CHART_COLORS.mediumRisk },
-    { name: "Aggressive", data: performanceChartDataFallback.map((d) => d.aggressive), color: CHART_COLORS.aggressive },
+    { name: cleanCopy("Conservative"), data: performanceChartDataFallback.map((d) => d.conservative), color: CHART_COLORS.conservative },
+    { name: cleanCopy("Low Risk"), data: performanceChartDataFallback.map((d) => d.lowRisk), color: CHART_COLORS.lowRisk },
+    { name: cleanCopy("Balanced"), data: performanceChartDataFallback.map((d) => d.balanced), color: CHART_COLORS.balanced },
+    { name: cleanCopy("Medium Risk"), data: performanceChartDataFallback.map((d) => d.mediumRisk), color: CHART_COLORS.mediumRisk },
+    { name: cleanCopy("Aggressive"), data: performanceChartDataFallback.map((d) => d.aggressive), color: CHART_COLORS.aggressive },
   ];
 
   return (
@@ -66,12 +67,12 @@ export function MIIRFPerformanceSection({ fundData }: { fundData?: MiirfPerforma
           weight="bold"
           className="text-text-primary"
         >
-          Performance
+          {cleanCopy("Performance")}
         </H3>
 
         <div className="relative rounded-2xl border border-surface-stroke bg-surface-card p-4 sm:p-6">
           <p className="absolute top-4 right-4 z-10 text-xs text-text-tertiary sm:top-6 sm:right-6">
-            *assuming you have invested PKR 1,000
+            {cleanCopy("*assuming you have invested PKR 1,000")}
           </p>
           <div
             className="h-64 w-full min-w-0 sm:h-72 lg:h-96"
@@ -79,14 +80,14 @@ export function MIIRFPerformanceSection({ fundData }: { fundData?: MiirfPerforma
             aria-label="Performance chart: Risk profile returns assuming PKR 1,000 invested. Conservative, Low Risk, Balanced, Medium Risk, Aggressive."
           >
             <HighchartsPerformanceChart
-              title="Performance"
-              subtitle="Risk profile returns"
+              title={cleanCopy("Performance")}
+              subtitle={cleanCopy("Risk profile returns")}
               categories={categories}
               series={series}
-              ariaLabel="Performance chart: Risk profile returns assuming PKR 1,000 invested. Conservative, Low Risk, Balanced, Medium Risk, Aggressive."
+              ariaLabel={cleanCopy("Performance chart: Risk profile returns assuming PKR 1,000 invested. Conservative, Low Risk, Balanced, Medium Risk, Aggressive.")}
               chartType="line"
               valueSuffix=""
-              yAxisTitle="Value (PKR)"
+              yAxisTitle={cleanCopy("Value (PKR)")}
               xAxisLabelFormat="firstLastOnly"
             />
           </div>
