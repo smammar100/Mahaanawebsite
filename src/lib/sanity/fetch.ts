@@ -18,6 +18,11 @@ import type {
   SanityFaq,
   SanityLegalDocument,
 } from "./types";
+import {
+  DEFAULT_ARTICLE_AUTHOR,
+  formatArticleReadTime,
+  sanitizeArticleAuthorName,
+} from "@/lib/formatters";
 
 /** Map Sanity _type to app category for tabs and CTA. */
 function typeToCategory(
@@ -63,6 +68,8 @@ export interface BlogPostForSection {
   readTime: string;
   imageUrl: string;
   href: string;
+  isVideo: boolean;
+  isNews: boolean;
 }
 
 function mapToBlogPostForSection(
@@ -71,14 +78,16 @@ function mapToBlogPostForSection(
   return {
     title: p.title ?? "Untitled",
     excerpt: p.excerpt ?? "",
-    authorName: p.author ?? "Mahaana",
+    authorName: sanitizeArticleAuthorName(p.author) || DEFAULT_ARTICLE_AUTHOR,
     authorImageUrl:
       "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/avatar-4.webp",
-    readTime: p.readingTime ?? "5 Min Read",
+    readTime: formatArticleReadTime(p.readingTime),
     imageUrl: p.thumbnail
       ? urlFor(p.thumbnail).width(800).height(450).url()
       : p.thumbnailUrl ?? "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-8-wide.svg",
     href: `/investor-education/${p.slug?.current ?? p._id}`,
+    isVideo: p._type === "investorEducationVideoPodcast",
+    isNews: p._type === "investorEducationNews",
   };
 }
 

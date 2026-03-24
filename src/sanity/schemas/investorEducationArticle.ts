@@ -12,6 +12,23 @@ export const investorEducationArticleType = defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
+      name: "categoryLabel",
+      title: "Category label",
+      type: "string",
+      description:
+        "Display category for website tabs and filtering. Leave empty to use the default for this content type.",
+      options: {
+        list: [
+          { title: "Investing", value: "Investing" },
+          { title: "Personal Finance", value: "Personal Finance" },
+          { title: "Market Views", value: "Market Views" },
+          { title: "Solutions", value: "Solutions" },
+          { title: "Private Wealth", value: "Private Wealth" },
+        ],
+        layout: "dropdown",
+      },
+    }),
+    defineField({
       name: "slug",
       title: "Slug",
       type: "slug",
@@ -63,9 +80,14 @@ export const investorEducationArticleType = defineType({
       author: "author",
       publishedAt: "publishedAt",
       thumbnail: "thumbnail",
+      categoryLabel: "categoryLabel",
     },
-    prepare({ title, author, publishedAt, thumbnail }) {
-      const sub = [author, publishedAt ? new Date(publishedAt).toLocaleDateString() : null]
+    prepare({ title, author, publishedAt, thumbnail, categoryLabel }) {
+      const sub = [
+        categoryLabel,
+        author,
+        publishedAt ? new Date(publishedAt).toLocaleDateString() : null,
+      ]
         .filter(Boolean)
         .join(" · ");
       return {

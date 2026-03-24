@@ -10,6 +10,11 @@ import { urlFor } from "@/lib/sanity/image";
 import type { SanityInvestorEducation } from "@/lib/sanity/types";
 import { cn } from "@/lib/utils";
 import { cleanCopy } from "@/lib/copy-utils";
+import {
+  DEFAULT_ARTICLE_AUTHOR,
+  formatArticleReadTime,
+  sanitizeArticleAuthorName,
+} from "@/lib/formatters";
 
 const AUTHOR_AVATAR_FALLBACK =
   "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/avatar-4.webp";
@@ -66,6 +71,7 @@ function mapItemToPost(item: SanityInvestorEducation): PostShape {
       : item.thumbnailUrl ??
         "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-8-wide.svg";
   const cta = category === "Video" ? cleanCopy("Watch") : cleanCopy("Read more");
+  const cleanedAuthor = sanitizeArticleAuthorName(item.author);
   return {
     id: item._id,
     categoryLabel: CATEGORY_LABELS[category],
@@ -76,9 +82,11 @@ function mapItemToPost(item: SanityInvestorEducation): PostShape {
     cta,
     thumbnail: imageUrl,
     openExternal,
-    authorName: item.author ? cleanCopy(item.author) : cleanCopy("Mahaana"),
+    authorName: cleanedAuthor
+      ? cleanCopy(cleanedAuthor)
+      : cleanCopy(DEFAULT_ARTICLE_AUTHOR),
     authorImageUrl: AUTHOR_AVATAR_FALLBACK,
-    readTime: item.readingTime ?? "5 Min Read",
+    readTime: formatArticleReadTime(item.readingTime),
     imageUrl,
     href: link,
   };
@@ -159,6 +167,10 @@ export function InvestorEducationResourcesSection({
                   href={primaryPost.href}
                   openExternal={primaryPost.openExternal}
                   showPlayButton={primaryPost.categoryValue === "Video"}
+                  authorName={primaryPost.authorName}
+                  readTime={primaryPost.readTime}
+                  isVideo={primaryPost.categoryValue === "Video"}
+                  isNews={primaryPost.categoryValue === "News"}
                 />
               </div>
             )}
@@ -206,6 +218,10 @@ export function InvestorEducationResourcesSection({
                   href={post.href}
                   openExternal={post.openExternal}
                   showPlayButton={post.categoryValue === "Video"}
+                  authorName={post.authorName}
+                  readTime={post.readTime}
+                  isVideo={post.categoryValue === "Video"}
+                  isNews={post.categoryValue === "News"}
                 />
               ))}
             </div>

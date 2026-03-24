@@ -17,6 +17,8 @@ interface BlogPost {
   readTime: string;
   imageUrl: string;
   href: string;
+  isVideo?: boolean;
+  isNews?: boolean;
 }
 
 const BLOG_POSTS_FALLBACK: BlogPost[] = [
@@ -29,6 +31,8 @@ const BLOG_POSTS_FALLBACK: BlogPost[] = [
     readTime: "10 Min Read",
     imageUrl: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-8-wide.svg",
     href: "#",
+    isVideo: false,
+    isNews: false,
   },
   {
     title: "The difference between UI and UX and how to design for both",
@@ -39,6 +43,8 @@ const BLOG_POSTS_FALLBACK: BlogPost[] = [
     readTime: "14 Min Read",
     imageUrl: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-8-wide.svg",
     href: "#",
+    isVideo: false,
+    isNews: false,
   },
   {
     title: "Optimizing your website for SEO and getting more traffic",
@@ -49,6 +55,8 @@ const BLOG_POSTS_FALLBACK: BlogPost[] = [
     readTime: "9 Min Read",
     imageUrl: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-8-wide.svg",
     href: "#",
+    isVideo: false,
+    isNews: false,
   },
 ];
 
@@ -121,6 +129,10 @@ export function BlogSection({
               title={post.title}
               imageUrl={post.imageUrl}
               href={post.href}
+              authorName={post.authorName}
+              readTime={post.readTime}
+              isVideo={post.isVideo === true}
+              isNews={post.isNews === true}
             />
           ))}
         </div>

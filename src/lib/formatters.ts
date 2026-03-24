@@ -112,3 +112,66 @@ export function formatMonthYear(isoDate: string | null | undefined): string {
     return "";
   }
 }
+
+/** Default byline when CMS author is empty (matches blog/investor-education mapping). */
+export const DEFAULT_ARTICLE_AUTHOR = "Mahaana";
+
+/**
+ * Strip a leading publish date accidentally stored in the author field, e.g.
+ * "12 Mar 2026 · Syed Mohammad Ammar" → "Syed Mohammad Ammar".
+ */
+export function sanitizeArticleAuthorName(raw: string | null | undefined): string {
+  const t = (raw ?? "").trim();
+  if (!t) return "";
+  const ddMonYyyy = t.match(/^\d{1,2}\s+[A-Za-z]{3,9}\s+\d{4}\s*·\s*(.+)$/);
+  if (ddMonYyyy) return ddMonYyyy[1].trim();
+  const monDdYyyy = t.match(
+    /^[A-Za-z]{3,9}\s+\d{1,2},?\s+\d{4}\s*·\s*(.+)$/
+  );
+  if (monDdYyyy) return monDdYyyy[1].trim();
+  return t;
+}
+
+/**
+ * Normalize CMS reading time for consistent card display (e.g. "6 minutes" → "6 Min Read").
+ * Empty input falls back to "5 Min Read".
+ */
+export function formatArticleReadTime(raw: string | null | undefined): string {
+  const v = (raw ?? "").trim().replace(/^[·•]\s*/, "");
+  if (!v) return "5 Min Read";
+  if (/\bread\b/i.test(v) && /\bmin\b/i.test(v)) {
+    return v.replace(/\s+/g, " ");
+  }
+  const numMatch = v.match(/(\d+)/);
+  if (numMatch && /\bmin/i.test(v)) {
+    return `${numMatch[1]} Min Read`;
+  }
+  return v;
+}
+
+/** Single-line card meta: author and reading time only (no publish date). */
+export function formatArticleCardMeta(opts: {
+  authorName: string;
+  readTime: string;
+}): string {
+  const author =
+    sanitizeArticleAuthorName(opts.authorName) || DEFAULT_ARTICLE_AUTHOR;
+  const time = formatArticleReadTime(opts.readTime);
+  return `${author} · ${time}`;
+}
+
+/**
+ * Video card footer: duration only (no author). Uses first number in CMS string
+ * (e.g. "5 Min Read", "12 minutes") → "5 min watch".
+ */
+export function formatVideoWatchTimeDisplay(raw: string | null | undefined): string {
+  const v = (raw ?? "").trim();
+  const numMatch = v.match(/(\d+)/);
+  const n = numMatch ? numMatch[1] : "5";
+  return `${n} min watch`;
+}
+
+/** News card footer: outlet / byline name only (no read time). */
+export function formatNewsOutletDisplay(rawAuthor: string | null | undefined): string {
+  return sanitizeArticleAuthorName(rawAuthor) || DEFAULT_ARTICLE_AUTHOR;
+}

@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/metadata";
+import { INSIGHTS_CATEGORY_SLUGS } from "@/lib/insights-category-routes";
 import { getInvestorEducationSitemapEntries } from "@/lib/sanity/fetch";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -39,5 +40,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }));
 
-  return [...staticEntries, ...articleEntries];
+  const investorEducationCategoryEntries = INSIGHTS_CATEGORY_SLUGS.map(
+    (slug) => ({
+      url: `${SITE_URL}/investor-education/category/${slug}`,
+      lastModified: new Date(),
+      changeFrequency: "weekly" as const,
+      priority: 0.65,
+    })
+  );
+
+  return [
+    ...staticEntries,
+    ...investorEducationCategoryEntries,
+    ...articleEntries,
+  ];
 }

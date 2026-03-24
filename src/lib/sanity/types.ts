@@ -1,5 +1,5 @@
 /** Shapes returned by GROQ for app use (minimal types; extend as needed).
- * For investor education, category is derived in fetch from _type (Article, News, Video).
+ * For investor education, display category comes from categoryLabel when set, else derived from _type.
  */
 export type SanityInvestorEducationType =
   | "investorEducationArticle"
@@ -11,7 +11,9 @@ export interface SanityInvestorEducation {
   _type: SanityInvestorEducationType;
   /** ISO date when the document was created in Sanity (for "latest added" ordering) */
   _createdAt?: string | null;
-  /** Derived in fetch from _type: Article | News | Video */
+  /** Optional display category for tabs/filtering; when set, used instead of type-based default */
+  categoryLabel?: string | null;
+  /** Derived in fetch from _type: Article | News | Video (for tag/badge) */
   category?: "Video" | "Article" | "News" | null;
   title: string | null;
   slug: { current: string } | null;

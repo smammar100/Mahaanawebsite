@@ -6,7 +6,13 @@ import { urlFor } from "@/lib/sanity/image";
 import type { SanityInvestorEducation } from "@/lib/sanity/types";
 import { TextSmall } from "@/components/ui/Typography";
 import { Button } from "@/components/base/buttons/button";
-import { formatPublishedDate } from "@/lib/formatters";
+import {
+  formatArticleCardMeta,
+  formatArticleReadTime,
+  formatNewsOutletDisplay,
+  formatVideoWatchTimeDisplay,
+  DEFAULT_ARTICLE_AUTHOR,
+} from "@/lib/formatters";
 
 function InvestorEducationCard({ item }: { item: SanityInvestorEducation }) {
   const slug = item.slug?.current ?? item._id;
@@ -17,8 +23,15 @@ function InvestorEducationCard({ item }: { item: SanityInvestorEducation }) {
   const imageUrl = item.thumbnail
     ? urlFor(item.thumbnail).width(600).height(340).url()
     : item.thumbnailUrl ?? "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-8-wide.svg";
-  const dateStr = formatPublishedDate(item.publishedAt ?? undefined);
-  const meta = [item.author ? `By ${item.author}` : null, dateStr].filter(Boolean).join(" · ") || "Mahaana";
+  const meta =
+    item.category === "Video"
+      ? formatVideoWatchTimeDisplay(item.readingTime)
+      : item.category === "News"
+        ? formatNewsOutletDisplay(item.author)
+        : formatArticleCardMeta({
+            authorName: (item.author ?? "").trim() || DEFAULT_ARTICLE_AUTHOR,
+            readTime: formatArticleReadTime(item.readingTime),
+          });
 
   const linkProps = openExternal
     ? { target: "_blank" as const, rel: "noopener noreferrer" }

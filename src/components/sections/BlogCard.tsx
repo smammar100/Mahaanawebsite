@@ -2,6 +2,14 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { cleanCopy } from "@/lib/copy-utils";
+import {
+  DEFAULT_ARTICLE_AUTHOR,
+  formatArticleCardMeta,
+  formatArticleReadTime,
+  formatNewsOutletDisplay,
+  formatVideoWatchTimeDisplay,
+} from "@/lib/formatters";
 import { cn } from "@/lib/utils";
 
 export interface BlogCardProps {
@@ -11,6 +19,12 @@ export interface BlogCardProps {
   openExternal?: boolean;
   /** Show a play icon overlay on the thumbnail (e.g. for video items) */
   showPlayButton?: boolean;
+  authorName?: string;
+  readTime?: string;
+  /** When true, footer shows watch duration only (no author). */
+  isVideo?: boolean;
+  /** When true, footer shows outlet/byline only (no read time). */
+  isNews?: boolean;
   className?: string;
 }
 
@@ -20,6 +34,10 @@ export function BlogCard({
   href,
   openExternal,
   showPlayButton = false,
+  authorName,
+  readTime,
+  isVideo = false,
+  isNews = false,
   className,
 }: BlogCardProps) {
   const linkProps = openExternal
@@ -60,6 +78,18 @@ export function BlogCard({
       <div className="px-5 pt-5 pb-5 min-w-0">
         <p className="text-card-title text-text-primary line-clamp-2">
           {title}
+        </p>
+        <p className="mt-2 text-xs text-text-tertiary line-clamp-2">
+          {cleanCopy(
+            isVideo
+              ? formatVideoWatchTimeDisplay(readTime)
+              : isNews
+                ? formatNewsOutletDisplay(authorName)
+                : formatArticleCardMeta({
+                    authorName: authorName ?? DEFAULT_ARTICLE_AUTHOR,
+                    readTime: formatArticleReadTime(readTime),
+                  })
+          )}
         </p>
       </div>
     </>

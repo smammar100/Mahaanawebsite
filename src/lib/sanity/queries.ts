@@ -12,7 +12,8 @@ export const investorEducationsQuery = `
     "thumbnailUrl": thumbnail.asset->url,
     externalLink,
     author,
-    readingTime
+    readingTime,
+    categoryLabel
   }
 `;
 
@@ -30,7 +31,8 @@ export const investorEducationsByTypeQuery = `
     "thumbnailUrl": thumbnail.asset->url,
     externalLink,
     author,
-    readingTime
+    readingTime,
+    categoryLabel
   }
 `;
 
@@ -48,6 +50,7 @@ export const investorEducationBySlugQuery = `
     externalLink,
     author,
     readingTime,
+    categoryLabel,
     bodyHtml
   }
 `;
@@ -77,7 +80,8 @@ export const latestInvestorEducationsQuery = `
     "thumbnailUrl": thumbnail.asset->url,
     readingTime,
     author,
-    publishedAt
+    publishedAt,
+    categoryLabel
   }
 `;
 
