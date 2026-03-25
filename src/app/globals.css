@@ -222,7 +222,7 @@
   }
   h2 {
     font-size: 1.75rem;
-    font-weight: 700;
+    font-weight: 600;
   }
   @media (min-width: 512px) {
     h2 { font-size: 2.25rem; }
@@ -303,6 +303,25 @@
     text-wrap: pretty;
   }
 
+  /* Default body copy on light surfaces (white/grey): tertiary token */
+  p,
+  .text-body-lg,
+  .text-body-md,
+  .text-body,
+  .text-body-sm,
+  .text-body-xs {
+    color: var(--color-text-tertiary);
+  }
+
+  .dark p,
+  .dark .text-body-lg,
+  .dark .text-body-md,
+  .dark .text-body,
+  .dark .text-body-sm,
+  .dark .text-body-xs {
+    color: var(--color-text-secondary);
+  }
+
   /* Intentional exception: highlighted stat/display numbers (e.g. NAV, hero stats) */
   .text-stat {
     font-family: var(--font-body);
@@ -348,9 +367,11 @@
 .text-on-light h4,
 .text-on-light h5,
 .text-on-light h6,
-.text-on-light p,
 .text-on-light span {
   color: var(--color-text-primary);
+}
+.text-on-light p {
+  color: var(--color-text-tertiary);
 }
 .text-on-light .text-muted {
   color: var(--color-text-secondary);

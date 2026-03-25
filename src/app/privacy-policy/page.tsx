@@ -28,12 +28,12 @@ export default function PrivacyPolicyPage() {
             <H3 className="mt-8 mb-3 text-text-primary">
               Your Personal Information
             </H3>
-            <p className="mb-4 leading-relaxed text-text-secondary">
+            <p className="mb-4 leading-relaxed text-text-tertiary">
               {cleanCopy(
                 "This Privacy Statement relates solely to information supplied to you on this Web Site. Mahaana Wealth Ltd. respects the privacy of your personal information and will treat it confidentially and securely. Any personal information provided by you to Mahaana Wealth through this Website will be used for the purpose of providing and operating the products and services you have requested at this Website and for other related purposes which may include updating and enhancing our records, understanding your financial needs, and advising you of products and services which may be of interest to you, for purposes required by law or regulations, and to plan, conduct and monitor Mahaana Wealth's business. The information collected from you by Mahaana Wealth will be valuable in improving the design and marketing of our range of services and related products for customers."
               )}
             </p>
-            <p className="mb-4 leading-relaxed text-text-secondary">
+            <p className="mb-4 leading-relaxed text-text-tertiary">
               This Policy will not alter or affect any information otherwise
               provided by you to Mahaana Wealth Ltd. Other than to those
               individuals and entities listed below, your details will not be
@@ -42,7 +42,7 @@ export default function PrivacyPolicyPage() {
               obligation or any other duty to do so. For the purposes detailed
               above, your information may be disclosed to:
             </p>
-            <ul className="list-disc space-y-2 pl-6 pb-4 text-text-secondary">
+            <ul className="list-disc space-y-2 pl-6 pb-4 text-text-tertiary">
               <li>
                 Any regulatory, supervisory, governmental or quasi-governmental
                 authority with jurisdiction over Mahaana Wealth Ltd.
@@ -53,7 +53,7 @@ export default function PrivacyPolicyPage() {
                 Mahaana Wealth.
               </li>
             </ul>
-            <p className="mb-4 leading-relaxed text-text-secondary">
+            <p className="mb-4 leading-relaxed text-text-tertiary">
               Mahaana Wealth will ensure that parties to whom your details are
               transferred treat your information securely and confidentially. We
               may, if it is necessary to perform our contract with you, transfer
@@ -69,7 +69,7 @@ export default function PrivacyPolicyPage() {
             </p>
 
             <H3 className="mt-8 mb-3 text-text-primary">Cookies</H3>
-            <p className="mb-4 leading-relaxed text-text-secondary">
+            <p className="mb-4 leading-relaxed text-text-tertiary">
               In order to improve our Internet service to you, we will
               occasionally use COOKIES and other similar files or programs
               which may place certain information on your computer&apos;s hard
@@ -77,7 +77,7 @@ export default function PrivacyPolicyPage() {
               amount of data that our web server sends to your web browser when
               you visit certain parts of our site. We may use cookies to:
             </p>
-            <ul className="list-disc space-y-2 pl-6 pb-4 text-text-secondary">
+            <ul className="list-disc space-y-2 pl-6 pb-4 text-text-tertiary">
               <li>
                 allow us to recognize the PC you are using when you return to
                 our website so that we can understand your interest in our
@@ -107,7 +107,7 @@ export default function PrivacyPolicyPage() {
                 promotions
               </li>
             </ul>
-            <p className="mb-4 leading-relaxed text-text-secondary">
+            <p className="mb-4 leading-relaxed text-text-tertiary">
               Cookies do not enable us to gather personal information about you
               unless you give the information to our server. Most Internet
               browser software allows the blocking of all cookies or enables you
@@ -119,7 +119,7 @@ export default function PrivacyPolicyPage() {
             <H3 className="mt-8 mb-3 text-text-primary">
               Internet Communications
             </H3>
-            <p className="mb-4 leading-relaxed text-text-secondary">
+            <p className="mb-4 leading-relaxed text-text-tertiary">
               In order to maintain the security of our systems, protect our
               staff, record transactions, and, in certain circumstances, to
               prevent and detect crime or unauthorized activities, Mahaana Wealth
@@ -128,7 +128,7 @@ export default function PrivacyPolicyPage() {
             </p>
 
             <H3 className="mt-8 mb-3 text-text-primary">Contacting You</H3>
-            <p className="mb-4 leading-relaxed text-text-secondary">
+            <p className="mb-4 leading-relaxed text-text-tertiary">
               In providing your telephone, postal and e-mail address or similar
               details, you agree that Mahaana Wealth may contact you by these
               methods to keep you informed about Mahaana Wealth&apos;s products

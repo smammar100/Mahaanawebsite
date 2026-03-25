@@ -64,7 +64,7 @@ export function FAQSavePlusSection({
                 Frequently asked questions
               </H3>
             </div>
-            <TextRegular className="mt-4 text-text-secondary">
+            <TextRegular className="mt-4 text-text-tertiary">
               {cleanCopy("Everything you need to know about Mahaana Save+")}
             </TextRegular>
             <Button
@@ -92,7 +92,7 @@ export function FAQSavePlusSection({
                     />
                   </summary>
                   <div className="mt-3 pl-0">
-                    <TextRegular className="whitespace-pre-line text-text-secondary">
+                    <TextRegular className="whitespace-pre-line text-text-tertiary">
                       {cleanCopy(item.answer)}
                     </TextRegular>
                   </div>

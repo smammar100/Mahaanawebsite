@@ -22,7 +22,7 @@ export default async function ReviewsPage() {
       <AnimatedSection className="py-12 sm:py-16 lg:py-24">
         <Container>
           <H1 className="text-text-primary">Reviews</H1>
-          <TextRegular className="mt-4 max-w-prose text-text-secondary">
+          <TextRegular className="mt-4 max-w-prose text-text-tertiary">
             {cleanCopy("See what our users say about Mahaana.")}
           </TextRegular>
         </Container>
@@ -58,7 +58,7 @@ export default async function ReviewsPage() {
                         ))}
                       </div>
                     ) : null}
-                    <blockquote className="text-text-secondary">
+                    <blockquote className="text-text-tertiary">
                       &ldquo;{cleanCopy(review.quote ?? "")}&rdquo;
                     </blockquote>
                     <div className="mt-5 flex items-center gap-3 border-t border-surface-stroke pt-4">

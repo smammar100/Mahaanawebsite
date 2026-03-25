@@ -77,7 +77,7 @@ export function MIIRFOverviewSection({ fundData }: { fundData?: MiirfOverviewFun
               <H4 className="text-stat text-text-primary">
                 Product Summary
               </H4>
-              <TextRegular className="text-text-secondary leading-[150%]">
+              <TextRegular className="text-text-tertiary leading-[150%]">
                 {summary}
               </TextRegular>
             </div>
@@ -85,7 +85,7 @@ export function MIIRFOverviewSection({ fundData }: { fundData?: MiirfOverviewFun
               <H4 className="text-stat text-text-primary">
                 Investment Objective
               </H4>
-              <TextRegular className="text-text-secondary leading-[150%]">
+              <TextRegular className="text-text-tertiary leading-[150%]">
                 {objective}
               </TextRegular>
             </div>

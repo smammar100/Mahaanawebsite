@@ -68,11 +68,11 @@ export function MICFFAQSection({
                 We&apos;re here to assist.
               </H3>
             </div>
-            <TextRegular className="mt-4 text-text-secondary">
+            <TextRegular className="mt-4 text-text-tertiary">
               Still have questions? Feel free to contact our friendly{" "}
               <Link
                 href="/contact"
-                className="font-body text-regular font-normal text-text-secondary underline underline-offset-2 hover:text-text-primary"
+                className="font-body text-regular font-normal text-text-tertiary underline underline-offset-2 hover:text-text-primary"
               >
                 support team
               </Link>{" "}
@@ -104,7 +104,7 @@ export function MICFFAQSection({
                     />
                   </summary>
                   <div className="mt-3 pl-0">
-                    <TextRegular className="whitespace-pre-line text-text-secondary">
+                    <TextRegular className="whitespace-pre-line text-text-tertiary">
                       {cleanCopy(item.answer)}
                     </TextRegular>
                   </div>

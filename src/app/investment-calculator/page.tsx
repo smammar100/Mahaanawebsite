@@ -21,7 +21,7 @@ export default function InvestmentCalculatorPage() {
           <H1 className="text-text-primary">
             Investment Calculator
           </H1>
-          <TextMedium className="mx-auto mt-3 max-w-[520px] text-text-secondary">
+          <TextMedium className="mx-auto mt-3 max-w-[520px] text-text-tertiary">
             See how your money grows over time with compound return. Enter
             your details to instantly project your future value.
           </TextMedium>

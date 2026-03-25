@@ -83,6 +83,31 @@ export function formatShortDate(isoDate: string | null | undefined): string {
   }
 }
 
+/**
+ * Relative phrasing for recent posts (e.g. "2 days ago"); older than ~7 days uses short date.
+ */
+export function formatRelativeOrShortDate(isoDate: string | null | undefined): string {
+  if (!isoDate) return "";
+  try {
+    const d = new Date(isoDate);
+    if (Number.isNaN(d.getTime())) return "";
+    const now = Date.now();
+    const diffMs = now - d.getTime();
+    const diffMins = Math.floor(diffMs / (1000 * 60));
+    const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+    const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+    if (diffMs < 0) return formatShortDate(isoDate);
+    if (diffMins < 1) return "Just now";
+    if (diffMins < 60) return `${diffMins} min ago`;
+    if (diffHours < 24) return diffHours === 1 ? "1 hour ago" : `${diffHours} hours ago`;
+    if (diffDays === 1) return "1 day ago";
+    if (diffDays < 7) return `${diffDays} days ago`;
+    return formatShortDate(isoDate);
+  } catch {
+    return "";
+  }
+}
+
 /** Format date as "DD/MM/YYYY" (e.g. 13/06/2023). Returns empty string if invalid. */
 export function formatDateDdMmYyyy(isoDate: string | null | undefined): string {
   if (!isoDate) return "";

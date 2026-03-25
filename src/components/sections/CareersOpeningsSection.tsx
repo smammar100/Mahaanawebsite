@@ -45,7 +45,7 @@ export function CareersOpeningsSection({
           <H3 id="careers-openings-heading" className="h-fit text-text-primary">
             Current Openings
           </H3>
-          <TextLarge className="h-fit w-full max-w-2xl text-center text-text-secondary">
+          <TextLarge className="h-fit w-full max-w-2xl text-center text-text-tertiary">
             Join our team and help shape the future. We&apos;re looking for
             passionate people who are excited to tackle challenging problems and
             build amazing products.
@@ -73,7 +73,7 @@ export function CareersOpeningsSection({
                 {job.role}
               </span>
               <div className="flex items-center justify-between gap-2">
-                <span className="text-text-secondary">{job.location}</span>
+                <span className="text-text-tertiary">{job.location}</span>
                 <ArrowRight className="absolute right-6 top-6 size-4.5 text-text-tertiary transition-all duration-300 group-hover:translate-x-1 group-hover:text-system-brand sm:static" />
               </div>
             </Link>
@@ -82,7 +82,7 @@ export function CareersOpeningsSection({
         ))}
 
         <div className="mt-12 text-center">
-          <p className="mb-4 text-text-secondary">
+          <p className="mb-4 text-text-tertiary">
             Don&apos;t see a role that fits? We&apos;re always looking for great
             talent.
           </p>

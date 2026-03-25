@@ -25,6 +25,7 @@ import {
   AppStoreButton as AppStoreButtonOutline,
 } from "@/components/base/buttons/app-store-buttons-outline";
 import { IconButtonsShowcase } from "./IconButtonsShowcase";
+import { RichTextEditorShowcase } from "./RichTextEditorShowcase";
 import { breakpoints } from "@/lib/breakpoints";
 import { cleanCopy } from "@/lib/copy-utils";
 
@@ -115,8 +116,16 @@ const paletteLabels = ["gray", "primary", "success", "warning", "error", "info",
 
 const semanticTokens = [
   { name: "text-primary", class: "text-text-primary", label: "Primary text" },
-  { name: "text-secondary", class: "text-text-secondary", label: "Secondary text" },
-  { name: "text-tertiary", class: "text-text-tertiary", label: "Tertiary text" },
+  {
+    name: "text-secondary",
+    class: "text-text-secondary",
+    label: "Secondary (stronger emphasis)",
+  },
+  {
+    name: "text-tertiary",
+    class: "text-text-tertiary",
+    label: "Default body (light surfaces)",
+  },
   { name: "system-brand", class: "text-system-brand", label: "Brand accent" },
   { name: "system-success", class: "text-system-success", label: "Success" },
   { name: "system-warning", class: "text-system-warning", label: "Warning" },
@@ -131,7 +140,7 @@ export default function StyleGuidePage() {
         {/* Hero */}
         <section>
           <H1 className="text-text-primary">Style Guide</H1>
-          <TextLarge className="mt-4 text-text-secondary max-w-2xl">
+          <TextLarge className="mt-4 text-text-tertiary max-w-2xl">
             Foundations for the Mahaana design system — typography, colors,
             breakpoints, and tokens.
           </TextLarge>
@@ -190,7 +199,7 @@ export default function StyleGuidePage() {
                 Body text
               </TextSmall>
               <div className="border-b border-surface-stroke pb-4">
-                <TextLarge className="text-text-secondary block">
+                <TextLarge className="text-text-tertiary block">
                   TextLarge
                 </TextLarge>
                 <TextSmall className="mt-2 text-text-tertiary">
@@ -198,7 +207,7 @@ export default function StyleGuidePage() {
                 </TextSmall>
               </div>
               <div className="border-b border-surface-stroke pb-4">
-                <TextMedium className="text-text-secondary block">
+                <TextMedium className="text-text-tertiary block">
                   TextMedium
                 </TextMedium>
                 <TextSmall className="mt-2 text-text-tertiary">
@@ -206,7 +215,7 @@ export default function StyleGuidePage() {
                 </TextSmall>
               </div>
               <div className="border-b border-surface-stroke pb-4">
-                <TextRegular className="text-text-secondary block">
+                <TextRegular className="text-text-tertiary block">
                   TextRegular
                 </TextRegular>
                 <TextSmall className="mt-2 text-text-tertiary">
@@ -214,7 +223,7 @@ export default function StyleGuidePage() {
                 </TextSmall>
               </div>
               <div className="border-b border-surface-stroke pb-4">
-                <TextSmall className="text-text-secondary block">
+                <TextSmall className="text-text-tertiary block">
                   TextSmall
                 </TextSmall>
                 <TextSmall className="mt-2 text-text-tertiary">
@@ -222,7 +231,7 @@ export default function StyleGuidePage() {
                 </TextSmall>
               </div>
               <div className="border-b border-surface-stroke pb-4">
-                <TextTiny className="text-text-secondary block">
+                <TextTiny className="text-text-tertiary block">
                   TextTiny
                 </TextTiny>
                 <TextSmall className="mt-2 text-text-tertiary">
@@ -239,10 +248,28 @@ export default function StyleGuidePage() {
           </div>
         </section>
 
+        {/* Rich text (CMS / Portable Text) */}
+        <section className="space-y-8">
+          <H3 className="text-text-primary">Rich text (CMS)</H3>
+          <TextLarge className="text-text-tertiary max-w-2xl">
+            Styling for Sanity Portable Text rendered by{" "}
+            <code className="rounded bg-surface-bg px-1.5 py-0.5 font-mono text-sm text-text-primary">
+              PortableTextRenderer
+            </code>{" "}
+            — used on investor education articles and anywhere body copy comes
+            from the CMS. Typography polish (
+            <code className="rounded bg-surface-bg px-1.5 py-0.5 font-mono text-sm text-text-primary">
+              cleanCopy
+            </code>
+            ) applies to plain heading and paragraph blocks.
+          </TextLarge>
+          <RichTextEditorShowcase />
+        </section>
+
         {/* Buttons */}
         <section className="space-y-8">
           <H3 className="text-text-primary">Buttons</H3>
-          <TextLarge className="text-text-secondary max-w-2xl">
+          <TextLarge className="text-text-tertiary max-w-2xl">
             Untitled UI button components styled with Mahaana design system
             colors (primary-200, surface-card, text-primary, system-brand,
             system-error).
@@ -295,7 +322,7 @@ export default function StyleGuidePage() {
         {/* App Store buttons */}
         <section className="space-y-8">
           <H3 className="text-text-primary">App Store buttons</H3>
-          <TextLarge className="text-text-secondary max-w-2xl">
+          <TextLarge className="text-text-tertiary max-w-2xl">
             Untitled UI App Store and Google Play badge buttons, styled with
             design system tokens (surface-stroke, text-primary, system-brand).
           </TextLarge>
@@ -416,7 +443,7 @@ export default function StyleGuidePage() {
                 <tr className="border-b border-surface-stroke bg-surface-card">
                   <th className="px-4 py-3 text-text-primary">Prefix</th>
                   <th className="px-4 py-3 text-text-primary">Size</th>
-                  <th className="px-4 py-3 text-text-secondary">Usage</th>
+                  <th className="px-4 py-3 text-text-tertiary">Usage</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-surface-stroke">
@@ -426,7 +453,7 @@ export default function StyleGuidePage() {
                       {prefix}:
                     </td>
                     <td className="px-4 py-3 text-text-primary">{size}</td>
-                    <td className="px-4 py-3 text-text-secondary">
+                    <td className="px-4 py-3 text-text-tertiary">
                       min-width media query
                     </td>
                   </tr>

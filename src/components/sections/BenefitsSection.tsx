@@ -240,7 +240,7 @@ function BenefitsCard({
           {headline}
         </H3>
         {body && (
-          <TextRegular className="mt-4 text-text-secondary">
+          <TextRegular className="mt-4 text-text-tertiary">
             {cleanCopy(body)}
           </TextRegular>
         )}

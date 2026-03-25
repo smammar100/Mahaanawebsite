@@ -75,13 +75,13 @@ export function AboutTeamSection() {
                       href={person.linkedinUrl ?? "#"}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-text-secondary transition-colors hover:text-system-brand focus:outline-none focus-visible:ring-2 focus-visible:ring-system-brand focus-visible:ring-offset-2 rounded"
+                      className="text-text-tertiary transition-colors hover:text-system-brand focus:outline-none focus-visible:ring-2 focus-visible:ring-system-brand focus-visible:ring-offset-2 rounded"
                       aria-label={`LinkedIn profile of ${person.name}`}
                     >
                       <LinkedInIcon size={20} className="shrink-0" />
                     </a>
                   </div>
-                  <TextSmall className="text-text-secondary">
+                  <TextSmall className="text-text-tertiary">
                     {person.title}
                   </TextSmall>
                 </div>

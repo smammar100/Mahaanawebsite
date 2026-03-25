@@ -56,7 +56,7 @@ export default function SitemapPage() {
     <main className="min-h-screen bg-surface-bg py-12 md:py-16">
       <Container className="max-w-[65ch] readable-line-length">
         <h1 className="mb-2 text-2xl font-semibold text-text-primary">{cleanCopy("Sitemap")}</h1>
-        <p className="mb-8 text-text-secondary">
+        <p className="mb-8 text-text-tertiary">
           {cleanCopy("A list of all main pages on Mahaana. For search engines, use the ")}
           <Link href="/sitemap.xml" className="text-system-brand underline underline-offset-2 hover:no-underline">
             {cleanCopy("XML sitemap")}

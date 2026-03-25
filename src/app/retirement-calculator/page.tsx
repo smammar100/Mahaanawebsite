@@ -22,7 +22,7 @@ export default function RetirementCalculatorPage() {
           <H1 className="text-text-primary">
             FIRE calculator
           </H1>
-          <TextMedium className="mx-auto mt-3 max-w-[540px] text-text-secondary">
+          <TextMedium className="mx-auto mt-3 max-w-[540px] text-text-tertiary">
             FIRE stands for Financial Independence Retire Early. Work out the
             investment and savings strategy to help you retire years earlier than
             expected.

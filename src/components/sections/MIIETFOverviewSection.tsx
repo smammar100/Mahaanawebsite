@@ -85,7 +85,7 @@ export function MIIETFOverviewSection({ fundData }: { fundData?: MiietfOverviewF
               <H4 className="text-stat text-text-primary">
                 Product summary
               </H4>
-              <TextRegular className="text-text-secondary leading-[150%]">
+              <TextRegular className="text-text-tertiary leading-[150%]">
                 {summary}
               </TextRegular>
             </div>
@@ -93,7 +93,7 @@ export function MIIETFOverviewSection({ fundData }: { fundData?: MiietfOverviewF
               <H4 className="text-stat text-text-primary">
                 Investment objective
               </H4>
-              <TextRegular className="text-text-secondary leading-[150%]">
+              <TextRegular className="text-text-tertiary leading-[150%]">
                 {investmentObjective}
               </TextRegular>
             </div>

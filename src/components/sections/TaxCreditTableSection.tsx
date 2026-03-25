@@ -89,7 +89,7 @@ export function TaxCreditTableSection() {
           >
             Visualize your tax savings with Mahaana Retirement
           </H3>
-          <TextRegular className="mt-4 text-text-secondary">
+          <TextRegular className="mt-4 text-text-tertiary">
             View detailed tax credit calculations across all income slabs and understand exactly how much you can save by investing in Mahaana Retirement.
           </TextRegular>
         </div>
@@ -180,7 +180,7 @@ export function TaxCreditTableSection() {
             </table>
           </div>
           <div className="flex flex-wrap items-center justify-between gap-2 border-t border-surface-stroke px-4 py-4 sm:px-6">
-            <p className="text-text-secondary">
+            <p className="text-text-tertiary">
               Page {currentPage} of {totalPages}
             </p>
             <div className="flex gap-2">

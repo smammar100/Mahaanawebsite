@@ -55,7 +55,7 @@ export function SecurityBenefitsSection({
                 >
                   Institutional grade asset protections
                 </H3>
-                <TextRegular className="max-w-[520px] text-text-secondary">
+                <TextRegular className="max-w-[520px] text-text-tertiary">
                   {cleanCopy(
                     "With SECP regulation and CDC safekeeping, your investments enjoy the same protections as the nation's largest financial institutions."
                   )}
@@ -73,7 +73,7 @@ export function SecurityBenefitsSection({
                       </div>
                       <TextRegular
                         weight="medium"
-                        className="text-text-secondary"
+                        className="text-text-tertiary"
                       >
                         {item.label}
                       </TextRegular>

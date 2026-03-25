@@ -42,10 +42,10 @@ const components: PortableTextComponents = {
       if (hasPlainText) {
         const plain = block.children!.map((c) => c.text ?? "").join("");
         return (
-          <p className="mb-4 text-text-secondary">{cleanCopy(plain)}</p>
+          <p className="mb-4 text-text-tertiary">{cleanCopy(plain)}</p>
         );
       }
-      return <p className="mb-4 text-text-secondary">{children}</p>;
+      return <p className="mb-4 text-text-tertiary">{children}</p>;
     },
     h2: ({
       value,
@@ -70,20 +70,25 @@ const components: PortableTextComponents = {
     }) => {
       const plain = headingPlainText(value as { children?: BlockChild[] });
       return (
-        <h3 className="mt-6 mb-2 text-text-primary">
+        <p className="text-body-lg font-semibold mt-6 mb-2 text-text-primary">
           {plain != null ? cleanCopy(plain) : children}
-        </h3>
+        </p>
       );
     },
+    blockquote: ({ children }) => (
+      <blockquote className="my-4 border-l-4 border-system-brand pl-4 text-text-tertiary italic">
+        {children}
+      </blockquote>
+    ),
   },
   list: {
     bullet: ({ children }) => (
-      <ul className="list-disc pl-6 mb-4 space-y-2 text-text-secondary">
+      <ul className="list-disc pl-6 mb-4 space-y-2 text-text-tertiary">
         {children}
       </ul>
     ),
     number: ({ children }) => (
-      <ol className="list-decimal pl-6 mb-4 space-y-2 text-text-secondary">
+      <ol className="list-decimal pl-6 mb-4 space-y-2 text-text-tertiary">
         {children}
       </ol>
     ),
@@ -93,6 +98,26 @@ const components: PortableTextComponents = {
       <strong className="font-semibold text-text-primary">{children}</strong>
     ),
     em: ({ children }) => <em className="italic">{children}</em>,
+    link: ({
+      value,
+      children,
+    }: {
+      value?: { href?: string; blank?: boolean };
+      children?: React.ReactNode;
+    }) => {
+      const href = value?.href ?? "#";
+      const blank = value?.blank === true;
+      return (
+        <a
+          href={href}
+          className="font-medium text-system-brand underline-offset-2 hover:underline"
+          target={blank ? "_blank" : undefined}
+          rel={blank ? "noopener noreferrer" : undefined}
+        >
+          {children}
+        </a>
+      );
+    },
   },
 };
 

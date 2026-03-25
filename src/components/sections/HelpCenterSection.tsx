@@ -254,7 +254,7 @@ export function HelpCenterSection({ items, className }: HelpCenterSectionProps) 
           {/* Row 2 col 2: FAQ blocks */}
           <div className="space-y-6 rounded-xl bg-surface-card px-4 py-6 sm:px-6 md:py-8 min-w-0">
             {filteredItems.length === 0 && searchQuery.trim() !== "" ? (
-              <p className="text-text-secondary text-center py-8" role="status">
+              <p className="text-text-tertiary text-center py-8" role="status">
                 No FAQs match your search.
               </p>
             ) : (
@@ -285,7 +285,7 @@ export function HelpCenterSection({ items, className }: HelpCenterSectionProps) 
                           <ChevronDown className="size-5 shrink-0 transition-transform duration-200" aria-hidden />
                         </AccordionTrigger>
                         <AccordionContent>
-                          <p className="text-body font-normal whitespace-pre-line text-text-secondary">
+                          <p className="text-body font-normal whitespace-pre-line text-text-tertiary">
                             {cleanCopy(item.answer)}
                           </p>
                         </AccordionContent>

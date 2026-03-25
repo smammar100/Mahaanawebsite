@@ -101,7 +101,7 @@ export function LegalPageContent({
               Governance
             </span>
           </H1>
-          <TextLarge className="max-w-2xl text-text-secondary">
+          <TextLarge className="max-w-2xl text-text-tertiary">
             {cleanCopy(
               "Transparency and regulatory compliance form the foundation of trust at Mahaana Wealth. Explore our corporate information, active licenses, and governance policies."
             )}
@@ -120,7 +120,7 @@ export function LegalPageContent({
                 <H3 className="mb-3 text-text-primary">
                   Company Information
                 </H3>
-                <p className="mb-8 max-w-[580px] text-body text-text-secondary">
+                <p className="mb-8 max-w-[580px] text-body text-text-tertiary">
                   {cleanCopy(
                     "Key corporate and registration details for Mahaana Wealth Limited."
                   )}
@@ -165,7 +165,7 @@ export function LegalPageContent({
                 {cleanCopy("Reports & Documents")}
               </span>
               <H3 className="mb-3 text-text-primary">Legal Documents</H3>
-              <p className="mb-8 max-w-[580px] text-body text-text-secondary">
+              <p className="mb-8 max-w-[580px] text-body text-text-tertiary">
                 {cleanCopy("Download key legal and regulatory documents.")}
               </p>
               <div className="overflow-hidden rounded-2xl border border-surface-stroke bg-[#F9F9F9] shadow-sm">

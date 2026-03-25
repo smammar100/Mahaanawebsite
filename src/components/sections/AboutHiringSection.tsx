@@ -22,7 +22,7 @@ export function AboutHiringSection() {
             <H3 id="about-hiring-heading" className="text-text-primary">
               We&apos;re hiring!
             </H3>
-            <TextRegular className="text-text-secondary">
+            <TextRegular className="text-text-tertiary">
               Join us in digitizing the wealth management space.
             </TextRegular>
           </div>

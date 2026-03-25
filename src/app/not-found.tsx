@@ -16,7 +16,7 @@ export default function NotFound() {
     <div className="bg-surface-bg min-h-[60vh] flex items-center">
       <Container className="text-center px-4">
         <h1 className="text-6xl font-semibold text-text-primary mb-4">404</h1>
-        <p className="text-xl text-text-secondary mb-8">
+        <p className="text-xl text-text-tertiary mb-8">
           {cleanCopy("This page doesn't exist. Let's get you back on track.")}
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">

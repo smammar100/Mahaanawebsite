@@ -41,12 +41,12 @@ export function StudioRouteClient({
           <h1 className="text-system-warning">
             {cleanCopy("Sanity Studio is not configured")}
           </h1>
-          <p className="mt-3 font-body text-regular text-text-secondary">
+          <p className="mt-3 font-body text-regular text-text-tertiary">
             Set <code className="rounded bg-warning-150 px-1.5 py-0.5 font-mono text-small">NEXT_PUBLIC_SANITY_PROJECT_ID</code> and{" "}
             <code className="rounded bg-warning-150 px-1.5 py-0.5 font-mono text-small">NEXT_PUBLIC_SANITY_DATASET</code> in{" "}
             <code className="rounded bg-warning-150 px-1.5 py-0.5 font-mono text-small">.env.local</code> and restart the dev server.
           </p>
-          <p className="mt-4 font-body text-small text-text-secondary">
+          <p className="mt-4 font-body text-small text-text-tertiary">
             Copy from <code className="rounded bg-warning-150 px-1.5 py-0.5 font-mono text-tiny">.env.example</code> and add your project ID from{" "}
             <a
               href="https://sanity.io/manage"

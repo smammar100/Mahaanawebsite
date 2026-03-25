@@ -1,41 +1,19 @@
 import type { ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { ArrowNarrowLeft } from "@untitledui/icons";
 import { Container } from "@/components/layout/Container";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
-import { H1, H3, TextLarge, TextRegular, TextSmall } from "@/components/ui/Typography";
+import { H1, TextRegular, TextSmall } from "@/components/ui/Typography";
 import { cleanCopy } from "@/lib/copy-utils";
 import {
   DEFAULT_ARTICLE_AUTHOR,
-  formatArticleCardMeta,
   formatArticleReadTime,
   formatNewsOutletDisplay,
+  formatRelativeOrShortDate,
   formatVideoWatchTimeDisplay,
   sanitizeArticleAuthorName,
 } from "@/lib/formatters";
-import { GetInTouchForm } from "@/components/sections/GetInTouchForm";
-
-export interface RelatedArticleShape {
-  slug: string;
-  title: string;
-  imageUrl: string;
-  href: string;
-  authorName: string;
-  readTime: string;
-  isVideo: boolean;
-  isNews: boolean;
-}
-
-export interface BreadcrumbItemShape {
-  name: string;
-  path: string;
-}
+import { CallToAction1 } from "@/components/ui/call-to-action-1";
 
 export interface InvestorEducationArticleTemplateProps {
   title: string;
@@ -50,10 +28,8 @@ export interface InvestorEducationArticleTemplateProps {
   category?: string | null;
   /** Full URL for share buttons (e.g. canonical article URL). */
   shareUrl?: string;
-  breadcrumbItems?: BreadcrumbItemShape[];
-  relatedArticles?: RelatedArticleShape[];
-  prevArticle?: RelatedArticleShape | null;
-  nextArticle?: RelatedArticleShape | null;
+  /** Optional author portrait; falls back to initials in a circle. */
+  authorImageUrl?: string | null;
 }
 
 function ShareButtons({ title, href }: { title: string; href: string }) {
@@ -63,7 +39,7 @@ function ShareButtons({ title, href }: { title: string; href: string }) {
   const linkedInUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`;
   return (
     <div className="flex items-center gap-2">
-      <span className="text-body-sm font-medium text-text-secondary">
+      <span className="text-body-sm font-medium text-text-tertiary">
         {cleanCopy("Share")}
       </span>
       <a
@@ -92,6 +68,18 @@ function ShareButtons({ title, href }: { title: string; href: string }) {
   );
 }
 
+function asideSecondaryMeta(
+  publishedAt: string | null | undefined,
+  category: string | null | undefined,
+  readingTime: string | null | undefined,
+): string {
+  const relative = formatRelativeOrShortDate(publishedAt);
+  if (relative) return relative;
+  if (category === "Video") return formatVideoWatchTimeDisplay(readingTime);
+  if (category === "News") return formatArticleReadTime(readingTime);
+  return formatArticleReadTime(readingTime);
+}
+
 export function InvestorEducationArticleTemplate({
   title,
   description,
@@ -104,315 +92,127 @@ export function InvestorEducationArticleTemplate({
   externalLink,
   category,
   shareUrl = "",
-  breadcrumbItems = [],
-  relatedArticles = [],
-  prevArticle,
-  nextArticle,
+  authorImageUrl,
 }: InvestorEducationArticleTemplateProps) {
   const displayAuthor =
     sanitizeArticleAuthorName(author) || DEFAULT_ARTICLE_AUTHOR;
-  const displayReadTime = formatArticleReadTime(readingTime);
-  const hasMeta = true;
+  const metaLine = asideSecondaryMeta(publishedAt, category, readingTime);
 
   return (
-    <div className="bg-surface-bg">
+    <div className="-mt-[calc(4.5rem+env(safe-area-inset-top,0px))] bg-surface-bg">
       <article>
-        <Container className="pt-8 pb-4">
-          {/* Breadcrumb */}
-          {breadcrumbItems.length > 0 && (
-            <Breadcrumb className="mb-6">
-              <BreadcrumbList>
-                {breadcrumbItems.map((item, i) => (
-                  <BreadcrumbItem key={item.path}>
-                    {i > 0 && <BreadcrumbSeparator />}
-                    {i === breadcrumbItems.length - 1 ? (
-                      <span className="text-body-xs text-text-tertiary">
-                        {cleanCopy(item.name)}
-                      </span>
-                    ) : (
-                      <BreadcrumbLink href={`/${item.path}`}>
-                        {cleanCopy(item.name)}
-                      </BreadcrumbLink>
-                    )}
-                  </BreadcrumbItem>
-                ))}
-              </BreadcrumbList>
-            </Breadcrumb>
-          )}
-
-          {/* Hero */}
-          <section className="flex flex-col items-center text-center">
-            <div className="mx-auto w-full max-w-3xl">
-              {hasMeta && (
-                <div className="mb-4 flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-center">
-                  <span className="flex size-6 shrink-0 items-center justify-center overflow-hidden rounded-full bg-surface-stroke text-body-xs font-medium text-text-secondary">
+        <Container className="pt-[120px] pb-4">
+          <div className="flex flex-col gap-10 lg:flex-row lg:justify-between lg:gap-12 xl:gap-16">
+            <aside className="shrink-0 lg:sticky lg:top-[calc(var(--header-height)+1rem)] lg:z-10 lg:self-start lg:w-[280px] xl:w-[360px]">
+              <Link
+                href="/investor-education"
+                className="mb-6 inline-flex items-center gap-2 text-body-sm font-medium text-text-tertiary transition-colors hover:text-system-brand focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-system-brand"
+              >
+                <ArrowNarrowLeft className="size-4 shrink-0" aria-hidden />
+                {cleanCopy("Back to Investor Education")}
+              </Link>
+              <H1 className="pb-2 text-balance text-3xl text-text-primary lg:text-4xl">
+                {title}
+              </H1>
+              {description ? (
+                <TextRegular className="mt-4 text-text-tertiary">
+                  {cleanCopy(description)}
+                </TextRegular>
+              ) : null}
+              <div className="mt-8 flex gap-3">
+                {authorImageUrl ? (
+                  <span className="relative size-10 shrink-0 overflow-hidden rounded-full border border-surface-stroke bg-surface-stroke">
+                    <Image
+                      src={authorImageUrl}
+                      alt=""
+                      fill
+                      className="object-cover"
+                      sizes="40px"
+                    />
+                  </span>
+                ) : (
+                  <span className="flex size-10 shrink-0 items-center justify-center overflow-hidden rounded-full border border-surface-stroke bg-surface-stroke text-body-sm font-semibold text-text-tertiary">
                     {displayAuthor[0]?.toUpperCase() ?? "?"}
                   </span>
-                  <TextSmall className="text-text-secondary">
+                )}
+                <div className="flex min-w-0 flex-col">
+                  <TextSmall className="font-semibold text-text-primary">
                     {cleanCopy(displayAuthor)}
                   </TextSmall>
-                  <span className="text-text-tertiary" aria-hidden>
-                    ·
-                  </span>
-                  <TextSmall className="text-text-tertiary">
-                    {cleanCopy(displayReadTime)}
-                  </TextSmall>
-                </div>
-              )}
-              <H1 className="text-text-primary">{title}</H1>
-              {description && (
-                <TextLarge className="mt-4 max-w-2xl text-text-secondary">
-                  {cleanCopy(description)}
-                </TextLarge>
-              )}
-            </div>
-          </section>
-
-          {/* Hero media */}
-          {(heroVideoEmbed || heroImageUrl) && (
-            <section className="mt-8 w-full">
-              <Container className="max-w-4xl">
-                {heroVideoEmbed ?? (
-                  heroImageUrl && (
-                    <div className="relative aspect-video w-full overflow-hidden rounded-2xl border border-surface-stroke">
-                      <Image
-                        src={heroImageUrl}
-                        alt={title ? `Hero image for ${title}` : "Article hero image"}
-                        fill
-                        className="object-cover"
-                        priority
-                        sizes="(max-width: 1024px) 100vw, 896px"
-                      />
-                    </div>
-                  )
-                )}
-              </Container>
-            </section>
-          )}
-
-          {/* Content card (overlapping) */}
-          <section className="-mt-20">
-            <Container className="max-w-3xl">
-              <div className="rounded-2xl border border-surface-stroke bg-surface-card p-6 shadow-sm md:p-8">
-                <div className="readable-line-length">
-                  {bodyContent ?? null}
-                  {externalLink && (
-                    <div className="mt-8">
-                      <Link
-                        href={externalLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center rounded-full bg-system-brand px-6 py-3 text-white transition-colors hover:bg-system-brand/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-system-brand"
-                      >
-                        {category === "Video" ? "Watch" : "Read more"}
-                      </Link>
-                    </div>
-                  )}
-                </div>
-
-                {/* Article footer meta */}
-                <div className="mt-8 flex flex-col gap-4 border-t border-surface-stroke pt-8 sm:flex-row sm:items-center sm:justify-between">
-                  <div className="flex flex-wrap items-center gap-2">
-                    {category && (
-                      <Link
-                        href="/investor-education"
-                        className="rounded-full border border-surface-stroke bg-surface-bg px-3 py-1.5 text-body-sm font-medium text-text-secondary transition-colors hover:border-system-brand hover:text-system-brand focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-system-brand"
-                      >
-                        {cleanCopy(category)}
-                      </Link>
-                    )}
-                  </div>
-                  {shareUrl ? (
-                    <ShareButtons title={title} href={shareUrl} />
-                  ) : null}
-                </div>
-
-                {/* Tags + Author row */}
-                <div className="mt-6 grid gap-4 md:grid-cols-12">
-                  <div className="rounded-xl border border-surface-stroke bg-surface-bg p-4 md:col-span-5">
-                    <TextSmall className="mb-2 font-semibold uppercase tracking-wide text-text-tertiary">
-                      {cleanCopy("Tags")}
+                  {metaLine ? (
+                    <TextSmall className="mt-0.5 text-text-tertiary">
+                      {cleanCopy(metaLine)}
                     </TextSmall>
-                    <div className="flex flex-wrap gap-2">
-                      {category && (
-                        <Link
-                          href="/investor-education"
-                          className="rounded-full border border-surface-stroke px-3 py-1 text-body-sm text-text-secondary hover:border-system-brand hover:text-system-brand"
-                        >
-                          {cleanCopy(category)}
-                        </Link>
-                      )}
-                    </div>
-                  </div>
-                  <div className="flex gap-4 rounded-xl border border-surface-stroke bg-surface-bg p-4 md:col-span-7">
-                    <span className="flex size-10 shrink-0 items-center justify-center overflow-hidden rounded-full bg-surface-stroke text-body font-semibold text-text-secondary">
-                      {displayAuthor[0]?.toUpperCase() ?? "?"}
-                    </span>
-                    <div className="min-w-0">
-                      <TextSmall className="font-semibold text-text-primary">
-                        {cleanCopy(displayAuthor)}
-                      </TextSmall>
-                      <TextSmall className="mt-0.5 text-text-secondary">
-                        {cleanCopy(
-                          "Content and insights from the Mahaana team to help you make informed decisions."
-                        )}
-                      </TextSmall>
-                    </div>
-                  </div>
+                  ) : null}
                 </div>
               </div>
-            </Container>
-          </section>
+            </aside>
 
-          {/* Prev/Next */}
-          {(prevArticle || nextArticle) && (
-            <section className="mt-12">
-              <Container className="max-w-3xl">
-                <div className="grid gap-4 sm:grid-cols-2">
-                  {prevArticle ? (
-                    <Link
-                      href={prevArticle.href}
-                      className="group flex gap-3 rounded-xl border border-surface-stroke bg-surface-card p-4 transition-colors hover:border-system-brand/50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-system-brand"
-                    >
-                      <div className="relative h-16 w-20 shrink-0 overflow-hidden rounded-lg">
+            <div className="min-w-0 flex-1">
+              {(heroVideoEmbed || heroImageUrl) && (
+                <div className="mb-8 w-full">
+                  {heroVideoEmbed ?? (
+                    heroImageUrl && (
+                      <div className="relative aspect-video w-full overflow-hidden rounded-xl border border-surface-stroke">
                         <Image
-                          src={prevArticle.imageUrl}
-                          alt=""
+                          src={heroImageUrl}
+                          alt={
+                            title
+                              ? `Hero image for ${title}`
+                              : "Article hero image"
+                          }
                           fill
-                          className="object-cover transition-transform group-hover:scale-105"
-                          sizes="80px"
+                          className="object-cover"
+                          priority
+                          sizes="(max-width: 1024px) 100vw, 720px"
                         />
                       </div>
-                      <div className="min-w-0 flex-1">
-                        <TextSmall className="font-semibold uppercase tracking-wide text-text-tertiary">
-                          {cleanCopy("Prev")}
-                        </TextSmall>
-                        <p className="mt-0.5 line-clamp-2 text-body-sm font-medium text-text-primary group-hover:text-system-brand">
-                          {cleanCopy(prevArticle.title)}
-                        </p>
-                        <TextSmall className="mt-1 text-text-tertiary">
-                          {cleanCopy(
-                            prevArticle.isVideo
-                              ? formatVideoWatchTimeDisplay(prevArticle.readTime)
-                              : prevArticle.isNews
-                                ? formatNewsOutletDisplay(prevArticle.authorName)
-                                : formatArticleCardMeta({
-                                    authorName: prevArticle.authorName,
-                                    readTime: prevArticle.readTime,
-                                  })
-                          )}
-                        </TextSmall>
-                      </div>
-                    </Link>
-                  ) : (
-                    <div />
+                    )
                   )}
-                  {nextArticle ? (
+                </div>
+              )}
+
+              <div className="readable-line-length">
+                {bodyContent ?? null}
+              </div>
+
+              {externalLink ? (
+                <div className="readable-line-length mt-8">
+                  <Link
+                    href={externalLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center rounded-full bg-system-brand px-6 py-3 text-white transition-colors hover:bg-system-brand/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-system-brand"
+                  >
+                    {cleanCopy(category === "Video" ? "Watch" : "Read more")}
+                  </Link>
+                </div>
+              ) : null}
+
+              <div className="mt-10 flex flex-col gap-4 border-t border-surface-stroke pt-8 sm:flex-row sm:items-center sm:justify-between">
+                <div className="flex flex-wrap items-center gap-2">
+                  {category ? (
                     <Link
-                      href={nextArticle.href}
-                      className="group flex flex-row-reverse gap-3 rounded-xl border border-surface-stroke bg-surface-card p-4 transition-colors hover:border-system-brand/50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-system-brand sm:flex-row-reverse"
+                      href="/investor-education"
+                      className="rounded-full border border-surface-stroke bg-surface-bg px-3 py-1.5 text-body-sm font-medium text-text-tertiary transition-colors hover:border-system-brand hover:text-system-brand focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-system-brand"
                     >
-                      <div className="relative h-16 w-20 shrink-0 overflow-hidden rounded-lg">
-                        <Image
-                          src={nextArticle.imageUrl}
-                          alt=""
-                          fill
-                          className="object-cover transition-transform group-hover:scale-105"
-                          sizes="80px"
-                        />
-                      </div>
-                      <div className="min-w-0 flex-1 text-left">
-                        <TextSmall className="font-semibold uppercase tracking-wide text-text-tertiary">
-                          {cleanCopy("Next")}
-                        </TextSmall>
-                        <p className="mt-0.5 line-clamp-2 text-body-sm font-medium text-text-primary group-hover:text-system-brand">
-                          {cleanCopy(nextArticle.title)}
-                        </p>
-                        <TextSmall className="mt-1 text-text-tertiary">
-                          {cleanCopy(
-                            nextArticle.isVideo
-                              ? formatVideoWatchTimeDisplay(nextArticle.readTime)
-                              : nextArticle.isNews
-                                ? formatNewsOutletDisplay(nextArticle.authorName)
-                                : formatArticleCardMeta({
-                                    authorName: nextArticle.authorName,
-                                    readTime: nextArticle.readTime,
-                                  })
-                          )}
-                        </TextSmall>
-                      </div>
+                      {cleanCopy(category)}
                     </Link>
                   ) : null}
                 </div>
-              </Container>
-            </section>
-          )}
-
-          {/* Comments placeholder */}
-          <section className="mt-12">
-            <Container className="max-w-3xl">
-              <H3 className="text-text-primary">{cleanCopy("Comments")}</H3>
-              <TextRegular className="mt-2 text-text-tertiary">
-                {cleanCopy("No comments yet.")}
-              </TextRegular>
-            </Container>
-          </section>
-
-          {/* Get in Touch form */}
-          <section className="mt-12">
-            <Container className="max-w-3xl">
-              <GetInTouchForm />
-            </Container>
-          </section>
-
-          {/* Related posts */}
-          {relatedArticles.length > 0 && (
-            <section className="mt-16">
-              <Container>
-                <p className="mb-6 text-body-sm font-semibold uppercase tracking-wide text-system-brand">
-                  {cleanCopy("Related posts")}
-                </p>
-                <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
-                  {relatedArticles.map((post) => (
-                    <Link
-                      key={post.slug}
-                      href={post.href}
-                      className="group block overflow-hidden rounded-xl border border-surface-stroke bg-surface-card shadow-sm transition-shadow hover:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-system-brand"
-                    >
-                      <div className="relative aspect-[16/10] w-full overflow-hidden">
-                        <Image
-                          src={post.imageUrl}
-                          alt=""
-                          fill
-                          className="object-cover transition-transform duration-300 group-hover:scale-105"
-                          sizes="(max-width: 768px) 100vw, (max-width: 1100px) 50vw, 25vw"
-                        />
-                      </div>
-                      <div className="p-4">
-                        <p className="line-clamp-2 font-medium text-text-primary group-hover:text-system-brand">
-                          {cleanCopy(post.title)}
-                        </p>
-                        <TextSmall className="mt-1 text-text-tertiary">
-                          {cleanCopy(
-                            post.isVideo
-                              ? formatVideoWatchTimeDisplay(post.readTime)
-                              : post.isNews
-                                ? formatNewsOutletDisplay(post.authorName)
-                                : formatArticleCardMeta({
-                                    authorName: post.authorName,
-                                    readTime: post.readTime,
-                                  })
-                          )}
-                        </TextSmall>
-                      </div>
-                    </Link>
-                  ))}
-                </div>
-              </Container>
-            </section>
-          )}
-
+                {shareUrl ? (
+                  <ShareButtons title={title} href={shareUrl} />
+                ) : null}
+              </div>
+            </div>
+          </div>
         </Container>
+
+        <section className="mt-12 pb-16">
+          <Container>
+            <CallToAction1 />
+          </Container>
+        </section>
       </article>
     </div>
   );

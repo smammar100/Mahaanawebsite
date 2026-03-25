@@ -50,7 +50,7 @@ export function SecurityHero() {
               >
                 {cleanCopy("Your money fully protected")}
               </h1>
-              <TextRegular className="max-w-[446px] text-text-secondary">
+              <TextRegular className="max-w-[446px] text-text-tertiary">
                 {cleanCopy(
                   "At Mahaana, we understand that investment security is your primary concern. To address this we've partnered with Central Depository Company (CDC) and are licensed by Securities & Exchange Commission of Pakistan (SECP)."
                 )}

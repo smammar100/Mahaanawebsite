@@ -27,7 +27,7 @@ export default function TermsConditionsPage() {
         {/* Content */}
         <section className="pt-10 pb-16">
           <Container className="max-w-3xl readable-line-length">
-            <p className="mb-4 leading-relaxed text-text-secondary">
+            <p className="mb-4 leading-relaxed text-text-tertiary">
               {cleanCopy("Dynasty Financial Advisors (DFA) owns and maintains website ")}
               <a
                 href="https://www.mahaana.com"
@@ -41,7 +41,7 @@ export default function TermsConditionsPage() {
             </p>
 
             <H3 className="mt-8 mb-3 text-text-primary">No Warranties</H3>
-            <p className="mb-4 leading-relaxed text-text-secondary">
+            <p className="mb-4 leading-relaxed text-text-tertiary">
               We do not represent or warrant that this Site will be available or
               that it will meet your requirements, that access will be
               uninterrupted, that there will be no delays, failures, errors or
@@ -53,7 +53,7 @@ export default function TermsConditionsPage() {
               precautions to scan for computer viruses or other destructive
               properties.
             </p>
-            <p className="mb-4 leading-relaxed text-text-secondary">
+            <p className="mb-4 leading-relaxed text-text-tertiary">
               We make no representations or warranties regarding the accuracy,
               functionality or performance of any third-party software that may
               be used in connection with this Site. DFA disclaims all
@@ -71,14 +71,14 @@ export default function TermsConditionsPage() {
               kind contained within the site for any purpose, including products,
               services, information, text, and related graphics content.
             </p>
-            <p className="mb-4 leading-relaxed text-text-secondary">
+            <p className="mb-4 leading-relaxed text-text-tertiary">
               DFA is not responsible for any failures caused by server errors,
               misdirected or redirected transmissions, failed internet
               connections, interruptions in the transmission or receipt of
               reservations or, any computer virus or other technical defect,
               whether human or technical in nature.
             </p>
-            <p className="mb-4 leading-relaxed text-text-secondary">
+            <p className="mb-4 leading-relaxed text-text-tertiary">
               DFA accepts no liability whatsoever for the provision of
               information forwarded to you by e-mail or other circumstances
               related to this facility, including without limitation: (i)
@@ -103,7 +103,7 @@ export default function TermsConditionsPage() {
             </p>
 
             <H3 className="mt-8 mb-3 text-text-primary">Internet E-Mail</H3>
-            <p className="mb-4 leading-relaxed text-text-secondary">
+            <p className="mb-4 leading-relaxed text-text-tertiary">
               Messages sent over the internet cannot be guaranteed to be
               completely secure or error free as they are subject to possible
               interception, corruption, delays, loss, or possible alteration. We
@@ -118,7 +118,7 @@ export default function TermsConditionsPage() {
             </p>
 
             <H3 className="mt-8 mb-3 text-text-primary">Governing Law</H3>
-            <p className="mb-4 leading-relaxed text-text-secondary">
+            <p className="mb-4 leading-relaxed text-text-tertiary">
               This agreement constitutes the entire agreement between you and
               DFA with respect to using this Site and it supersedes all prior or
               contemporaneous communications and proposals, whether electronic,
@@ -127,13 +127,13 @@ export default function TermsConditionsPage() {
               to the laws of Pakistan, with the Courts of Karachi having the
               exclusive jurisdiction in this regard.
             </p>
-            <p className="mb-4 leading-relaxed text-text-secondary">
+            <p className="mb-4 leading-relaxed text-text-tertiary">
               Generally, if you are dissatisfied with any portion of this Site,
               or with any of these Terms of use, your sole and exclusive remedy
               is to discontinue using this Site and the online investment request
               service.
             </p>
-            <p className="mb-4 leading-relaxed text-text-secondary">
+            <p className="mb-4 leading-relaxed text-text-tertiary">
               We reserve the right in our sole discretion to deny any user access
               to this Site, any interactive service herein, or any portion of
               this Site without notice, and the right to change the terms,
@@ -144,7 +144,7 @@ export default function TermsConditionsPage() {
             <H3 className="mt-8 mb-3 text-text-primary">
               Purchase & Redemption Prices
             </H3>
-            <p className="mb-4 leading-relaxed text-text-secondary">
+            <p className="mb-4 leading-relaxed text-text-tertiary">
               Units of the Scheme(s) are being offered at NAV based prices. The
               AMC calculates and publishes Net Asset Values (NAV&apos;s); offer
               and redemption prices on all Business Days, in line with their
@@ -152,7 +152,7 @@ export default function TermsConditionsPage() {
               submission of transaction requests. Applicable cut-off timings are
               made available on the company website for each fund.
             </p>
-            <p className="mb-4 leading-relaxed text-text-secondary">
+            <p className="mb-4 leading-relaxed text-text-tertiary">
               In case of submission of an e-transaction, the DFA Online system
               date and time stamp will solely be considered and given precedence
               to determine the cut-off time in which the application request is
@@ -160,7 +160,7 @@ export default function TermsConditionsPage() {
               will not be responsible for any network or system delays in
               submitting and receiving the application request.
             </p>
-            <p className="mb-4 leading-relaxed text-text-secondary">
+            <p className="mb-4 leading-relaxed text-text-tertiary">
               It is solely your responsibility to ensure that correct, complete,
               and accurate information is submitted in the Online
               Investment/Redemption Form. This includes the details of the
@@ -173,7 +173,7 @@ export default function TermsConditionsPage() {
             </p>
 
             <H3 className="mt-8 mb-3 text-text-primary">Zakat Deduction</H3>
-            <p className="mb-4 leading-relaxed text-text-secondary">
+            <p className="mb-4 leading-relaxed text-text-tertiary">
               Zakat will be deducted at the time of redemption of units if a
               duly filled and signed Zakat Affidavit Form is not provided to the
               company for its records. It will be the investors&apos;
@@ -185,7 +185,7 @@ export default function TermsConditionsPage() {
             </p>
 
             <H3 className="mt-8 mb-3 text-text-primary">Tax Deductions</H3>
-            <p className="mb-4 leading-relaxed text-text-secondary">
+            <p className="mb-4 leading-relaxed text-text-tertiary">
               Tax may be deducted as per prevailing and applicable Tax Laws and
               as per the constitutive documents of the funds/plans available on
               our website.
@@ -194,11 +194,11 @@ export default function TermsConditionsPage() {
             <H3 className="mt-8 mb-3 text-text-primary">
               Permitted E-Transaction Requests
             </H3>
-            <p className="mb-4 leading-relaxed text-text-secondary">
+            <p className="mb-4 leading-relaxed text-text-tertiary">
               Currently, the following e-transaction requests can be submitted
               through the DFA E-Transaction Request facility:
             </p>
-            <ol className="list-inside list-decimal space-y-2 pl-6 pb-4 text-text-secondary">
+            <ol className="list-inside list-decimal space-y-2 pl-6 pb-4 text-text-tertiary">
               <li>Investment/purchase of units;</li>
               <li>Redemption/Encashment of Units (From Fund or Plan);</li>
               <li>Conversion of units (from one fund to another)</li>
@@ -207,7 +207,7 @@ export default function TermsConditionsPage() {
             <H3 className="mt-8 mb-3 text-text-primary">
               Rejection of E-Transaction Requests
             </H3>
-            <p className="mb-4 leading-relaxed text-text-secondary">
+            <p className="mb-4 leading-relaxed text-text-tertiary">
               Your e-transaction request may be rejected if there is any
               discrepancy or incomplete information in the request that is
               submitted. In case an e-transaction request is rejected, the
@@ -218,7 +218,7 @@ export default function TermsConditionsPage() {
             <H3 className="mt-8 mb-3 text-text-primary">
               Payment Instrument for Redemption Proceeds
             </H3>
-            <p className="mb-4 leading-relaxed text-text-secondary">
+            <p className="mb-4 leading-relaxed text-text-tertiary">
               In case of a redemption/withdrawal e-transaction request, if
               incorrect or incomplete Bank Account or Payment Details are
               mentioned in the request for Online Bank Account Transfer, a
@@ -230,7 +230,7 @@ export default function TermsConditionsPage() {
             <H3 className="mt-8 mb-3 text-text-primary">
               Application Processing Time
             </H3>
-            <p className="mb-4 leading-relaxed text-text-secondary">
+            <p className="mb-4 leading-relaxed text-text-tertiary">
               E-transaction requests will be processed as per the time frame
               mentioned in the constitutive documents of the funds/plans
               available on our website.
@@ -239,7 +239,7 @@ export default function TermsConditionsPage() {
             <H3 className="mt-8 mb-3 text-text-primary">
               Multiple Transactions
             </H3>
-            <p className="mb-4 leading-relaxed text-text-secondary">
+            <p className="mb-4 leading-relaxed text-text-tertiary">
               In case multiple transactions (through physical form submission
               and/or e-transaction request submission) involving a single or
               multiple funds/plans are received from an investor, the
@@ -250,7 +250,7 @@ export default function TermsConditionsPage() {
             <H3 className="mt-8 mb-3 text-text-primary">
               Submission of Physical Signed Form or Other Documents
             </H3>
-            <p className="mb-4 leading-relaxed text-text-secondary">
+            <p className="mb-4 leading-relaxed text-text-tertiary">
               DFA may on a case-to-case basis require an investor to submit a
               physical form (of the same transaction) in addition to his/her
               e-transaction request, which shall be duly provided by the
@@ -260,7 +260,7 @@ export default function TermsConditionsPage() {
             <H3 className="mt-8 mb-3 text-text-primary">
               Verifications of E-Transaction Requests
             </H3>
-            <p className="mb-4 leading-relaxed text-text-secondary">
+            <p className="mb-4 leading-relaxed text-text-tertiary">
               The Management Company from time to time on a case-to-case basis
               may require verification from the investor prior to processing the
               investors&apos; e-transaction request through email and/or phone
@@ -270,7 +270,7 @@ export default function TermsConditionsPage() {
             <H3 className="mt-8 mb-3 text-text-primary">
               Book Closure Periods
             </H3>
-            <p className="mb-4 leading-relaxed text-text-secondary">
+            <p className="mb-4 leading-relaxed text-text-tertiary">
               All E-Transaction Request received during the book closure period
               (notified on website) pertaining to respective funds/plans shall be
               marked Rejected and customers would be required to re-submit
@@ -280,7 +280,7 @@ export default function TermsConditionsPage() {
             <H3 className="mt-8 mb-3 text-text-primary">
               Security of DFA Online Credentials
             </H3>
-            <p className="mb-4 leading-relaxed text-text-secondary">
+            <p className="mb-4 leading-relaxed text-text-tertiary">
               You agree that any person who supplies DFA with your DFA Online
               username, password, and E-transaction request PIN Code (where
               applicable) will be allowed access to the Site and to your
@@ -292,7 +292,7 @@ export default function TermsConditionsPage() {
               them in a way which can be determined by another person. You must
               not record them together.
             </p>
-            <p className="mb-4 leading-relaxed text-text-secondary">
+            <p className="mb-4 leading-relaxed text-text-tertiary">
               You must notify DFA immediately if a record of your login
               credentials and PIN is lost or stolen or you become aware or suspect
               another person knows your online credentials and has attempted to
@@ -304,7 +304,7 @@ export default function TermsConditionsPage() {
             <H3 className="mt-8 mb-3 text-text-primary">
               Records and Statements
             </H3>
-            <p className="mb-4 leading-relaxed text-text-secondary">
+            <p className="mb-4 leading-relaxed text-text-tertiary">
               You should carefully check Account records and statements given on
               this Site. If you believe that there has been any discrepancy or
               inconsistency in any transaction on this Site, or an unauthorized
@@ -312,7 +312,7 @@ export default function TermsConditionsPage() {
               render you liable for unauthorized transaction which you may not
               otherwise be liable for.
             </p>
-            <p className="mb-4 leading-relaxed text-text-secondary">
+            <p className="mb-4 leading-relaxed text-text-tertiary">
               Our records, unless proven to be wrong, will be evidence of your
               dealings with DFA in connection with the Site.
             </p>
@@ -320,7 +320,7 @@ export default function TermsConditionsPage() {
             <H3 className="mt-8 mb-3 text-text-primary">
               Liability for Unauthorized E-Transactions
             </H3>
-            <p className="mb-4 leading-relaxed text-text-secondary">
+            <p className="mb-4 leading-relaxed text-text-tertiary">
               You will be liable for any loss of funds arising from any
               unauthorized e-transaction on your Account if the loss occurs
               before you notify DFA that your Online Credentials have been
@@ -334,7 +334,7 @@ export default function TermsConditionsPage() {
               reasonably have, become aware of these matters and the time you
               notify DFA.
             </p>
-            <p className="mb-4 leading-relaxed text-text-secondary">
+            <p className="mb-4 leading-relaxed text-text-tertiary">
               You will not be liable for losses which are incurred before you
               have received your Online credentials; if the e-transaction
               occurs after you notify DFA that your Online Credentials have been
@@ -344,7 +344,7 @@ export default function TermsConditionsPage() {
             <H3 className="mt-8 mb-3 text-text-primary">
               Copyrights & Intellectual Property Rights
             </H3>
-            <p className="mb-4 leading-relaxed text-text-secondary">
+            <p className="mb-4 leading-relaxed text-text-tertiary">
               The Site contains copyright material, trade names and other
               proprietary information, including, but not limited to, text,
               software, photos, graphics and may in future include video,
@@ -358,7 +358,7 @@ export default function TermsConditionsPage() {
               the future. No commercial exploitation of downloaded material
               will be permitted under any circumstances whatsoever.
             </p>
-            <p className="mb-4 leading-relaxed text-text-secondary">
+            <p className="mb-4 leading-relaxed text-text-tertiary">
               You acknowledge that you do not acquire any ownership rights by
               downloading, accessing, reading or in any other manner using
               copyright material contained on the Site. DFA reserves the right at
@@ -368,7 +368,7 @@ export default function TermsConditionsPage() {
             </p>
 
             <H3 className="mt-8 mb-3 text-text-primary">Liability</H3>
-            <p className="mb-4 leading-relaxed text-text-secondary">
+            <p className="mb-4 leading-relaxed text-text-tertiary">
               You will be liable for and agree to indemnify DFA against any loss
               or damage DFA and any of the Funds being offered (including its
               Trustee) may suffer because you did not observe your obligations
@@ -384,7 +384,7 @@ export default function TermsConditionsPage() {
               being delayed, lost, or inaccurately transmitted and may cause you
               to suffer losses.
             </p>
-            <p className="mb-4 leading-relaxed text-text-secondary">
+            <p className="mb-4 leading-relaxed text-text-tertiary">
               To the extent permitted by law, in no event shall DFA or its
               officers, directors, employees, executives, sponsors,
               representatives, subsidiaries, affiliates, agents or others
@@ -419,21 +419,21 @@ export default function TermsConditionsPage() {
               liability or otherwise, even if a covered party has been advised of
               the possibility of damages.
             </p>
-            <p className="mb-4 leading-relaxed text-text-secondary">
+            <p className="mb-4 leading-relaxed text-text-tertiary">
               Subject to the provisions contained above, DFA shall not be able to
               benefit from any limitation of liability or indemnity for any acts
               of fraud or intentional and willful misconduct committed by DFA.
             </p>
 
             <H3 className="mt-8 mb-3 text-text-primary">Termination</H3>
-            <p className="mb-4 leading-relaxed text-text-secondary">
+            <p className="mb-4 leading-relaxed text-text-tertiary">
               You may stop your use of DFA in its entirety at any time by
               giving a written notice to DFA. DFA may terminate the Service at
               any time by giving you a written intimation.
             </p>
 
             <H3 className="mt-8 mb-3 text-text-primary">Special Note</H3>
-            <p className="mb-4 leading-relaxed text-text-secondary">
+            <p className="mb-4 leading-relaxed text-text-tertiary">
               Due to any technical/operational reason, fund transfer may be
               delayed. In such case, please contact our Sales Services Department
               for further facilitation. Funds are transferred as per TATs
@@ -445,7 +445,7 @@ export default function TermsConditionsPage() {
             </p>
 
             <H3 className="mt-8 mb-3 text-text-primary">Undertaking</H3>
-            <ol className="list-inside list-decimal space-y-2 pl-6 pb-4 text-text-secondary">
+            <ol className="list-inside list-decimal space-y-2 pl-6 pb-4 text-text-tertiary">
               <li>
                 I/We am/are fully informed and understand that investment in
                 units of Mutual Fund/CIS are not bank deposit, not guaranteed,
@@ -478,7 +478,7 @@ export default function TermsConditionsPage() {
             </ol>
 
             <H3 className="mt-8 mb-3 text-text-primary">Disclaimer</H3>
-            <p className="mb-4 leading-relaxed text-text-secondary">
+            <p className="mb-4 leading-relaxed text-text-tertiary">
               I/We understand that investment in CIS(s)/Plan(s)/VPS(s) are
               subject to market risks and fund prices may go up or down based on
               market conditions. I/We understand that past performance is not
@@ -496,14 +496,14 @@ export default function TermsConditionsPage() {
             <H3 className="mt-8 mb-3 text-text-primary">
               FATCA Declaration
             </H3>
-            <p className="mb-4 leading-relaxed text-text-secondary">
+            <p className="mb-4 leading-relaxed text-text-tertiary">
               I/We hereby acknowledge and declare that the FATCA information
               provided is correct and true and complete to the best of my/our
               knowledge and belief. I/We agree to provide supporting evidence
               and provide updates within 30 days in case any of the
               aforementioned information changes.
             </p>
-            <p className="mb-4 leading-relaxed text-text-secondary">
+            <p className="mb-4 leading-relaxed text-text-tertiary">
               I/We expressly and unconditionally authorize DFA to disclose
               relevant account and/or personal information to third parties
               including US tax authorities as well as take necessary action
@@ -512,7 +512,7 @@ export default function TermsConditionsPage() {
               its obligations under the US foreign Account Tax Compliance Act
               (&quot;FATCA&quot;).
             </p>
-            <p className="mb-4 leading-relaxed text-text-secondary">
+            <p className="mb-4 leading-relaxed text-text-tertiary">
               I/we undertake to fully cooperate with DFA & AMC in meeting its
               obligation under FATCA in connection with my/our account(s). I/We
               irrevocably confirm and undertake that I/we shall indemnify, defend
@@ -529,14 +529,14 @@ export default function TermsConditionsPage() {
             </p>
 
             <H3 className="mt-8 mb-3 text-text-primary">CRS Declaration</H3>
-            <p className="mb-4 leading-relaxed text-text-secondary">
+            <p className="mb-4 leading-relaxed text-text-tertiary">
               I understand that the information supplied by me is covered by the
               full provision of the terms and conditions governing the Account
               Holder&apos;s relationship with DFA and its funds under management
               setting out how AMC and its Funds under management may use and
               share the information supplied by me.
             </p>
-            <p className="mb-4 leading-relaxed text-text-secondary">
+            <p className="mb-4 leading-relaxed text-text-tertiary">
               I acknowledge that the information contained in this form and
               information regarding the Account Holder and any Reportable
               Account(s) may be provided to the tax authorities of the country in
@@ -545,7 +545,7 @@ export default function TermsConditionsPage() {
               Holder may be tax resident pursuant to intergovernmental agreements
               to exchange financial account information.
             </p>
-            <p className="mb-4 leading-relaxed text-text-secondary">
+            <p className="mb-4 leading-relaxed text-text-tertiary">
               I certify that I am an account holder (or an authorized person to
               sign for the Account Holder) of all the account(s) to which this
               form relates. I declare that I have neither asked for, nor

@@ -98,11 +98,11 @@ export function FAQSection({
                 We&apos;re here to assist.
               </H3>
             </div>
-            <TextRegular className="mt-4 text-text-secondary">
+            <TextRegular className="mt-4 text-text-tertiary">
               {cleanCopy("Still have questions? Feel free to contact our friendly ")}
               <Link
                 href="/contact"
-                className="text-text-secondary underline underline-offset-2 hover:text-text-primary"
+                className="text-text-tertiary underline underline-offset-2 hover:text-text-primary"
               >
                 support team
               </Link>
@@ -134,7 +134,7 @@ export function FAQSection({
                     />
                   </summary>
                   <div className="mt-3 pl-0">
-                    <TextRegular className="whitespace-pre-line text-text-secondary">
+                    <TextRegular className="whitespace-pre-line text-text-tertiary">
                       {cleanCopy(item.answer)}
                     </TextRegular>
                   </div>
