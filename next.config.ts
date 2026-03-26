@@ -37,7 +37,7 @@ const nextConfig: NextConfig = {
   },
   async headers() {
     const projectId =
-      process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "ke6ev8q3";
+      process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "ctfatnb0";
     const studioOrigin = `https://${projectId}.sanity.studio`;
     return [
       {

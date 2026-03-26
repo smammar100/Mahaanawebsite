@@ -6,7 +6,7 @@
   publish = ".next"
 
 [build.environment]
-  NEXT_PUBLIC_SANITY_PROJECT_ID = "ke6ev8q3"
+  NEXT_PUBLIC_SANITY_PROJECT_ID = "ctfatnb0"
   NEXT_PUBLIC_SANITY_DATASET = "production"
 
 # CORS for Sanity Dashboard manifest/schema fetch
