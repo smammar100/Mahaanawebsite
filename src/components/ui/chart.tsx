@@ -58,23 +58,35 @@ ChartContainer.displayName = "ChartContainer";
 
 const ChartTooltip = Tooltip;
 
-interface ChartTooltipContentProps<TValue extends number | string | Array<number | string>> {
+interface ChartTooltipContentProps<
+  TValue extends
+    | number
+    | string
+    | ReadonlyArray<number | string>
+    | Array<number | string>,
+> {
   active?: boolean;
   payload?: ReadonlyArray<{
-    name: string;
-    value: TValue;
-    dataKey: string;
-    color: string;
-    payload: Record<string, unknown>;
+    name?: string | number;
+    value?: TValue;
+    dataKey?: string | number | ((obj: unknown) => unknown);
+    color?: string;
+    payload?: Record<string, unknown>;
   }>;
   label?: string | number;
   labelFormatter?: (label: unknown, payload?: Record<string, unknown>) => React.ReactNode;
-  formatter?: (value: TValue, name: string, item: { dataKey: string; color: string; payload: Record<string, unknown> }) => React.ReactNode;
+  formatter?: (value: TValue | undefined, name: string, item: { dataKey: string; color: string; payload: Record<string, unknown> }) => React.ReactNode;
   hideLabel?: boolean;
   className?: string;
 }
 
-function ChartTooltipContent<TValue extends number | string | Array<number | string>>({
+function ChartTooltipContent<
+  TValue extends
+    | number
+    | string
+    | ReadonlyArray<number | string>
+    | Array<number | string>,
+>({
   active,
   payload,
   label,
@@ -87,20 +99,29 @@ function ChartTooltipContent<TValue extends number | string | Array<number | str
 
   if (!active || !payload?.length) return null;
 
-  const firstPayload = payload[0].payload as Record<string, unknown>;
+  const firstPayload = (payload[0].payload ?? {}) as Record<string, unknown>;
 
   const rows = payload
-    .filter((item) => item.dataKey && config[item.dataKey])
+    .filter((item) => typeof item.dataKey === "string" && Boolean(config[item.dataKey]))
     .map((item) => {
-      const conf = config[item.dataKey];
+      const dataKey = item.dataKey as string;
+      const conf = config[dataKey];
+      const color = conf?.color ?? item.color ?? "currentColor";
+      const rowName =
+        typeof item.name === "string" ? item.name : String(item.name ?? dataKey);
+      const itemPayload = (item.payload ?? {}) as Record<string, unknown>;
       const value = formatter
-        ? formatter(item.value as TValue, item.name, { dataKey: item.dataKey, color: item.color, payload: item.payload as Record<string, unknown> })
-        : String(item.value);
+        ? formatter(item.value as TValue | undefined, rowName, {
+            dataKey,
+            color,
+            payload: itemPayload,
+          })
+        : String(item.value ?? "");
       return {
-        dataKey: item.dataKey,
-        label: conf?.label ?? item.name,
+        dataKey,
+        label: conf?.label ?? rowName,
         value,
-        color: conf?.color ?? item.color,
+        color,
       };
     });
 
