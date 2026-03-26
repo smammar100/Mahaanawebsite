@@ -7,6 +7,10 @@ import Image from 'next/image';
 import { Container } from './Container';
 import { Button } from '@/components/base/buttons/button';
 import { AppStoreButton, GooglePlayButton } from '@/components/base/buttons/app-store-buttons';
+import {
+  MAHAANA_APP_STORE_URL,
+  MAHAANA_GOOGLE_PLAY_URL,
+} from '@/lib/app-store-urls';
 import { ButtonUtility } from '@/components/base/buttons/button-utility';
 import { navDropdowns } from './navConfig';
 import { ChevronDown } from '@untitledui/icons';
@@ -223,7 +227,7 @@ export function Header() {
               </Button>
               <div className="flex items-center gap-2">
                 <ButtonUtility
-                  href="#"
+                  href={MAHAANA_APP_STORE_URL}
                   icon={
                     <Image
                       src="/images/navbar/Apple-logo.png"
@@ -238,7 +242,7 @@ export function Header() {
                   className="size-9 rounded-xl"
                 />
                 <ButtonUtility
-                  href="#"
+                  href={MAHAANA_GOOGLE_PLAY_URL}
                   icon={
                     <Image
                       src="/images/navbar/Playstore-logo.png"
@@ -376,8 +380,8 @@ export function Header() {
             <div className="menu-stagger-item border-b border-surface-stroke" />
             {/* 7. App store row */}
             <div className="menu-stagger-item mb-4 mt-6 flex gap-3">
-              <AppStoreButton href="#" className="min-w-0 flex-1 shrink-0" />
-              <GooglePlayButton href="#" className="min-w-0 flex-1 shrink-0" />
+              <AppStoreButton className="min-w-0 flex-1 shrink-0" />
+              <GooglePlayButton className="min-w-0 flex-1 shrink-0" />
             </div>
             {/* 8. Divider */}
             <div className="menu-stagger-item border-b border-surface-stroke" />

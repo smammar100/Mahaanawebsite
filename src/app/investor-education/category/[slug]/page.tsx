@@ -4,6 +4,7 @@ import { buildPageMetadata } from "@/lib/metadata";
 import { getInvestorEducations } from "@/lib/sanity/fetch";
 import { mapSanityToInsightsPageData } from "@/lib/insights-data";
 import {
+  INSIGHTS_CATEGORY_DESCRIPTION,
   INSIGHTS_CATEGORY_HEADING,
   INSIGHTS_CATEGORY_SLUGS,
   insightsCategoryFromSlug,
@@ -24,9 +25,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const category = insightsCategoryFromSlug(slug);
   if (!category) return {};
   const heading = INSIGHTS_CATEGORY_HEADING[category];
+  const blurb = INSIGHTS_CATEGORY_DESCRIPTION[category];
   return buildPageMetadata({
     title: `${heading} | Investor Education | Mahaana`,
-    description: `Browse all ${heading.toLowerCase()} content from Mahaana investor education.`,
+    description: blurb,
     path: `investor-education/category/${slug}`,
   });
 }
@@ -40,6 +42,7 @@ export default async function InvestorEducationCategoryPage({ params }: Props) {
   const data = mapSanityToInsightsPageData(items);
   const articles = data.allArticles.filter((a) => a.category === category);
   const heading = INSIGHTS_CATEGORY_HEADING[category];
+  const description = INSIGHTS_CATEGORY_DESCRIPTION[category];
 
   return (
     <div className="min-h-screen bg-surface-bg">
@@ -52,7 +55,11 @@ export default async function InvestorEducationCategoryPage({ params }: Props) {
           },
         ]}
       />
-      <InsightsCategoryViewClient heading={heading} articles={articles} />
+      <InsightsCategoryViewClient
+        heading={heading}
+        description={description}
+        articles={articles}
+      />
     </div>
   );
 }

@@ -75,7 +75,7 @@ export function CallToAction1({
             {typeof badgeText === "string" ? cleanCopy(badgeText) : badgeText}
           </p>
         </div>
-        <H2 className="mt-5 max-w-3xl text-white">
+        <H2 className="mt-5 max-w-3xl text-white" weight="semibold">
           {headline}
         </H2>
         {ctaText && ctaHref ? (

@@ -12,6 +12,13 @@ const weightMap: Record<Weight, string> = {
   extrabold: "font-extrabold",
 };
 
+/** Outfit headings: cap at 600 (font-semibold); bold/extrabold do not use 700/800 on heading font. */
+const headingWeightMap: Record<Weight, string> = {
+  ...weightMap,
+  bold: "font-semibold",
+  extrabold: "font-semibold",
+};
+
 interface TypographyProps {
   children: ReactNode;
   className?: string;
@@ -24,7 +31,7 @@ function withHeading(
   defaultWeight: Weight = "semibold"
 ) {
   const Tag = as;
-  return function TypographyComponent({
+  function HeadingComponent({
     children,
     className = "",
     weight = defaultWeight,
@@ -35,11 +42,13 @@ function withHeading(
         ? cleanCopy(children)
         : children;
     return (
-      <Tag id={id} className={`${weightMap[weight]} ${className}`.trim()}>
+      <Tag id={id} className={`${headingWeightMap[weight]} ${className}`.trim()}>
         {polished}
       </Tag>
     );
-  };
+  }
+  HeadingComponent.displayName = as.toUpperCase();
+  return HeadingComponent;
 }
 
 function withText(
@@ -63,7 +72,7 @@ function withText(
 
 /* Heading components: size/line-height/font-family come from globals.css base styles; only weight and color/spacing via className are applied here. */
 export const H1 = withHeading("h1", "semibold");
-export const H2 = withHeading("h2", "bold");
+export const H2 = withHeading("h2", "semibold");
 export const H3 = withHeading("h3", "semibold");
 export const H4 = withHeading("h4", "semibold");
 export const H5 = withHeading("h5", "semibold");

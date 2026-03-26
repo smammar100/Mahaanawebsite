@@ -185,6 +185,24 @@
   --color-system-info: #202ab9;
 }
 
+/* ── Retirement calculator: force light semantic tokens (overrides html.dark) ─ */
+.retirement-calc-light-scope {
+  --color-text-primary: #010109;
+  --color-text-secondary: #292a36;
+  --color-text-tertiary: #67697c;
+  --color-surface-bg: #ffffff;
+  --color-surface-card: #f2f2f0;
+  --color-surface-stroke: rgba(220, 221, 228, 1);
+  --color-system-brand: #7042d2;
+  --color-system-error: #c73154;
+  --color-system-success: #1caa50;
+  --color-system-warning: #d59455;
+  --color-system-info: #181f8b;
+  --color-primary-solid: #16171f;
+  --color-tooltip-supporting-text: #a3a4b5;
+  --color-bg-primary-solid: #16171f;
+}
+
 /* ── Base styles (single source of truth for typography) ──────── */
 /* Text color is NOT set here: use .text-on-light / .text-on-dark on section wrappers, or color utilities on elements. */
 @layer base {
@@ -356,6 +374,14 @@
     font-weight: 600;
     line-height: 1.3;
     letter-spacing: var(--tracking-heading);
+  }
+}
+
+@layer utilities {
+  /* Outfit: keep heading stack at 600 if bold utilities are combined with font-heading */
+  .font-heading.font-bold,
+  .font-heading.font-extrabold {
+    font-weight: 600;
   }
 }
 

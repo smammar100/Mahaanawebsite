@@ -27,13 +27,27 @@ const CATEGORY_TO_SLUG: Record<InsightsCategory, InsightsCategorySlug> = {
   "Private Wealth": "private-wealth",
 };
 
-/** Section / page heading (matches Insights hub labels). */
+/** Page H1, breadcrumb, and metadata title (matches Insights hub category labels). */
 export const INSIGHTS_CATEGORY_HEADING: Record<InsightsCategory, string> = {
-  Investing: "Articles",
-  "Personal Finance": "Videos and Podcast",
+  Investing: "Investing",
+  "Personal Finance": "Videos & Podcasts",
   "Market Views": "Latest News",
   Solutions: "Solutions",
   "Private Wealth": "Private Wealth",
+};
+
+/** One-line intro under the category title (until CMS fields exist). */
+export const INSIGHTS_CATEGORY_DESCRIPTION: Record<InsightsCategory, string> = {
+  Investing:
+    "Guides, explainers, and ideas to help you invest with confidence on Mahaana.",
+  "Personal Finance":
+    "Videos, podcasts, and stories on budgeting, goals, and everyday money decisions.",
+  "Market Views":
+    "News, commentary, and updates on markets relevant to your portfolio.",
+  Solutions:
+    "Product updates, portfolio insights, and how our solutions can work for you.",
+  "Private Wealth":
+    "Deeper perspectives for sophisticated investors and long-term wealth planning.",
 };
 
 export function isInsightsCategorySlug(

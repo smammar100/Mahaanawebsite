@@ -15,25 +15,23 @@ export const metadata: Metadata = buildPageMetadata({
 
 export default function RetirementCalculatorPage() {
   return (
-    <div className="bg-surface-bg">
-      {/* Section 1 — Hero */}
-      <AnimatedSection className="pt-[52px] pb-9">
-        <Container className="text-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16">
-          <H1 className="text-text-primary">
+    <div className="retirement-calc-light-scope min-w-0 bg-[var(--color-surface-bg)] text-text-primary">
+      <AnimatedSection className="pt-8 pb-4 sm:pt-10 sm:pb-5">
+        <Container className="px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16">
+          <H1 className="text-center text-xl font-semibold tracking-tight text-text-primary sm:text-2xl md:text-[1.75rem]">
             FIRE calculator
           </H1>
-          <TextMedium className="mx-auto mt-3 max-w-[540px] text-text-tertiary">
-            FIRE stands for Financial Independence Retire Early. Work out the
-            investment and savings strategy to help you retire years earlier than
-            expected.
+          <TextMedium className="mx-auto mt-2 max-w-[520px] text-center text-text-tertiary">
+            Plan savings and spending to see when you could reach financial
+            independence—illustrative projections only.
           </TextMedium>
         </Container>
       </AnimatedSection>
 
-      <AnimatedSection as="div" className="pt-0 pb-6">
+      <AnimatedSection as="div" className="pt-0 pb-8 sm:pb-10">
         <FIRECalculator />
       </AnimatedSection>
-      <Cta6Section />
+      <Cta6Section className="border-t-0" />
     </div>
   );
 }

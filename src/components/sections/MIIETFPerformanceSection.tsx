@@ -96,7 +96,7 @@ export function MIIETFPerformanceSection({ fundData }: { fundData?: MiietfPerfor
       <Container className="flex flex-col gap-4 px-4 sm:px-6 md:px-8 lg:gap-4 lg:px-12 xl:px-16">
         <H3
           id="performance-section-heading"
-          weight="bold"
+          weight="semibold"
           className="text-text-primary"
         >
           Performance

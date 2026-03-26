@@ -1,6 +1,6 @@
 /**
  * Maps Sanity investor education documents to Insights page shape and splits
- * into featured, most popular, and per-section lists.
+ * into featured and per-section lists for the hub grids.
  */
 
 import { urlFor } from "@/lib/sanity/image";
@@ -16,6 +16,9 @@ import type {
 
 const PLACEHOLDER_IMAGE =
   "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-8-wide.svg";
+
+/** Max items per category band on the investor education hub (grids / horizontal scroll). */
+export const INSIGHTS_HUB_SECTION_LIMIT = 3;
 
 /** Display category for Insights tabs and grid sections (from categoryLabel or derived from _type). */
 export type InsightsCategory =
@@ -51,12 +54,13 @@ export interface InsightsArticle {
   imageUrl: string;
   href: string;
   openExternal?: boolean;
+  /** ISO datetime from CMS for list dates. */
+  publishedAt?: string | null;
 }
 
 /** Mapped data for the Insights page. */
 export interface InsightsPageData {
   featuredArticles: InsightsArticle[];
-  mostPopularArticles: InsightsArticle[];
   investingArticles: InsightsArticle[];
   personalFinanceArticles: InsightsArticle[];
   marketViewsArticles: InsightsArticle[];
@@ -122,12 +126,13 @@ function mapToInsightsArticle(item: SanityInvestorEducation): InsightsArticle {
     imageUrl,
     href,
     openExternal: isExternal || undefined,
+    publishedAt: item.publishedAt ?? null,
   };
 }
 
 /**
  * Converts Sanity investor education list to Insights shape and splits into
- * featured (latest 4 added), most popular (latest 4 news only), and per-section arrays.
+ * featured (latest 4 added) and per-section arrays.
  * Featured section explicitly uses the 4 most recently added items (_createdAt desc, then publishedAt desc).
  */
 export function mapSanityToInsightsPageData(
@@ -143,30 +148,18 @@ export function mapSanityToInsightsPageData(
   });
   const all = byLatestAdded.map(mapToInsightsArticle);
   const featured = all.slice(0, 4);
-  const newsItems = items.filter(
-    (i) => i._type === "investorEducationNews"
-  );
-  const latestNews = [...newsItems].sort((a, b) => {
-    const aPub = a.publishedAt ?? "";
-    const bPub = b.publishedAt ?? "";
-    if (bPub !== aPub) return bPub.localeCompare(aPub);
-    const aCreated = a._createdAt ?? "";
-    const bCreated = b._createdAt ?? "";
-    return bCreated.localeCompare(aCreated);
-  });
-  const mostPopular = latestNews.slice(0, 4).map(mapToInsightsArticle);
   const investing = all.filter((a) => a.category === "Investing");
   const personalFinance = all.filter(
     (a) => a.category === "Personal Finance"
   );
   const marketViews = all.filter((a) => a.category === "Market Views");
+  const cap = INSIGHTS_HUB_SECTION_LIMIT;
 
   return {
     featuredArticles: featured,
-    mostPopularArticles: mostPopular,
-    investingArticles: investing.slice(0, 3),
-    personalFinanceArticles: personalFinance.slice(0, 3),
-    marketViewsArticles: marketViews.slice(0, 3),
+    investingArticles: investing.slice(0, cap),
+    personalFinanceArticles: personalFinance.slice(0, cap),
+    marketViewsArticles: marketViews.slice(0, cap),
     allArticles: all,
   };
 }

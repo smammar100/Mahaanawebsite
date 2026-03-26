@@ -1,17 +1,18 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useMemo, useState } from "react";
 import { Container } from "@/components/layout/Container";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
+import { H1 } from "@/components/ui/Typography";
 import { cleanCopy } from "@/lib/copy-utils";
-import type { InsightsPageData, InsightsArticle } from "@/lib/insights-data";
+import type { InsightsCategory, InsightsPageData } from "@/lib/insights-data";
 import { InsightsFeaturedHero } from "@/components/sections/insights/InsightsFeaturedHero";
-import { InsightsMostPopular } from "@/components/sections/insights/InsightsMostPopular";
 import {
   InsightsFilterPills,
   type InsightsPillValue,
 } from "@/components/sections/insights/InsightsFilterPills";
 import { InsightsArticleGridSection } from "@/components/sections/insights/InsightsArticleGridSection";
+import { InsightsNewsletterCTA } from "@/components/sections/insights/InsightsNewsletterCTA";
 import { CallToAction1 } from "@/components/ui/call-to-action-1";
 import { insightsCategoryViewAllPath } from "@/lib/insights-category-routes";
 
@@ -19,92 +20,62 @@ interface InsightsPageClientProps {
   data: InsightsPageData;
 }
 
-type InsightsTabValue =
-  | "All"
-  | "Investing"
-  | "Personal Finance"
-  | "Market Views"
-  | "Solutions"
-  | "Private Wealth";
-
 export function InsightsPageClient({ data }: InsightsPageClientProps) {
-  const activeTab = "All" as InsightsTabValue;
   const [activePill, setActivePill] = useState<InsightsPillValue>("All");
+
+  /** All hub sections when "All"; otherwise narrow to one category. */
+  const singleCategory = useMemo((): InsightsCategory | null => {
+    if (activePill === "All") return null;
+    return activePill;
+  }, [activePill]);
 
   const {
     featuredArticles,
-    mostPopularArticles,
     investingArticles,
     personalFinanceArticles,
     marketViewsArticles,
     allArticles,
   } = data;
 
-  // Featured hero: latest 4 items from investor education (1 hero + 3 side)
   const heroArticle = featuredArticles[0] ?? null;
   const sideArticles = featuredArticles.slice(1, 4);
 
-  const filteredByPill = useMemo(() => {
-    if (activePill === "All") return allArticles;
-    return allArticles.filter(
-      (a) =>
-        a.title.toLowerCase().includes(activePill.toLowerCase()) ||
-        a.excerpt.toLowerCase().includes(activePill.toLowerCase())
-    );
-  }, [allArticles, activePill]);
+  const showHubExtras = singleCategory === null;
 
-  const investingFiltered = useMemo(
-    () =>
-      activeTab === "All" || activeTab === "Investing"
-        ? activePill === "All"
-          ? investingArticles
-          : filteredByPill.filter((a) => a.category === "Investing")
-        : [],
-    [activeTab, activePill, investingArticles, filteredByPill]
-  );
-  const personalFinanceFiltered = useMemo(
-    () =>
-      activeTab === "All" || activeTab === "Personal Finance"
-        ? activePill === "All"
-          ? personalFinanceArticles
-          : filteredByPill.filter((a) => a.category === "Personal Finance")
-        : [],
-    [activeTab, activePill, personalFinanceArticles, filteredByPill]
-  );
-  const marketViewsFiltered = useMemo(
-    () =>
-      activeTab === "All" || activeTab === "Market Views"
-        ? activePill === "All"
-          ? marketViewsArticles
-          : filteredByPill.filter((a) => a.category === "Market Views")
-        : [],
-    [activeTab, activePill, marketViewsArticles, filteredByPill]
-  );
+  const showFeatured =
+    showHubExtras && (heroArticle !== null || sideArticles.length > 0);
+  const showNewsletter = showHubExtras;
 
-  const showFeatured = activeTab === "All";
-  const showMostPopular = activeTab === "All";
   const showInvestingSection =
-    activeTab === "All" || activeTab === "Investing";
-  const showPersonalFinanceSection =
-    activeTab === "All" || activeTab === "Personal Finance";
-  const showMarketViewsSection =
-    activeTab === "All" || activeTab === "Market Views";
-  const showSolutionsSection = activeTab === "Solutions";
-  const showPrivateWealthSection = activeTab === "Private Wealth";
+    singleCategory === null || singleCategory === "Investing";
 
-  const hasContent =
-    featuredArticles.length > 0 ||
-    mostPopularArticles.length > 0 ||
-    investingArticles.length > 0 ||
-    personalFinanceArticles.length > 0 ||
-    marketViewsArticles.length > 0;
+  const showPersonalFinanceSection =
+    singleCategory === null || singleCategory === "Personal Finance";
+
+  const showMarketViewsSection =
+    singleCategory === null || singleCategory === "Market Views";
+
+  const hasContent = allArticles.length > 0;
+
+  const categoryPills = (
+    <InsightsFilterPills
+      activePill={activePill}
+      onPillChange={setActivePill}
+    />
+  );
 
   if (!hasContent) {
     return (
       <div className="-mt-[calc(4.5rem+env(safe-area-inset-top,0px))] bg-surface-bg">
         <Container className="py-16">
+          <H1 className="mb-6 text-3xl text-text-primary sm:text-4xl">
+            {cleanCopy("Investor Education")}
+          </H1>
+          <div className="mb-8">{categoryPills}</div>
           <p className="text-center text-text-tertiary">
-            {cleanCopy("No articles yet. Check back soon or visit our blog from the home page.")}
+            {cleanCopy(
+              "No articles yet. Check back soon or visit our blog from the home page."
+            )}
           </p>
         </Container>
       </div>
@@ -114,8 +85,13 @@ export function InsightsPageClient({ data }: InsightsPageClientProps) {
   return (
     <div className="-mt-[calc(4.5rem+env(safe-area-inset-top,0px))] bg-surface-bg">
       <Container className="pt-[120px] pb-8 md:pb-10">
+        <H1 className="mb-6 text-3xl text-text-primary sm:text-4xl">
+          {cleanCopy("Investor Education")}
+        </H1>
+        <div className="mb-8 lg:mb-10">{categoryPills}</div>
+
         <div className="space-y-14 lg:space-y-16">
-          {showFeatured && (heroArticle || sideArticles.length > 0) && (
+          {showFeatured && (
             <AnimatedSection>
               <InsightsFeaturedHero
                 heroArticle={heroArticle}
@@ -124,25 +100,18 @@ export function InsightsPageClient({ data }: InsightsPageClientProps) {
             </AnimatedSection>
           )}
 
-          {showMostPopular && mostPopularArticles.length > 0 && (
+          {showNewsletter && (
             <AnimatedSection>
-              <InsightsMostPopular articles={mostPopularArticles} />
+              <InsightsNewsletterCTA />
             </AnimatedSection>
           )}
-
-          <AnimatedSection>
-            <InsightsFilterPills
-              activePill={activePill}
-              onPillChange={setActivePill}
-            />
-          </AnimatedSection>
 
           {showInvestingSection && (
             <AnimatedSection>
               <InsightsArticleGridSection
-                title="Articles"
+                title="Investing"
                 viewAllHref={insightsCategoryViewAllPath("Investing")}
-                articles={investingFiltered}
+                articles={investingArticles}
               />
             </AnimatedSection>
           )}
@@ -150,9 +119,9 @@ export function InsightsPageClient({ data }: InsightsPageClientProps) {
           {showPersonalFinanceSection && (
             <AnimatedSection className="border-t border-surface-stroke pt-14 lg:pt-16">
               <InsightsArticleGridSection
-                title="Videos and Podcast"
+                title="Videos & Podcasts"
                 viewAllHref={insightsCategoryViewAllPath("Personal Finance")}
-                articles={personalFinanceFiltered}
+                articles={personalFinanceArticles}
               />
             </AnimatedSection>
           )}
@@ -162,27 +131,7 @@ export function InsightsPageClient({ data }: InsightsPageClientProps) {
               <InsightsArticleGridSection
                 title="Latest News"
                 viewAllHref={insightsCategoryViewAllPath("Market Views")}
-                articles={marketViewsFiltered}
-              />
-            </AnimatedSection>
-          )}
-
-          {showSolutionsSection && (
-            <AnimatedSection className="border-t border-surface-stroke pt-14 lg:pt-16">
-              <InsightsArticleGridSection
-                title="Solutions"
-                viewAllHref={insightsCategoryViewAllPath("Solutions")}
-                articles={[]}
-              />
-            </AnimatedSection>
-          )}
-
-          {showPrivateWealthSection && (
-            <AnimatedSection className="border-t border-surface-stroke pt-14 lg:pt-16">
-              <InsightsArticleGridSection
-                title="Private Wealth"
-                viewAllHref={insightsCategoryViewAllPath("Private Wealth")}
-                articles={[]}
+                articles={marketViewsArticles}
               />
             </AnimatedSection>
           )}

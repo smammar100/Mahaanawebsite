@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { H2, TextRegular } from "@/components/ui/Typography";
+import { H2, H3, TextRegular } from "@/components/ui/Typography";
 import { cleanCopy } from "@/lib/copy-utils";
 import {
   formatArticleCardMeta,
@@ -10,7 +10,6 @@ import {
   formatVideoWatchTimeDisplay,
 } from "@/lib/formatters";
 import type { InsightsArticle } from "@/lib/insights-data";
-import { cx } from "@/utils/cx";
 
 interface InsightsFeaturedHeroProps {
   heroArticle: InsightsArticle | null;
@@ -42,7 +41,13 @@ export function InsightsFeaturedHero({
   sideArticles,
 }: InsightsFeaturedHeroProps) {
   return (
-    <section>
+    <section aria-labelledby="insights-featured-heading">
+      <H2
+        id="insights-featured-heading"
+        className="mb-6 text-2xl text-text-primary sm:text-3xl"
+      >
+        {cleanCopy("Featured articles")}
+      </H2>
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-3 lg:gap-4 lg:items-stretch">
         {/* Hero card - aspect ratio drives row height on lg */}
         <div className="lg:col-span-2">
@@ -67,11 +72,11 @@ export function InsightsFeaturedHero({
                   <span className="text-xs font-semibold uppercase tracking-wide text-white/90">
                     {cleanCopy(heroArticle.tag)}
                   </span>
-                  <H2 className="mt-1 text-xl font-semibold text-white sm:text-2xl">
+                  <H3 className="mt-1 text-xl font-semibold leading-tight text-white sm:text-2xl">
                     <span className="line-clamp-2 group-hover:text-primary-150">
                       {cleanCopy(heroArticle.title)}
                     </span>
-                  </H2>
+                  </H3>
                   {heroArticle.excerpt && (
                     <TextRegular className="mt-2 line-clamp-2 text-sm text-white/90">
                       {cleanCopy(heroArticle.excerpt)}

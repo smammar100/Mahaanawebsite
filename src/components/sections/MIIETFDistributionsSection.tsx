@@ -45,7 +45,7 @@ export function MIIETFDistributionsSection({ fundData }: { fundData?: MiietfDist
       <Container className="flex flex-col gap-10 px-4 sm:px-6 md:px-8 lg:gap-10 lg:px-12 xl:px-16">
         <H3
           id="distributions-section-heading"
-          weight="bold"
+          weight="semibold"
           className="text-text-primary"
         >
           Distributions

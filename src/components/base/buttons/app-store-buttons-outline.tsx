@@ -1,17 +1,26 @@
 "use client";
 
 import type { AnchorHTMLAttributes } from "react";
+import {
+    MAHAANA_APP_STORE_URL,
+    MAHAANA_GOOGLE_PLAY_URL,
+} from "@/lib/app-store-urls";
 import { cx } from "@/utils/cx";
 
-export const GooglePlayButton = ({ size = "md", ...props }: AnchorHTMLAttributes<HTMLAnchorElement> & { size?: "md" | "lg" }) => {
+export const GooglePlayButton = ({
+    size = "md",
+    className,
+    href = MAHAANA_GOOGLE_PLAY_URL,
+    ...props
+}: AnchorHTMLAttributes<HTMLAnchorElement> & { size?: "md" | "lg" }) => {
     return (
         <a
             aria-label="Get it on Google Play"
-            href="#"
             {...props}
+            href={href}
             className={cx(
                 "rounded-[7px] text-text-primary ring-1 ring-surface-stroke ring-inset focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-system-brand",
-                props.className,
+                className,
             )}
         >
             <svg width={size === "md" ? 135 : 149} height={size === "md" ? 40 : 44} viewBox="0 0 135 40" fill="none">
@@ -73,15 +82,20 @@ export const GooglePlayButton = ({ size = "md", ...props }: AnchorHTMLAttributes
     );
 };
 
-export const AppStoreButton = ({ size = "md", ...props }: AnchorHTMLAttributes<HTMLAnchorElement> & { size?: "md" | "lg" }) => {
+export const AppStoreButton = ({
+    size = "md",
+    className,
+    href = MAHAANA_APP_STORE_URL,
+    ...props
+}: AnchorHTMLAttributes<HTMLAnchorElement> & { size?: "md" | "lg" }) => {
     return (
         <a
             aria-label="Download on the App Store"
-            href="#"
             {...props}
+            href={href}
             className={cx(
                 "rounded-[7px] text-text-primary ring-1 ring-surface-stroke ring-inset focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-system-brand",
-                props.className,
+                className,
             )}
         >
             <svg width={size === "md" ? 120 : 132} height={size === "md" ? 40 : 44} viewBox="0 0 120 40" fill="none">

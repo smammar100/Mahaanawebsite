@@ -134,7 +134,7 @@ export function MIIETFPortfolioSection({ fundData }: { fundData?: MiietfPortfoli
       <Container className="flex flex-col gap-10 px-4 sm:px-6 md:px-8 lg:gap-10 lg:px-12 xl:px-16">
         <H3
           id="portfolio-section-heading"
-          weight="bold"
+          weight="semibold"
           className="text-text-primary"
         >
           Portfolio

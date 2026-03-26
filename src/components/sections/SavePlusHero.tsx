@@ -58,8 +58,8 @@ export function SavePlusHero() {
 
             <div className="flex flex-col items-start gap-3">
               <div className="flex flex-wrap gap-2 sm:gap-3">
-                <AppStoreButton href="#" className="shrink-0" />
-                <GooglePlayButton href="#" className="shrink-0" />
+                <AppStoreButton className="shrink-0" />
+                <GooglePlayButton className="shrink-0" />
               </div>
             </div>
           </div>

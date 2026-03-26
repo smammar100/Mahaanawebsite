@@ -4,19 +4,13 @@ import { cleanCopy } from "@/lib/copy-utils";
 import { cx } from "@/utils/cx";
 
 const PILLS = [
-  "All",
-  "CPF",
-  "SRS",
-  "Bonds",
-  "Equities",
-  "Gold",
-  "ESG",
-  "ETFs",
-  "Income Investing",
-  "Passive Investing",
+  { value: "All", label: "All" },
+  { value: "Investing", label: "Investing" },
+  { value: "Personal Finance", label: "Videos & Podcasts" },
+  { value: "Market Views", label: "Latest News" },
 ] as const;
 
-export type InsightsPillValue = (typeof PILLS)[number];
+export type InsightsPillValue = (typeof PILLS)[number]["value"];
 
 interface InsightsFilterPillsProps {
   activePill: InsightsPillValue;
@@ -29,23 +23,23 @@ export function InsightsFilterPills({
 }: InsightsFilterPillsProps) {
   return (
     <div
-      className="grid w-full grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-5"
+      className="flex w-full flex-wrap gap-2"
       role="group"
-      aria-label="Filter by topic"
+      aria-label={cleanCopy("Filter by category")}
     >
       {PILLS.map((pill) => (
         <button
-          key={pill}
+          key={pill.value}
           type="button"
-          onClick={() => onPillChange(pill)}
+          onClick={() => onPillChange(pill.value)}
           className={cx(
-            "w-full rounded-full px-4 py-2 text-center text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-system-brand",
-            activePill === pill
+            "min-h-11 min-w-[44px] rounded-full px-4 py-2.5 text-center text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-system-brand",
+            activePill === pill.value
               ? "bg-system-brand text-white"
               : "bg-surface-card text-text-secondary hover:bg-surface-stroke hover:text-text-primary"
           )}
         >
-          {cleanCopy(pill)}
+          {cleanCopy(pill.label)}
         </button>
       ))}
     </div>

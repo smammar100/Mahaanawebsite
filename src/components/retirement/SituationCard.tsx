@@ -1,206 +1,229 @@
 "use client";
 
+import type { ReactNode } from "react";
 import { Input } from "@/components/ui/Input";
-import { Field, FieldLabel } from "@/components/ui/Field";
 import { Tooltip, TooltipTrigger } from "@/components/base/tooltip/tooltip";
 import { cleanCopy } from "@/lib/copy-utils";
 import { INVESTMENT_CURRENCY } from "@/lib/investmentConfig";
+import { FIRE_SEGMENT_COLORS } from "@/lib/fireDonut";
 import { cx } from "@/utils/cx";
 
-const numberInputClass =
-  "py-3 text-base [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none";
+/** Fixed row height so all FIRE inputs align with prefixed rows (h-11 = 2.75rem). */
+const INPUT_ROW =
+  "flex h-11 w-full items-stretch overflow-hidden rounded-lg border border-surface-stroke bg-white shadow-xs ring-1 ring-surface-stroke ring-inset";
 
-interface SituationCardProps {
+const numberInputClass =
+  "h-full min-h-0 rounded-none border-0 py-0 text-small leading-normal shadow-none ring-0 focus:ring-0 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none";
+
+export interface FireContributionsColumnProps {
   className?: string;
-  /** Same 4 fields as Investment calculator */
   initial: number;
   onInitialChange: (v: number) => void;
   monthly: number;
   onMonthlyChange: (v: number) => void;
-  rate: number;
-  onRateChange: (v: number) => void;
-  years: number;
-  onYearsChange: (v: number) => void;
-  /** Retirement-specific */
   age: number;
   onAgeChange: (v: number) => void;
+}
+
+export interface FireRetirementColumnProps {
+  className?: string;
   annualSpending: number;
   onAnnualSpendingChange: (v: number) => void;
   lifeExpectancy: number;
   onLifeExpectancyChange: (v: number) => void;
 }
 
-function FieldRow({
-  label,
-  children,
-  tooltip,
+function Dot({ color }: { color: string }) {
+  return (
+    <span
+      className="mt-2 size-2 shrink-0 rounded-full"
+      style={{ backgroundColor: color }}
+      aria-hidden
+    />
+  );
+}
+
+function PrefixedNumberInput({
+  prefix,
+  value,
+  onChange,
+  min,
+  max,
+  step,
+  placeholder,
 }: {
-  label: string;
-  children: React.ReactNode;
-  tooltip?: string;
+  prefix: string;
+  value: number;
+  onChange: (v: number) => void;
+  min?: number;
+  max?: number;
+  step?: number;
+  placeholder?: string;
 }) {
   return (
-    <div className="flex items-center gap-3">
-      <label className="flex w-36 shrink-0 text-body-sm font-medium text-text-primary md:w-40">
-        {label}
-        {tooltip != null && (
-          <Tooltip title={tooltip} description={undefined}>
-            <TooltipTrigger className="ml-1 inline-flex cursor-help text-text-tertiary hover:text-text-secondary">
-              <span className="text-body-xs" aria-hidden>ⓘ</span>
-            </TooltipTrigger>
-          </Tooltip>
-        )}
-      </label>
-      <div className="min-w-0 flex-1">{children}</div>
+    <div className={INPUT_ROW}>
+      <div className="flex h-full shrink-0 items-center border-r border-surface-stroke bg-surface-card px-2.5 text-tiny font-medium text-text-tertiary">
+        {prefix}
+      </div>
+      <Input
+        type="number"
+        min={min}
+        max={max}
+        step={step}
+        placeholder={placeholder}
+        value={String(value ?? "")}
+        onChange={(v) => onChange(Number(v) || 0)}
+        className={cx(numberInputClass, "min-w-0 flex-1")}
+        wrapperClassName="flex h-full min-h-0 min-w-0 flex-1 items-center border-0 shadow-none ring-0 rounded-none"
+      />
     </div>
   );
 }
 
-export function SituationCard({
+function FieldBlock({
+  dotColor,
+  label,
+  tooltip,
+  children,
+}: {
+  dotColor: string;
+  label: string;
+  tooltip?: string;
+  children: ReactNode;
+}) {
+  return (
+    <div className="flex gap-2.5">
+      <Dot color={dotColor} />
+      <div className="flex min-w-0 flex-1 flex-col gap-2">
+        <div className="flex items-center gap-1">
+          <span className="text-tiny font-medium text-text-primary">
+            {cleanCopy(label)}
+          </span>
+          {tooltip != null && (
+            <Tooltip title={tooltip} description={undefined}>
+              <TooltipTrigger className="inline-flex cursor-help text-text-tertiary hover:text-text-secondary">
+                <span className="text-body-xs" aria-hidden>
+                  ?
+                </span>
+              </TooltipTrigger>
+            </Tooltip>
+          )}
+        </div>
+        {children}
+      </div>
+    </div>
+  );
+}
+
+export function FireContributionsColumn({
   className,
   initial,
   onInitialChange,
   monthly,
   onMonthlyChange,
-  rate,
-  onRateChange,
-  years,
-  onYearsChange,
   age,
   onAgeChange,
+}: FireContributionsColumnProps) {
+  return (
+    <section className={cx("min-w-0", className)}>
+      <p className="text-[10px] font-semibold uppercase tracking-wider text-text-tertiary">
+        {cleanCopy("Your savings")}
+      </p>
+      <h2 className="mt-1 font-heading text-base font-semibold text-text-primary">
+        {cleanCopy("Contributions")}
+      </h2>
+      <div className="mt-5 space-y-5">
+        <FieldBlock
+          dotColor={FIRE_SEGMENT_COLORS.startingCapital}
+          label={`Starting balance (${INVESTMENT_CURRENCY})`}
+        >
+          <PrefixedNumberInput
+            prefix={INVESTMENT_CURRENCY}
+            min={0}
+            placeholder="0"
+            value={initial}
+            onChange={onInitialChange}
+          />
+        </FieldBlock>
+        <FieldBlock
+          dotColor={FIRE_SEGMENT_COLORS.contributions}
+          label={`Monthly contribution (${INVESTMENT_CURRENCY})`}
+          tooltip={cleanCopy("Optional. Added every month until you reach FIRE.")}
+        >
+          <PrefixedNumberInput
+            prefix={INVESTMENT_CURRENCY}
+            min={0}
+            placeholder="0"
+            value={monthly}
+            onChange={onMonthlyChange}
+          />
+        </FieldBlock>
+        <FieldBlock dotColor={FIRE_SEGMENT_COLORS.growth} label="Current age">
+          <PrefixedNumberInput
+            prefix={cleanCopy("Age")}
+            min={18}
+            max={80}
+            value={age}
+            onChange={onAgeChange}
+          />
+        </FieldBlock>
+      </div>
+    </section>
+  );
+}
+
+export function FireRetirementColumn({
+  className,
   annualSpending,
   onAnnualSpendingChange,
   lifeExpectancy,
   onLifeExpectancyChange,
-}: SituationCardProps) {
+}: FireRetirementColumnProps) {
   return (
-    <div
-      className={cx(
-        "rounded-2xl border border-surface-stroke bg-surface-card p-6 sm:p-8 lg:p-10",
-        className
-      )}
-    >
-      <p className="text-label text-system-brand">
-        {cleanCopy("YOUR DETAILS")}
+    <section className={cx("min-w-0", className)}>
+      <p className="text-[10px] font-semibold uppercase tracking-wider text-text-tertiary">
+        {cleanCopy("Retirement")}
       </p>
-      <h2 className="text-card-title mt-1 mb-6 text-text-primary sm:mb-8">
-        {cleanCopy("Your investment")}
+      <h2 className="mt-1 font-heading text-base font-semibold text-text-primary">
+        {cleanCopy("Your spending and horizon")}
       </h2>
-
-      {/* Same 4 fields as Investment calculator – units in labels */}
-      <div className="space-y-4">
-        <div className="flex flex-col gap-2 lg:flex-row lg:items-center">
-          <FieldLabel className="lg:w-48 lg:shrink-0">
-            Initial Investment Amount ({INVESTMENT_CURRENCY})
-          </FieldLabel>
-          <Field className="min-w-0 flex-1">
-            <Input
-              type="number"
-              min={0}
-              placeholder="0"
-              value={String(initial ?? "")}
-              onChange={(value) => onInitialChange(Number(value) || 0)}
-              className={numberInputClass}
-            />
-          </Field>
-        </div>
-
-        <div className="flex flex-col gap-2 lg:flex-row lg:items-center">
-          <div className="lg:w-48 lg:shrink-0 space-y-0.5">
-            <FieldLabel className="block">Monthly Contribution ({INVESTMENT_CURRENCY})</FieldLabel>
-            <span className="text-tiny text-text-tertiary">Optional</span>
-          </div>
-          <Field className="min-w-0 flex-1">
-            <Input
-              type="number"
-              min={0}
-              placeholder="0"
-              value={String(monthly ?? "")}
-              onChange={(value) => onMonthlyChange(Number(value) || 0)}
-              className={numberInputClass}
-            />
-          </Field>
-        </div>
-
-        <div className="flex flex-col gap-2 lg:flex-row lg:items-center">
-          <FieldLabel className="lg:w-48 lg:shrink-0">
-            Estimated Rate of Return (%)
-          </FieldLabel>
-          <Field className="min-w-0 flex-1">
-            <Input
-              type="number"
-              min={0}
-              max={100}
-              step={0.1}
-              placeholder="0"
-              value={String(rate ?? "")}
-              onChange={(value) => onRateChange(Number(value) || 0)}
-              className={numberInputClass}
-            />
-          </Field>
-        </div>
-
-        <div className="flex flex-col gap-2 lg:flex-row lg:items-center">
-          <FieldLabel className="lg:w-48 lg:shrink-0">
-            Years to Grow (yrs)
-          </FieldLabel>
-          <Field className="min-w-0 flex-1">
-            <Input
-              type="number"
-              min={1}
-              max={100}
-              placeholder="0"
-              value={String(years ?? "")}
-              onChange={(value) => onYearsChange(Number(value) || 0)}
-              className={numberInputClass}
-            />
-          </Field>
-        </div>
+      <div className="mt-5 space-y-5">
+        <FieldBlock
+          dotColor={FIRE_SEGMENT_COLORS.startingCapital}
+          label={`Annual spending in retirement (${INVESTMENT_CURRENCY})`}
+          tooltip={cleanCopy(
+            "Expected yearly spending once retired, in today's money."
+          )}
+        >
+          <PrefixedNumberInput
+            prefix={INVESTMENT_CURRENCY}
+            min={0}
+            value={annualSpending}
+            onChange={onAnnualSpendingChange}
+          />
+        </FieldBlock>
+        <FieldBlock
+          dotColor={FIRE_SEGMENT_COLORS.contributions}
+          label="Life expectancy (years)"
+          tooltip={cleanCopy("Used to estimate how large your FIRE pot needs to be.")}
+        >
+            <div className={INPUT_ROW}>
+              <div className="flex h-full shrink-0 items-center border-r border-surface-stroke bg-surface-card px-2.5 text-tiny font-medium text-text-tertiary">
+                yrs
+              </div>
+              <Input
+                type="number"
+                min={60}
+                max={120}
+                placeholder="90"
+                value={String(lifeExpectancy ?? "")}
+                onChange={(v) => onLifeExpectancyChange(Number(v) || 0)}
+                className={cx(numberInputClass, "min-w-0 flex-1")}
+                wrapperClassName="flex h-full min-h-0 min-w-0 flex-1 items-center border-0 shadow-none ring-0 rounded-none"
+              />
+            </div>
+        </FieldBlock>
       </div>
-
-      {/* Retirement section */}
-      <div className="mt-6 border-t border-surface-stroke pt-6">
-        <p className="text-label text-text-tertiary">
-          {cleanCopy("RETIREMENT")}
-        </p>
-        <h2 className="text-card-title mt-1 mb-6 text-text-primary sm:mb-8">
-          {cleanCopy("Your retirement")}
-        </h2>
-        <div className="space-y-4">
-          <FieldRow label="Current age">
-            <Input
-              type="number"
-              min={18}
-              max={80}
-              value={String(age ?? "")}
-              onChange={(value) => onAgeChange(Number(value) || 0)}
-            />
-          </FieldRow>
-          <FieldRow
-            label="Annual spending"
-            tooltip="Expected annual spending in retirement (today's value)."
-          >
-            <Input
-              type="number"
-              min={0}
-              value={String(annualSpending ?? "")}
-              onChange={(value) =>
-                onAnnualSpendingChange(Number(value) || 0)
-              }
-            />
-          </FieldRow>
-          <FieldRow label="Life expectancy">
-            <Input
-              type="number"
-              min={60}
-              max={120}
-              placeholder="90"
-              value={String(lifeExpectancy ?? "")}
-              onChange={(value) => onLifeExpectancyChange(Number(value) || 0)}
-            />
-          </FieldRow>
-        </div>
-      </div>
-    </div>
+    </section>
   );
 }
