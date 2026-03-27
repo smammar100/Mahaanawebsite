@@ -14,6 +14,9 @@ import { InvestorEducationArticleTemplate } from "@/components/sections/Investor
 import { PortableTextRenderer } from "@/components/portable-text/PortableTextRenderer";
 import type { PortableTextBlock } from "@portabletext/types";
 
+/** Keep article pages in sync with CMS (metadata + body) between deploys. */
+export const revalidate = 60;
+
 interface Props {
   params: Promise<{ slug: string }>;
 }

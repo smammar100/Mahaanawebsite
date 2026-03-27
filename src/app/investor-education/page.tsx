@@ -5,6 +5,9 @@ import { BreadcrumbStructuredData } from "@/components/BreadcrumbStructuredData"
 import { mapSanityToInsightsPageData } from "@/lib/insights-data";
 import { InsightsPageClient } from "./InsightsPageClient";
 
+/** Revalidate from Sanity so new published articles appear on the hub without a full redeploy. */
+export const revalidate = 60;
+
 export const metadata: Metadata = buildPageMetadata({
   title: "Investor Education | Mahaana",
   description:

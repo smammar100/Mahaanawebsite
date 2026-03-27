@@ -12,6 +12,9 @@ import {
 import { BreadcrumbStructuredData } from "@/components/BreadcrumbStructuredData";
 import { InsightsCategoryViewClient } from "./InsightsCategoryViewClient";
 
+/** Match hub: category listings refetch Sanity periodically. */
+export const revalidate = 60;
+
 interface Props {
   params: Promise<{ slug: string }>;
 }
