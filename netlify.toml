@@ -2,7 +2,8 @@
 # https://docs.netlify.com/integrations/frameworks/next-js/
 
 [build]
-  command = "npm run sanity:generate && npm run schema:deploy && npm run build"
+  # schema:deploy is omitted here: it needs SANITY_AUTH_TOKEN in CI. Run `npm run schema:deploy` locally after schema changes.
+  command = "npm run sanity:generate && npm run build"
   publish = ".next"
 
 [build.environment]
