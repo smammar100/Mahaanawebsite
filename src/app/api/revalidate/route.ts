@@ -3,12 +3,8 @@ import { type NextRequest, NextResponse } from "next/server";
 
 /**
  * On-demand revalidation for Sanity webhooks.
- * In Sanity project settings, add a webhook with:
- * - URL: https://your-domain.com/api/revalidate
- * - Trigger: Create, Update, Delete (on documents you care about)
- * - HTTP method: POST
- * - Headers: Authorization: Bearer <REVALIDATION_SECRET>
- * Set REVALIDATION_SECRET in .env.local and in the webhook payload (or use a query param).
+ * Setup: docs/sanity.md (section “Cache revalidation”). Set REVALIDATION_SECRET on Netlify
+ * and in the Sanity webhook Authorization header (Bearer <secret>). Local: .env.local.
  */
 export async function POST(request: NextRequest) {
   const secret = process.env.REVALIDATION_SECRET;

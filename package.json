@@ -12,6 +12,7 @@
     "sanity:manifest": "sanity manifest extract --path public/studio/static",
     "sanity:generate": "npm run schema:extract && npm run sanity:manifest",
     "sanity:verify-env": "node scripts/verify-sanity-env.cjs",
+    "revalidate:verify-env": "node scripts/verify-revalidation-env.cjs",
     "sanity:studio-deploy": "node scripts/studio-deploy.cjs",
     "sanity:sync": "npm run sanity:generate && npm run schema:deploy",
     "sanity:deploy-all": "npm run sanity:verify-env && npm run sanity:sync && npm run sanity:studio-deploy",

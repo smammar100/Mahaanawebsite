@@ -68,6 +68,43 @@ Collaborators edit content in **Sanity Studio**. This repo supports:
 - [ ] Hosted Studio opens and login works for an invited user.
 - [ ] User can create a draft document of an expected type and publish (if their role allows).
 
+## Cache revalidation (publish → live site)
+
+When someone **publishes** in Studio, the Next.js route [`src/app/api/revalidate/route.ts`](../src/app/api/revalidate/route.ts) can refresh cached pages. Configure **one** shared secret and **one** webhook so every collaborator’s publish triggers the same flow.
+
+### 1. Netlify
+
+1. **Site** → **Site configuration** → **Environment variables** → add variable:
+   - **Key:** `REVALIDATION_SECRET`
+   - **Value:** a long random string (same string you will use in the Sanity webhook header below).
+   - Enable **Contains secret values** if offered.
+2. **Trigger a new deploy** after saving (Deploys → Trigger deploy). Without redeploy, the API route returns **501** in production.
+
+### 2. Sanity webhook
+
+In [Sanity Manage](https://www.sanity.io/manage) → your project → **API** → **Webhooks** → **Create**:
+
+- **URL:** `https://<your-live-site>/api/revalidate` (public HTTPS origin only; no `localhost`).
+- **Dataset:** usually `production` (match `NEXT_PUBLIC_SANITY_DATASET`).
+- **Trigger on:** **Create**, **Update**, and **Delete** (publishing an existing doc is an **Update**).
+- **HTTP method:** `POST`.
+- **HTTP headers:** `Authorization` = `Bearer <same value as REVALIDATION_SECRET>` (one space after `Bearer`).
+- Leave **Filter** / **Projection** empty unless you need to narrow document types; the handler reads `_type` and `slug` from the document payload.
+- Keep **Trigger on draft changes** off unless you want webhooks on every autosave.
+
+### 3. Local development
+
+Copy `REVALIDATION_SECRET` into [`.env.local`](../.env.example) so it matches production if you test `/api/revalidate` locally. Run:
+
+```bash
+npm run revalidate:verify-env
+```
+
+### 4. Verify
+
+- In Sanity, open the webhook’s **delivery logs**; expect **HTTP 200** from your site (**401** = wrong Bearer token; **501** = Netlify missing secret or not redeployed).
+- Publish a small content change and confirm the Investor Education hub updates (within seconds; ISR also uses `revalidate` on those routes as a backup).
+
 ## HTML to Portable Text import pipeline
 
 Use the HTML importer to convert long-form blog HTML into the `investorEducationArticle.bodyHtml` `blockContent` schema.
