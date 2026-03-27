@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "schema:extract": "sanity schema extract --path public/studio/static/schema.json",
-    "schema:deploy": "sanity schema deploy --manifest-dir public/studio/static",
+    "schema:deploy": "node scripts/schema-deploy.cjs",
     "sanity:manifest": "sanity manifest extract --path public/studio/static",
     "sanity:generate": "npm run schema:extract && npm run sanity:manifest",
     "sanity:sync": "npm run sanity:generate && npm run schema:deploy",
