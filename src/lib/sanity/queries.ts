@@ -51,7 +51,16 @@ export const investorEducationBySlugQuery = `
     author,
     readingTime,
     categoryLabel,
-    bodyHtml
+    bodyHtml[]{
+      ...,
+      markDefs[]{
+        ...,
+        _type == "internalLink" => {
+          ...,
+          "slug": reference->slug.current
+        }
+      }
+    }
   }
 `;
 

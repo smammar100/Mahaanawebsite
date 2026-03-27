@@ -10,6 +10,7 @@ export default defineCliConfig({
   },
   studioHost: "mahaana",
   deployment: {
+    appId: "dci3txr35qcgkxlcse29w4uv",
     autoUpdates: true,
   },
 });

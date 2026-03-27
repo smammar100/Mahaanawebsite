@@ -69,9 +69,9 @@ export const investorEducationArticleType = defineType({
     defineField({
       name: "bodyHtml",
       title: "Body Content",
-      type: "array",
-      of: [{ type: "block" }],
-      description: "Rich text content (Portable Text)",
+      type: "blockContent",
+      description:
+        "Rich text: sections, grids, media, CTAs, accordions. For block quote or headings, use the block type control on the far left of the toolbar (it shows “Normal” when the current block is a paragraph)—open it and choose Blockquote or Pullquote. If that menu does not open, exit fullscreen/expanded editor and try again.",
     }),
   ],
   preview: {

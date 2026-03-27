@@ -1,6 +1,6 @@
 "use client";
 
-import { PortableTextRenderer } from "@/components/ui/PortableTextRenderer";
+import { PortableTextRenderer } from "@/components/portable-text/PortableTextRenderer";
 import type { PortableTextBlock } from "@portabletext/types";
 
 /** Representative Portable Text blocks for investor-education / CMS articles. */

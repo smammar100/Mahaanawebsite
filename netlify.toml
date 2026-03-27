@@ -2,7 +2,7 @@
 # https://docs.netlify.com/integrations/frameworks/next-js/
 
 [build]
-  command = "npm run sanity:generate && npm run build"
+  command = "npm run sanity:generate && npm run schema:deploy && npm run build"
   publish = ".next"
 
 [build.environment]

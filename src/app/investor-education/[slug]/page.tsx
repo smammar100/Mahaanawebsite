@@ -11,7 +11,7 @@ import { sanitizeArticleAuthorName } from "@/lib/formatters";
 import { ArticleStructuredData } from "@/components/ArticleStructuredData";
 import { BreadcrumbStructuredData } from "@/components/BreadcrumbStructuredData";
 import { InvestorEducationArticleTemplate } from "@/components/sections/InvestorEducationArticleTemplate";
-import { PortableTextRenderer } from "@/components/ui/PortableTextRenderer";
+import { PortableTextRenderer } from "@/components/portable-text/PortableTextRenderer";
 import type { PortableTextBlock } from "@portabletext/types";
 
 interface Props {
