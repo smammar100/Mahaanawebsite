@@ -21,6 +21,53 @@ SANITY_AUTH_TOKEN=<deploy_token> npm run schema:deploy
 
 In pipelines, ensure `NEXT_PUBLIC_SANITY_PROJECT_ID` and `NEXT_PUBLIC_SANITY_DATASET` are set so `sanity.cli.ts` and the extract step use the correct project.
 
+## Collaborators: hosted Studio + schema
+
+Collaborators edit content in **Sanity Studio**. This repo supports:
+
+1. **Hosted Studio on sanity.io** (configured in [`sanity.cli.ts`](../sanity.cli.ts) with `studioHost: "mahaana"` and `deployment.appId`) — URL shape: `https://mahaana.sanity.studio` (or as shown after deploy).
+2. **Embedded Studio** on the Next site at `/studio` (same schema; useful for local dev and preview).
+
+### One-time setup (project owner)
+
+1. Copy [`.env.example`](../.env.example) to `.env.local` (do not commit).
+2. Set `NEXT_PUBLIC_SANITY_PROJECT_ID`, `NEXT_PUBLIC_SANITY_DATASET`, and `SANITY_AUTH_TOKEN` (deploy token from [Sanity Manage](https://www.sanity.io/manage) → your project → **API** → **Tokens**).
+3. Verify env: `npm run sanity:verify-env`
+4. **Deploy token permissions:** the API token used as `SANITY_AUTH_TOKEN` must be allowed to deploy schema and hosted Studio. If `npm run schema:deploy` returns `deployStudio` / `Unauthorized`, or `npm run sanity:studio-deploy` returns `sanity.project.read` / `Forbidden`, create a new token in [Sanity Manage](https://www.sanity.io/manage) → project **ctfatnb0** → **API** → **Tokens** with **Editor** access (or the permissions your org assigns for deploy), not a read-only token.
+5. Push schema + manifest and deploy hosted Studio in one go:
+   ```bash
+   npm run sanity:deploy-all
+   ```
+   Or step by step:
+   ```bash
+   npm run sanity:generate
+   npm run schema:deploy
+   npm run sanity:studio-deploy
+   ```
+
+### Troubleshooting (local CLI)
+
+- **`CLI config cannot be loaded` / Vite `client.mjs`:** this repo pins `vite@6.3.5` (see `package.json` `overrides`) because Sanity CLI is not compatible with Vite 7’s layout. Run `npm install` after pulling.
+- **`Failed to resolve entry` for `@sanity/ui`, `framer-motion`, or `motion-dom`:** reinstall deps (`npm ci` or delete `node_modules` and `npm install`). Those packages must include built `dist/` files.
+- **Schema/manifest only (no API deploy):** `npm run sanity:generate` still writes `public/studio/static/` and is enough to refresh local Studio assets before commit.
+
+### Invite collaborators
+
+1. Open [Sanity Manage](https://www.sanity.io/manage) → select project **`ctfatnb0`** (or the ID in `.env.local`) → **Team** / **Members** (wording varies by plan).
+2. Invite by email. Use **Editor** or **Contributor** for authors; **Administrator** only when someone must manage tokens, CORS, or members.
+3. Ask each person to accept the invite and sign in at the hosted Studio URL (`https://mahaana.sanity.studio` after a successful `npm run sanity:studio-deploy`) or at `/studio` on the deployed Next site (e.g. production URL + `/studio`).
+
+### CORS and studio URL
+
+- In Sanity Manage → **API** → **CORS origins**, add origins your team uses (e.g. production site, `http://localhost:3000`, and the hosted Studio origin if required by your setup).
+- Align `NEXT_PUBLIC_SANITY_STUDIO_URL` in `.env.local` with the canonical Studio URL (see [`.env.example`](../.env.example)) so Dashboard and tooling stay consistent.
+
+### Validation checklist (after deploy)
+
+- [ ] `npm run sanity:verify-env` passes on a machine with `.env.local`.
+- [ ] Hosted Studio opens and login works for an invited user.
+- [ ] User can create a draft document of an expected type and publish (if their role allows).
+
 ## HTML to Portable Text import pipeline
 
 Use the HTML importer to convert long-form blog HTML into the `investorEducationArticle.bodyHtml` `blockContent` schema.

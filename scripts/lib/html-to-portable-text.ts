@@ -60,6 +60,7 @@ const schema = compileSchema(
       { name: "videoEmbed", fields: [{ name: "url", type: "string" }] },
       { name: "section", fields: [{ name: "heading", type: "string" }] },
       { name: "dataGrid", fields: [{ name: "heading", type: "string" }] },
+      { name: "contentTable", fields: [{ name: "caption", type: "string" }] },
       { name: "callToAction", fields: [{ name: "heading", type: "string" }] },
       { name: "accordion", fields: [{ name: "heading", type: "string" }] },
     ],
@@ -297,26 +298,39 @@ function extractFeaturesDataGrid(root: HTMLElement): PortableBlock | null {
   };
 }
 
-function extractDataGridFromTable(tableEl: HTMLElement): PortableBlock | null {
-  const rows = tableEl.querySelectorAll("tr");
-  const items = rows
-    .map((row) => row.querySelectorAll("th,td"))
-    .filter((cols) => cols.length >= 1)
-    .map((cols) => ({
-      _key: key(),
-      label: normalizeText(cols[0]?.textContent || ""),
-      value: normalizeText(cols[1]?.textContent || ""),
-      description: normalizeText(cols[2]?.textContent || ""),
-    }))
-    .filter((row) => row.label)
-    .slice(0, 12);
+/** Preserves HTML <table> as a contentTable block (rows × cells). */
+function extractContentTableFromTable(tableEl: HTMLElement): PortableBlock | null {
+  const captionText = normalizeText(getPlainText(tableEl.querySelector("caption")));
+  const trEls = Array.from(tableEl.querySelectorAll("tr"));
+  if (trEls.length === 0) return null;
 
-  if (items.length === 0) return null;
+  const rows = trEls
+    .map((tr) => {
+      const cells = Array.from(tr.querySelectorAll("th,td")).map((cell) =>
+        normalizeText(getPlainText(cell))
+      );
+      if (cells.length === 0) return null;
+      return { _key: key(), cells };
+    })
+    .filter((r): r is { _key: string; cells: string[] } => r !== null);
+
+  if (rows.length === 0) return null;
+
+  const maxCols = Math.max(...rows.map((r) => r.cells.length));
+  const padded = rows.map((r) => ({
+    ...r,
+    cells: [...r.cells, ...Array(Math.max(0, maxCols - r.cells.length)).fill("")],
+  }));
+
+  const firstRow = trEls[0];
+  const firstRowIsHeader = firstRow ? firstRow.querySelector("th") !== null : false;
+
   return {
-    _type: "dataGrid",
+    _type: "contentTable",
     _key: key(),
-    variant: "metrics",
-    items,
+    caption: captionText || undefined,
+    firstRowIsHeader,
+    rows: padded,
   };
 }
 
@@ -535,8 +549,8 @@ function withConversionProfiles(root: HTMLElement, blocks: PortableBlock[]): Por
   if (accordion) out.unshift(accordion);
 
   const table = root.querySelector("table");
-  const tableGrid = table ? extractDataGridFromTable(table) : null;
-  if (tableGrid) out.unshift(tableGrid);
+  const tableBlock = table ? extractContentTableFromTable(table) : null;
+  if (tableBlock) out.unshift(tableBlock);
 
   const listGrid = root.querySelector("ul,ol");
   const metricGrid = listGrid ? extractDataGridFromList(listGrid) : null;

@@ -108,8 +108,10 @@ export const blockContent = defineType({
     defineArrayMember({ type: "videoEmbed" }),
     defineArrayMember({ type: "section" }),
     defineArrayMember({ type: "dataGrid" }),
+    defineArrayMember({ type: "contentTable" }),
     defineArrayMember({ type: "callToAction" }),
     defineArrayMember({ type: "accordion" }),
     defineArrayMember({ type: "iconFeatureCard" }),
+    defineArrayMember({ type: "highcharts" }),
   ],
 });

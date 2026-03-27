@@ -1,11 +1,13 @@
 import { faqType } from "./faq";
 import { fundDocumentType } from "./fundDocument";
+import { highcharts } from "./objects/highcharts";
 import { investorEducationArticleType } from "./investorEducationArticle";
 import { investorEducationNewsType } from "./investorEducationNews";
 import { investorEducationVideoPodcastType } from "./investorEducationVideoPodcast";
 import { legalDocumentType } from "./legalDocument";
 import { accordion } from "./objects/accordion";
 import { blockContent } from "./objects/blockContent";
+import { contentTable } from "./objects/contentTable";
 import { callToAction } from "./objects/callToAction";
 import { dataGrid } from "./objects/dataGrid";
 import { iconFeatureCard } from "./objects/iconFeatureCard";
@@ -17,10 +19,12 @@ export const schemaTypes: import("sanity").SchemaTypeDefinition[] = [
   accordion,
   blockContent,
   callToAction,
+  contentTable,
   dataGrid,
   iconFeatureCard,
   faqType,
   fundDocumentType,
+  highcharts,
   inlineImage,
   investorEducationArticleType,
   investorEducationNewsType,

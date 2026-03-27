@@ -63,6 +63,7 @@ const nestedBodyOf = [
       ],
     },
   }),
+  defineArrayMember({ type: "contentTable" }),
 ];
 
 export const accordion = defineType({

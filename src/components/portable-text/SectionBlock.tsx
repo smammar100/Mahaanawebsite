@@ -1,5 +1,6 @@
 import { PortableText } from "@portabletext/react";
 import type { ReactNode } from "react";
+import { ContentTableBlock } from "./ContentTableBlock";
 
 type NestedBlock = {
   _type: "block";
@@ -77,6 +78,11 @@ const nestedComponents = {
       >
         {children}
       </a>
+    ),
+  },
+  types: {
+    contentTable: ({ value }: { value?: unknown }) => (
+      <ContentTableBlock value={value as never} />
     ),
   },
 };

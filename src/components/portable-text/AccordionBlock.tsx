@@ -1,6 +1,7 @@
 import { PortableText } from "@portabletext/react";
 import type { PortableTextBlock } from "@portabletext/types";
 import type { ReactNode } from "react";
+import { ContentTableBlock } from "./ContentTableBlock";
 
 interface AccordionItem {
   _key?: string;
@@ -74,6 +75,11 @@ const nestedComponents = {
       >
         {children}
       </a>
+    ),
+  },
+  types: {
+    contentTable: ({ value }: { value?: unknown }) => (
+      <ContentTableBlock value={value as never} />
     ),
   },
 };

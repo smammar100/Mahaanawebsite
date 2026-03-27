@@ -1,6 +1,7 @@
 import { defineCliConfig } from "sanity/cli";
 
-const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID ?? "";
+/** Defaults match `.env.example` so CLI commands work when env is not loaded (CI/local). */
+const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID ?? "ctfatnb0";
 const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET ?? "production";
 
 export default defineCliConfig({

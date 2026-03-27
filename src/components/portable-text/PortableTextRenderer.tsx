@@ -6,8 +6,10 @@ import {
 import type { PortableTextBlock } from "@portabletext/types";
 import { AccordionBlock } from "./AccordionBlock";
 import { CallToActionBlock } from "./CallToActionBlock";
+import { ContentTableBlock } from "./ContentTableBlock";
 import { DataGridBlock } from "./DataGridBlock";
 import { InlineImageBlock } from "./InlineImageBlock";
+import { HighchartsPortableBlock } from "./HighchartsPortableBlock";
 import { IconFeatureCardBlock } from "./IconFeatureCardBlock";
 import { SectionBlock } from "./SectionBlock";
 import { VideoEmbedBlock } from "./VideoEmbedBlock";
@@ -111,12 +113,16 @@ const components: PortableTextComponents = {
   types: {
     section: ({ value }) => <SectionBlock value={value as never} />,
     dataGrid: ({ value }) => <DataGridBlock value={value as never} />,
+    contentTable: ({ value }) => <ContentTableBlock value={value as never} />,
     callToAction: ({ value }) => <CallToActionBlock value={value as never} />,
     inlineImage: ({ value }) => <InlineImageBlock value={value as never} />,
     videoEmbed: ({ value }) => <VideoEmbedBlock value={value as never} />,
     accordion: ({ value }) => <AccordionBlock value={value as never} />,
     iconFeatureCard: ({ value }) => (
       <IconFeatureCardBlock value={value as never} />
+    ),
+    highcharts: ({ value }) => (
+      <HighchartsPortableBlock value={value as never} />
     ),
   },
 };

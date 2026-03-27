@@ -1,6 +1,7 @@
 /**
- * Loads .env.local (and .env) so SANITY_AUTH_TOKEN is available for `sanity schema deploy`.
- * Run via: npm run schema:deploy
+ * Hosted Sanity Studio deploy (sanity.io) using sanity.cli.ts (studioHost, appId).
+ * Loads .env.local / .env so NEXT_PUBLIC_* and SANITY_AUTH_TOKEN are available.
+ * Usage: npm run sanity:studio-deploy
  */
 const path = require("path");
 const { spawnSync } = require("child_process");
@@ -19,7 +20,7 @@ const sanityBin = path.join(cwd, "node_modules", "sanity", "bin", "sanity");
 
 const result = spawnSync(
   process.execPath,
-  [sanityBin, "schema", "deploy", "--manifest-dir", "public/studio/static"],
+  [sanityBin, "deploy", "--yes"],
   { stdio: "inherit", env: process.env, cwd, shell: false }
 );
 
