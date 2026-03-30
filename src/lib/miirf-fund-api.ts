@@ -108,6 +108,15 @@ const HOLDINGS_COLORS = [
   "var(--color-primary-150)",
 ] as const;
 
+export type MiirfSubfundPieSource = "asset_alloc" | "sector_holdings";
+
+export type MiirfPieSliceRow = {
+  name: string;
+  percentage: string;
+  color: string;
+  value: number;
+};
+
 export interface MiirfSubfundData {
   navLabel: "NAV" | "iNAV";
   nav: { value: string; asOf: string };
@@ -117,9 +126,15 @@ export interface MiirfSubfundData {
   productSummary: string;
   investmentObjective: string;
   keyFacts: Array<{ label: string; value: string }>;
-  topHoldings: Array<{ name: string; percentage: string; color: string; value: number }>;
+  /** Pie + table rows (asset allocation, sector allocation, or legacy holdings shape). */
+  topHoldings: MiirfPieSliceRow[];
+  pieSectionTitle: string;
+  pieNameColumnLabel: string;
   performanceChartData: Array<{ date: string; subfund: number; benchmark: number }>;
   performanceChartDomain: [number, number];
+  performanceYAxisTitle: string;
+  performanceValueSuffix: string;
+  performanceChartSubtitleLead: string;
   /** Not sent from server (not serializable). Client adds locally if needed. */
   performanceChartFormatter?: (v: number | string) => string;
   performanceTable: {
@@ -214,6 +229,34 @@ const RISK_LABELS: Record<string, string> = {
   Equity: "High Risk",
 };
 
+const PLACEHOLDER_PIE_SLICE: MiirfPieSliceRow = {
+  name: "—",
+  percentage: "—",
+  color: HOLDINGS_COLORS[0],
+  value: 1,
+};
+
+function pieSlicesFromAssetAlloc(alloc: MiirfAssetAllocItemRaw[]): MiirfPieSliceRow[] {
+  if (!alloc.length) return [PLACEHOLDER_PIE_SLICE];
+  const sorted = [...alloc].sort((a, b) => b.current_month - a.current_month);
+  return sorted.slice(0, 10).map((a, i) => ({
+    name: a.key.trim() || "—",
+    percentage: `${(a.current_month * 100).toFixed(2)}%`,
+    color: HOLDINGS_COLORS[i % HOLDINGS_COLORS.length],
+    value: a.current_month * 100,
+  }));
+}
+
+function pieSlicesFromHoldingsLike(holdings: MiirfHoldingRaw[]): MiirfPieSliceRow[] {
+  if (!holdings.length) return [PLACEHOLDER_PIE_SLICE];
+  return holdings.slice(0, 10).map((h, i) => ({
+    name: h.key.trim() || "—",
+    percentage: `${(h.holding * 100).toFixed(2)}%`,
+    color: HOLDINGS_COLORS[i % HOLDINGS_COLORS.length],
+    value: h.holding * 100,
+  }));
+}
+
 // ---------------------------------------------------------------------------
 // Transform: Overview (main fund)
 // ---------------------------------------------------------------------------
@@ -276,7 +319,8 @@ function transformPerformance(raw: MiirfMainFundRaw): MiirfPerformanceFundData {
 function transformSubfund(
   raw: MiirfSubfundRaw,
   subfundLabel: string,
-  navLabel: "NAV" | "iNAV"
+  navLabel: "NAV" | "iNAV",
+  pieSource: MiirfSubfundPieSource
 ): MiirfSubfundData {
   const info = raw.info;
   const price = raw.price ?? [];
@@ -339,29 +383,33 @@ function transformSubfund(
     { label: "Benchmark", value: infoVal(info, "Benchmark") },
   ].map(({ label, value }) => ({ label, value: value || "—" }));
 
-  const holdings = raw.holdings ?? [];
   const topHoldings =
-    holdings.length === 0
-      ? [{ name: "—", percentage: "—", color: HOLDINGS_COLORS[0], value: 1 }]
-      : holdings.slice(0, 10).map((h, i) => ({
-          name: h.key,
-          percentage: `${(h.holding * 100).toFixed(2)}%`,
-          color: HOLDINGS_COLORS[i % HOLDINGS_COLORS.length],
-          value: h.holding * 100,
-        }));
+    pieSource === "asset_alloc"
+      ? pieSlicesFromAssetAlloc(raw.asset_alloc ?? [])
+      : (() => {
+          const sectors = raw.sector_holdings ?? [];
+          return sectors.length > 0
+            ? pieSlicesFromHoldingsLike(sectors)
+            : pieSlicesFromHoldingsLike(raw.holdings ?? []);
+        })();
+
+  const pieSectionTitle = pieSource === "asset_alloc" ? "Asset allocation" : "Sector allocation";
+  const pieNameColumnLabel = pieSource === "asset_alloc" ? "Asset class" : "Sector";
+
+  const performanceYAxisTitle = navLabel === "NAV" ? "NAV / benchmark" : "iNAV / benchmark";
+  const performanceValueSuffix = "";
+  const performanceChartSubtitleLead = "Subfund vs benchmark unit values.";
 
   const sortedByDate = [...price].sort(
     (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
   );
-  const firstNav = sortedByDate[0] ? parseNum(sortedByDate[0].nav || sortedByDate[0].ad_nav) : 1;
-  const firstBench = sortedByDate[0] ? parseNum(sortedByDate[0].benchmark) : 1;
   const performanceChartData = sortedByDate.map((p) => {
     const nav = parseNum(p.nav || p.ad_nav);
     const bench = parseNum(p.benchmark);
     return {
       date: formatShortDate(p.date),
-      subfund: firstNav > 0 ? (nav / firstNav - 1) * 100 : 0,
-      benchmark: firstBench > 0 ? (bench / firstBench - 1) * 100 : 0,
+      subfund: nav,
+      benchmark: bench,
     };
   });
 
@@ -374,9 +422,12 @@ function transformSubfund(
     { period: "Since inception", subfund: pctFromDecimal(perfSubfund?.inception), benchmark: pctFromDecimal(perfBench?.inception) },
   ];
 
-  const minVal = Math.min(0, ...performanceChartData.flatMap((d) => [d.subfund, d.benchmark]));
-  const maxVal = Math.max(20, ...performanceChartData.flatMap((d) => [d.subfund, d.benchmark]));
-  const performanceChartDomain: [number, number] = [Math.floor(minVal) - 5, Math.ceil(maxVal) + 5];
+  const perfVals = performanceChartData.flatMap((d) => [d.subfund, d.benchmark]);
+  const minVal = perfVals.length ? Math.min(...perfVals) : 0;
+  const maxVal = perfVals.length ? Math.max(...perfVals) : 1;
+  const span = maxVal - minVal || 1;
+  const pad = Math.max(span * 0.08, 0.05);
+  const performanceChartDomain: [number, number] = [minVal - pad, maxVal + pad];
 
   return {
     navLabel,
@@ -388,8 +439,13 @@ function transformSubfund(
     investmentObjective: infoVal(info, "Investment Objective"),
     keyFacts,
     topHoldings,
+    pieSectionTitle,
+    pieNameColumnLabel,
     performanceChartData,
     performanceChartDomain,
+    performanceYAxisTitle,
+    performanceValueSuffix,
+    performanceChartSubtitleLead,
     performanceTable: {
       subfundLabel,
       benchmarkLabel: "Benchmark",
@@ -411,9 +467,9 @@ export async function getMiirfFundDataForPage(): Promise<MiirfFundDataForPage | 
 
   const overview = transformOverview(raw.miirf);
   const performance = transformPerformance(raw.miirf);
-  const moneyMarket = transformSubfund(raw.miirfmmsf, "MIIRF (Money Market)", "iNAV");
-  const debt = transformSubfund(raw.miirfdsf, "MIIRF (Debt)", "NAV");
-  const equity = transformSubfund(raw.miirfesf, "MIIRF (Equity)", "iNAV");
+  const moneyMarket = transformSubfund(raw.miirfmmsf, "MIIRF (Money Market)", "iNAV", "asset_alloc");
+  const debt = transformSubfund(raw.miirfdsf, "MIIRF (Debt)", "NAV", "asset_alloc");
+  const equity = transformSubfund(raw.miirfesf, "MIIRF (Equity)", "iNAV", "sector_holdings");
 
   return {
     overview,

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "motion/react";
-import type { MiirfSubfundsFundData } from "@/lib/miirf-fund-api";
+import type { MiirfSubfundData, MiirfSubfundsFundData } from "@/lib/miirf-fund-api";
 import { Container } from "@/components/layout/Container";
 import { H3, H4, TextMedium, TextRegular, TextSmall } from "@/components/ui/Typography";
 import { HighchartsVariablePieChart } from "@/components/ui/HighchartsVariablePieChart";
@@ -18,8 +18,8 @@ const SUBFUND_TABS = [
   { id: "equity", label: "Equity" },
 ] as const;
 
-const SUBFUND_DEBT_DATA = {
-  navLabel: "NAV" as const,
+const SUBFUND_DEBT_DATA: MiirfSubfundData = {
+  navLabel: "NAV",
   nav: { value: "10.8977", asOf: "As of 27 Feb 2026" },
   riskReward: "Medium Risk",
   mtd: { value: "8.44%", asOf: "As of 22 Feb 2026" },
@@ -55,25 +55,31 @@ const SUBFUND_DEBT_DATA = {
         "75% twelve (12) months PKISRV +25% six (6) months average of highest rates on savings account of three (3) AA rated scheduled Islamic Banks or Islamic windows of Conventional Banks as selected by MUFAP",
     },
   ],
+  pieSectionTitle: "Asset allocation",
+  pieNameColumnLabel: "Asset class",
   topHoldings: [
-    { name: "Sadaqat Limited STS 1", percentage: "6.25%", color: "var(--color-info-200)", value: 6.25 },
-    { name: "GO Petroleum STS 1", percentage: "3.61%", color: "var(--color-teal-200)", value: 3.61 },
-    { name: "Airlink Limited STS 7", percentage: "2.40%", color: "var(--color-error-200)", value: 2.4 },
+    { name: "Corporate sukuks", percentage: "42.50%", color: "var(--color-info-200)", value: 42.5 },
+    { name: "Short term sukuks", percentage: "28.30%", color: "var(--color-teal-200)", value: 28.3 },
+    { name: "Govt securities", percentage: "18.20%", color: "var(--color-error-200)", value: 18.2 },
+    { name: "Bank deposits / placements", percentage: "11.00%", color: "var(--color-warning-200)", value: 11 },
   ],
   performanceChartData: [
-    { date: "Apr 2023", subfund: 0, benchmark: 0 },
-    { date: "Jul 2023", subfund: 1.5, benchmark: 1.4 },
-    { date: "Jan 2024", subfund: 3.5, benchmark: 3.2 },
-    { date: "Jul 2024", subfund: 6, benchmark: 5.8 },
-    { date: "Oct 2024", subfund: 7.5, benchmark: 7.2 },
-    { date: "Jan 2025", subfund: 9, benchmark: 8.6 },
-    { date: "Apr 2025", subfund: 10.5, benchmark: 10 },
-    { date: "Jul 2025", subfund: 12, benchmark: 11.5 },
-    { date: "Oct 2025", subfund: 13.5, benchmark: 12.8 },
-    { date: "Jan 2026", subfund: 15, benchmark: 14 },
+    { date: "May 26, 2025", subfund: 10.0, benchmark: 10.0 },
+    { date: "Jun 2025", subfund: 10.08, benchmark: 10.06 },
+    { date: "Jul 2025", subfund: 10.15, benchmark: 10.12 },
+    { date: "Aug 2025", subfund: 10.22, benchmark: 10.18 },
+    { date: "Sep 2025", subfund: 10.31, benchmark: 10.25 },
+    { date: "Oct 2025", subfund: 10.42, benchmark: 10.33 },
+    { date: "Nov 2025", subfund: 10.55, benchmark: 10.41 },
+    { date: "Dec 2025", subfund: 10.68, benchmark: 10.52 },
+    { date: "Jan 2026", subfund: 10.78, benchmark: 10.61 },
+    { date: "Feb 2026", subfund: 10.8977, benchmark: 10.72 },
   ],
-  performanceChartDomain: [0, 20] as [number, number],
-  performanceChartFormatter: (v: number | string) => `${Number(v).toFixed(2)}%`,
+  performanceChartDomain: [9.85, 11.05],
+  performanceYAxisTitle: "NAV / benchmark",
+  performanceValueSuffix: "",
+  performanceChartSubtitleLead: "Subfund vs benchmark unit values.",
+  performanceChartFormatter: (v: number | string) => String(Number(v).toFixed(4)),
   performanceTable: {
     subfundLabel: "MIIRF (Debt)",
     benchmarkLabel: "Benchmark",
@@ -88,10 +94,10 @@ const SUBFUND_DEBT_DATA = {
       { period: "Since inception", subfund: "19.68%", benchmark: "11.3%" },
     ],
   },
-} as const;
+};
 
-const SUBFUND_MONEY_MARKET_DATA = {
-  navLabel: "iNAV" as const,
+const SUBFUND_MONEY_MARKET_DATA: MiirfSubfundData = {
+  navLabel: "iNAV",
   nav: { value: "10.779", asOf: "As of 4 Mar 2026" },
   riskReward: "Low Risk",
   mtd: { value: "8.64%", asOf: "As of 4 Mar 2026" },
@@ -127,9 +133,13 @@ const SUBFUND_MONEY_MARKET_DATA = {
         "90% three (3) months PKISRV +10% three (3) months average of highest rates on savings account of three (3) AA rated scheduled Islamic Banks or Islamic windows of Conventional Banks as selected by MUFAP",
     },
   ],
+  pieSectionTitle: "Asset allocation",
+  pieNameColumnLabel: "Asset class",
   topHoldings: [
-    { name: "—", percentage: "—", color: "var(--color-info-200)", value: 1 },
-    { name: "—", percentage: "—", color: "var(--color-teal-200)", value: 1 },
+    { name: "Short term sukuks", percentage: "38.00%", color: "var(--color-info-200)", value: 38 },
+    { name: "Treasury / govt instruments", percentage: "32.50%", color: "var(--color-teal-200)", value: 32.5 },
+    { name: "Corporate sukuks", percentage: "22.00%", color: "var(--color-error-200)", value: 22 },
+    { name: "Cash & equivalents", percentage: "7.50%", color: "var(--color-warning-200)", value: 7.5 },
   ],
   performanceChartData: [
     { date: "Jun 2025", subfund: 9.9, benchmark: 9.85 },
@@ -143,7 +153,10 @@ const SUBFUND_MONEY_MARKET_DATA = {
     { date: "Feb 2026", subfund: 10.72, benchmark: 10.65 },
     { date: "Mar 2026", subfund: 10.78, benchmark: 10.72 },
   ],
-  performanceChartDomain: [9.5, 11] as [number, number],
+  performanceChartDomain: [9.5, 11],
+  performanceYAxisTitle: "iNAV / benchmark",
+  performanceValueSuffix: "",
+  performanceChartSubtitleLead: "Subfund vs benchmark unit values.",
   performanceChartFormatter: (v: number | string) => String(Number(v).toFixed(2)),
   performanceTable: {
     subfundLabel: "MIIRF (Money Market)",
@@ -159,10 +172,10 @@ const SUBFUND_MONEY_MARKET_DATA = {
       { period: "Since inception", subfund: "10.08%", benchmark: "9.54%" },
     ],
   },
-} as const;
+};
 
-const SUBFUND_EQUITY_DATA = {
-  navLabel: "iNAV" as const,
+const SUBFUND_EQUITY_DATA: MiirfSubfundData = {
+  navLabel: "iNAV",
   nav: { value: "11.4364", asOf: "As of 4 Mar 2026" },
   riskReward: "High Risk",
   mtd: { value: "-6.78%", asOf: "As of 4 Mar 2026" },
@@ -194,31 +207,34 @@ const SUBFUND_EQUITY_DATA = {
     { label: "Sales load", value: "NIL" },
     { label: "Benchmark", value: "KMI-30" },
   ],
+  pieSectionTitle: "Sector allocation",
+  pieNameColumnLabel: "Sector",
   topHoldings: [
-    { name: "Mahaana Islamic Index Exchange Traded Fund", percentage: "11.39%", color: "var(--color-info-200)", value: 11.39 },
-    { name: "Fauji Fertilizer Company", percentage: "9.12%", color: "var(--color-primary-200)", value: 9.12 },
-    { name: "Engro Holdings", percentage: "8.65%", color: "var(--color-teal-200)", value: 8.65 },
-    { name: "Oil & Gas Development Company Limited", percentage: "6.65%", color: "var(--color-warning-200)", value: 6.65 },
-    { name: "Lucky Cement Limited", percentage: "6.84%", color: "var(--color-error-200)", value: 6.84 },
-    { name: "Pakistan Petroleum Limited", percentage: "5.58%", color: "var(--color-info-150)", value: 5.58 },
-    { name: "Hub Power Company Limited", percentage: "6.38%", color: "var(--color-teal-150)", value: 6.38 },
-    { name: "Meezan Bank Limited", percentage: "5.35%", color: "var(--color-error-150)", value: 5.35 },
-    { name: "Systems Limited", percentage: "4.38%", color: "var(--color-warning-200)", value: 4.38 },
-    { name: "Mari Energies", percentage: "4.30%", color: "var(--color-primary-150)", value: 4.3 },
+    { name: "Oil & gas", percentage: "18.20%", color: "var(--color-info-200)", value: 18.2 },
+    { name: "Commercial banks", percentage: "16.40%", color: "var(--color-primary-200)", value: 16.4 },
+    { name: "Cement", percentage: "12.80%", color: "var(--color-teal-200)", value: 12.8 },
+    { name: "Fertilizers", percentage: "11.50%", color: "var(--color-warning-200)", value: 11.5 },
+    { name: "Power generation", percentage: "10.20%", color: "var(--color-error-200)", value: 10.2 },
+    { name: "Technology", percentage: "8.60%", color: "var(--color-info-150)", value: 8.6 },
+    { name: "Textile", percentage: "7.10%", color: "var(--color-teal-150)", value: 7.1 },
+    { name: "Other", percentage: "15.20%", color: "var(--color-error-150)", value: 15.2 },
   ],
   performanceChartData: [
-    { date: "Jun 2025", subfund: 10, benchmark: 10 },
-    { date: "Jul 2025", subfund: 9.5, benchmark: 9.5 },
-    { date: "Aug 2025", subfund: 10.2, benchmark: 10.3 },
-    { date: "Sep 2025", subfund: 11, benchmark: 11.2 },
-    { date: "Oct 2025", subfund: 11.8, benchmark: 12 },
-    { date: "Nov 2025", subfund: 12.5, benchmark: 12.8 },
-    { date: "Dec 2025", subfund: 13.2, benchmark: 13.5 },
-    { date: "Jan 2026", subfund: 14, benchmark: 14.2 },
-    { date: "Feb 2026", subfund: 13.8, benchmark: 14.5 },
-    { date: "Mar 2026", subfund: 11.5, benchmark: 12.5 },
+    { date: "Jun 2025", subfund: 10.0, benchmark: 10.0 },
+    { date: "Jul 2025", subfund: 9.5, benchmark: 9.55 },
+    { date: "Aug 2025", subfund: 10.2, benchmark: 10.35 },
+    { date: "Sep 2025", subfund: 11.0, benchmark: 11.25 },
+    { date: "Oct 2025", subfund: 11.8, benchmark: 12.05 },
+    { date: "Nov 2025", subfund: 12.5, benchmark: 12.85 },
+    { date: "Dec 2025", subfund: 13.2, benchmark: 13.55 },
+    { date: "Jan 2026", subfund: 14.0, benchmark: 14.35 },
+    { date: "Feb 2026", subfund: 13.8, benchmark: 14.65 },
+    { date: "Mar 2026", subfund: 11.4364, benchmark: 12.55 },
   ],
-  performanceChartDomain: [9, 16] as [number, number],
+  performanceChartDomain: [9, 15.5],
+  performanceYAxisTitle: "iNAV / benchmark",
+  performanceValueSuffix: "",
+  performanceChartSubtitleLead: "Subfund vs benchmark unit values.",
   performanceChartFormatter: (v: number | string) => String(Number(v).toFixed(2)),
   performanceTable: {
     subfundLabel: "MIIRF (Equity)",
@@ -234,7 +250,7 @@ const SUBFUND_EQUITY_DATA = {
       { period: "Since inception", subfund: "14.80%", benchmark: "23.90%" },
     ],
   },
-} as const;
+};
 
 function DetailRow({ label, value }: { label: string; value: string }) {
   return (
@@ -254,20 +270,17 @@ function DetailRow({ label, value }: { label: string; value: string }) {
 
 function SubfundDonutChart({
   holdings,
+  ariaLabel,
 }: {
   holdings: ReadonlyArray<{ name: string; percentage: string; color: string; value: number }>;
+  ariaLabel: string;
 }) {
   const chartData = holdings.map((row) => ({
     name: row.name,
     value: row.value,
     fill: row.color,
   }));
-  return (
-    <HighchartsVariablePieChart
-      data={chartData}
-      ariaLabel="Top holdings by percentage"
-    />
-  );
+  return <HighchartsVariablePieChart data={chartData} ariaLabel={ariaLabel} />;
 }
 
 export function MIIRFSubfundsSection({ fundData }: { fundData?: MiirfSubfundsFundData | null }) {
@@ -418,21 +431,24 @@ export function MIIRFSubfundsSection({ fundData }: { fundData?: MiirfSubfundsFun
             </div>
           </div>
 
-          {/* Top holdings: chart + table */}
+          {/* Allocation: chart + table */}
           <div className="flex flex-col gap-6">
             <H4 className="text-text-primary" weight="semibold">
-              Top holdings
+              {cleanCopy(data.pieSectionTitle)}
             </H4>
             <div className="flex min-w-0 flex-col gap-6 lg:flex-row lg:gap-6">
               <div className="flex flex-col justify-center items-center min-w-0 flex-1 lg:w-1/2">
-                <SubfundDonutChart holdings={data.topHoldings} />
+                <SubfundDonutChart
+                  holdings={data.topHoldings}
+                  ariaLabel={`${data.pieSectionTitle} by percentage`}
+                />
               </div>
               <div className="min-w-0 flex-1 lg:w-1/2 overflow-x-auto">
                 <div className="rounded-2xl border border-surface-stroke bg-surface-card min-w-[280px]">
                   <table
                     className="w-full border-collapse"
                     role="table"
-                    aria-label="Top holdings by percentage"
+                    aria-label={`${data.pieSectionTitle} by percentage`}
                   >
                     <thead>
                       <tr>
@@ -444,7 +460,7 @@ export function MIIRFSubfundsSection({ fundData }: { fundData?: MiirfSubfundsFun
                             weight="semibold"
                             className="text-text-tertiary"
                           >
-                            Holdings
+                            {cleanCopy(data.pieNameColumnLabel)}
                           </TextSmall>
                         </th>
                         <th
@@ -511,7 +527,7 @@ export function MIIRFSubfundsSection({ fundData }: { fundData?: MiirfSubfundsFun
               >
                 <HighchartsPerformanceChart
                   title="Historical performance"
-                  subtitle={`Cumulative returns. ${data.performanceChartData[0]?.date ?? ""} to ${data.performanceChartData[data.performanceChartData.length - 1]?.date ?? ""}.`}
+                  subtitle={`${data.performanceChartSubtitleLead} ${data.performanceChartData[0]?.date ?? ""} to ${data.performanceChartData[data.performanceChartData.length - 1]?.date ?? ""}.`}
                   categories={data.performanceChartData.map((d) => d.date)}
                   series={[
                     {
@@ -527,7 +543,8 @@ export function MIIRFSubfundsSection({ fundData }: { fundData?: MiirfSubfundsFun
                   ]}
                   ariaLabel={`Historical performance: ${data.performanceTable.subfundLabel} vs ${data.performanceTable.benchmarkLabel}`}
                   chartType="line"
-                  valueSuffix="%"
+                  yAxisTitle={data.performanceYAxisTitle}
+                  valueSuffix={data.performanceValueSuffix}
                   xAxisLabelFormat="firstLastOnly"
                   compact
                 />

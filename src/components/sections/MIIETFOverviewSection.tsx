@@ -25,7 +25,7 @@ const FUND_DETAILS_RIGHT = [
   { label: "Fund manager", value: "Mahaana Wealth Limited" },
   { label: "Management fee", value: "0.75% per annum" },
   { label: "Authorized participant", value: "JS Global Capital Limited Adam Securities" },
-  { label: "Total expense ratio (without govt. levy)", value: "0.95% (MTD) | 0.93% (YTD)" },
+  { label: "Total expense ratio (without govt. levy)", value: "0.90% (MTD) | 0.83% (YTD)" },
   { label: "Total expense ratio (with govt. levy)", value: "1.17% (MTD) | 1.14% (YTD)" },
 ] as const;
 

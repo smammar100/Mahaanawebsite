@@ -19,6 +19,9 @@ const DEFAULT_NAV_DATE = "as of 12 Mar 2026";
 const DEFAULT_MTD = "-6.34%";
 const DEFAULT_MTD_DATE = "12 Mar 2026";
 const DEFAULT_ASSET_CLASS = "Open-end Shariah Compliant Equity ETF";
+const DEFAULT_EXPENSE_MTD = "0.90% (MTD)";
+const DEFAULT_EXPENSE_YTD = "0.83% (YTD)";
+const DEFAULT_EXPENSE_DATE = "As of 31 Jan 2026";
 
 const MIIETF_HERO_TABS = [
   { id: "overview", label: "Overview" },
@@ -43,6 +46,11 @@ export function MIIETFHero({ fundData }: { fundData?: MiietfHeroFundData | null 
   const mtd = fundData?.mtd ?? DEFAULT_MTD;
   const mtdAsOfDate = fundData?.navDate ?? DEFAULT_MTD_DATE;
   const assetClass = fundData?.assetClass ?? DEFAULT_ASSET_CLASS;
+  const expenseMtd = fundData?.expenseRatioMtd?.trim() || DEFAULT_EXPENSE_MTD;
+  const expenseYtd = fundData?.expenseRatioYtd?.trim() || DEFAULT_EXPENSE_YTD;
+  const expenseDate = fundData?.expenseRatioDate
+    ? `As of ${fundData.expenseRatioDate}`
+    : DEFAULT_EXPENSE_DATE;
 
   function handleTabClick(tabId: (typeof MIIETF_HERO_TABS)[number]["id"]) {
     setSelectedTab(tabId);
@@ -139,14 +147,14 @@ export function MIIETFHero({ fundData }: { fundData?: MiietfHeroFundData | null 
               <div className="flex flex-col gap-0.5">
                 <div className="flex items-center gap-2">
                   <TextMedium className="text-stat text-text-primary">
-                    0.9% (MTD)
+                    {expenseMtd}
                   </TextMedium>
                   <span className="h-4 w-px shrink-0 bg-gray-200" aria-hidden />
                   <TextMedium className="text-stat text-text-primary">
-                    0.83% (YTD)
+                    {expenseYtd}
                   </TextMedium>
                 </div>
-                <TextTiny className="text-text-tertiary">As of 31 Jan 2026</TextTiny>
+                <TextTiny className="text-text-tertiary">{expenseDate}</TextTiny>
               </div>
             </div>
           </div>

@@ -72,6 +72,10 @@ export interface MiietfHeroFundData {
   navDate: string;
   assetClass: string;
   mtd: string;
+  /** Total expense ratio without govt. levy — matches factsheet “Expense ratio” in hero. */
+  expenseRatioMtd: string;
+  expenseRatioYtd: string;
+  expenseRatioDate?: string;
 }
 
 export interface MiietfOverviewFundData {
@@ -231,11 +235,25 @@ function transformHero(raw: MiietfFundDataResponse): MiietfHeroFundData {
   const miietfPerf = raw.perf?.find((p) => p.name === "MIIETF");
   const mtd = miietfPerf != null ? pct2FromDecimal(miietfPerf.mtd) : "";
 
+  // Hero “Expense ratio” uses TER *without* govt. levy (not Monthly/Yearly Total Expense Ratio alone,
+  // which map to the “with govt. levy” line in overview).
+  const mtdTerWo = infoVal(info, "Monthly Total Expense Ratio (without gov levy)");
+  const ytdTerWo = infoVal(info, "Yearly Total Expense Ratio (without gov levy)");
+  const expenseSubmission = infoVal(info, "Submission date");
+  const expenseRatioMtd = mtdTerWo ? `${formatPctDisplay(mtdTerWo)} (MTD)` : "";
+  const expenseRatioYtd = ytdTerWo ? `${formatPctDisplay(ytdTerWo)} (YTD)` : "";
+  const expenseRatioDate = expenseSubmission
+    ? formatShortDate(expenseSubmission)
+    : undefined;
+
   return {
     nav,
     navDate,
     assetClass,
     mtd,
+    expenseRatioMtd,
+    expenseRatioYtd,
+    expenseRatioDate,
   };
 }
 
