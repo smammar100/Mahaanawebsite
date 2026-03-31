@@ -84,6 +84,8 @@ export function HelpCenterSection({ items, className }: HelpCenterSectionProps) 
   const categories = getOrderedCategories(filteredItems);
   const [activeCategory, setActiveCategory] = useState<Category | null>(categories[0] ?? null);
   const observerRef = useRef<IntersectionObserver | null>(null);
+  const scrollUnlockTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const scrollRafRef = useRef<number | null>(null);
 
   // Keep activeCategory in sync when search narrows categories
   useEffect(() => {
@@ -158,13 +160,31 @@ export function HelpCenterSection({ items, className }: HelpCenterSectionProps) 
     isScrollingRef.current = true;
     const el = document.getElementById(`faq-${category.toLowerCase()}`);
     if (el) {
-      el.style.scrollMarginTop = `${TOP_PADDING}px`;
-      el.scrollIntoView({ behavior: "smooth", block: "start" });
+      if (scrollRafRef.current != null) {
+        cancelAnimationFrame(scrollRafRef.current);
+      }
+      scrollRafRef.current = requestAnimationFrame(() => {
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
     }
-    setTimeout(() => {
+    if (scrollUnlockTimeoutRef.current) {
+      clearTimeout(scrollUnlockTimeoutRef.current);
+    }
+    scrollUnlockTimeoutRef.current = setTimeout(() => {
       isScrollingRef.current = false;
     }, 1000);
   };
+
+  useEffect(() => {
+    return () => {
+      if (scrollUnlockTimeoutRef.current) {
+        clearTimeout(scrollUnlockTimeoutRef.current);
+      }
+      if (scrollRafRef.current != null) {
+        cancelAnimationFrame(scrollRafRef.current);
+      }
+    };
+  }, []);
 
   if (items.length === 0) {
     return (

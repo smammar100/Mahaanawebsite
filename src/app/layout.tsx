@@ -33,6 +33,8 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning className={outfit.variable}>
       <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="preload" href="/images/invest/Logo.svg" as="image" />
         <link rel="preload" href="/images/invest/hero-bg.webp" as="image" />
       </head>

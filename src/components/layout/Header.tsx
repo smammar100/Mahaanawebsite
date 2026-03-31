@@ -67,13 +67,24 @@ export function Header() {
   }, [pathname, isHeroPage]);
 
   useEffect(() => {
+    let resizeRafId: number | null = null;
     const handleResize = () => {
-      if (typeof window !== 'undefined' && window.innerWidth >= MOBILE_BREAKPOINT_PX) {
-        setMobileMenuOpen(false);
+      if (resizeRafId != null) {
+        cancelAnimationFrame(resizeRafId);
       }
+      resizeRafId = requestAnimationFrame(() => {
+        if (window.innerWidth >= MOBILE_BREAKPOINT_PX) {
+          setMobileMenuOpen(false);
+        }
+      });
     };
     window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      if (resizeRafId != null) {
+        cancelAnimationFrame(resizeRafId);
+      }
+    };
   }, []);
 
   useEffect(() => {

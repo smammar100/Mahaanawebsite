@@ -9,7 +9,7 @@ import {
   Wallet01,
 } from "@untitledui/icons";
 import { Container } from "@/components/layout/Container";
-import { H3, TextLarge, TextRegular } from "@/components/ui/Typography";
+import { H2, TextLarge, TextRegular } from "@/components/ui/Typography";
 import { useInView } from "@/hooks/useInView";
 import { cleanCopy } from "@/lib/copy-utils";
 import { cx } from "@/utils/cx";
@@ -65,14 +65,14 @@ export function WhyMahaanaTrade() {
             <p className="text-label text-system-brand">
               {cleanCopy("Why MAHAANA")}
             </p>
-            <H3
+            <H2
               id="why-mahaana-heading"
               className="text-text-primary w-full max-w-3xl"
             >
               All in one, Shariah Compliant
               <br />
               Investment Platform
-            </H3>
+            </H2>
           </div>
           <TextRegular className="max-w-2xl text-text-tertiary">
             {cleanCopy(

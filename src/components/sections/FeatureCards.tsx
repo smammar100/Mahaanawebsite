@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import { Container } from "@/components/layout/Container";
-import { H3, TextLarge, TextRegular } from "@/components/ui/Typography";
+import { H2, TextLarge, TextRegular } from "@/components/ui/Typography";
 import { Button } from "@/components/base/buttons/button";
 import { cleanCopy } from "@/lib/copy-utils";
 import { useInView } from "@/hooks/useInView";
@@ -60,12 +60,12 @@ export function FeatureCards() {
             <p className="text-label text-system-brand">
               {cleanCopy("Investing made effortless")}
             </p>
-            <H3
+            <H2
               id="feature-cards-heading"
               className="text-text-primary w-full max-w-3xl"
             >
               Open your Mahaana account in under 10 minutes
-            </H3>
+            </H2>
           </div>
           <TextRegular className="mt-4 max-w-2xl text-text-tertiary">
             Your money shouldn&apos;t sit on the sidelines. Get started with Mahaana today.

@@ -1,50 +1,6 @@
 /* Outfit is loaded via next/font in layout.tsx with display: swap */
-/* Body font: Switzer via @font-face (woff2 in public/fonts/). Build works without files; browser falls back to system font. See public/fonts/README.md. */
 @import "tailwindcss";
 @custom-variant dark (&:where(.dark, .dark *));
-
-@font-face {
-  font-family: 'Switzer';
-  src: url('/fonts/Switzer-Light.woff2') format('woff2');
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Switzer';
-  src: url('/fonts/Switzer-Regular.woff2') format('woff2');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Switzer';
-  src: url('/fonts/Switzer-Medium.woff2') format('woff2');
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Switzer';
-  src: url('/fonts/Switzer-Semibold.woff2') format('woff2');
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Switzer';
-  src: url('/fonts/Switzer-Bold.woff2') format('woff2');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Switzer';
-  src: url('/fonts/Switzer-Extrabold.woff2') format('woff2');
-  font-weight: 800;
-  font-style: normal;
-  font-display: swap;
-}
 
 @theme {
   /* ── Layout ───────────────────────────────────────────── */
@@ -61,8 +17,7 @@
 
   /* ── Fonts ─────────────────────────────────────────────── */
   --font-heading: var(--font-outfit, 'Outfit', sans-serif);
-  /* Body: Switzer (woff2 in public/fonts/). Falls back to system font if files missing. */
-  --font-body: 'Switzer', ui-sans-serif, system-ui, sans-serif;
+  --font-body: var(--font-outfit, 'Outfit', sans-serif), ui-sans-serif, system-ui, sans-serif;
 
   /* ── Font sizes ─────────────────────────────────────────── */
   --text-tiny: 0.75rem;

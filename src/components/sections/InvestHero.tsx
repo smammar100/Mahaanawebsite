@@ -18,6 +18,7 @@ export function InvestHero() {
         alt="Person enjoying a meal while managing investments on their phone"
         fill
         priority
+        fetchPriority="high"
         className="object-cover object-[center_30%] sm:object-[center_35%]"
         sizes="100vw"
       />
