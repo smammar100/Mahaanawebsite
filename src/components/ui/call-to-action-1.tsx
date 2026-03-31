@@ -6,6 +6,7 @@ import { Button } from "@/components/base/buttons/button";
 import { H2 } from "@/components/ui/Typography";
 import { cx } from "@/utils/cx";
 import { cleanCopy } from "@/lib/copy-utils";
+import { TESTIMONIAL_AVATAR_IMAGES } from "@/lib/testimonial-avatars";
 
 const DynamicSilkBackground = dynamic(
   () => import("@/components/ui/SilkBackground").then((m) => m.SilkBackground),
@@ -21,11 +22,7 @@ interface CallToAction1Props {
   ctaHref?: string;
 }
 
-const defaultAvatars = [
-  "/images/testimonials/avatar-1.webp",
-  "/images/testimonials/avatar-2.webp",
-  "/images/testimonials/avatar-3.webp",
-];
+const defaultAvatars = [...TESTIMONIAL_AVATAR_IMAGES];
 
 export function CallToAction1({
   className,

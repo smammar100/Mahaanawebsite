@@ -3,58 +3,51 @@
 import { useMemo, useRef } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import AutoScroll from "embla-carousel-auto-scroll";
-import { Star01, Zap } from "@untitledui/icons";
+import { Zap } from "@untitledui/icons";
 
 import { Container } from "@/components/layout/Container";
 import { H3, TextMedium, TextRegular, TextSmall } from "@/components/ui/Typography";
 import { useInView } from "@/hooks/useInView";
 import { cleanCopy } from "@/lib/copy-utils";
+import {
+  TESTIMONIAL_AVATAR_IMAGES,
+  TESTIMONIAL_COMPANY_LOGOS,
+} from "@/lib/testimonial-avatars";
 import { cx } from "@/utils/cx";
 
-const testimonials = [
+const testimonialEntries = [
   {
-    name: "Alice Johnson",
-    role: "CEO & Founder",
-    avatar: "/images/testimonials/testimonial-avatar-1.webp",
+    name: "Mattias Martinsson",
+    role: "Co-founder of Tundra Fonder, Sweden",
     content:
-      "This platform has revolutionized the way we manage projects. It is incredibly user friendly and efficient.",
+      "Through stimulating private savings now, Pakistan can make sure that the state is not overwhelmed 30 years from now when the youth of today retire.",
   },
   {
-    name: "David Lee",
-    role: "CTO",
-    avatar: "/images/testimonials/testimonial-avatar-2.webp",
+    name: "David Nangle",
+    role: "CEO, VEF",
     content:
-      "I have been impressed with the seamless integration and functionality. It has made our tech operations much smoother.",
+      "Mahaana is addressing one of the most important long-term financial issues that exist in Pakistan today. We are proud to back the CEO, Shamoon and his team in this scale venture and I am confident that Mahaana's success will be a positive for both the users of its platform and Pakistan as a whole.",
   },
   {
-    name: "Mark Thompson",
-    role: "COO",
-    avatar: "/images/testimonials/testimonial-avatar-3.webp",
+    name: "Tahir Masaud",
+    role: "CEO, IGI Holdings",
     content:
-      "Managing our day to day tasks has never been easier. The interface is intuitive and saves us a lot of time.",
-  },
-  {
-    name: "Emily Carter",
-    role: "Tech Lead",
-    avatar: "/images/testimonials/testimonial-avatar-4.webp",
-    content:
-      "The tools provided have significantly improved our team's workflow and collaboration. Highly recommend it!",
-  },
-  {
-    name: "Sophia Turner",
-    role: "Designer",
-    avatar: "/images/testimonials/testimonial-avatar-5.webp",
-    content:
-      "From a design perspective, the flexibility and ease of use are outstanding. This has become an indispensable tool for our team.",
-  },
-  {
-    name: "James Wilson",
-    role: "Developer",
-    avatar: "/images/testimonials/testimonial-avatar-6.webp",
-    content:
-      "As a developer, I appreciate the robust features and simplicity. It has streamlined our processes considerably.",
+      "IGI is more than a key investor and is a strategic local partner of Mahaana. There are clear synergies between IGI Insurance, IGI Securities and a digital wealth management company like Mahaana, which has a team with a proven track record of fund management in global markets.",
   },
 ];
+
+const testimonials = testimonialEntries.map((entry, index) => {
+  // Order is Mattias, then David; swap avatar indices so headshots match each person (Avatar1 = David, Avatar2 = Mattias).
+  const avatarSlot = index === 0 ? 1 : index === 1 ? 0 : index;
+  // Logo slots: Tundra, VEF, IGI — indices align with company2/3/1 PNG order used in the carousel.
+  const companyLogoSlot =
+    index === 0 ? 1 : index === 1 ? 2 : 0;
+  return {
+    ...entry,
+    avatar: TESTIMONIAL_AVATAR_IMAGES[avatarSlot],
+    companyLogo: TESTIMONIAL_COMPANY_LOGOS[companyLogoSlot],
+  };
+});
 
 interface TestimonialsSectionProps {
   className?: string;
@@ -136,10 +129,10 @@ export function TestimonialsSection({ className }: TestimonialsSectionProps) {
             ref={emblaRef}
             className="overflow-hidden px-16 [--overflow:clip]"
           >
-            <div className="flex gap-4 sm:gap-6" role="list">
+            <div className="flex gap-4" role="list">
               {testimonials.map((testimonial, index) => (
                 <div
-                  key={index}
+                  key={testimonial.name}
                   className="flex min-w-[300px] max-w-[384px] shrink-0 flex-col gap-4 rounded-2xl border border-surface-stroke bg-surface-card p-6 select-none"
                   role="listitem"
                 >
@@ -160,13 +153,13 @@ export function TestimonialsSection({ className }: TestimonialsSectionProps) {
                         </TextSmall>
                       </div>
                     </div>
-                    <div className="flex gap-0.5" aria-hidden>
-                      {Array.from({ length: 5 }).map((_, i) => (
-                        <Star01
-                          key={i}
-                          className="size-5 shrink-0 fill-warning-300 text-warning-300"
-                        />
-                      ))}
+                    <div className="flex shrink-0 items-center justify-end" aria-hidden>
+                      <img
+                        src={testimonial.companyLogo}
+                        alt=""
+                        loading="lazy"
+                        className="h-8 w-auto max-h-10 max-w-[120px] object-contain object-right"
+                      />
                     </div>
                   </div>
                   <blockquote className="font-body text-regular leading-7 text-text-tertiary">
