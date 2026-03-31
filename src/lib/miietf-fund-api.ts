@@ -71,6 +71,7 @@ export interface MiietfHeroFundData {
   nav: string;
   navDate: string;
   assetClass: string;
+  riskLabel: string;
   mtd: string;
   /** Total expense ratio without govt. levy — matches factsheet “Expense ratio” in hero. */
   expenseRatioMtd: string;
@@ -88,6 +89,9 @@ export interface MiietfOverviewFundData {
 export interface MiietfPerformanceFundData {
   chartCategories: string[];
   chartSeries: Array<{ name: string; data: number[]; color: string }>;
+  chartSubtitle: string;
+  yAxisTitle: string;
+  valueSuffix: string;
   tableRows: Array<{
     label: string;
     color: string;
@@ -205,6 +209,13 @@ const HOLDINGS_COLORS = [
   "var(--color-primary-150)",
 ] as const;
 
+/**
+ * Single source of truth for MIIETF visualized price basis.
+ * Keeping hero and performance on the same field prevents semantic drift.
+ */
+const PRICE_BASIS_FIELD = "nav_adjusted" as const;
+const PRICE_BASIS_LABEL = PRICE_BASIS_FIELD === "nav_adjusted" ? "NAV adjusted price" : "NAV price";
+
 function pct2FromDecimal(v: number): string {
   return `${(v * 100).toFixed(2)}%`;
 }
@@ -215,6 +226,37 @@ function pct2(v: number): string {
 
 function infoVal(info: Record<string, string>, key: string): string {
   return info[key] ?? "";
+}
+
+function parseNum(v: unknown): number | null {
+  if (typeof v === "number") return Number.isFinite(v) ? v : null;
+  if (typeof v === "string") {
+    const n = Number(v);
+    return Number.isFinite(n) ? n : null;
+  }
+  return null;
+}
+
+function deriveRiskLabel(assetClass: string): string {
+  const v = assetClass.toLowerCase();
+  if (v.includes("equity") || v.includes("etf")) return "High Risk";
+  if (v.includes("debt") || v.includes("income")) return "Medium Risk";
+  if (v.includes("money market") || v.includes("cash")) return "Low Risk";
+  return "High Risk";
+}
+
+function sanitizeAuthorizedParticipant(value: string): string {
+  return value
+    .split(/\r?\n/)
+    .map((s) => s.trim())
+    .filter(Boolean)
+    .join(", ")
+    .replace(/\s{2,}/g, " ");
+}
+
+function sanitizeHoldingName(name: string): string {
+  if (name.trim().toLowerCase() === "meezan bnak limited") return "Meezan Bank Limited";
+  return name;
 }
 
 // ---------------------------------------------------------------------------
@@ -228,20 +270,21 @@ function transformHero(raw: MiietfFundDataResponse): MiietfHeroFundData {
   );
   const latestPrice = sortedByDate[0] ?? null;
 
-  const nav = latestPrice ? latestPrice.nav_adjusted.toFixed(2) : "";
+  const navRaw = latestPrice ? parseNum(latestPrice[PRICE_BASIS_FIELD]) : null;
+  const nav = navRaw != null ? navRaw.toFixed(2) : "";
   const navDate = latestPrice ? formatShortDate(latestPrice.date) : "";
   const assetClass = infoVal(info, "Fund Category");
+  const riskLabel = deriveRiskLabel(assetClass);
 
   const miietfPerf = raw.perf?.find((p) => p.name === "MIIETF");
   const mtd = miietfPerf != null ? pct2FromDecimal(miietfPerf.mtd) : "";
 
-  // Hero “Expense ratio” uses TER *without* govt. levy (not Monthly/Yearly Total Expense Ratio alone,
-  // which map to the “with govt. levy” line in overview).
-  const mtdTerWo = infoVal(info, "Monthly Total Expense Ratio (without gov levy)");
-  const ytdTerWo = infoVal(info, "Yearly Total Expense Ratio (without gov levy)");
+  // Hero “Expense ratio” follows overview’s "with govt. levy" TER values.
+  const mtdTerWithLevy = infoVal(info, "Monthly Total Expense Ratio");
+  const ytdTerWithLevy = infoVal(info, "Yearly Total Expense Ratio");
   const expenseSubmission = infoVal(info, "Submission date");
-  const expenseRatioMtd = mtdTerWo ? `${formatPctDisplay(mtdTerWo)} (MTD)` : "";
-  const expenseRatioYtd = ytdTerWo ? `${formatPctDisplay(ytdTerWo)} (YTD)` : "";
+  const expenseRatioMtd = mtdTerWithLevy ? `${formatPctDisplay(mtdTerWithLevy)} (MTD)` : "";
+  const expenseRatioYtd = ytdTerWithLevy ? `${formatPctDisplay(ytdTerWithLevy)} (YTD)` : "";
   const expenseRatioDate = expenseSubmission
     ? formatShortDate(expenseSubmission)
     : undefined;
@@ -250,6 +293,7 @@ function transformHero(raw: MiietfFundDataResponse): MiietfHeroFundData {
     nav,
     navDate,
     assetClass,
+    riskLabel,
     mtd,
     expenseRatioMtd,
     expenseRatioYtd,
@@ -282,7 +326,7 @@ function transformOverview(raw: MiietfFundDataResponse): MiietfOverviewFundData 
   const keyFactsRight: Array<{ label: string; value: string }> = [
     { label: "Fund manager", value: infoVal(info, "Fund manager") },
     { label: "Management Fee", value: infoVal(info, "Management Fee") },
-    { label: "Authorized Participant", value: infoVal(info, "Authorized Participant")?.replace(/\n/g, " ") ?? "" },
+    { label: "Authorized Participant", value: sanitizeAuthorizedParticipant(infoVal(info, "Authorized Participant")) },
     {
       label: "Total expense ratio (without govt. levy)",
       value: mtdWithout && ytdWithout ? `${formatPctDisplay(mtdWithout)} (MTD) | ${formatPctDisplay(ytdWithout)} (YTD)` : "",
@@ -308,13 +352,20 @@ function transformPerformance(raw: MiietfFundDataResponse): MiietfPerformanceFun
   const sortedPrice = [...raw.price].sort(
     (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
   );
-  const chartPrice = sortedPrice.filter(
-    (p) => new Date(p.date).getTime() >= MIIETF_INCEPTION_DATE_MS
-  );
+  const chartPrice = sortedPrice
+    .filter((p) => new Date(p.date).getTime() >= MIIETF_INCEPTION_DATE_MS)
+    .filter((p) => {
+      const miietfVal = parseNum(p[PRICE_BASIS_FIELD]);
+      return (
+        miietfVal != null &&
+        parseNum(p.benchmark) != null &&
+        parseNum(p.kmi30) != null
+      );
+    });
   const chartCategories = chartPrice.map((p) => formatShortDate(p.date));
-  const miietfData = chartPrice.map((p) => p.nav);
-  const benchmarkData = chartPrice.map((p) => p.benchmark);
-  const kmi30Data = chartPrice.map((p) => p.kmi30);
+  const miietfData = chartPrice.map((p) => parseNum(p[PRICE_BASIS_FIELD]) as number);
+  const benchmarkData = chartPrice.map((p) => parseNum(p.benchmark) as number);
+  const kmi30Data = chartPrice.map((p) => parseNum(p.kmi30) as number);
 
   const chartSeries = [
     { name: "MIIETF", data: miietfData, color: CHART_COLORS.miietf },
@@ -341,6 +392,9 @@ function transformPerformance(raw: MiietfFundDataResponse): MiietfPerformanceFun
   return {
     chartCategories,
     chartSeries,
+    chartSubtitle: `${PRICE_BASIS_LABEL}. March 2024 to present.`,
+    yAxisTitle: PRICE_BASIS_LABEL,
+    valueSuffix: "",
     tableRows,
   };
 }
@@ -361,7 +415,7 @@ function transformPortfolio(raw: MiietfFundDataResponse): MiietfPortfolioFundDat
   }));
 
   const topHoldings = (raw.holdings ?? []).slice(0, 10).map((h, i) => ({
-    name: h.key,
+    name: sanitizeHoldingName(h.key),
     percentage: pct2(h.holding),
     color: HOLDINGS_COLORS[i % HOLDINGS_COLORS.length],
     value: h.holding * 100,

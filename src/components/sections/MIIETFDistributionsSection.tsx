@@ -29,7 +29,7 @@ const DISTRIBUTIONS_ROWS: MiietfDistributionsFundData = [
 ];
 
 export function MIIETFDistributionsSection({ fundData }: { fundData?: MiietfDistributionsFundData | null }) {
-  const rows = fundData ?? DISTRIBUTIONS_ROWS;
+  const rows = fundData == null ? DISTRIBUTIONS_ROWS : fundData;
   const sortedRows = [...rows].sort((a, b) =>
     toSortableDate(b.date).localeCompare(toSortableDate(a.date))
   );

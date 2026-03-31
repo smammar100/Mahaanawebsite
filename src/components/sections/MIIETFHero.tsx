@@ -41,15 +41,19 @@ const TAB_TO_SECTION_ID: Record<(typeof MIIETF_HERO_TABS)[number]["id"], string>
 
 export function MIIETFHero({ fundData }: { fundData?: MiietfHeroFundData | null }) {
   const [selectedTab, setSelectedTab] = useState<(typeof MIIETF_HERO_TABS)[number]["id"]>("overview");
-  const nav = fundData?.nav ?? DEFAULT_NAV;
-  const navDate = fundData?.navDate ? `as of ${fundData.navDate}` : DEFAULT_NAV_DATE;
-  const mtd = fundData?.mtd ?? DEFAULT_MTD;
-  const mtdAsOfDate = fundData?.navDate ?? DEFAULT_MTD_DATE;
-  const assetClass = fundData?.assetClass ?? DEFAULT_ASSET_CLASS;
-  const expenseMtd = fundData?.expenseRatioMtd?.trim() || DEFAULT_EXPENSE_MTD;
-  const expenseYtd = fundData?.expenseRatioYtd?.trim() || DEFAULT_EXPENSE_YTD;
-  const expenseDate = fundData?.expenseRatioDate
-    ? `As of ${fundData.expenseRatioDate}`
+  const isApiDataAvailable = fundData != null;
+  const nav = isApiDataAvailable ? fundData.nav || "-" : DEFAULT_NAV;
+  const navDate = isApiDataAvailable
+    ? (fundData.navDate ? `as of ${fundData.navDate}` : "-")
+    : DEFAULT_NAV_DATE;
+  const mtd = isApiDataAvailable ? fundData.mtd || "-" : DEFAULT_MTD;
+  const mtdAsOfDate = isApiDataAvailable ? fundData.navDate || "-" : DEFAULT_MTD_DATE;
+  const assetClass = isApiDataAvailable ? fundData.assetClass || "-" : DEFAULT_ASSET_CLASS;
+  const riskLabel = isApiDataAvailable ? fundData.riskLabel || "High Risk" : "Low Risk";
+  const expenseMtd = isApiDataAvailable ? (fundData.expenseRatioMtd || "-") : DEFAULT_EXPENSE_MTD;
+  const expenseYtd = isApiDataAvailable ? (fundData.expenseRatioYtd || "-") : DEFAULT_EXPENSE_YTD;
+  const expenseDate = isApiDataAvailable
+    ? (fundData.expenseRatioDate ? `As of ${fundData.expenseRatioDate}` : "-")
     : DEFAULT_EXPENSE_DATE;
 
   function handleTabClick(tabId: (typeof MIIETF_HERO_TABS)[number]["id"]) {
@@ -104,7 +108,7 @@ export function MIIETFHero({ fundData }: { fundData?: MiietfHeroFundData | null 
                 Risk / Reward scale
               </TextSmall>
               <TextMedium className="text-stat text-text-primary">
-                Low Risk
+                {riskLabel}
               </TextMedium>
             </div>
 

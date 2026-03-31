@@ -109,8 +109,8 @@ export function MIIETFPortfolioSection({ fundData }: { fundData?: MiietfPortfoli
   const [hoveredExposureIndex, setHoveredExposureIndex] = useState<number | null>(null);
   const [hoveredHoldingsIndex, setHoveredHoldingsIndex] = useState<number | null>(null);
 
-  const exposureRows = fundData?.weightedExposure ?? WEIGHTED_EXPOSURE_ROWS;
-  const holdingsRows = fundData?.topHoldings ?? TOP_HOLDINGS_ROWS;
+  const exposureRows = fundData == null ? WEIGHTED_EXPOSURE_ROWS : fundData.weightedExposure;
+  const holdingsRows = fundData == null ? TOP_HOLDINGS_ROWS : fundData.topHoldings;
   const exposureChartData = exposureRows.map((row) => ({
     name: row.sector,
     value: row.value,

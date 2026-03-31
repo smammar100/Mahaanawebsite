@@ -60,8 +60,8 @@ const PERFORMANCE_TABLE_ROWS = [
 ];
 
 export function MIIETFPerformanceSection({ fundData }: { fundData?: MiietfPerformanceFundData | null }) {
-  const categories = fundData?.chartCategories ?? performanceChartData.map((d) => d.date);
-  const series = fundData?.chartSeries ?? [
+  const categories = fundData == null ? performanceChartData.map((d) => d.date) : fundData.chartCategories;
+  const series = fundData == null ? [
     {
       name: "MIIETF",
       data: performanceChartData.map((d) => d.miietf),
@@ -77,11 +77,13 @@ export function MIIETFPerformanceSection({ fundData }: { fundData?: MiietfPerfor
       data: performanceChartData.map((d) => d.kmi30),
       color: CHART_COLORS.kmi30,
     },
-  ];
-  const tableRows = fundData?.tableRows ?? [...PERFORMANCE_TABLE_ROWS];
-  const chartSubtitle = fundData
-    ? "NAV adjusted price. March 2024 to present."
-    : "NAV adjusted price. March 2024 to March 2026.";
+  ] : fundData.chartSeries;
+  const tableRows = fundData == null ? [...PERFORMANCE_TABLE_ROWS] : fundData.tableRows;
+  const chartSubtitle = fundData == null
+    ? "NAV adjusted price. March 2024 to March 2026."
+    : fundData.chartSubtitle;
+  const yAxisTitle = fundData == null ? "NAV adjusted price" : fundData.yAxisTitle;
+  const valueSuffix = fundData == null ? "" : fundData.valueSuffix;
   const ariaLabel =
     "Performance chart: MIIETF, Benchmark, and KMI30 NAV adjusted price from March 2024 to present.";
   return (
@@ -117,8 +119,8 @@ export function MIIETFPerformanceSection({ fundData }: { fundData?: MiietfPerfor
                 series={series}
                 ariaLabel={ariaLabel}
                 chartType="line"
-                yAxisTitle="NAV adjusted price"
-                valueSuffix=""
+                yAxisTitle={yAxisTitle}
+                valueSuffix={valueSuffix}
                 xAxisLabelFormat="monthYear"
               />
             </div>

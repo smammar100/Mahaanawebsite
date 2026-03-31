@@ -55,10 +55,10 @@ const DEFAULT_OBJECTIVE =
   "Investment objective is to provide competitive equity market returns with maximum coverage of the broader Islamic index at lowest possible cost.";
 
 export function MIIETFOverviewSection({ fundData }: { fundData?: MiietfOverviewFundData | null }) {
-  const summary = fundData?.summary ?? DEFAULT_SUMMARY;
-  const investmentObjective = fundData?.investmentObjective ?? DEFAULT_OBJECTIVE;
-  const keyFactsLeft = fundData?.keyFactsLeft ?? [...FUND_DETAILS_LEFT];
-  const keyFactsRight = fundData?.keyFactsRight ?? [...FUND_DETAILS_RIGHT];
+  const summary = fundData == null ? DEFAULT_SUMMARY : fundData.summary;
+  const investmentObjective = fundData == null ? DEFAULT_OBJECTIVE : fundData.investmentObjective;
+  const keyFactsLeft = fundData == null ? [...FUND_DETAILS_LEFT] : fundData.keyFactsLeft;
+  const keyFactsRight = fundData == null ? [...FUND_DETAILS_RIGHT] : fundData.keyFactsRight;
 
   return (
     <motion.section
