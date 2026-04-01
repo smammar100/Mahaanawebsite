@@ -22,13 +22,13 @@ export function AboutCultureSection() {
       className="w-full bg-surface-bg"
       aria-labelledby="about-culture-heading"
     >
-      <div className="relative w-full min-h-[70vh] overflow-hidden">
+      <div className="relative w-full min-h-[52vh] overflow-hidden sm:min-h-[58vh] md:min-h-[62vh] lg:min-h-[min(78vh,820px)]">
         <InfiniteGallery
           images={CULTURE_IMAGES}
           speed={1.2}
           visibleCount={9}
           falloff={{ near: 0.8, far: 14 }}
-          className="h-[70vh] w-full sm:h-[80vh] lg:h-screen"
+          className="h-[52vh] w-full sm:h-[58vh] md:h-[62vh] lg:h-[min(78vh,820px)]"
         />
 
         {/* Overlay: heading only — pointer-events-none so wheel/scroll drives gallery */}

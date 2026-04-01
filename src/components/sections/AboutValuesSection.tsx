@@ -32,10 +32,10 @@ export function AboutValuesSection() {
       whileInView="visible"
       viewport={sectionViewport}
       variants={sectionFadeInUp}
-      className="w-full bg-surface-bg py-8 sm:py-12 lg:py-16"
+      className="w-full bg-surface-bg py-10 sm:py-12 md:py-14 lg:py-16"
       aria-labelledby="about-values-heading"
     >
-      <Container className="flex flex-col justify-center gap-10 px-4 sm:px-6 sm:gap-12 md:px-8 lg:gap-10 lg:px-16">
+      <Container className="flex flex-col justify-center gap-10 px-4 sm:px-6 sm:gap-12 md:px-8 lg:gap-12 lg:px-12 xl:px-16">
         <div className="flex flex-col items-start">
           <div className="flex flex-col items-start gap-2">
             <p className="text-label text-system-brand">

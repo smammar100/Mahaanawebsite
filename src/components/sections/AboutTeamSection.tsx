@@ -4,26 +4,27 @@ import Image from "next/image";
 import { motion } from "motion/react";
 import { Container } from "@/components/layout/Container";
 import { LinkedInIcon } from "@/components/ui/LinkedInIcon";
-import { H3, TextSmall } from "@/components/ui/Typography";
+import { H3, TextRegular, TextSmall } from "@/components/ui/Typography";
+import { cleanCopy } from "@/lib/copy-utils";
 import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
 
 const TEAM = [
   {
     name: "Muhammad Shamoon Tariq",
     title: "CFA, FDP Chief Executive Officer & Founder",
-    image: "/images/invest/Shamoon.webp",
+    image: "/images/invest/Shamoon.png",
     linkedinUrl: undefined as string | undefined,
   },
   {
     name: "Mubashir Zuberi",
     title: "CFA Chief Investment Officer",
-    image: "/images/invest/Mubashir.webp",
+    image: "/images/invest/Mubashir.png",
     linkedinUrl: undefined as string | undefined,
   },
   {
     name: "Zeeshan Shabbir Abbasi",
     title: "BSc Chief Technology Officer",
-    image: "/images/invest/Zeeshan.webp",
+    image: "/images/invest/Zeeshan.png",
     linkedinUrl: undefined as string | undefined,
   },
 ];
@@ -35,19 +36,29 @@ export function AboutTeamSection() {
       whileInView="visible"
       viewport={sectionViewport}
       variants={sectionFadeInUp}
-      className="w-full bg-surface-bg py-8 sm:py-12 lg:py-16"
+      className="w-full border-t border-surface-stroke/80 bg-surface-bg py-10 sm:py-12 md:py-14 lg:py-16"
       aria-labelledby="about-team-heading"
     >
       <Container className="px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16">
         <div className="flex flex-col gap-8 sm:gap-10">
-          <H3 id="about-team-heading" className="text-text-primary">
-            Introducing our dedicated team
-          </H3>
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="flex max-w-3xl flex-col gap-3 sm:gap-4">
+            <p className="text-label text-system-brand">
+              {cleanCopy("OUR TEAM")}
+            </p>
+            <H3 id="about-team-heading" className="text-text-primary">
+              Introducing our dedicated team
+            </H3>
+            <TextRegular className="max-w-2xl text-text-tertiary">
+              {cleanCopy(
+                "The leaders building Mahaana's product, investments, and technology—focused on trust, clarity, and long-term outcomes for our clients."
+              )}
+            </TextRegular>
+          </div>
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-12 lg:grid-cols-12">
             {TEAM.map((person) => (
               <div
                 key={person.name}
-                className="flex flex-col items-center gap-4 text-center"
+                className="flex flex-col items-start gap-4 text-left sm:col-span-6 lg:col-span-3"
               >
                 <div className="relative size-24 overflow-hidden rounded-full border-[1.5px] border-surface-stroke sm:size-[136px]">
                   <Image
@@ -57,17 +68,9 @@ export function AboutTeamSection() {
                     className="object-cover"
                     sizes="(max-width: 639px) 96px, 136px"
                   />
-                  <div
-                    className="absolute inset-0 rounded-full bg-gradient-to-b from-transparent via-transparent to-black/10 from-50% to-100% mix-blend-multiply"
-                    aria-hidden
-                  />
-                  <div
-                    className="absolute inset-0 rounded-full bg-gradient-to-b from-primary-200/20 to-primary-400/80 opacity-80"
-                    aria-hidden
-                  />
                 </div>
                 <div className="flex flex-col gap-1">
-                  <div className="flex flex-wrap items-center justify-center gap-2">
+                  <div className="flex flex-wrap items-center justify-start gap-2">
                     <p className="text-stat text-text-primary">
                       {person.name}
                     </p>

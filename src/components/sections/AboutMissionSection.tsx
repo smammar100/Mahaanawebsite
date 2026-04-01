@@ -17,11 +17,11 @@ export function AboutMissionSection() {
       whileInView="visible"
       viewport={sectionViewport}
       variants={sectionFadeInUp}
-      className="w-full bg-surface-bg py-8 sm:py-12 lg:py-16"
+      className="w-full bg-surface-bg py-10 sm:py-12 md:py-14 lg:py-16"
       aria-labelledby="about-mission-heading"
     >
       <Container className="px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16">
-        <div className="flex flex-col items-start gap-4 text-left max-w-[750px]">
+        <div className="flex flex-col items-start gap-4 text-left">
           <p className="text-label text-system-brand">
             {cleanCopy(SECTION_LABEL)}
           </p>
@@ -32,7 +32,7 @@ export function AboutMissionSection() {
             delay={200}
             animateBy="lines"
             direction="top"
-            className="text-text-primary"
+            className="max-w-3xl text-text-primary"
           />
         </div>
       </Container>

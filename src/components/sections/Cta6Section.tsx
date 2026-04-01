@@ -19,7 +19,7 @@ export function Cta6Section({ className, headline, badgeText, ctaText, ctaHref }
     <section
       ref={ref}
       className={cx(
-        "section-fade-in-up min-w-0 overflow-x-visible border-t border-surface-stroke py-8 sm:py-10 md:py-12 lg:py-14 xl:py-16",
+        "section-fade-in-up min-w-0 overflow-x-visible py-8 sm:py-10 md:py-12 lg:py-14 xl:py-16",
         isVisible && "visible",
         className
       )}
