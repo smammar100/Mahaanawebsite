@@ -94,6 +94,23 @@ export const latestInvestorEducationsQuery = `
   }
 `;
 
+/** Latest 3 News documents only (Sanity type investorEducationNews), for About page and similar. */
+export const latestInvestorEducationNewsQuery = `
+  *[_type == "investorEducationNews"] | order(publishedAt desc, _updatedAt desc)[0...3] {
+    _id,
+    _type,
+    title,
+    slug,
+    excerpt,
+    thumbnail,
+    "thumbnailUrl": thumbnail.asset->url,
+    readingTime,
+    author,
+    publishedAt,
+    categoryLabel
+  }
+`;
+
 /** Fund documents by fund (micf | miietf | miirf), ordered by publishDate desc. */
 export const fundDocumentsQuery = `
   *[_type == "fundDocument" && fund == $fund] | order(publishDate desc) {

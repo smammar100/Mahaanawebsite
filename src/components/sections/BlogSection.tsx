@@ -64,6 +64,13 @@ interface BlogSectionProps {
   className?: string;
   /** Posts from Sanity; falls back to hardcoded list when empty or undefined. */
   posts?: BlogPost[];
+  /**
+   * When true, an empty `posts` array shows no cards (and optional emptyMessage) instead of placeholder content.
+   * Use when Sanity is the source of truth and placeholders would be misleading.
+   */
+  allowEmpty?: boolean;
+  /** Shown when allowEmpty and posts has no items. */
+  emptyMessage?: string;
   /** Optional: override section heading (e.g. "In news & media"). */
   heading?: string;
   /** Optional: override eyebrow label above heading. */
@@ -79,13 +86,21 @@ interface BlogSectionProps {
 export function BlogSection({
   className,
   posts,
+  allowEmpty = false,
+  emptyMessage,
   heading: headingProp,
   eyebrow: eyebrowProp,
   description: descriptionProp,
   viewAllHref = "/investor-education",
   viewAllLabel = "View all",
 }: BlogSectionProps) {
-  const list = posts?.length ? posts : BLOG_POSTS_FALLBACK;
+  const list = allowEmpty
+    ? Array.isArray(posts)
+      ? posts
+      : []
+    : posts?.length
+      ? posts
+      : BLOG_POSTS_FALLBACK;
   const { ref, isVisible } = useInView(0.15);
   const heading = headingProp ?? "Discover the latest trends";
   const eyebrow = eyebrowProp ?? "Our Blogs";
@@ -122,20 +137,29 @@ export function BlogSection({
         </div>
 
         {/* Cards grid */}
-        <div className="grid gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {list.map((post, index) => (
-            <BlogCard
-              key={index}
-              title={post.title}
-              imageUrl={post.imageUrl}
-              href={post.href}
-              authorName={post.authorName}
-              readTime={post.readTime}
-              isVideo={post.isVideo === true}
-              isNews={post.isNews === true}
-            />
-          ))}
-        </div>
+        {list.length === 0 ? (
+          <TextRegular className="text-text-tertiary">
+            {cleanCopy(
+              emptyMessage ??
+                "Nothing to show here yet. Check back soon."
+            )}
+          </TextRegular>
+        ) : (
+          <div className="grid gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {list.map((post, index) => (
+              <BlogCard
+                key={index}
+                title={post.title}
+                imageUrl={post.imageUrl}
+                href={post.href}
+                authorName={post.authorName}
+                readTime={post.readTime}
+                isVideo={post.isVideo === true}
+                isNews={post.isNews === true}
+              />
+            ))}
+          </div>
+        )}
       </Container>
     </section>
   );

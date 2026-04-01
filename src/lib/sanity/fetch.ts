@@ -7,6 +7,7 @@ import {
   investorEducationSlugsQuery,
   investorEducationSitemapQuery,
   latestInvestorEducationsQuery,
+  latestInvestorEducationNewsQuery,
   fundDocumentsQuery,
   faqsQuery,
   legalDocumentsQuery,
@@ -108,18 +109,18 @@ export async function getLatestBlogPosts(): Promise<BlogPostForSection[]> {
   }
 }
 
-/** Fetch latest 3 news items (investorEducationNews only) for BlogSection shape. */
+/** Fetch latest 3 news items (Sanity `investorEducationNews` only) for BlogSection shape. */
 export async function getLatestNewsPosts(): Promise<BlogPostForSection[]> {
   const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
   if (!projectId) return [];
 
   try {
     type Raw = SanityInvestorEducation & { _type: SanityInvestorEducationType };
-    const raw = (await sanityClient.fetch(investorEducationsByTypeQuery, {
-      type: "investorEducationNews",
-    })) as Raw[] | null;
-    const list = Array.isArray(raw) ? raw.slice(0, 3) : [];
-    return list.map(mapToBlogPostForSection);
+    const raw = (await sanityClient.fetch(
+      latestInvestorEducationNewsQuery
+    )) as Raw[] | null;
+    if (!Array.isArray(raw) || raw.length === 0) return [];
+    return raw.map(mapToBlogPostForSection);
   } catch {
     return [];
   }
