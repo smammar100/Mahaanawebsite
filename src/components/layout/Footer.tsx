@@ -292,14 +292,14 @@ export function Footer() {
         </div>
       </Container>
 
-      {/* Full-bleed Skyline at bottom; no horizontal or bottom padding */}
-      <div className="w-screen relative left-1/2 -translate-x-1/2 pb-0">
+      {/* Full-bleed footer illustration; no horizontal or bottom padding */}
+      <div className="relative left-1/2 mt-6 w-screen max-w-none -translate-x-1/2 pb-0">
         <Image
-          src="/images/invest/Skyline.svg"
-          alt="Skyline"
-          width={595}
+          src="/images/invest/Pakistan%20Places%20-%20SVG%202.svg"
+          alt="Decorative outline of Pakistan places"
+          width={1190}
           height={107}
-          className="w-full h-auto object-cover opacity-85"
+          className="h-auto w-full object-cover opacity-60"
         />
       </div>
     </footer>
