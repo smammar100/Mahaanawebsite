@@ -37,6 +37,7 @@ export default defineConfig({
               ),
             S.documentTypeListItem("fundDocument").title("Fund Documents"),
             S.documentTypeListItem("legalDocument").title("Legal Documents"),
+            S.documentTypeListItem("job").title("Jobs"),
             S.documentTypeListItem("faq").title("Help Center FAQs"),
           ]),
     }),

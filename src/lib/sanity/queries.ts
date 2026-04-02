@@ -141,3 +141,60 @@ export const legalDocumentsQuery = `
     "fileUrl": pdf.asset->url
   }
 `;
+
+/** Open jobs for careers listing (newest first). Missing isOpen counts as open (matches Studio initialValue). */
+export const jobsListQuery = `
+  *[_type == "job" && coalesce(isOpen, true)] | order(coalesce(publishedAt, _updatedAt) desc) {
+    _id,
+    title,
+    slug,
+    department,
+    location,
+    employmentType
+  }
+`;
+
+/** Portable text on job docs: expand markDefs for internal links. */
+const jobPortableTextProjection = `[]{
+  ...,
+  markDefs[]{
+    ...,
+    _type == "internalLink" => {
+      ...,
+      "slug": reference->slug.current
+    }
+  }
+}`;
+
+/** Single job by slug (includes closed roles for direct links). */
+export const jobBySlugQuery = `
+  *[_type == "job" && slug.current == $slug][0] {
+    _id,
+    title,
+    slug,
+    department,
+    location,
+    employmentType,
+    isOpen,
+    publishedAt,
+    aboutMahaana,
+    roleOverview,
+    keyResponsibilities${jobPortableTextProjection},
+    requirements${jobPortableTextProjection},
+    preferredQualifications${jobPortableTextProjection},
+    benefits${jobPortableTextProjection}
+  }
+`;
+
+/** All job slugs for static generation and sitemap. */
+export const jobSlugsQuery = `
+  *[_type == "job" && defined(slug.current)].slug.current
+`;
+
+/** Job slug + last modified for sitemap. */
+export const jobsSitemapQuery = `
+  *[_type == "job" && defined(slug.current)] {
+    "slug": slug.current,
+    "lastModified": coalesce(_updatedAt, publishedAt)
+  }
+`;

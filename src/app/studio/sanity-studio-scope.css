@@ -1,0 +1,21 @@
+/**
+ * Embedded Sanity Studio shares the app root `globals.css` (Tailwind + @layer base).
+ * Site typography rules for `p`, `li`, headings, etc. can cascade into the Portable Text
+ * editor and clash with Sanity UI (odd colors, borders, backgrounds).
+ * Scope resets to the studio shell + anything inside its contenteditable editor.
+ */
+@layer base {
+  .mahaana-embedded-sanity-studio [contenteditable="true"] p,
+  .mahaana-embedded-sanity-studio [contenteditable="true"] h1,
+  .mahaana-embedded-sanity-studio [contenteditable="true"] h2,
+  .mahaana-embedded-sanity-studio [contenteditable="true"] h3,
+  .mahaana-embedded-sanity-studio [contenteditable="true"] h4,
+  .mahaana-embedded-sanity-studio [contenteditable="true"] h5,
+  .mahaana-embedded-sanity-studio [contenteditable="true"] h6,
+  .mahaana-embedded-sanity-studio [contenteditable="true"] li,
+  .mahaana-embedded-sanity-studio [contenteditable="true"] ul,
+  .mahaana-embedded-sanity-studio [contenteditable="true"] ol,
+  .mahaana-embedded-sanity-studio [contenteditable="true"] blockquote {
+    all: revert-layer;
+  }
+}

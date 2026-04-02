@@ -224,7 +224,7 @@ export function Footer() {
                 links={[
                   { href: "/about", label: "About Us" },
                   { href: "/security", label: "Security" },
-                  { href: "#", label: "Careers" },
+                  { href: "/careers", label: "Careers" },
                   { href: "/legal", label: "Legal" },
                   { href: "#", label: "Sitemap" },
                 ]}

@@ -1,4 +1,5 @@
 import Script from "next/script";
+import "./sanity-studio-scope.css";
 
 const SANITY_BRIDGE_SCRIPT = "https://core.sanity-cdn.com/bridge.js";
 

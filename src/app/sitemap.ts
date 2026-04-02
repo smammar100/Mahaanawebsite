@@ -1,7 +1,10 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/metadata";
 import { INSIGHTS_CATEGORY_SLUGS } from "@/lib/insights-category-routes";
-import { getInvestorEducationSitemapEntries } from "@/lib/sanity/fetch";
+import {
+  getInvestorEducationSitemapEntries,
+  getJobSitemapEntries,
+} from "@/lib/sanity/fetch";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Exclude noindex routes: /style-guide, /studio (see robots.ts).
@@ -49,9 +52,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     })
   );
 
+  const jobEntriesRaw = await getJobSitemapEntries();
+  const jobEntries = jobEntriesRaw.map((entry) => ({
+    url: `${SITE_URL}/careers/${entry.slug}`,
+    lastModified: new Date(entry.lastModified),
+    changeFrequency: "monthly" as const,
+    priority: 0.45,
+  }));
+
   return [
     ...staticEntries,
     ...investorEducationCategoryEntries,
     ...articleEntries,
+    ...jobEntries,
   ];
 }

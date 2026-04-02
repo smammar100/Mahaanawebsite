@@ -20,7 +20,9 @@
     "import:help-center-faqs": "tsx scripts/import-help-center-faqs-csv.ts",
     "import:post": "npx tsx scripts/import-roshan-post.ts",
     "import:html": "npx tsx scripts/import-html-article.ts",
-    "import:html:preview": "npx tsx scripts/import-html-article.ts --preview"
+    "import:html:preview": "npx tsx scripts/import-html-article.ts --preview",
+    "repair:job-pt": "npx tsx scripts/repair-job-portable-text.ts",
+    "repair:job-pt:dry": "npx tsx scripts/repair-job-portable-text.ts --dry-run"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",

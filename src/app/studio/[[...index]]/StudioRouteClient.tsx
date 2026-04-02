@@ -13,7 +13,7 @@ const NextStudio = dynamic(
       const config = configMod.default;
       return function StudioPage() {
         return (
-          <div className="fixed inset-0 z-[9999] w-full h-full bg-surface-bg">
+          <div className="mahaana-embedded-sanity-studio fixed inset-0 z-[9999] h-full w-full bg-surface-bg">
             <studioMod.NextStudio config={config} />
           </div>
         );

@@ -11,6 +11,10 @@ import {
   fundDocumentsQuery,
   faqsQuery,
   legalDocumentsQuery,
+  jobsListQuery,
+  jobBySlugQuery,
+  jobSlugsQuery,
+  jobsSitemapQuery,
 } from "./queries";
 import type {
   SanityInvestorEducation,
@@ -18,6 +22,7 @@ import type {
   SanityFundDocument,
   SanityFaq,
   SanityLegalDocument,
+  SanityJob,
 } from "./types";
 import {
   DEFAULT_ARTICLE_AUTHOR,
@@ -298,6 +303,99 @@ export interface LegalDocumentForSection {
   _id: string;
   title: string;
   fileUrl: string | null;
+}
+
+/** Matches {@link JobListing} in CareersOpeningsSection. */
+export interface JobForCareersListing {
+  title: string;
+  department: string;
+  location: string;
+  link: string;
+}
+
+/** Open jobs for careers page listing. */
+export async function getJobsForCareers(): Promise<JobForCareersListing[]> {
+  const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
+  if (!projectId) return [];
+
+  try {
+    const raw = (await sanityClient.fetch(
+      jobsListQuery,
+      {},
+      { next: { revalidate: 0 } }
+    )) as SanityJob[] | null;
+    if (!Array.isArray(raw) || raw.length === 0) {
+      if (process.env.NODE_ENV === "development") {
+        console.info(
+          "[careers] Sanity returned no open jobs. Use document type “Jobs”, fill title + slug, turn Open role on, and click Publish (drafts do not appear on the site). Private datasets need SANITY_API_READ_TOKEN in .env.local."
+        );
+      }
+      return [];
+    }
+    return raw
+      .filter((j) => j.title && j.slug?.current)
+      .map((j) => ({
+        title: j.title!,
+        department: j.department ?? "Other",
+        location: j.location ?? "",
+        link: `/careers/${j.slug!.current}`,
+      }));
+  } catch (e) {
+    if (process.env.NODE_ENV === "development") {
+      console.error("getJobsForCareers failed:", e);
+    }
+    return [];
+  }
+}
+
+/** Single job by slug (detail page). */
+export async function getJobBySlug(slug: string): Promise<SanityJob | null> {
+  const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
+  if (!projectId) return null;
+
+  try {
+    const raw = (await sanityClient.fetch(jobBySlugQuery, {
+      slug,
+    })) as SanityJob | null;
+    return raw && raw.slug?.current ? raw : null;
+  } catch {
+    return null;
+  }
+}
+
+/** All job slugs for generateStaticParams. */
+export async function getJobSlugs(): Promise<string[]> {
+  const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
+  if (!projectId) return [];
+
+  try {
+    const slugs = (await sanityClient.fetch(jobSlugsQuery)) as string[] | null;
+    const list = Array.isArray(slugs) ? slugs : [];
+    return [...new Set(list)];
+  } catch {
+    return [];
+  }
+}
+
+export interface JobSitemapEntry {
+  slug: string;
+  lastModified: string;
+}
+
+/** Job entries for sitemap. */
+export async function getJobSitemapEntries(): Promise<JobSitemapEntry[]> {
+  const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
+  if (!projectId) return [];
+
+  try {
+    const raw = (await sanityClient.fetch(
+      jobsSitemapQuery
+    )) as { slug: string; lastModified: string }[] | null;
+    if (!Array.isArray(raw)) return [];
+    return raw.filter((r) => r?.slug);
+  } catch {
+    return [];
+  }
 }
 
 /** Fetch all legal documents from Sanity (Legal Documents schema), ordered by _createdAt asc. */

@@ -48,3 +48,20 @@ export interface SanityLegalDocument {
   title: string | null;
   fileUrl: string | null;
 }
+
+export interface SanityJob {
+  _id: string;
+  title: string | null;
+  slug: { current: string } | null;
+  department: string | null;
+  location: string | null;
+  employmentType?: string | null;
+  isOpen?: boolean | null;
+  publishedAt?: string | null;
+  aboutMahaana?: string | null;
+  roleOverview?: string | null;
+  keyResponsibilities?: unknown;
+  requirements?: unknown;
+  preferredQualifications?: unknown;
+  benefits?: unknown;
+}

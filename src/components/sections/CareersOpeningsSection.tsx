@@ -10,17 +10,18 @@ import { cn } from "@/lib/utils";
 
 export interface JobListing {
   department: string;
-  role: string;
+  title: string;
   location: string;
   link: string;
 }
 
+/** Placeholder rows when CMS returns no jobs; unique `link` avoids duplicate React keys. */
 const JOBS_FALLBACK: JobListing[] = [
-  { department: "Engineering", role: "Senior Full Stack Developer", location: "Remote", link: "#" },
-  { department: "Product", role: "Product Manager", location: "Hybrid", link: "#" },
-  { department: "Design", role: "UI/UX Designer", location: "Remote", link: "#" },
-  { department: "Data", role: "Data Scientist", location: "On-site", link: "#" },
-  { department: "Marketing", role: "Growth Marketing Specialist", location: "Remote", link: "#" },
+  { department: "Engineering", title: "Senior Full Stack Developer", location: "Remote", link: "/careers?demo=engineering" },
+  { department: "Product", title: "Product Manager", location: "Hybrid", link: "/careers?demo=product" },
+  { department: "Design", title: "UI/UX Designer", location: "Remote", link: "/careers?demo=design" },
+  { department: "Data", title: "Data Scientist", location: "On-site", link: "/careers?demo=data" },
+  { department: "Marketing", title: "Growth Marketing Specialist", location: "Remote", link: "/careers?demo=marketing" },
 ];
 
 interface CareersOpeningsSectionProps {
@@ -53,26 +54,30 @@ export function CareersOpeningsSection({
         </div>
 
         <div
-          className="hidden grid-cols-1 items-center gap-1.5 py-6 text-xs uppercase sm:grid sm:grid-cols-4 sm:gap-10"
+          className="hidden grid-cols-1 items-start gap-1.5 py-6 text-xs uppercase sm:grid sm:grid-cols-4 sm:gap-10"
           aria-hidden
         >
           <span className="text-text-tertiary">Department</span>
-          <span className="col-span-2 text-text-tertiary">Role</span>
+          <span className="col-span-2 text-text-tertiary">Title</span>
           <span className="text-text-tertiary">Location</span>
         </div>
         <Separator />
 
         {list.map((job, idx) => (
-          <div key={idx}>
+          <div key={`${job.link}-${job.department}-${job.title}-${idx}`}>
             <Link
               href={job.link}
-              className="group relative grid grid-cols-1 items-center gap-1.5 py-6 sm:grid-cols-4 sm:gap-10"
+              className="group relative grid grid-cols-1 items-start gap-1.5 py-6 sm:grid sm:grid-cols-4 sm:gap-10"
             >
-              <Badge variant="outline">{job.department}</Badge>
-              <span className="col-span-2 text-lg font-semibold text-text-primary">
-                {job.role}
-              </span>
-              <div className="flex items-center justify-between gap-2">
+              <Badge variant="outline" className="shrink-0">
+                {job.department}
+              </Badge>
+              <div className="col-span-2 flex min-w-0 flex-col gap-1">
+                <span className="text-lg font-semibold text-text-primary">
+                  {job.title}
+                </span>
+              </div>
+              <div className="flex items-center justify-between gap-2 sm:items-start">
                 <span className="text-text-tertiary">{job.location}</span>
                 <ArrowRight className="absolute right-6 top-6 size-4.5 text-text-tertiary transition-all duration-300 group-hover:translate-x-1 group-hover:text-system-brand sm:static" />
               </div>
