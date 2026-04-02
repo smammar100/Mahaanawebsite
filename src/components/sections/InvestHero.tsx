@@ -3,7 +3,10 @@
 import Image from "next/image";
 import { Container } from "@/components/layout/Container";
 import { H1, TextRegular, TextSmall } from "@/components/ui/Typography";
-import { Button } from "@/components/base/buttons/button";
+import {
+  AppStoreButton,
+  GooglePlayButton,
+} from "@/components/base/buttons/app-store-buttons";
 import { cleanCopy } from "@/lib/copy-utils";
 
 export function InvestHero() {
@@ -50,15 +53,9 @@ export function InvestHero() {
             </div>
 
             <div className="flex flex-col gap-3">
-              <div className="w-full sm:w-auto">
-                <Button
-                  href="#open-account"
-                  color="secondary"
-                  size="lg"
-                  className="w-full rounded-xl px-3.5 py-4 text-base font-semibold sm:w-auto"
-                >
-                  Open your investment account
-                </Button>
+              <div className="flex flex-wrap gap-2 sm:gap-3">
+                <AppStoreButton className="shrink-0" />
+                <GooglePlayButton className="shrink-0" />
               </div>
 
               {/* Trust badges */}

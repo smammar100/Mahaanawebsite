@@ -220,9 +220,9 @@ export function Footer() {
             </div>
             <div className="max-[768px]:border-b max-[768px]:border-surface-stroke max-[768px]:pt-5 max-[768px]:pr-4 max-[768px]:pb-5 max-[768px]:pl-0 md:border-0 md:p-0">
               <NavColumn
-                heading="About"
+                heading="Company"
                 links={[
-                  { href: "/about", label: "About" },
+                  { href: "/about", label: "About Us" },
                   { href: "/security", label: "Security" },
                   { href: "#", label: "Careers" },
                   { href: "/legal", label: "Legal" },

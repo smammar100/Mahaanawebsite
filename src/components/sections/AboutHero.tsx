@@ -29,7 +29,7 @@ export function AboutHero() {
           <div className="min-w-0 w-full">
             <H1
               id="about-hero-heading"
-              className="flex flex-col items-start gap-0 text-text-primary"
+              className="flex flex-col items-center justify-center gap-0 text-center text-text-primary"
             >
               <span className="block max-sm:max-w-full sm:whitespace-nowrap">
                 {cleanCopy(HEADLINE_LINE1)}

@@ -35,7 +35,7 @@ const SITEMAP_GROUPS: { heading: string; links: { href: string; label: string }[
   {
     heading: "Company",
     links: [
-      { href: "/about", label: "About" },
+      { href: "/about", label: "About Us" },
       { href: "/security", label: "Security" },
       { href: "/reviews", label: "Reviews" },
       { href: "/careers", label: "Careers" },

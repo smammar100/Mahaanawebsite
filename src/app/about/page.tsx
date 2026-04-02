@@ -48,7 +48,7 @@ export default async function AboutUsPage() {
 
   return (
     <div className="-mt-[calc(4.5rem+env(safe-area-inset-top,0px))] overflow-x-clip bg-surface-bg">
-      <BreadcrumbStructuredData items={[{ name: "About", path: "about" }]} />
+      <BreadcrumbStructuredData items={[{ name: "About Us", path: "about" }]} />
       <AboutHero />
       <LogoStrip compactTop />
       <AboutCultureSection />
