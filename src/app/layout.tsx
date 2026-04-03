@@ -37,6 +37,10 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="preload" href="/images/invest/Logo.svg" as="image" />
         <link rel="preload" href="/images/invest/hero-bg.webp" as="image" />
+        <script
+          src="https://cdn.visitors.now/v.js"
+          data-token="dcfcb5a6-7e2c-4f1f-be4c-e5007e3521e4"
+        />
       </head>
       <body className="antialiased flex min-h-screen flex-col">
         <StructuredData />
