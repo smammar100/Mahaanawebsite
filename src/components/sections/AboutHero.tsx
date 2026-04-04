@@ -52,7 +52,7 @@ export function AboutHero() {
     >
       <div className="mx-auto w-full max-w-[1300px] border-x border-surface-stroke/80">
         <Container className="px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
-          <div className="flex min-w-0 w-full flex-col items-start gap-10 pt-20">
+          <div className="flex min-w-0 w-full flex-col items-start gap-10 pt-16 pb-16">
             <div className="min-w-0 w-full max-w-[860px]">
               <H1
                 id="about-hero-heading"
@@ -85,7 +85,7 @@ export function AboutHero() {
               />
             </div>
 
-            <div className="flex w-full min-w-0 flex-col gap-6 py-10 lg:flex-row lg:items-center lg:justify-between">
+            <div className="flex w-full min-w-0 flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
               <p className="max-w-[260px] text-body text-text-tertiary">
                 {cleanCopy("Backed by the best")}
               </p>
