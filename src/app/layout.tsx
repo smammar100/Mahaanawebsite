@@ -41,6 +41,9 @@ export default function RootLayout({
           src="https://cdn.visitors.now/v.js"
           data-token="dcfcb5a6-7e2c-4f1f-be4c-e5007e3521e4"
         />
+        {process.env.NODE_ENV === "development" ? (
+          <style>{`nextjs-portal { display: none !important; }`}</style>
+        ) : null}
       </head>
       <body className="antialiased flex min-h-screen flex-col">
         <StructuredData />

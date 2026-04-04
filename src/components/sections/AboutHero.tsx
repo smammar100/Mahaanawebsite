@@ -75,7 +75,7 @@ export function AboutHero() {
                 src={HERO_IMAGE_SRC}
                 alt="Two coworkers collaborating with a laptop"
                 fill
-                className="object-cover"
+                className="rounded-2xl object-cover"
                 sizes="(max-width: 800px) 100vw, 1100px"
                 priority
               />

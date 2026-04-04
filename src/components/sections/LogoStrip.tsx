@@ -2,7 +2,7 @@ import Image from "next/image";
 import { Container } from "@/components/layout/Container";
 import { cn } from "@/lib/utils";
 
-const LOGOS = [
+export const INVESTOR_LOGOS = [
   { src: "/images/invest/VEF%20logo.webp", alt: "VEF" },
   { src: "/images/invest/y-combinator-seeklogo.webp", alt: "Y Combinator" },
   { src: "/images/invest/Sparklabs%20logo.webp", alt: "SparkLabs" },
@@ -27,7 +27,7 @@ export function LogoStrip({ compactTop = false }: LogoStripProps) {
     >
       <Container className="flex flex-col items-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16">
         <div className="grid w-full max-w-full grid-cols-2 place-items-center gap-x-6 gap-y-8 sm:grid-cols-4 sm:gap-x-8 sm:gap-y-0">
-          {LOGOS.map((logo, index) => (
+          {INVESTOR_LOGOS.map((logo, index) => (
             <div
               key={`${logo.src}-${index}`}
               className="flex max-h-16 min-h-[48px] w-full max-w-[180px] items-center justify-center py-1"

@@ -76,6 +76,7 @@ export interface BlogPostForSection {
   href: string;
   isVideo: boolean;
   isNews: boolean;
+  publishedAt?: string;
 }
 
 function mapToBlogPostForSection(
@@ -94,6 +95,7 @@ function mapToBlogPostForSection(
     href: `/investor-education/${p.slug?.current ?? p._id}`,
     isVideo: p._type === "investorEducationVideoPodcast",
     isNews: p._type === "investorEducationNews",
+    publishedAt: p.publishedAt ?? undefined,
   };
 }
 
