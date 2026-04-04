@@ -38,8 +38,16 @@ const jobJdBlockStyles = {
   h4: "mt-5 mb-2 text-base font-semibold text-text-primary sm:text-lg",
 } as const;
 
+type BlockStyleMap = {
+  h1: string;
+  normal: string;
+  h2: string;
+  h3: string;
+  h4: string;
+};
+
 function buildBlockComponents(
-  styles: typeof articleBlockStyles
+  styles: BlockStyleMap
 ): PortableTextComponents["block"] {
   return {
     h1: ({ children }) => <h1 className={styles.h1}>{children}</h1>,

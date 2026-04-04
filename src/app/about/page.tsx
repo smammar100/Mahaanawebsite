@@ -4,21 +4,9 @@ import { buildPageMetadata } from "@/lib/metadata";
 import { getLatestNewsPosts } from "@/lib/sanity/fetch";
 import { BreadcrumbStructuredData } from "@/components/BreadcrumbStructuredData";
 import { AboutHero } from "@/components/sections/AboutHero";
-import { LogoStrip } from "@/components/sections/LogoStrip";
+import { AboutMissionValuesSection } from "@/components/sections/AboutMissionValuesSection";
 import { BlogSection } from "@/components/sections/BlogSection";
 
-const AboutCultureSection = dynamic(
-  () => import("@/components/sections/AboutCultureSection").then((m) => ({ default: m.AboutCultureSection })),
-  { ssr: true }
-);
-const AboutMissionSection = dynamic(
-  () => import("@/components/sections/AboutMissionSection").then((m) => ({ default: m.AboutMissionSection })),
-  { ssr: true }
-);
-const AboutValuesSection = dynamic(
-  () => import("@/components/sections/AboutValuesSection").then((m) => ({ default: m.AboutValuesSection })),
-  { ssr: true }
-);
 const AboutTeamSection = dynamic(
   () => import("@/components/sections/AboutTeamSection").then((m) => ({ default: m.AboutTeamSection })),
   { ssr: true }
@@ -39,7 +27,7 @@ const Cta6Section = dynamic(
 export const metadata: Metadata = buildPageMetadata({
   title: "About Us | Mahaana",
   description:
-    "Learn about Mahaana — Pakistan's leading SECP-licensed, Shariah compliant investment platform. Our mission, team, and how we're changing the way Pakistanis invest.",
+    "Learn about Mahaana — Pakistan's leading SECP-licensed, Shariah compliant investment platform. Our mission and values, team, and how we're changing the way Pakistanis invest.",
   path: "about",
 });
 
@@ -50,10 +38,7 @@ export default async function AboutUsPage() {
     <div className="-mt-[calc(4.5rem+env(safe-area-inset-top,0px))] overflow-x-clip bg-surface-bg">
       <BreadcrumbStructuredData items={[{ name: "About Us", path: "about" }]} />
       <AboutHero />
-      <LogoStrip compactTop />
-      <AboutCultureSection />
-      <AboutMissionSection />
-      <AboutValuesSection />
+      <AboutMissionValuesSection />
       <AboutTeamSection />
       <AboutBoardSection />
       <BlogSection
