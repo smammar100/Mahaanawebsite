@@ -541,6 +541,32 @@
   appearance: none;
 }
 
+/* Calculator numeric inputs: hide native steppers */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+
+/* Compound calculator panel scrollbars */
+.compound-sidebar-scrollbar::-webkit-scrollbar,
+.compound-main-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+.compound-sidebar-scrollbar::-webkit-scrollbar-track,
+.compound-main-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.compound-sidebar-scrollbar::-webkit-scrollbar-thumb,
+.compound-main-scrollbar::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: var(--color-gray-400);
+}
+
 @media (prefers-reduced-motion: reduce) {
   /* Shorten all other animations and transitions (charts, motion library, etc.) */
   *,
