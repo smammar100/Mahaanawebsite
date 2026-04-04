@@ -17,8 +17,26 @@ export interface HighchartsInvestmentLineChartInnerProps {
   ariaLabel: string;
 }
 
-const formatPkr = (value: number) =>
-  `PKR ${Math.round(value).toLocaleString("en-PK")}`;
+const formatPkr = (value: number) => {
+  const absoluteValue = Math.abs(value);
+
+  if (absoluteValue >= 1_000_000_000) {
+    return `PKR ${(value / 1_000_000_000).toFixed(2)}B`;
+  }
+
+  if (absoluteValue >= 1_000_000) {
+    return `PKR ${(value / 1_000_000).toFixed(2)}M`;
+  }
+
+  if (absoluteValue >= 1_000) {
+    return `PKR ${(value / 1_000).toFixed(2)}K`;
+  }
+
+  return `PKR ${value.toLocaleString("en-PK", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  })}`;
+};
 
 export function HighchartsInvestmentLineChartInner({
   categories,
@@ -30,7 +48,7 @@ export function HighchartsInvestmentLineChartInner({
       chart: {
         type: "line",
         backgroundColor: "transparent",
-        spacing: [8, 8, 8, 8],
+        spacing: [12, 10, 18, 6],
         style: { fontFamily: "inherit" },
       },
       title: { text: undefined },
