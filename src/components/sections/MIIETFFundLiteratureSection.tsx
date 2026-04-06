@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 import { Container } from "@/components/layout/Container";
 import { H3, TextMedium } from "@/components/ui/Typography";
 import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
@@ -15,6 +15,7 @@ const FUND_LITERATURE_TABS = [
 ] as const;
 
 type TabId = (typeof FUND_LITERATURE_TABS)[number]["id"];
+const DOCS_PREVIEW_LIMIT = 5;
 
 const GENERAL_DOCUMENTS = [
   { title: "Trust Deed", href: "#" },
@@ -36,6 +37,7 @@ const isDocumentUrl = (href: string) => /^https?:\/\//i.test(href);
 
 const downloadReportClassName =
   "flex items-center justify-end gap-1 text-system-brand hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-system-brand";
+const listMotionTransition = { type: "spring", stiffness: 240, damping: 26 } as const;
 
 function ArrowUpRightIcon({ className }: { className?: string }) {
   return (
@@ -70,6 +72,12 @@ export function MIIETFFundLiteratureSection({
   }[];
 }) {
   const [activeTab, setActiveTab] = useState<TabId>("general");
+  const [expandedTabs, setExpandedTabs] = useState<Record<TabId, boolean>>({
+    general: false,
+    "fund-manager-reports": false,
+    "shariah-compliance": false,
+    "financial-statements": false,
+  });
 
   type DocEntry = { title: string; href: string; publishDate?: string | null };
   const sanityByCategory: Record<TabId, DocEntry[]> = {
@@ -112,6 +120,9 @@ export function MIIETFFundLiteratureSection({
   };
   const tabDocs = byCategory[activeTab];
   const hasDocs = tabDocs.length > 0;
+  const isExpanded = expandedTabs[activeTab];
+  const visibleDocs = isExpanded ? tabDocs : tabDocs.slice(0, DOCS_PREVIEW_LIMIT);
+  const hasOverflowDocs = tabDocs.length > DOCS_PREVIEW_LIMIT;
 
   return (
     <motion.section
@@ -160,80 +171,130 @@ export function MIIETFFundLiteratureSection({
           {/* Document list — General tab content */}
           {activeTab === "general" && (
             <div className="overflow-x-auto rounded-2xl border border-surface-stroke bg-surface-card">
-              <div className="min-w-0 w-full">
-                {byCategory.general.map((doc, index) => (
-                  <div
-                    key={doc.title + String(index)}
-                    className={cx(
-                      "flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between px-4 py-5 sm:px-6",
-                      index < byCategory.general.length - 1 &&
-                        "border-b border-surface-stroke"
-                    )}
-                  >
-                    <TextMedium
-                      weight="semibold"
-                      className="text-text-primary"
+              <motion.div layout className="min-w-0 w-full">
+                <AnimatePresence initial={false}>
+                  {visibleDocs.map((doc, index) => (
+                    <motion.div
+                      layout
+                      transition={listMotionTransition}
+                      key={doc.title + String(index)}
+                      className={cx(
+                        "flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between px-4 py-5 sm:px-6",
+                        index < visibleDocs.length - 1 || hasOverflowDocs
+                          ? "border-b border-surface-stroke"
+                          : null
+                      )}
                     >
-                      {doc.title}
-                    </TextMedium>
-                    {isDocumentUrl(doc.href) ? (
-                      <a
-                        href={doc.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={downloadReportClassName}
+                      <TextMedium
+                        weight="semibold"
+                        className="text-text-primary"
                       >
-                        Download report
-                        <ArrowUpRightIcon className="h-6 w-6 shrink-0 text-system-brand" />
-                      </a>
-                    ) : (
-                      <span className={downloadReportClassName}>
-                        Download report
-                        <ArrowUpRightIcon className="h-6 w-6 shrink-0 text-system-brand" />
-                      </span>
-                    )}
-                  </div>
-                ))}
-              </div>
+                        {doc.title}
+                      </TextMedium>
+                      {isDocumentUrl(doc.href) ? (
+                        <a
+                          href={doc.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={downloadReportClassName}
+                        >
+                          Download report
+                          <ArrowUpRightIcon className="h-6 w-6 shrink-0 text-system-brand" />
+                        </a>
+                      ) : (
+                        <span className={downloadReportClassName}>
+                          Download report
+                          <ArrowUpRightIcon className="h-6 w-6 shrink-0 text-system-brand" />
+                        </span>
+                      )}
+                    </motion.div>
+                  ))}
+                  {hasOverflowDocs ? (
+                    <motion.div
+                      layout
+                      transition={listMotionTransition}
+                      className="px-4 py-4 sm:px-6"
+                    >
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setExpandedTabs((prev) => ({
+                            ...prev,
+                            [activeTab]: !prev[activeTab],
+                          }))
+                        }
+                        className="text-body-sm font-semibold text-system-brand hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-system-brand"
+                      >
+                        {isExpanded ? "Show less document" : "View all documents"}
+                      </button>
+                    </motion.div>
+                  ) : null}
+                </AnimatePresence>
+              </motion.div>
             </div>
           )}
           {activeTab !== "general" && hasDocs && (
             <div className="overflow-x-auto rounded-2xl border border-surface-stroke bg-surface-card">
-              <div className="min-w-0 w-full">
-                {tabDocs.map((doc, index) => (
-                  <div
-                    key={doc.title + String(index)}
-                    className={cx(
-                      "flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between px-4 py-5 sm:px-6",
-                      index < tabDocs.length - 1 &&
-                        "border-b border-surface-stroke"
-                    )}
-                  >
-                    <TextMedium
-                      weight="semibold"
-                      className="text-text-primary"
+              <motion.div layout className="min-w-0 w-full">
+                <AnimatePresence initial={false}>
+                  {visibleDocs.map((doc, index) => (
+                    <motion.div
+                      layout
+                      transition={listMotionTransition}
+                      key={doc.title + String(index)}
+                      className={cx(
+                        "flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between px-4 py-5 sm:px-6",
+                        index < visibleDocs.length - 1 || hasOverflowDocs
+                          ? "border-b border-surface-stroke"
+                          : null
+                      )}
                     >
-                      {doc.title}
-                    </TextMedium>
-                    {isDocumentUrl(doc.href) ? (
-                      <a
-                        href={doc.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={downloadReportClassName}
+                      <TextMedium
+                        weight="semibold"
+                        className="text-text-primary"
                       >
-                        Download report
-                        <ArrowUpRightIcon className="h-6 w-6 shrink-0 text-system-brand" />
-                      </a>
-                    ) : (
-                      <span className={downloadReportClassName}>
-                        Download report
-                        <ArrowUpRightIcon className="h-6 w-6 shrink-0 text-system-brand" />
-                      </span>
-                    )}
-                  </div>
-                ))}
-              </div>
+                        {doc.title}
+                      </TextMedium>
+                      {isDocumentUrl(doc.href) ? (
+                        <a
+                          href={doc.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={downloadReportClassName}
+                        >
+                          Download report
+                          <ArrowUpRightIcon className="h-6 w-6 shrink-0 text-system-brand" />
+                        </a>
+                      ) : (
+                        <span className={downloadReportClassName}>
+                          Download report
+                          <ArrowUpRightIcon className="h-6 w-6 shrink-0 text-system-brand" />
+                        </span>
+                      )}
+                    </motion.div>
+                  ))}
+                  {hasOverflowDocs ? (
+                    <motion.div
+                      layout
+                      transition={listMotionTransition}
+                      className="px-4 py-4 sm:px-6"
+                    >
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setExpandedTabs((prev) => ({
+                            ...prev,
+                            [activeTab]: !prev[activeTab],
+                          }))
+                        }
+                        className="text-body-sm font-semibold text-system-brand hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-system-brand"
+                      >
+                        {isExpanded ? "Show less document" : "View all documents"}
+                      </button>
+                    </motion.div>
+                  ) : null}
+                </AnimatePresence>
+              </motion.div>
             </div>
           )}
           {activeTab !== "general" && !hasDocs && (

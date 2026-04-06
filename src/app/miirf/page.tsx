@@ -48,8 +48,8 @@ export default async function MIIRFPage() {
       <FAQStructuredData items={faqItems} />
       <MIIRFHero />
       <MIIRFOverviewSection fundData={fundData?.overview} />
-      <MIIRFPerformanceSection fundData={fundData?.performance} />
       <MIIRFSubfundsSection fundData={fundData?.subfunds} />
+      <MIIRFPerformanceSection fundData={fundData?.performance} />
       <MIIRFFundLiteratureSection documents={documents} />
       <MIIRFFAQSection items={faqItems} />
       <Cta6Section />

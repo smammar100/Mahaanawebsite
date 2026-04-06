@@ -343,7 +343,7 @@ export function MIIRFSubfundsSection({ fundData }: { fundData?: MiirfSubfundsFun
         <div className="flex flex-col gap-10 lg:gap-6">
           {/* Metrics: 4 columns, 1 row */}
           <div className="grid grid-cols-4 grid-rows-1 gap-6 lg:gap-8">
-            <div className="flex flex-col gap-1">
+            <div className="min-w-0 flex flex-col gap-1">
               <TextSmall weight="medium" className="text-text-tertiary">
                 {data.navLabel ?? "NAV"}
               </TextSmall>
@@ -354,7 +354,7 @@ export function MIIRFSubfundsSection({ fundData }: { fundData?: MiirfSubfundsFun
                 {data.nav.asOf}
               </TextSmall>
             </div>
-            <div className="flex flex-col gap-1">
+            <div className="min-w-0 flex flex-col gap-1">
               <TextSmall weight="medium" className="text-text-tertiary">
                 Risk / Reward scale
               </TextSmall>
@@ -362,7 +362,7 @@ export function MIIRFSubfundsSection({ fundData }: { fundData?: MiirfSubfundsFun
                 {data.riskReward}
               </TextMedium>
             </div>
-            <div className="flex flex-col gap-1">
+            <div className="min-w-0 flex flex-col gap-1">
               <TextSmall weight="medium" className="text-text-tertiary">
                 MTD
               </TextSmall>
@@ -373,7 +373,7 @@ export function MIIRFSubfundsSection({ fundData }: { fundData?: MiirfSubfundsFun
                 {data.mtd.asOf}
               </TextSmall>
             </div>
-            <div className="flex flex-col gap-1">
+            <div className="min-w-0 flex flex-col gap-1">
               <TextSmall weight="medium" className="text-text-tertiary">
                 Expense ratio
               </TextSmall>
@@ -393,20 +393,20 @@ export function MIIRFSubfundsSection({ fundData }: { fundData?: MiirfSubfundsFun
           </div>
 
           {/* Product summary + Investment objective */}
-          <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-20">
-            <div className="flex flex-col gap-4">
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-8">
+            <div className="min-w-0 flex flex-col gap-4">
               <H4 className="text-stat text-text-primary">
                 Product summary
               </H4>
-              <TextRegular className="text-text-tertiary leading-[150%]">
+              <TextRegular className="min-w-0 break-words text-text-tertiary leading-[150%]">
                 {cleanCopy(data.productSummary)}
               </TextRegular>
             </div>
-            <div className="flex flex-col gap-4">
+            <div className="min-w-0 flex flex-col gap-4">
               <H4 className="text-stat text-text-primary">
                 Investment objective
               </H4>
-              <TextRegular className="text-text-tertiary leading-[150%]">
+              <TextRegular className="min-w-0 break-words text-text-tertiary leading-[150%]">
                 {cleanCopy(data.investmentObjective)}
               </TextRegular>
             </div>
@@ -427,89 +427,6 @@ export function MIIRFSubfundsSection({ fundData }: { fundData?: MiirfSubfundsFun
                 {data.keyFacts.slice(6).map(({ label, value }) => (
                   <DetailRow key={label} label={label} value={value} />
                 ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Allocation: chart + table */}
-          <div className="flex flex-col gap-6">
-            <H4 className="text-text-primary" weight="semibold">
-              {cleanCopy(data.pieSectionTitle)}
-            </H4>
-            <div className="flex min-w-0 flex-col gap-6 lg:flex-row lg:gap-6">
-              <div className="flex flex-col justify-center items-center min-w-0 flex-1 lg:w-1/2">
-                <SubfundDonutChart
-                  holdings={data.topHoldings}
-                  ariaLabel={`${data.pieSectionTitle} by percentage`}
-                />
-              </div>
-              <div className="min-w-0 flex-1 lg:w-1/2 overflow-x-auto">
-                <div className="rounded-2xl border border-surface-stroke bg-surface-card min-w-[280px]">
-                  <table
-                    className="w-full border-collapse"
-                    role="table"
-                    aria-label={`${data.pieSectionTitle} by percentage`}
-                  >
-                    <thead>
-                      <tr>
-                        <th
-                          scope="col"
-                          className="bg-surface-stroke px-4 py-4 text-left sm:px-6"
-                        >
-                          <TextSmall
-                            weight="semibold"
-                            className="text-text-tertiary"
-                          >
-                            {cleanCopy(data.pieNameColumnLabel)}
-                          </TextSmall>
-                        </th>
-                        <th
-                          scope="col"
-                          className="bg-surface-stroke px-4 py-4 text-center sm:px-6"
-                        >
-                          <TextSmall
-                            weight="semibold"
-                            className="text-text-tertiary"
-                          >
-                            Percentage
-                          </TextSmall>
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {data.topHoldings.map((row, index) => (
-                        <tr
-                          key={`holding-${index}`}
-                          className="border-b border-surface-stroke last:border-b-0"
-                        >
-                          <td className="px-4 py-5 sm:px-6">
-                            <div className="flex items-center gap-3">
-                              <span
-                                className="h-3.5 w-3.5 shrink-0 rounded"
-                                style={{ backgroundColor: row.color }}
-                                aria-hidden
-                              />
-                              <TextMedium
-                                weight="semibold"
-                                className="text-text-primary"
-                              >
-                                {row.name}
-                              </TextMedium>
-                            </div>
-                          </td>
-                          <td className="px-4 py-5 text-center sm:px-6">
-                            <TextMedium
-                              weight="semibold"
-                              className="text-text-primary"
-                            >
-                              {row.percentage}
-                            </TextMedium>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
               </div>
             </div>
           </div>
@@ -653,6 +570,89 @@ export function MIIRFSubfundsSection({ fundData }: { fundData?: MiirfSubfundsFun
                   </tr>
                 </tbody>
               </table>
+            </div>
+          </div>
+
+          {/* Allocation: chart + table */}
+          <div className="flex flex-col gap-6">
+            <H4 className="text-text-primary" weight="semibold">
+              {cleanCopy(data.pieSectionTitle)}
+            </H4>
+            <div className="flex min-w-0 flex-col gap-6 lg:flex-row lg:gap-6">
+              <div className="flex flex-col justify-center items-center min-w-0 flex-1 lg:w-1/2">
+                <SubfundDonutChart
+                  holdings={data.topHoldings}
+                  ariaLabel={`${data.pieSectionTitle} by percentage`}
+                />
+              </div>
+              <div className="min-w-0 flex-1 lg:w-1/2 overflow-x-auto">
+                <div className="rounded-2xl border border-surface-stroke bg-surface-card min-w-[280px]">
+                  <table
+                    className="w-full border-collapse"
+                    role="table"
+                    aria-label={`${data.pieSectionTitle} by percentage`}
+                  >
+                    <thead>
+                      <tr>
+                        <th
+                          scope="col"
+                          className="bg-surface-stroke px-4 py-4 text-left sm:px-6"
+                        >
+                          <TextSmall
+                            weight="semibold"
+                            className="text-text-tertiary"
+                          >
+                            {cleanCopy(data.pieNameColumnLabel)}
+                          </TextSmall>
+                        </th>
+                        <th
+                          scope="col"
+                          className="bg-surface-stroke px-4 py-4 text-center sm:px-6"
+                        >
+                          <TextSmall
+                            weight="semibold"
+                            className="text-text-tertiary"
+                          >
+                            Percentage
+                          </TextSmall>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {data.topHoldings.map((row, index) => (
+                        <tr
+                          key={`holding-${index}`}
+                          className="border-b border-surface-stroke last:border-b-0"
+                        >
+                          <td className="px-4 py-5 sm:px-6">
+                            <div className="flex items-center gap-3">
+                              <span
+                                className="h-3.5 w-3.5 shrink-0 rounded"
+                                style={{ backgroundColor: row.color }}
+                                aria-hidden
+                              />
+                              <TextMedium
+                                weight="semibold"
+                                className="text-text-primary"
+                              >
+                                {row.name}
+                              </TextMedium>
+                            </div>
+                          </td>
+                          <td className="px-4 py-5 text-center sm:px-6">
+                            <TextMedium
+                              weight="semibold"
+                              className="text-text-primary"
+                            >
+                              {row.percentage}
+                            </TextMedium>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
             </div>
           </div>
         </div>

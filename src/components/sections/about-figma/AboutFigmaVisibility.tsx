@@ -2,10 +2,11 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 import { INVESTOR_LOGOS } from "@/components/sections/LogoStrip";
 import { Container } from "@/components/layout/Container";
 import { H3, TextRegular } from "@/components/ui/Typography";
+import Stack from "@/components/ui/Stack";
 import { useInView } from "@/hooks/useInView";
 import type { BlogPostForSection } from "@/lib/sanity/fetch";
 import { aboutFigmaData } from "./aboutFigma.data";
@@ -36,7 +37,6 @@ function formatDateLabel(publishedAt?: string): string {
 
 export function AboutFigmaVisibility({ newsPosts }: AboutFigmaVisibilityProps) {
   const { ref, isVisible } = useInView(0.15);
-  const [activeIndex, setActiveIndex] = useState(0);
 
   const cards = useMemo<VisibilityCard[]>(() => {
     if (newsPosts.length > 0) {
@@ -56,19 +56,37 @@ export function AboutFigmaVisibility({ newsPosts }: AboutFigmaVisibilityProps) {
     }));
   }, [newsPosts]);
 
-  useEffect(() => {
-    if (cards.length < 2) return;
-
-    const intervalId = window.setInterval(() => {
-      setActiveIndex((current) => (current + 1) % cards.length);
-    }, 3000);
-
-    return () => window.clearInterval(intervalId);
-  }, [cards.length]);
-
-  const rotatedCards = Array.from(
-    { length: Math.min(3, cards.length) },
-    (_, index) => cards[(activeIndex + index) % cards.length]
+  const stackedCards = useMemo(
+    () =>
+      cards.map((card, index) => (
+        <article
+          key={`${card.title}-${index}`}
+          className="w-full rounded-3xl border border-surface-stroke bg-white p-5 shadow-[-10px_14px_16px_rgba(0,0,0,0.45)] sm:p-6 lg:max-w-[315px]"
+        >
+          <img
+            src={card.image}
+            alt={card.title}
+            loading="lazy"
+            className="mb-5 h-40 w-full rounded-xl object-cover"
+          />
+          <div className="flex flex-col gap-2">
+            <p className="text-body text-[#0b0f1a]">{card.dateLabel}</p>
+            {card.href !== "#" ? (
+              <Link
+                href={card.href}
+                className="line-clamp-2 text-xl font-semibold leading-tight tracking-[-0.01em] text-[#0b0f1a] transition-colors hover:text-primary-200"
+              >
+                {card.title}
+              </Link>
+            ) : (
+              <p className="line-clamp-2 text-xl font-semibold leading-tight tracking-[-0.01em] text-[#0b0f1a]">
+                {card.title}
+              </p>
+            )}
+          </div>
+        </article>
+      )),
+    [cards]
   );
 
   return (
@@ -115,40 +133,18 @@ export function AboutFigmaVisibility({ newsPosts }: AboutFigmaVisibilityProps) {
               </div>
             </div>
 
-            <div className="relative flex flex-col gap-5 lg:min-h-[480px] lg:justify-center">
-              {rotatedCards.map((card, index) => (
-                <article
-                  key={index}
-                  className={cx(
-                    "w-full rounded-3xl border border-surface-stroke bg-white p-5 shadow-[-10px_14px_16px_rgba(0,0,0,0.45)] transition-all duration-700 ease-in-out sm:p-6 lg:absolute lg:max-w-[315px]",
-                    index === 0 && "lg:right-16 lg:top-4 lg:-rotate-6",
-                    index === 1 && "lg:right-8 lg:top-10 lg:-rotate-3",
-                    index === 2 && "lg:right-0 lg:top-16 lg:rotate-0"
-                  )}
-                >
-                  <img
-                    src={card.image}
-                    alt={card.title}
-                    loading="lazy"
-                    className="mb-5 h-40 w-full rounded-xl object-cover"
-                  />
-                  <div className="flex flex-col gap-2">
-                    <p className="text-body text-[#0b0f1a]">{card.dateLabel}</p>
-                    {card.href !== "#" ? (
-                      <Link
-                        href={card.href}
-                        className="line-clamp-2 text-xl font-semibold leading-tight tracking-[-0.01em] text-[#0b0f1a] transition-colors hover:text-primary-200"
-                      >
-                        {card.title}
-                      </Link>
-                    ) : (
-                      <p className="line-clamp-2 text-xl font-semibold leading-tight tracking-[-0.01em] text-[#0b0f1a]">
-                        {card.title}
-                      </p>
-                    )}
-                  </div>
-                </article>
-              ))}
+            <div className="relative flex flex-col gap-5 lg:min-h-[480px] lg:items-end lg:justify-center">
+              <div className="h-[420px] w-full max-w-[340px] sm:h-[460px] sm:max-w-[360px] lg:h-[480px]">
+                <Stack
+                  randomRotation
+                  sensitivity={200}
+                  sendToBackOnClick
+                  cards={stackedCards}
+                  autoplay
+                  autoplayDelay={3000}
+                  pauseOnHover={false}
+                />
+              </div>
             </div>
           </div>
         </div>
