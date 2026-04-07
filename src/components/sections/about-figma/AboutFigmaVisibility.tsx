@@ -6,7 +6,7 @@ import { useMemo } from "react";
 import { INVESTOR_LOGOS } from "@/components/sections/LogoStrip";
 import { Container } from "@/components/layout/Container";
 import { H3, TextRegular } from "@/components/ui/Typography";
-import Stack from "@/components/ui/Stack";
+import Stack from "@/components/ui/stack/Stack";
 import { useInView } from "@/hooks/useInView";
 import type { BlogPostForSection } from "@/lib/sanity/fetch";
 import { aboutFigmaData } from "./aboutFigma.data";
@@ -56,25 +56,27 @@ export function AboutFigmaVisibility({ newsPosts }: AboutFigmaVisibilityProps) {
     }));
   }, [newsPosts]);
 
-  const stackedCards = useMemo(
+  const stackCards = useMemo(
     () =>
       cards.map((card, index) => (
-        <article
-          key={`${card.title}-${index}`}
-          className="w-full rounded-3xl border border-surface-stroke bg-white p-5 shadow-[-10px_14px_16px_rgba(0,0,0,0.45)] sm:p-6 lg:max-w-[315px]"
+        <div
+          key={`${card.href}-${card.title}-${index}`}
+          className="flex w-full flex-col"
         >
           <img
             src={card.image}
             alt={card.title}
             loading="lazy"
-            className="mb-5 h-40 w-full rounded-xl object-cover"
+            className="block h-36 w-full shrink-0 object-cover sm:h-40"
           />
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2 px-5 pb-5 pt-4 sm:px-6 sm:pb-6 sm:pt-5">
             <p className="text-body text-[#0b0f1a]">{card.dateLabel}</p>
             {card.href !== "#" ? (
               <Link
                 href={card.href}
-                className="line-clamp-2 text-xl font-semibold leading-tight tracking-[-0.01em] text-[#0b0f1a] transition-colors hover:text-primary-200"
+                className="line-clamp-2 text-left text-xl font-semibold leading-tight tracking-[-0.01em] text-[#0b0f1a] transition-colors hover:text-primary-200"
+                onClick={(e) => e.stopPropagation()}
+                onPointerDown={(e) => e.stopPropagation()}
               >
                 {card.title}
               </Link>
@@ -84,7 +86,7 @@ export function AboutFigmaVisibility({ newsPosts }: AboutFigmaVisibilityProps) {
               </p>
             )}
           </div>
-        </article>
+        </div>
       )),
     [cards]
   );
@@ -134,16 +136,25 @@ export function AboutFigmaVisibility({ newsPosts }: AboutFigmaVisibilityProps) {
             </div>
 
             <div className="relative flex flex-col gap-5 lg:min-h-[480px] lg:items-end lg:justify-center">
-              <div className="h-[420px] w-full max-w-[340px] sm:h-[460px] sm:max-w-[360px] lg:h-[480px]">
-                <Stack
-                  randomRotation
-                  sensitivity={200}
-                  sendToBackOnClick
-                  cards={stackedCards}
-                  autoplay
-                  autoplayDelay={3000}
-                  pauseOnHover={false}
-                />
+              <div
+                className={cx(
+                  "relative h-[420px] w-full max-w-[340px] shrink-0 sm:h-[460px] sm:max-w-[360px] lg:h-[480px]",
+                  "[&_.card]:h-auto [&_.card]:max-h-full [&_.card]:flex-col [&_.card]:items-start [&_.card]:justify-start",
+                  "[&_.card]:overflow-hidden [&_.card]:rounded-3xl [&_.card]:border [&_.card]:border-surface-stroke [&_.card]:bg-white",
+                  "[&_.card]:shadow-[-8px_12px_24px_rgba(0,0,0,0.2)]"
+                )}
+              >
+                {cards.length > 0 ? (
+                  <Stack
+                    randomRotation={false}
+                    sensitivity={200}
+                    sendToBackOnClick
+                    cards={stackCards}
+                    autoplay={cards.length > 1}
+                    autoplayDelay={3000}
+                    pauseOnHover={false}
+                  />
+                ) : null}
               </div>
             </div>
           </div>
