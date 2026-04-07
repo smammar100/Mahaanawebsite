@@ -10,7 +10,7 @@ export function AboutFigmaStats() {
   const lineXs = Array.from({ length: 17 }, (_, i) => ((i + 1) * 1000) / 18);
 
   return (
-    <section className={cn("pt-0 pb-16 sm:pt-0 sm:pb-20 lg:pt-0 lg:pb-[4.5rem]")}>
+    <section className={cn("section-y pt-0")}>
       <div className="mx-auto w-full max-w-[1100px] px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16">
         <div className="relative isolate overflow-hidden rounded-2xl border border-surface-stroke bg-surface-card">
           <div className="relative z-10 flex flex-col px-6 pt-10 pb-28 sm:px-8 sm:pt-12 sm:pb-36 md:px-10 md:pb-36">

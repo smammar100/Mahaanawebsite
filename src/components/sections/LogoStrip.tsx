@@ -20,8 +20,8 @@ export function LogoStrip({ compactTop = false }: LogoStripProps) {
       className={cn(
         "flex min-h-[120px] flex-col items-center justify-center bg-surface-bg sm:min-h-[100px]",
         compactTop
-          ? "pt-0 pb-8 sm:pb-10 md:pb-12"
-          : "py-8 sm:py-10 md:py-12"
+          ? "section-y pt-0"
+          : "section-y"
       )}
       aria-label="Investor and partner logos"
     >

@@ -41,7 +41,7 @@ export function AboutBoardSection() {
       whileInView="visible"
       viewport={sectionViewport}
       variants={sectionFadeInUp}
-      className="w-full bg-surface-bg py-10 sm:py-12 md:py-14 lg:py-16"
+      className="w-full bg-surface-bg section-y"
       aria-labelledby="about-board-heading"
     >
       <Container className="px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16">

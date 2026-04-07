@@ -16,7 +16,7 @@ export const metadata: Metadata = buildPageMetadata({
 export default function InvestmentCalculatorPage() {
   return (
     <div className="bg-surface-bg">
-      <AnimatedSection className="pt-10 pb-6 sm:pt-12 sm:pb-8">
+      <AnimatedSection className="section-y">
         <Container className="px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16">
           <div className="mx-auto max-w-[760px] text-center">
             <H1 className="text-text-primary">Savings Calculator</H1>

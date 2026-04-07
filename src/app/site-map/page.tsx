@@ -53,7 +53,7 @@ const SITEMAP_GROUPS: { heading: string; links: { href: string; label: string }[
 
 export default function SitemapPage() {
   return (
-    <main className="min-h-screen bg-surface-bg py-12 md:py-16">
+    <main className="min-h-screen bg-surface-bg section-y">
       <Container className="max-w-[65ch] readable-line-length">
         <h1 className="mb-2 text-2xl font-semibold text-text-primary">{cleanCopy("Sitemap")}</h1>
         <p className="mb-8 text-text-tertiary">

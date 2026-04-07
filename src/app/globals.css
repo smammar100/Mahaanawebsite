@@ -338,6 +338,11 @@
   .font-heading.font-extrabold {
     font-weight: 600;
   }
+
+  /** Stacked page sections: symmetric vertical rhythm (compose with section-fade-in-up, bg-*, etc.) */
+  .section-y {
+    @apply py-8 sm:py-10 md:py-12 lg:py-14 xl:py-16;
+  }
 }
 
 /* ── Section text color schemes (only two: light bg vs dark bg) ── */

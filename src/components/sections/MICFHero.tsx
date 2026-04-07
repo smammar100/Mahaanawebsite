@@ -63,7 +63,7 @@ export function MICFHero({ fundData }: { fundData?: MicfHeroFundData | null }) {
       whileInView="visible"
       viewport={sectionViewport}
       variants={sectionFadeInUp}
-      className="relative overflow-hidden bg-surface-bg pt-[160px] pb-12 sm:pb-16 lg:pb-20"
+      className="relative overflow-hidden bg-surface-bg pt-[160px] pb-8 sm:pb-10 md:pb-12 lg:pb-14 xl:pb-16"
       aria-labelledby="micf-hero-heading"
     >
       <Container className="flex flex-col gap-12 px-4 sm:px-6 md:px-8 lg:gap-20 lg:px-12 xl:px-16">

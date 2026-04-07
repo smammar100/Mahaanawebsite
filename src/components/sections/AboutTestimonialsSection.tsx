@@ -100,7 +100,7 @@ export function AboutTestimonialsSection({ className }: AboutTestimonialsSection
     <section
       ref={ref}
       className={cx(
-        "section-fade-in-up bg-surface-bg py-10 sm:py-12 md:py-14 lg:py-16",
+        "section-fade-in-up bg-surface-bg section-y",
         isVisible && "visible",
         className
       )}

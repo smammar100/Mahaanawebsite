@@ -117,7 +117,7 @@ export function InsightsPageClient({ data }: InsightsPageClientProps) {
           )}
 
           {showPersonalFinanceSection && (
-            <AnimatedSection className="border-t border-surface-stroke pt-14 lg:pt-16">
+            <AnimatedSection className="section-y">
               <InsightsArticleGridSection
                 title="Videos & Podcasts"
                 viewAllHref={insightsCategoryViewAllPath("Personal Finance")}
@@ -127,7 +127,7 @@ export function InsightsPageClient({ data }: InsightsPageClientProps) {
           )}
 
           {showMarketViewsSection && (
-            <AnimatedSection className="border-t border-surface-stroke pt-14 lg:pt-16">
+            <AnimatedSection className="section-y">
               <InsightsArticleGridSection
                 title="Latest News"
                 viewAllHref={insightsCategoryViewAllPath("Market Views")}
@@ -136,7 +136,7 @@ export function InsightsPageClient({ data }: InsightsPageClientProps) {
             </AnimatedSection>
           )}
 
-          <AnimatedSection className="pb-8">
+          <AnimatedSection className="section-y">
             <CallToAction1 />
           </AnimatedSection>
         </div>

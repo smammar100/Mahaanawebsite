@@ -95,7 +95,7 @@ export function AboutFigmaVisibility({ newsPosts }: AboutFigmaVisibilityProps) {
     <section
       ref={ref}
       className={cx(
-        "section-fade-in-up bg-gradient-brand py-10 sm:py-12 md:py-14 lg:py-16",
+        "section-fade-in-up bg-gradient-brand section-y",
         isVisible && "visible"
       )}
       aria-labelledby="about-figma-visibility-heading"

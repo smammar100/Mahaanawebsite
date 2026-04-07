@@ -118,7 +118,7 @@ export function MIIRFFundLiteratureSection({
       whileInView="visible"
       viewport={sectionViewport}
       variants={sectionFadeInUp}
-      className="relative min-w-0 overflow-x-visible overflow-y-clip bg-surface-bg py-8 sm:py-12 lg:py-16"
+      className="relative min-w-0 overflow-x-visible overflow-y-clip bg-surface-bg section-y"
       aria-labelledby="miirf-fund-literature-section-heading"
     >
       <Container className="flex flex-col gap-10 px-4 sm:px-6 md:px-8 lg:gap-10 lg:px-12 xl:px-16">

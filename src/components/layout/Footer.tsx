@@ -2,42 +2,86 @@ import Link from "next/link";
 import Image from "next/image";
 import type { ReactNode } from "react";
 import { Container } from "./Container";
-import { TextSmall } from "@/components/ui/Typography";
+import { H4, TextSmall } from "@/components/ui/Typography";
 import { cleanCopy } from "@/lib/copy-utils";
 
-const SECURITY_BADGES = [
+type RegulatoryBadge = {
+  label: string;
+  title: string;
+  imageSrc?: string;
+  imageAlt?: string;
+};
+
+const REGULATORY_BADGES: RegulatoryBadge[] = [
   {
-    label: "CUSTODIAN",
-    title: "Central Depository Company (CDC)",
-    image: "/images/invest/CDC%20color.svg",
-    alt: "CDC",
+    label: "MEMBER OF",
+    title: "Mutual Funds Association of Pakistan (MUFAP)",
+    imageSrc: "/images/invest/MUFAP.svg",
+    imageAlt: "MUFAP",
   },
   {
     label: "LICENSED BY",
     title: "Securities & Exchange Commission of Pakistan (SECP)",
-    image: "/images/invest/SECP%20logo%20color.svg",
-    alt: "SECP",
+    imageSrc: "/images/invest/SECP%20logo%20color.svg",
+    imageAlt: "SECP",
   },
-] as const;
+  {
+    label: "CUSTODIAN",
+    title: "Central Depository Company (CDC)",
+    imageSrc: "/images/invest/CDC%20color.svg",
+    imageAlt: "CDC",
+  },
+];
+
+function RegulatoryBadgeCard({ badge }: { badge: RegulatoryBadge }) {
+  return (
+    <div className="flex min-w-0 max-w-[220px] flex-1 items-center gap-2.5 rounded-lg border border-surface-stroke bg-white px-3 py-2.5 sm:max-w-none sm:gap-3 sm:px-3.5">
+      {badge.imageSrc ? (
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-md border border-surface-stroke/20 bg-white">
+          <Image
+            src={badge.imageSrc}
+            alt={badge.imageAlt ?? ""}
+            width={36}
+            height={36}
+            className="h-8 w-8 object-contain"
+          />
+        </div>
+      ) : (
+        <div
+          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md border border-surface-stroke/25 bg-surface-bg text-[10px] font-semibold leading-tight text-text-tertiary"
+          aria-hidden
+        >
+          MUFAP
+        </div>
+      )}
+      <div className="min-w-0 flex-1">
+        <TextSmall
+          weight="medium"
+          className="text-[10px] uppercase leading-tight tracking-wide text-text-tertiary sm:text-[11px]"
+        >
+          {badge.label}
+        </TextSmall>
+        <TextSmall
+          weight="semibold"
+          className="mt-0.5 block text-[11px] leading-snug text-text-primary sm:text-xs"
+        >
+          {badge.title}
+        </TextSmall>
+      </div>
+    </div>
+  );
+}
 
 function NavColumn({
   heading,
   links,
-  subheading = false,
 }: {
   heading: ReactNode;
   links: { href: string; label: string }[];
-  subheading?: boolean;
 }) {
   return (
     <div className="flex flex-col gap-4">
-      <div
-        className={
-          subheading
-            ? "text-nav-heading text-text-secondary max-[768px]:mb-3 md:mb-0"
-            : "text-nav-heading text-text-primary max-[768px]:mb-3 md:mb-0"
-        }
-      >
+      <div className="text-nav-heading font-semibold text-text-primary max-[768px]:mb-1 md:mb-0">
         {heading}
       </div>
       <ul className="flex flex-col gap-2">
@@ -45,7 +89,7 @@ function NavColumn({
           <li key={label}>
             <Link
               href={href}
-              className="text-body-sm text-text-tertiary transition-colors hover:text-text-primary max-[768px]:block max-[768px]:py-1"
+              className="text-body-sm text-text-tertiary transition-colors hover:text-text-primary max-[768px]:block max-[768px]:py-0.5"
             >
               {label}
             </Link>
@@ -56,19 +100,47 @@ function NavColumn({
   );
 }
 
+const SECP_BANNER_SRC = "/images/invest/SECP%20banner.jpg";
+
+/** Vertical rhythm between footer blocks (1.5rem top + bottom) */
+const footerSubsectionY = "py-[1.5rem]";
+
+function InvestorComplaintsBanner() {
+  return (
+    <section
+      className="overflow-hidden rounded-2xl shadow-lg shadow-black/10 ring-1 ring-black/10"
+      aria-label={cleanCopy(
+        "Securities and Exchange Commission of Pakistan — investor complaints: toll-free 0800-88008; file complaints online at sdms.secp.gov.pk"
+      )}
+    >
+      <Image
+        src={SECP_BANNER_SRC}
+        alt={cleanCopy(
+          "SECP investor complaints banner: toll-free 0800-88008 and online complaint filing at sdms.secp.gov.pk"
+        )}
+        width={1100}
+        height={200}
+        className="h-auto w-full object-contain"
+        sizes="(max-width: 1100px) 100vw, 1100px"
+      />
+    </section>
+  );
+}
+
 export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
     <footer role="contentinfo" className="mt-auto border-t border-surface-stroke bg-surface-card">
       <Container className="px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16">
-        {/* Top section: logo + app buttons | nav grid */}
-        <div className="flex flex-col gap-6 py-8 sm:py-10 md:py-12 lg:gap-6 lg:py-14 xl:flex-row xl:items-start xl:gap-12 xl:pt-14 xl:pb-4">
-          {/* Left: logo + app buttons + social */}
-          <div className="flex flex-col gap-6 xl:min-w-0 xl:max-w-sm xl:shrink-0">
+        {/* Logo + regulatory badges */}
+        <div
+          className={`flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between lg:gap-12 ${footerSubsectionY}`}
+        >
+          <div className="flex flex-col gap-5 lg:max-w-xs lg:shrink-0">
             <Link
               href="/"
-              className="flex items-center"
+              className="flex w-fit items-center"
               aria-label="Mahaana home"
             >
               <Image
@@ -79,39 +151,7 @@ export function Footer() {
                 className="h-6 w-auto"
               />
             </Link>
-            <div className="flex flex-col gap-3 sm:gap-4">
-              {SECURITY_BADGES.map((card) => (
-                <div
-                  key={card.label}
-                  className="flex min-w-0 w-full items-center gap-3 rounded-xl border border-surface-stroke/30 bg-white p-3 sm:p-4"
-                >
-                  <div className="flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-surface-stroke/15">
-                    <Image
-                      src={card.image}
-                      alt={card.alt}
-                      width={44}
-                      height={44}
-                      className="h-8 w-8 object-contain sm:h-9 sm:w-9"
-                    />
-                  </div>
-                  <div className="flex min-w-0 flex-1 flex-col gap-0.5">
-                    <TextSmall
-                      weight="medium"
-                      className="text-text-tertiary uppercase tracking-wide"
-                    >
-                      {card.label}
-                    </TextSmall>
-                    <TextSmall
-                      weight="semibold"
-                      className="text-text-primary leading-[1.35]"
-                    >
-                      {card.title}
-                    </TextSmall>
-                  </div>
-                </div>
-              ))}
-            </div>
-            <div className="flex items-center gap-4">
+            <div className="flex flex-wrap items-center gap-4">
               <a
                 href="https://www.youtube.com/@mahaanawealth"
                 target="_blank"
@@ -179,72 +219,81 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Right: 5-column nav grid (2 cols on mobile) */}
-          <div className="grid flex-1 grid-cols-2 items-start gap-4 max-[768px]:gap-0 max-[768px]:[&>:nth-child(odd)]:border-r max-[768px]:[&>:nth-child(odd)]:border-surface-stroke md:grid-cols-2 xl:grid-cols-5">
-            <div className="max-[768px]:border-b max-[768px]:border-surface-stroke max-[768px]:pt-5 max-[768px]:pr-4 max-[768px]:pb-5 max-[768px]:pl-0 md:border-0 md:p-0">
-              <NavColumn
-                heading="Products"
-                links={[
-                  { href: "/save-plus", label: "Save+" },
-                  { href: "/retirement", label: "Retirement" },
-                ]}
-              />
-            </div>
-            <div className="max-[768px]:border-b max-[768px]:border-surface-stroke max-[768px]:pt-5 max-[768px]:pr-4 max-[768px]:pb-5 max-[768px]:pl-0 md:border-0 md:p-0">
-              <NavColumn
-                heading="Funds"
-                links={[
-                  { href: "/micf", label: "MICF" },
-                  { href: "/miietf", label: "MIIETF" },
-                  { href: "/miirf", label: "MIIRF" },
-                ]}
-              />
-            </div>
-            <div className="max-[768px]:border-b max-[768px]:border-surface-stroke max-[768px]:pt-5 max-[768px]:pr-4 max-[768px]:pb-5 max-[768px]:pl-0 md:border-0 md:p-0">
-              <NavColumn
-                heading="Tools"
-                links={[
-                  { href: "/retirement-calculator", label: "Retirement Calculator" },
-                  { href: "/investment-calculator", label: "Savings Calculator" },
-                ]}
-              />
-            </div>
-            <div className="max-[768px]:border-b max-[768px]:border-surface-stroke max-[768px]:pt-5 max-[768px]:pr-4 max-[768px]:pb-5 max-[768px]:pl-0 md:border-0 md:p-0">
-              <NavColumn
-                heading="Investor Education"
-                links={[
-                  { href: "#", label: "Articles" },
-                  { href: "/help-center", label: "Help Center" },
-                ]}
-              />
-            </div>
-            <div className="max-[768px]:border-b max-[768px]:border-surface-stroke max-[768px]:pt-5 max-[768px]:pr-4 max-[768px]:pb-5 max-[768px]:pl-0 md:border-0 md:p-0">
-              <NavColumn
-                heading="Company"
-                links={[
-                  { href: "/about", label: "About Us" },
-                  { href: "/security", label: "Security" },
-                  { href: "/careers", label: "Careers" },
-                  { href: "/legal", label: "Legal" },
-                  { href: "#", label: "Sitemap" },
-                ]}
-              />
-            </div>
+          <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:justify-end lg:min-w-0 lg:flex-1 lg:justify-end">
+            {REGULATORY_BADGES.map((badge) => (
+              <RegulatoryBadgeCard key={badge.label} badge={badge} />
+            ))}
           </div>
         </div>
 
-        {/* Divider */}
-        <div className="border-t border-surface-stroke" />
+        {/* Four-column navigation */}
+        <div
+          className={`grid grid-cols-2 gap-x-4 gap-y-8 sm:gap-x-8 md:grid-cols-2 lg:grid-cols-4 ${footerSubsectionY}`}
+        >
+          <NavColumn
+            heading="Our products"
+            links={[
+              { href: "/save-plus", label: "Save+" },
+              { href: "/retirement", label: "Retirement" },
+              { href: "/micf", label: "MICF" },
+              { href: "/miietf", label: "MIIETF" },
+              { href: "/miirf", label: "MIIRF" },
+            ]}
+          />
+          <NavColumn
+            heading="Company"
+            links={[
+              { href: "/about", label: "About us" },
+              { href: "/careers", label: "Careers" },
+              { href: "/security", label: "Security" },
+              { href: "/legal", label: "Legal information" },
+            ]}
+          />
+          <NavColumn
+            heading="Resources"
+            links={[
+              { href: "/investor-education", label: "Investor education" },
+              { href: "/investment-calculator", label: "Investment calculator" },
+              { href: "/legal", label: "Policies" },
+            ]}
+          />
+          <NavColumn
+            heading="Support / Help"
+            links={[
+              { href: "/help-center", label: "FAQs" },
+              { href: "/contact", label: "Contact us" },
+            ]}
+          />
+        </div>
 
-        {/* Legal section */}
-        <div className="space-y-4 py-6 sm:py-8">
+        <div className={footerSubsectionY}>
+          <InvestorComplaintsBanner />
+        </div>
+
+        {/* Disclaimers & licenses */}
+        <div className={`space-y-4 ${footerSubsectionY}`}>
+          <H4 className="text-text-primary">
+            {cleanCopy("Disclaimers & licenses")}
+          </H4>
           <p className="text-body-xs leading-relaxed text-text-tertiary">
             {cleanCopy(
-              "Mahaana and its products are offered by Mahaana Capital (Pvt) Ltd. Investment products are not bank deposits and are not insured by the deposit protection scheme. Returns are not guaranteed and you may get back less than you invest."
+              "Mahaana Wealth Limited is a licensed Asset Management Company and Investment Advisor, registered as an NBFC (Non-Banking Financial Company) and regulated by the Securities & Exchange Commission of Pakistan (SECP). Central Depository Company (CDC) performs the custodial functions for Mahaana Wealth Limited products and funds."
             )}
           </p>
           <p className="text-body-xs leading-relaxed text-text-tertiary">
-            {cleanCopy("Past performance is not a reliable indicator of future results. The information on this site is for general information only and does not constitute financial, tax or legal advice. Please see our ")}
+            {cleanCopy(
+              "Past performance is not indicative of future results. All investments are subject to market risks. NAV / unit / stock prices may fluctuate based on market conditions."
+            )}
+          </p>
+          <p className="text-body-xs leading-relaxed text-text-tertiary">
+            {cleanCopy(
+              "Should your concerns remain unresolved, you may file a complaint with SECP. It is important to note that SECP will only entertain complaints that were initially raised with Mahaana Wealth Limited."
+            )}
+          </p>
+          <p className="text-body-xs leading-relaxed text-text-tertiary">
+            {cleanCopy(
+              "Investment products are not bank deposits and are not insured by a deposit protection scheme. Returns are not guaranteed and you may get back less than you invest. Please see our "
+            )}
             <Link
               href="/terms-conditions"
               className="underline transition-colors hover:text-text-primary"
@@ -260,46 +309,23 @@ export function Footer() {
             </Link>
             {cleanCopy(".")}
           </p>
-          <p className="text-body-xs leading-relaxed text-text-tertiary">
-            © {currentYear} Mahaana. All rights reserved.
+          <p className="text-body-xs text-text-tertiary">
+            © {currentYear} Mahaana Wealth Limited. All rights reserved.
           </p>
-          <ol className="list-inside list-decimal space-y-1 text-body-xs leading-relaxed text-text-tertiary">
-            <li>
-              {cleanCopy(
-                "Shariah compliance is subject to oversight by our Shariah advisory board. Product availability may vary by jurisdiction."
-              )}
-            </li>
-            <li>
-              {cleanCopy("App available on iOS and Android. Data rates may apply.")}
-            </li>
-            <li>
-              {cleanCopy(
-                "Calculators and projections are for illustrative purposes only and do not constitute a guarantee of future performance."
-              )}
-            </li>
-          </ol>
-        </div>
-
-        {/* SECP banner */}
-        <div className="pb-6 sm:pb-8">
-          <Image
-            src="/images/invest/SECP%20banner.webp"
-            alt="SECP regulatory banner"
-            width={1100}
-            height={120}
-            className="h-auto w-full rounded-lg object-contain"
-          />
         </div>
       </Container>
 
-      {/* Full-bleed footer illustration; no horizontal or bottom padding */}
-      <div className="relative left-1/2 mt-6 w-screen max-w-none -translate-x-1/2 pb-0">
+      {/* Edge-to-edge: breaks out of page max-width and horizontal padding */}
+      <div
+        className="relative left-1/2 mt-8 w-screen max-w-none -translate-x-1/2 sm:mt-10"
+        aria-hidden
+      >
         <Image
           src="/images/invest/Pakistan%20Places%20-%20SVG%202.svg"
-          alt="Decorative outline of Pakistan places"
+          alt=""
           width={1190}
           height={107}
-          className="h-auto w-full object-cover opacity-60"
+          className="h-auto w-full object-cover object-center opacity-60"
         />
       </div>
     </footer>

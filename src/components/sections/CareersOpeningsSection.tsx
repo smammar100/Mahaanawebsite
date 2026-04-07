@@ -38,7 +38,7 @@ export function CareersOpeningsSection({
 
   return (
     <section
-      className={cn("bg-surface-bg py-12 sm:py-16 lg:py-24", className)}
+      className={cn("bg-surface-bg section-y", className)}
       aria-labelledby="careers-openings-heading"
     >
       <Container>

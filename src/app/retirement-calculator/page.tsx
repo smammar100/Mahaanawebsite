@@ -16,7 +16,7 @@ export const metadata: Metadata = buildPageMetadata({
 export default function RetirementCalculatorPage() {
   return (
     <div className="retirement-calc-light-scope min-w-0 bg-[var(--color-surface-bg)] text-text-primary">
-      <AnimatedSection className="pt-8 pb-4 sm:pt-10 sm:pb-5">
+      <AnimatedSection className="section-y">
         <Container className="px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16">
           <H1 className="text-center text-xl font-semibold tracking-tight text-text-primary sm:text-2xl md:text-[1.75rem]">
             FIRE calculator
@@ -31,7 +31,7 @@ export default function RetirementCalculatorPage() {
       <AnimatedSection as="div" className="pt-0 pb-8 sm:pb-10">
         <FIRECalculator />
       </AnimatedSection>
-      <Cta6Section className="border-t-0" />
+      <Cta6Section />
     </div>
   );
 }

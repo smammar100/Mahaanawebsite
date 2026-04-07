@@ -189,7 +189,7 @@ export function HelpCenterSection({ items, className }: HelpCenterSectionProps) 
   if (items.length === 0) {
     return (
       <section
-        className={cx("bg-gradient-brand py-12 sm:py-16 md:py-20", className)}
+        className={cx("bg-gradient-brand section-y", className)}
         aria-labelledby="help-center-heading"
       >
         <Container>
@@ -207,14 +207,14 @@ export function HelpCenterSection({ items, className }: HelpCenterSectionProps) 
   return (
     <section
       className={cx(
-        "min-h-screen bg-gradient-brand py-8 sm:py-10 md:py-12 lg:py-14 xl:py-16",
+        "min-h-screen bg-gradient-brand section-y",
         className
       )}
       aria-labelledby="help-center-heading"
     >
       <Container className="flex flex-col gap-8 md:gap-10 lg:gap-10">
         {/* Hero */}
-        <div className="text-center pt-16 pb-16 flex flex-col gap-2">
+        <div className="flex flex-col gap-2 text-center">
           <H1
             id="help-center-heading"
             className="text-center text-white"

@@ -41,7 +41,7 @@ export function SecurityBenefitsSection({
       whileInView="visible"
       viewport={sectionViewport}
       variants={sectionFadeInUp}
-      className={cx("w-full py-8 sm:py-12 lg:py-16", className)}
+      className={cx("w-full section-y", className)}
       aria-labelledby="security-benefits-heading"
     >
       <Container className="px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16">

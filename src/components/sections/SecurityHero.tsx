@@ -30,7 +30,7 @@ export function SecurityHero() {
       whileInView="visible"
       viewport={sectionViewport}
       variants={sectionFadeInUp}
-      className="w-full pt-[calc(4.5rem+env(safe-area-inset-top,0px))] pb-12 sm:pb-16 lg:pb-20"
+      className="w-full pt-[calc(4.5rem+env(safe-area-inset-top,0px))] pb-8 sm:pb-10 md:pb-12 lg:pb-14 xl:pb-16"
       aria-labelledby="security-hero-heading"
     >
       <Container className="px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16">

@@ -13,7 +13,7 @@ export function AboutFigmaHero() {
     <section
       ref={ref}
       className={cx(
-        "section-fade-in-up pt-[8rem] pb-[4rem]",
+        "section-fade-in-up pt-[8rem] pb-8 sm:pb-10 md:pb-12 lg:pb-14 xl:pb-16",
         isVisible && "visible"
       )}
       aria-labelledby="about-figma-hero-heading"

@@ -83,7 +83,7 @@ export function MICFPerformanceSection({
       whileInView="visible"
       viewport={sectionViewport}
       variants={sectionFadeInUp}
-      className="relative overflow-hidden bg-surface-bg py-8 sm:py-12 lg:py-16"
+      className="relative overflow-hidden bg-surface-bg section-y"
       aria-labelledby="micf-performance-section-heading"
     >
       <Container className="flex flex-col gap-4 px-4 sm:px-6 md:px-8 lg:gap-4 lg:px-12 xl:px-16">

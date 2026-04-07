@@ -37,7 +37,7 @@ export function MIIRFHero() {
       whileInView="visible"
       viewport={sectionViewport}
       variants={sectionFadeInUp}
-      className="relative overflow-hidden bg-surface-bg pt-[120px] pb-10"
+      className="relative overflow-hidden bg-surface-bg pt-[120px] pb-8 sm:pb-10 md:pb-12 lg:pb-14 xl:pb-16"
       aria-labelledby="miirf-hero-heading"
     >
       <Container className="flex flex-col gap-12 px-4 sm:px-6 md:px-8 lg:gap-[88px] lg:px-12 xl:px-16">

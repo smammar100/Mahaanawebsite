@@ -19,7 +19,7 @@ export default async function ReviewsPage() {
 
   return (
     <div className="bg-surface-bg">
-      <AnimatedSection className="py-12 sm:py-16 lg:py-24">
+      <AnimatedSection className="section-y">
         <Container>
           <H1 className="text-text-primary">Reviews</H1>
           <TextRegular className="mt-4 max-w-prose text-text-tertiary">
@@ -29,7 +29,7 @@ export default async function ReviewsPage() {
       </AnimatedSection>
 
       {reviews.length > 0 ? (
-        <AnimatedSection className="border-t border-surface-stroke py-8 sm:py-10 md:py-12">
+        <AnimatedSection className="section-y">
           <Container>
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {reviews.map((review) => {
@@ -91,7 +91,7 @@ export default async function ReviewsPage() {
           </Container>
         </AnimatedSection>
       ) : (
-        <AnimatedSection className="border-t border-surface-stroke py-12">
+        <AnimatedSection className="section-y">
           <Container>
             <TextRegular className="text-text-tertiary">
               No reviews yet. Check back soon.

@@ -37,10 +37,7 @@ export function FundHero({
       whileInView="visible"
       viewport={sectionViewport}
       variants={sectionFadeInUp}
-      className={cx(
-        "relative overflow-hidden bg-surface-bg",
-        "py-8 sm:pt-10 sm:pb-8 lg:pt-16 lg:pb-14"
-      )}
+      className={cx("relative overflow-hidden bg-surface-bg section-y")}
       aria-labelledby="fund-hero-heading"
     >
       <Container className="flex flex-col gap-8 px-4 sm:px-6 md:px-8 lg:px-16 sm:gap-10 lg:gap-14">

@@ -122,7 +122,7 @@ export function FeaturesSection() {
     <section
       ref={ref}
       className={cx(
-        "section-fade-in-up border-t border-surface-stroke pt-16 pb-8 sm:pb-10 md:pb-12 lg:pb-14 xl:pb-16 bg-gradient-brand",
+        "section-fade-in-up section-y bg-gradient-brand",
         isVisible && "visible"
       )}
       aria-labelledby="features-heading"

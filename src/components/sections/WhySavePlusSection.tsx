@@ -32,7 +32,7 @@ export function WhySavePlusSection() {
       whileInView="visible"
       viewport={sectionViewport}
       variants={sectionFadeInUp}
-      className="border-t border-surface-stroke py-8 sm:py-10 md:py-12 lg:py-14 xl:py-16"
+      className="section-y"
       aria-labelledby="why-save-plus-heading"
     >
       <Container className="flex flex-col gap-6 px-4 sm:px-6 md:px-8 lg:px-16">

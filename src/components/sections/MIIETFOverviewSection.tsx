@@ -66,7 +66,7 @@ export function MIIETFOverviewSection({ fundData }: { fundData?: MiietfOverviewF
       whileInView="visible"
       viewport={sectionViewport}
       variants={sectionFadeInUp}
-      className="relative overflow-hidden bg-surface-bg py-8 sm:py-10"
+      className="relative overflow-hidden bg-surface-bg section-y"
       aria-labelledby="overview-section-heading"
     >
       <Container className="flex flex-col gap-10 px-4 sm:px-6 md:px-8 lg:gap-10 lg:px-12 xl:px-16">

@@ -16,7 +16,7 @@ export default function TermsConditionsPage() {
     <div className="-mt-[calc(4.5rem+env(safe-area-inset-top,0px))] bg-surface-bg">
       <article>
         {/* Hero */}
-        <section className="py-12 sm:py-16 lg:py-24">
+        <section className="section-y">
           <Container className="mx-auto flex max-w-5xl flex-col items-center gap-4 text-center">
             <H1 className="max-w-3xl text-text-primary">
               Terms and Conditions
@@ -25,7 +25,7 @@ export default function TermsConditionsPage() {
         </section>
 
         {/* Content */}
-        <section className="pt-10 pb-16">
+        <section className="section-y">
           <Container className="max-w-3xl readable-line-length">
             <p className="mb-4 leading-relaxed text-text-tertiary">
               {cleanCopy("Dynasty Financial Advisors (DFA) owns and maintains website ")}

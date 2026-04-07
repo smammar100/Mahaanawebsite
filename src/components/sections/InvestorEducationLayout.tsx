@@ -40,7 +40,7 @@ export function InvestorEducationLayout({
 
   return (
     <>
-      <section className="bg-gradient-brand py-12 sm:py-16 lg:py-24">
+      <section className="bg-gradient-brand section-y">
         <Container className="flex flex-col items-center gap-10 text-center">
           <div className="flex flex-col items-center gap-4">
             <H3 className="text-white">{headline}</H3>
@@ -75,7 +75,7 @@ export function InvestorEducationLayout({
         </Container>
       </section>
 
-      <section className="py-8 sm:py-10 md:py-12 lg:py-16 xl:py-20">
+      <section className="section-y">
         <Container className="flex flex-col gap-8">
           <InvestorEducationContent items={sorted} />
         </Container>

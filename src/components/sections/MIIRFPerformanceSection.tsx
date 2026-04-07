@@ -58,7 +58,7 @@ export function MIIRFPerformanceSection({ fundData }: { fundData?: MiirfPerforma
       whileInView="visible"
       viewport={sectionViewport}
       variants={sectionFadeInUp}
-      className="relative overflow-hidden bg-surface-bg py-8 sm:py-12 lg:py-16 pb-10"
+      className="relative overflow-hidden bg-surface-bg section-y"
       aria-labelledby="miirf-performance-section-heading"
     >
       <Container className="flex flex-col gap-10 px-4 sm:px-6 md:px-8 lg:gap-10 lg:px-12 xl:px-16">

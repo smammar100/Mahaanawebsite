@@ -48,7 +48,8 @@ export function FeatureCards() {
     <section
       ref={ref}
       className={cx(
-        "section-fade-in-up border-t border-surface-stroke py-8 sm:py-10 md:py-12 lg:py-14 xl:py-16 pb-32",
+        /* pb-32: reserve space for overlapping illustration; top matches .section-y */
+        "section-fade-in-up pt-8 sm:pt-10 md:pt-12 lg:pt-14 xl:pt-16 pb-32",
         isVisible && "visible"
       )}
       aria-labelledby="feature-cards-heading"

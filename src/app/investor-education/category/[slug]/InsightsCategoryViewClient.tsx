@@ -32,7 +32,7 @@ export function InsightsCategoryViewClient({
 
   return (
     <div className="-mt-[calc(4.5rem+env(safe-area-inset-top,0px))] bg-surface-bg">
-      <Container className="pt-[120px] pb-12 md:pb-16">
+      <Container className="pt-[120px] pb-8 sm:pb-10 md:pb-12 lg:pb-14 xl:pb-16">
         <nav
           className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-text-tertiary"
           aria-label={cleanCopy("Breadcrumb")}

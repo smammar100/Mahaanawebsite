@@ -52,7 +52,7 @@ export function AboutHero() {
     >
       <div className="mx-auto w-full max-w-[1300px] border-x border-surface-stroke/80">
         <Container className="px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
-          <div className="flex min-w-0 w-full flex-col items-start gap-10 pt-16 pb-16">
+          <div className="flex min-w-0 w-full flex-col items-start gap-10 section-y">
             <div className="min-w-0 w-full max-w-[860px]">
               <H1
                 id="about-hero-heading"

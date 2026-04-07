@@ -16,14 +16,14 @@ export default function PrivacyPolicyPage() {
     <div className="-mt-[calc(4.5rem+env(safe-area-inset-top,0px))] bg-surface-bg">
       <article>
         {/* Hero */}
-        <section className="py-12 sm:py-16 lg:py-24">
+        <section className="section-y">
           <Container className="mx-auto flex max-w-5xl flex-col items-center gap-4 text-center">
             <H1 className="max-w-3xl text-text-primary">Privacy Policy</H1>
           </Container>
         </section>
 
         {/* Content */}
-        <section className="pt-10 pb-16">
+        <section className="section-y">
           <Container className="max-w-3xl readable-line-length">
             <H3 className="mt-8 mb-3 text-text-primary">
               Your Personal Information

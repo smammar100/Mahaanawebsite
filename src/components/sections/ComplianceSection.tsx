@@ -60,7 +60,7 @@ export function ComplianceSection({ className, showEyebrowAndCta = true }: Compl
       ref={ref}
       id="compliance"
       className={cx(
-        "section-fade-in-up w-full border-t border-surface-stroke py-8 sm:py-10 md:py-12 lg:py-14 xl:py-16",
+        "section-fade-in-up w-full section-y",
         isVisible && "visible",
         className
       )}

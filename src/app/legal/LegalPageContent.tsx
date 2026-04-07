@@ -93,7 +93,7 @@ export function LegalPageContent({
       </Dialog>
 
       {/* Hero */}
-      <section className="flex flex-col justify-center items-center pt-[172px] pb-12 sm:pb-16 lg:pb-24">
+      <section className="flex flex-col items-center justify-center pt-[172px] pb-8 sm:pb-10 md:pb-12 lg:pb-14 xl:pb-16">
         <Container className="mx-auto flex max-w-5xl flex-col items-center gap-4 text-center">
           <H1 className="max-w-3xl text-text-primary">
             Legal &{" "}
@@ -110,7 +110,7 @@ export function LegalPageContent({
       </section>
 
       {/* Content */}
-      <main className="pb-16 pt-10 md:pb-20">
+      <main className="section-y">
         <Container className="max-w-[960px] readable-line-length space-y-16">
           {/* Company Information */}
           <div>

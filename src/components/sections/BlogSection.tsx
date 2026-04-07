@@ -111,7 +111,7 @@ export function BlogSection({
     <section
       ref={ref}
       className={cn(
-        "section-fade-in-up py-8 sm:py-10 md:py-12 lg:py-14 xl:py-16",
+        "section-fade-in-up section-y",
         isVisible && "visible",
         className
       )}
