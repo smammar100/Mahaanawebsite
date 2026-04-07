@@ -1,10 +1,12 @@
 "use client";
 
 import Image from "next/image";
+import { RockingChair, Sprout } from "lucide-react";
 import { CheckCircle } from "@untitledui/icons";
 import { Container } from "@/components/layout/Container";
 import { H3, TextRegular } from "@/components/ui/Typography";
 import { Button } from "@/components/base/buttons/button";
+import { GlowBadge } from "@/components/ui/glow-badge";
 import { cleanCopy } from "@/lib/copy-utils";
 import { useInView } from "@/hooks/useInView";
 import { cx } from "@/utils/cx";
@@ -39,6 +41,7 @@ function CheckItem({ children }: { children: React.ReactNode }) {
 
 interface FeatureBlockProps {
   badge: string;
+  badgeIcon?: React.ReactNode;
   title: string;
   description: string;
   features: string[];
@@ -50,6 +53,7 @@ interface FeatureBlockProps {
 
 function FeatureBlock({
   badge,
+  badgeIcon,
   title,
   description,
   features,
@@ -67,9 +71,12 @@ function FeatureBlock({
       >
         {/* Content */}
         <div className="flex flex-1 flex-col order-2 lg:order-1">
-          <p className="text-label text-primary-150 mb-2">
-            {cleanCopy(badge)}
-          </p>
+          <div className="mb-2">
+            <GlowBadge
+              text={cleanCopy(badge)}
+              leadingIcon={badgeIcon}
+            />
+          </div>
           <H3 className="text-white/95 mb-4">
             {title}
           </H3>
@@ -140,6 +147,7 @@ export function FeaturesSection() {
         <div className="flex flex-col gap-16 sm:gap-20 lg:gap-24">
           <FeatureBlock
             badge="MAHAANA SAVE+"
+            badgeIcon={<Sprout aria-hidden className="size-4" strokeWidth={2} />}
             title="High yield savings, without the bank restrictions."
             description="Protect your purchasing power and build your safety net. Save+ gives you access to institutional level, low risk funds that deliver steady growth, all with the flexibility to access your money whenever you need it."
             features={savePlusFeatures}
@@ -149,6 +157,9 @@ export function FeaturesSection() {
           />
           <FeatureBlock
             badge="MAHAANA RETIREMENT"
+            badgeIcon={
+              <RockingChair aria-hidden className="size-4" strokeWidth={2} />
+            }
             title="Build your future. Cut your tax bill by up to 20%."
             description="Grow your long term savings with a Shariah compliant, tax efficient retirement plan. We build a personalized portfolio based on your goals, allowing you to build wealth securely while significantly reducing your monthly income tax."
             features={retirementFeatures}
