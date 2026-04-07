@@ -4,6 +4,7 @@ import { motion } from "motion/react";
 import { Container } from "@/components/layout/Container";
 import { H3, TextMedium, TextSmall } from "@/components/ui/Typography";
 import type { MiietfDistributionsFundData } from "@/lib/miietf-fund-api";
+import { fundTableCardClass, fundTableFixedClass } from "@/components/ui/fundTableClasses";
 import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
 
 /** Parse DD/MM/YYYY (with or without spaces) to YYYY-MM-DD for sorting. */
@@ -51,17 +52,23 @@ export function MIIETFDistributionsSection({ fundData }: { fundData?: MiietfDist
           Distributions
         </H3>
 
-        <div className="overflow-x-auto rounded-2xl border border-surface-stroke bg-surface-card">
+        <div className={fundTableCardClass}>
           <table
-            className="w-full min-w-[480px] border-collapse"
+            className={fundTableFixedClass}
             role="table"
             aria-label="Distributions"
           >
+            <colgroup>
+              <col className="w-1/4" />
+              <col className="w-1/4" />
+              <col className="w-1/4" />
+              <col className="w-1/4" />
+            </colgroup>
             <thead>
               <tr>
                 <th
                   scope="col"
-                  className="bg-surface-stroke px-4 py-4 text-center sm:px-6"
+                  className="bg-surface-stroke px-2 py-4 text-center sm:px-3"
                 >
                   <TextSmall
                     weight="semibold"
@@ -72,7 +79,7 @@ export function MIIETFDistributionsSection({ fundData }: { fundData?: MiietfDist
                 </th>
                 <th
                   scope="col"
-                  className="bg-surface-stroke px-4 py-4 text-center sm:px-6"
+                  className="bg-surface-stroke px-2 py-4 text-center sm:px-3"
                 >
                   <TextSmall
                     weight="semibold"
@@ -83,7 +90,7 @@ export function MIIETFDistributionsSection({ fundData }: { fundData?: MiietfDist
                 </th>
                 <th
                   scope="col"
-                  className="bg-surface-stroke px-4 py-4 text-center sm:px-6"
+                  className="bg-surface-stroke px-2 py-4 text-center sm:px-3"
                 >
                   <TextSmall
                     weight="semibold"
@@ -94,7 +101,7 @@ export function MIIETFDistributionsSection({ fundData }: { fundData?: MiietfDist
                 </th>
                 <th
                   scope="col"
-                  className="bg-surface-stroke px-4 py-4 text-center sm:px-6"
+                  className="bg-surface-stroke px-2 py-4 text-center sm:px-3"
                 >
                   <TextSmall
                     weight="semibold"
@@ -111,7 +118,7 @@ export function MIIETFDistributionsSection({ fundData }: { fundData?: MiietfDist
                   key={row.date}
                   className="border-b border-surface-stroke last:border-b-0"
                 >
-                  <td className="px-4 py-5 text-center sm:px-6">
+                  <td className="min-w-0 px-2 py-5 text-center sm:px-3">
                     <TextMedium
                       weight="semibold"
                       className="text-text-primary"
@@ -119,7 +126,7 @@ export function MIIETFDistributionsSection({ fundData }: { fundData?: MiietfDist
                       {row.date}
                     </TextMedium>
                   </td>
-                  <td className="px-4 py-5 text-center sm:px-6">
+                  <td className="min-w-0 px-2 py-5 text-center sm:px-3">
                     <TextMedium
                       weight="semibold"
                       className="text-text-primary"
@@ -127,7 +134,7 @@ export function MIIETFDistributionsSection({ fundData }: { fundData?: MiietfDist
                       {row.pkrPerUnit}
                     </TextMedium>
                   </td>
-                  <td className="px-4 py-5 text-center sm:px-6">
+                  <td className="min-w-0 px-2 py-5 text-center sm:px-3">
                     <TextMedium
                       weight="semibold"
                       className="text-text-primary"
@@ -135,7 +142,7 @@ export function MIIETFDistributionsSection({ fundData }: { fundData?: MiietfDist
                       {row.exNav}
                     </TextMedium>
                   </td>
-                  <td className="px-4 py-5 text-center sm:px-6">
+                  <td className="min-w-0 px-2 py-5 text-center sm:px-3">
                     <TextMedium
                       weight="semibold"
                       className="text-text-primary"

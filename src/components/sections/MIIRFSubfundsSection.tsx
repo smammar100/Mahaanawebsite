@@ -7,6 +7,7 @@ import { Container } from "@/components/layout/Container";
 import { H3, H4, TextMedium, TextRegular, TextSmall } from "@/components/ui/Typography";
 import { HighchartsVariablePieChart } from "@/components/ui/HighchartsVariablePieChart";
 import { HighchartsPerformanceChart } from "@/components/ui/HighchartsPerformanceChart";
+import { fundTableCardClass, fundTableFixedClass } from "@/components/ui/fundTableClasses";
 import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
 import { cx } from "@/utils/cx";
 import { cleanCopy } from "@/lib/copy-utils";
@@ -468,17 +469,28 @@ export function MIIRFSubfundsSection({ fundData }: { fundData?: MiirfSubfundsFun
               </div>
             </div>
 
-            <div className="overflow-x-auto rounded-2xl border border-surface-stroke bg-surface-card">
+            <div className={fundTableCardClass}>
               <table
-                className="w-full min-w-[600px] border-collapse"
+                className={fundTableFixedClass}
                 role="table"
                 aria-label="Historical performance by period"
               >
+                <colgroup>
+                  <col style={{ width: "22%" }} />
+                  {data.performanceTable.rows.map((r) => (
+                    <col
+                      key={r.period}
+                      style={{
+                        width: `${78 / data.performanceTable.rows.length}%`,
+                      }}
+                    />
+                  ))}
+                </colgroup>
                 <thead>
                   <tr>
                     <th
                       scope="col"
-                      className="bg-surface-stroke px-4 py-4 text-left sm:px-6"
+                      className="min-w-0 bg-surface-stroke px-2 py-3 text-left sm:px-3"
                     >
                       <TextSmall
                         weight="semibold"
@@ -491,7 +503,7 @@ export function MIIRFSubfundsSection({ fundData }: { fundData?: MiirfSubfundsFun
                       <th
                         key={r.period}
                         scope="col"
-                        className="bg-surface-stroke px-4 py-4 text-center sm:px-6"
+                        className="bg-surface-stroke px-1 py-3 text-center sm:px-2"
                       >
                         <TextSmall
                           weight="semibold"
@@ -505,8 +517,8 @@ export function MIIRFSubfundsSection({ fundData }: { fundData?: MiirfSubfundsFun
                 </thead>
                 <tbody>
                   <tr className="border-b border-surface-stroke">
-                    <td className="px-4 py-5 sm:px-6">
-                      <div className="flex items-center gap-3">
+                    <td className="min-w-0 px-2 py-4 sm:px-3">
+                      <div className="flex min-w-0 items-center gap-2 sm:gap-3">
                         <span
                           className="h-3.5 w-3.5 shrink-0 rounded"
                           style={{
@@ -516,7 +528,7 @@ export function MIIRFSubfundsSection({ fundData }: { fundData?: MiirfSubfundsFun
                         />
                         <TextMedium
                           weight="semibold"
-                          className="text-text-primary"
+                          className="min-w-0 truncate text-text-primary sm:whitespace-normal"
                         >
                           {data.performanceTable.subfundLabel}
                         </TextMedium>
@@ -525,7 +537,7 @@ export function MIIRFSubfundsSection({ fundData }: { fundData?: MiirfSubfundsFun
                     {data.performanceTable.rows.map((r) => (
                       <td
                         key={r.period}
-                        className="px-4 py-5 text-center sm:px-6"
+                        className="px-1 py-4 text-center sm:px-2"
                       >
                         <TextMedium
                           weight="semibold"
@@ -537,8 +549,8 @@ export function MIIRFSubfundsSection({ fundData }: { fundData?: MiirfSubfundsFun
                     ))}
                   </tr>
                   <tr className="border-b border-surface-stroke last:border-b-0">
-                    <td className="px-4 py-5 sm:px-6">
-                      <div className="flex items-center gap-3">
+                    <td className="min-w-0 px-2 py-4 sm:px-3">
+                      <div className="flex min-w-0 items-center gap-2 sm:gap-3">
                         <span
                           className="h-3.5 w-3.5 shrink-0 rounded"
                           style={{
@@ -548,7 +560,7 @@ export function MIIRFSubfundsSection({ fundData }: { fundData?: MiirfSubfundsFun
                         />
                         <TextMedium
                           weight="semibold"
-                          className="text-text-primary"
+                          className="min-w-0 truncate text-text-primary sm:whitespace-normal"
                         >
                           {data.performanceTable.benchmarkLabel}
                         </TextMedium>
@@ -557,7 +569,7 @@ export function MIIRFSubfundsSection({ fundData }: { fundData?: MiirfSubfundsFun
                     {data.performanceTable.rows.map((r) => (
                       <td
                         key={r.period}
-                        className="px-4 py-5 text-center sm:px-6"
+                        className="px-1 py-4 text-center sm:px-2"
                       >
                         <TextMedium
                           weight="semibold"
@@ -585,18 +597,22 @@ export function MIIRFSubfundsSection({ fundData }: { fundData?: MiirfSubfundsFun
                   ariaLabel={`${data.pieSectionTitle} by percentage`}
                 />
               </div>
-              <div className="min-w-0 flex-1 lg:w-1/2 overflow-x-auto">
-                <div className="rounded-2xl border border-surface-stroke bg-surface-card min-w-[280px]">
+              <div className="min-w-0 flex-1 lg:w-1/2">
+                <div className={fundTableCardClass}>
                   <table
-                    className="w-full border-collapse"
+                    className={fundTableFixedClass}
                     role="table"
                     aria-label={`${data.pieSectionTitle} by percentage`}
                   >
+                    <colgroup>
+                      <col className="min-w-0 w-[74%]" />
+                      <col className="w-[26%]" />
+                    </colgroup>
                     <thead>
                       <tr>
                         <th
                           scope="col"
-                          className="bg-surface-stroke px-4 py-4 text-left sm:px-6"
+                          className="min-w-0 bg-surface-stroke px-3 py-4 text-left sm:px-4"
                         >
                           <TextSmall
                             weight="semibold"
@@ -607,7 +623,7 @@ export function MIIRFSubfundsSection({ fundData }: { fundData?: MiirfSubfundsFun
                         </th>
                         <th
                           scope="col"
-                          className="bg-surface-stroke px-4 py-4 text-center sm:px-6"
+                          className="bg-surface-stroke px-2 py-4 text-center sm:px-3"
                         >
                           <TextSmall
                             weight="semibold"
@@ -624,22 +640,22 @@ export function MIIRFSubfundsSection({ fundData }: { fundData?: MiirfSubfundsFun
                           key={`holding-${index}`}
                           className="border-b border-surface-stroke last:border-b-0"
                         >
-                          <td className="px-4 py-5 sm:px-6">
-                            <div className="flex items-center gap-3">
+                          <td className="min-w-0 px-3 py-5 sm:px-4">
+                            <div className="flex min-w-0 items-start gap-2 sm:items-center sm:gap-3">
                               <span
-                                className="h-3.5 w-3.5 shrink-0 rounded"
+                                className="mt-0.5 h-3.5 w-3.5 shrink-0 rounded sm:mt-0"
                                 style={{ backgroundColor: row.color }}
                                 aria-hidden
                               />
                               <TextMedium
                                 weight="semibold"
-                                className="text-text-primary"
+                                className="min-w-0 break-words leading-snug text-text-primary"
                               >
                                 {row.name}
                               </TextMedium>
                             </div>
                           </td>
-                          <td className="px-4 py-5 text-center sm:px-6">
+                          <td className="px-2 py-5 text-center sm:px-3">
                             <TextMedium
                               weight="semibold"
                               className="text-text-primary"

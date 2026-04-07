@@ -8,6 +8,7 @@ import { H3, H4, TextMedium, TextSmall } from "@/components/ui/Typography";
 import { HighchartsVariablePieChart } from "@/components/ui/HighchartsVariablePieChart";
 import type { MicfPortfolioFundData } from "@/lib/micf-fund-api";
 import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
+import { fundTableCardClass, fundTableFixedClass } from "@/components/ui/fundTableClasses";
 import { cx } from "@/utils/cx";
 
 const ASSET_COLORS = {
@@ -454,25 +455,30 @@ export function MICFPortfolioSection({
                   currentData={columnChartCurrentData}
                 />
               </div>
-              <div className="overflow-x-auto rounded-2xl border border-surface-stroke bg-surface-card">
+              <div className={fundTableCardClass}>
                 <table
-                  className="w-full min-w-[400px] border-collapse"
+                  className={fundTableFixedClass}
                   role="table"
                   aria-label="Asset allocation by category"
                 >
+                  <colgroup>
+                    <col className="min-w-0 w-[42%]" />
+                    <col className="w-[29%]" />
+                    <col className="w-[29%]" />
+                  </colgroup>
                   <thead>
                     <tr>
-                      <th scope="col" className="bg-surface-stroke px-4 py-4 text-left sm:px-6">
+                      <th scope="col" className="min-w-0 bg-surface-stroke px-3 py-4 text-left sm:px-4">
                         <TextSmall weight="semibold" className="text-text-tertiary">
                           Items
                         </TextSmall>
                       </th>
-                      <th scope="col" className="bg-surface-stroke px-4 py-4 text-center sm:px-6">
+                      <th scope="col" className="bg-surface-stroke px-2 py-4 text-center sm:px-3">
                         <TextSmall weight="semibold" className="text-text-tertiary">
                           Current month
                         </TextSmall>
                       </th>
-                      <th scope="col" className="bg-surface-stroke px-4 py-4 text-center sm:px-6">
+                      <th scope="col" className="bg-surface-stroke px-2 py-4 text-center sm:px-3">
                         <TextSmall weight="semibold" className="text-text-tertiary">
                           Previous month
                         </TextSmall>
@@ -482,24 +488,27 @@ export function MICFPortfolioSection({
                   <tbody>
                     {assetAllocationRows.map((row) => (
                       <tr key={row.item} className="border-b border-surface-stroke last:border-b-0">
-                        <td className="px-4 py-5 sm:px-6">
-                          <div className="flex items-center gap-3">
+                        <td className="min-w-0 px-3 py-5 sm:px-4">
+                          <div className="flex min-w-0 items-start gap-2 sm:items-center sm:gap-3">
                             <span
-                              className="h-3.5 w-3.5 shrink-0 rounded"
+                              className="mt-0.5 h-3.5 w-3.5 shrink-0 rounded sm:mt-0"
                               style={{ backgroundColor: row.color }}
                               aria-hidden
                             />
-                            <TextMedium weight="semibold" className="text-text-primary">
+                            <TextMedium
+                              weight="semibold"
+                              className="min-w-0 break-words leading-snug text-text-primary"
+                            >
                               {row.item}
                             </TextMedium>
                           </div>
                         </td>
-                        <td className="px-4 py-5 text-center sm:px-6">
+                        <td className="px-2 py-5 text-center sm:px-3">
                           <TextMedium weight="semibold" className="text-text-primary">
                             {row.currentMonth}
                           </TextMedium>
                         </td>
-                        <td className="px-4 py-5 text-center sm:px-6">
+                        <td className="px-2 py-5 text-center sm:px-3">
                           <TextMedium weight="semibold" className="text-text-primary">
                             {row.previousMonth}
                           </TextMedium>
@@ -519,20 +528,24 @@ export function MICFPortfolioSection({
             </H4>
             <div className="flex min-w-0 w-full flex-col gap-6 lg:flex-row lg:gap-6">
               <div className="min-w-0 flex-1 lg:w-1/2">
-                <div className="overflow-x-auto rounded-2xl border border-surface-stroke bg-surface-card">
+                <div className={fundTableCardClass}>
                   <table
-                    className="w-full min-w-[320px] border-collapse"
+                    className={fundTableFixedClass}
                     role="table"
                     aria-label="Credit quality by rating"
                   >
+                    <colgroup>
+                      <col className="min-w-0 w-[74%]" />
+                      <col className="w-[26%]" />
+                    </colgroup>
                     <thead>
                       <tr>
-                        <th scope="col" className="bg-surface-stroke px-4 py-4 text-left sm:px-6">
+                        <th scope="col" className="min-w-0 bg-surface-stroke px-3 py-4 text-left sm:px-4">
                           <TextSmall weight="semibold" className="text-text-tertiary">
                             Items
                           </TextSmall>
                         </th>
-                        <th scope="col" className="bg-surface-stroke px-4 py-4 text-center sm:px-6">
+                        <th scope="col" className="bg-surface-stroke px-2 py-4 text-center sm:px-3">
                           <TextSmall weight="semibold" className="text-text-tertiary">
                             Percentage
                           </TextSmall>
@@ -548,19 +561,22 @@ export function MICFPortfolioSection({
                             hoveredCreditIndex === index && "bg-surface-stroke"
                           )}
                         >
-                          <td className="px-4 py-5 sm:px-6">
-                            <div className="flex items-center gap-3">
+                          <td className="min-w-0 px-3 py-5 sm:px-4">
+                            <div className="flex min-w-0 items-start gap-2 sm:items-center sm:gap-3">
                               <span
-                                className="h-3.5 w-3.5 shrink-0 rounded"
+                                className="mt-0.5 h-3.5 w-3.5 shrink-0 rounded sm:mt-0"
                                 style={{ backgroundColor: row.color }}
                                 aria-hidden
                               />
-                              <TextMedium weight="semibold" className="text-text-primary">
+                              <TextMedium
+                                weight="semibold"
+                                className="min-w-0 break-words leading-snug text-text-primary"
+                              >
                                 {row.item}
                               </TextMedium>
                             </div>
                           </td>
-                          <td className="px-4 py-5 text-center sm:px-6">
+                          <td className="px-2 py-5 text-center sm:px-3">
                             <TextMedium weight="semibold" className="text-text-primary">
                               {row.percentage}
                             </TextMedium>
@@ -595,20 +611,24 @@ export function MICFPortfolioSection({
                 />
               </div>
               <div className="min-w-0 flex-1 lg:w-1/2">
-                <div className="overflow-x-auto rounded-2xl border border-surface-stroke bg-surface-card">
+                <div className={fundTableCardClass}>
                   <table
-                    className="w-full min-w-[320px] border-collapse"
+                    className={fundTableFixedClass}
                     role="table"
                     aria-label="Top holdings by percentage"
                   >
+                    <colgroup>
+                      <col className="min-w-0 w-[74%]" />
+                      <col className="w-[26%]" />
+                    </colgroup>
                     <thead>
                       <tr>
-                        <th scope="col" className="bg-surface-stroke px-4 py-4 text-left sm:px-6">
+                        <th scope="col" className="min-w-0 bg-surface-stroke px-3 py-4 text-left sm:px-4">
                           <TextSmall weight="semibold" className="text-text-tertiary">
                             Instrument
                           </TextSmall>
                         </th>
-                        <th scope="col" className="bg-surface-stroke px-4 py-4 text-center sm:px-6">
+                        <th scope="col" className="bg-surface-stroke px-2 py-4 text-center sm:px-3">
                           <TextSmall weight="semibold" className="text-text-tertiary">
                             Percentage
                           </TextSmall>
@@ -624,19 +644,22 @@ export function MICFPortfolioSection({
                             hoveredHoldingsIndex === index && "bg-surface-stroke"
                           )}
                         >
-                          <td className="px-4 py-5 sm:px-6">
-                            <div className="flex items-center gap-3">
+                          <td className="min-w-0 px-3 py-5 sm:px-4">
+                            <div className="flex min-w-0 items-start gap-2 sm:items-center sm:gap-3">
                               <span
-                                className="h-3.5 w-3.5 shrink-0 rounded"
+                                className="mt-0.5 h-3.5 w-3.5 shrink-0 rounded sm:mt-0"
                                 style={{ backgroundColor: row.color }}
                                 aria-hidden
                               />
-                              <TextMedium weight="semibold" className="text-text-primary">
+                              <TextMedium
+                                weight="semibold"
+                                className="min-w-0 break-words leading-snug text-text-primary"
+                              >
                                 {row.name}
                               </TextMedium>
                             </div>
                           </td>
-                          <td className="px-4 py-5 text-center sm:px-6">
+                          <td className="px-2 py-5 text-center sm:px-3">
                             <TextMedium weight="semibold" className="text-text-primary">
                               {row.percentage}
                             </TextMedium>
