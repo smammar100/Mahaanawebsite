@@ -7,6 +7,7 @@ const DEPARTMENT_OPTIONS = [
   { title: "Data", value: "Data" },
   { title: "Technology & Operations", value: "Technology & Operations" },
   { title: "Sales", value: "Sales" },
+  { title: "BD/corporate", value: "BD/corporate" },
   { title: "Marketing", value: "Marketing" },
   { title: "Operations", value: "Operations" },
   { title: "People", value: "People" },
@@ -55,7 +56,6 @@ export const jobType = defineType({
       options: {
         list: [
           { title: "Full-time", value: "Full-time" },
-          { title: "Full-Time", value: "Full-Time" },
           { title: "Part-time", value: "Part-time" },
           { title: "Contract", value: "Contract" },
           { title: "Internship", value: "Internship" },
