@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { buildPageMetadata } from "@/lib/metadata";
-import { getLatestBlogPosts } from "@/lib/sanity/fetch";
+import { getLatestBlogPosts, getReviewsForHome } from "@/lib/sanity/fetch";
 import { InvestHero } from "@/components/sections/InvestHero";
 import { LogoStrip } from "@/components/sections/LogoStrip";
 import { HomeBelowFold } from "@/components/sections/HomeBelowFold";
@@ -13,13 +13,16 @@ export const metadata: Metadata = buildPageMetadata({
 });
 
 export default async function Home() {
-  const blogPosts = await getLatestBlogPosts();
+  const [blogPosts, reviews] = await Promise.all([
+    getLatestBlogPosts(),
+    getReviewsForHome(),
+  ]);
 
   return (
     <div className="-mt-[calc(4.5rem+env(safe-area-inset-top,0px))] bg-surface-bg">
       <InvestHero />
       <LogoStrip />
-      <HomeBelowFold posts={blogPosts} />
+      <HomeBelowFold posts={blogPosts} reviews={reviews} />
     </div>
   );
 }

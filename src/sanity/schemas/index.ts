@@ -5,6 +5,7 @@ import { investorEducationArticleType } from "./investorEducationArticle";
 import { investorEducationNewsType } from "./investorEducationNews";
 import { investorEducationVideoPodcastType } from "./investorEducationVideoPodcast";
 import { jobType } from "./job";
+import { reviewType } from "./review";
 import { legalDocumentType } from "./legalDocument";
 import { accordion } from "./objects/accordion";
 import { blockContent } from "./objects/blockContent";
@@ -31,6 +32,7 @@ export const schemaTypes: import("sanity").SchemaTypeDefinition[] = [
   investorEducationNewsType,
   investorEducationVideoPodcastType,
   jobType,
+  reviewType,
   legalDocumentType,
   section,
   videoEmbed,

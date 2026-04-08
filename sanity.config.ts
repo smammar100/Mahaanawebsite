@@ -39,6 +39,7 @@ export default defineConfig({
             S.documentTypeListItem("legalDocument").title("Legal Documents"),
             S.documentTypeListItem("job").title("Jobs"),
             S.documentTypeListItem("faq").title("Help Center FAQs"),
+            S.documentTypeListItem("review").title("Reviews"),
           ]),
     }),
   ],

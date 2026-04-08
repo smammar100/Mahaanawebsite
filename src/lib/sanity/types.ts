@@ -49,6 +49,16 @@ export interface SanityLegalDocument {
   fileUrl: string | null;
 }
 
+export interface SanityReview {
+  _id: string;
+  authorName: string | null;
+  quote: string | null;
+  avatarUrl: string | null;
+  rating: number | null;
+  reviewDate: string | null;
+  source: string | null;
+}
+
 export interface SanityJob {
   _id: string;
   title: string | null;

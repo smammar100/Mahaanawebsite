@@ -198,3 +198,27 @@ export const jobsSitemapQuery = `
     "lastModified": coalesce(_updatedAt, publishedAt)
   }
 `;
+
+const reviewFields = `
+  _id,
+  authorName,
+  quote,
+  avatarUrl,
+  rating,
+  reviewDate,
+  source
+`;
+
+/** App / Play Store reviews (newest first). */
+export const reviewsQuery = `
+  *[_type == "review"] | order(reviewDate desc) {
+    ${reviewFields}
+  }
+`;
+
+/** Home testimonial carousel: cap to limit DOM size. */
+export const reviewsForHomeQuery = `
+  *[_type == "review"] | order(reviewDate desc)[0...50] {
+    ${reviewFields}
+  }
+`;

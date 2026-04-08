@@ -15,6 +15,8 @@ import {
   jobBySlugQuery,
   jobSlugsQuery,
   jobsSitemapQuery,
+  reviewsQuery,
+  reviewsForHomeQuery,
 } from "./queries";
 import type {
   SanityInvestorEducation,
@@ -23,6 +25,7 @@ import type {
   SanityFaq,
   SanityLegalDocument,
   SanityJob,
+  SanityReview,
 } from "./types";
 import {
   DEFAULT_ARTICLE_AUTHOR,
@@ -236,11 +239,53 @@ export async function getHelpCenterFaqs(): Promise<HelpCenterFaqItem[]> {
   }
 }
 
-/** Stub: Reviews no longer in Sanity; returns empty array. */
-export async function getReviews(): Promise<
-  { _id: string; quote?: string | null; authorName?: string | null; authorImage?: unknown; rating?: number | null; source?: string | null }[]
-> {
-  return [];
+/** User reviews from Sanity (`review` documents). */
+export type ReviewForDisplay = SanityReview & {
+  /** Optional Sanity image asset (legacy / manual uploads). */
+  authorImage?: unknown;
+};
+
+function mapReviewRow(r: SanityReview | null): ReviewForDisplay | null {
+  if (!r?._id || !r.quote?.trim()) return null;
+  return {
+    _id: r._id,
+    authorName: r.authorName ?? null,
+    quote: r.quote ?? null,
+    avatarUrl: r.avatarUrl ?? null,
+    rating: r.rating ?? null,
+    reviewDate: r.reviewDate ?? null,
+    source: r.source ?? null,
+  };
+}
+
+/** All reviews (e.g. `/reviews` page), newest first. */
+export async function getReviews(): Promise<ReviewForDisplay[]> {
+  const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
+  if (!projectId) return [];
+
+  try {
+    const raw = (await sanityClient.fetch(reviewsQuery)) as SanityReview[] | null;
+    if (!Array.isArray(raw)) return [];
+    return raw.map((row) => mapReviewRow(row)).filter((x): x is ReviewForDisplay => x != null);
+  } catch {
+    return [];
+  }
+}
+
+/** Home testimonial carousel (max 50). */
+export async function getReviewsForHome(): Promise<ReviewForDisplay[]> {
+  const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
+  if (!projectId) return [];
+
+  try {
+    const raw = (await sanityClient.fetch(
+      reviewsForHomeQuery
+    )) as SanityReview[] | null;
+    if (!Array.isArray(raw)) return [];
+    return raw.map((row) => mapReviewRow(row)).filter((x): x is ReviewForDisplay => x != null);
+  } catch {
+    return [];
+  }
 }
 
 export type FaqProduct = "micf" | "miietf" | "miirf" | "save-plus" | "retirement";
@@ -252,8 +297,9 @@ export interface FaqItemForSection {
 
 /** Stub: FAQs no longer in Sanity; returns empty array. */
 export async function getFaqByProduct(
-  _product: FaqProduct
+  product: FaqProduct
 ): Promise<FaqItemForSection[]> {
+  void product;
   return [];
 }
 

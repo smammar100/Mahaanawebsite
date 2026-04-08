@@ -36,10 +36,15 @@ export default async function ReviewsPage() {
                 const authorImageUrl = review.authorImage
                   ? urlFor(review.authorImage).width(96).height(96).url()
                   : null;
+                const avatarUrl =
+                  typeof review.avatarUrl === "string" && review.avatarUrl.trim()
+                    ? review.avatarUrl.trim()
+                    : null;
+                const avatarSrc = authorImageUrl ?? avatarUrl;
                 return (
                   <div
                     key={review._id}
-                    className="rounded-xl border border-surface-stroke bg-surface-card p-6 dark:bg-surface-card"
+                    className="flex h-full min-h-0 flex-col rounded-xl border border-surface-stroke bg-surface-card p-6 dark:bg-surface-card"
                   >
                     {review.rating != null ? (
                       <div className="mb-3 flex gap-0.5" aria-label={`Rating: ${review.rating} out of 5`}>
@@ -58,14 +63,14 @@ export default async function ReviewsPage() {
                         ))}
                       </div>
                     ) : null}
-                    <blockquote className="text-text-tertiary">
+                    <blockquote className="line-clamp-5 min-h-[7.5rem] flex-1 overflow-hidden leading-relaxed text-text-tertiary">
                       &ldquo;{cleanCopy(review.quote ?? "")}&rdquo;
                     </blockquote>
-                    <div className="mt-5 flex items-center gap-3 border-t border-surface-stroke pt-4">
-                      {authorImageUrl ? (
+                    <div className="mt-5 flex shrink-0 items-center gap-3 border-t border-surface-stroke pt-4">
+                      {avatarSrc ? (
                         <div className="relative size-10 shrink-0 overflow-hidden rounded-full ring-1 ring-input">
                           <Image
-                            src={authorImageUrl}
+                            src={avatarSrc}
                             alt={review.authorName ? `Photo of ${review.authorName}` : "Review author"}
                             fill
                             className="object-cover"
@@ -77,11 +82,6 @@ export default async function ReviewsPage() {
                         <p className="text-text-primary">
                           {review.authorName ?? "Anonymous"}
                         </p>
-                        {review.source ? (
-                          <p className="text-text-tertiary">
-                            {review.source}
-                          </p>
-                        ) : null}
                       </div>
                     </div>
                   </div>

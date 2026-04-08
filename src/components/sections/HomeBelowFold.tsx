@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import type { BlogPostForSection } from "@/lib/sanity/fetch";
+import type { BlogPostForSection, ReviewForDisplay } from "@/lib/sanity/fetch";
 
 const WhyMahaanaTrade = dynamic(
   () => import("@/components/sections/WhyMahaanaTrade").then((m) => m.WhyMahaanaTrade),
@@ -34,15 +34,16 @@ const Cta6Section = dynamic(
 
 export interface HomeBelowFoldProps {
   posts: BlogPostForSection[];
+  reviews: ReviewForDisplay[];
 }
 
-export function HomeBelowFold({ posts }: HomeBelowFoldProps) {
+export function HomeBelowFold({ posts, reviews }: HomeBelowFoldProps) {
   return (
     <>
       <WhyMahaanaTrade />
       <FeatureCards />
       <FeaturesSection />
-      <TestimonialsSection />
+      <TestimonialsSection reviews={reviews} />
       <ComplianceSection />
       <BlogSection posts={posts} />
       <Cta6Section />
