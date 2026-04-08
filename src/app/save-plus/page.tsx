@@ -5,6 +5,7 @@ import { BenefitsSection } from "@/components/sections/BenefitsSection";
 import { Cta6Section } from "@/components/sections/Cta6Section";
 import { FAQStructuredData } from "@/components/FAQStructuredData";
 import { BreadcrumbStructuredData } from "@/components/BreadcrumbStructuredData";
+import { SavePlusCompoundCalculatorSection } from "@/components/sections/SavePlusCompoundCalculatorSection";
 import { FAQSavePlusSection } from "@/components/sections/FAQSavePlusSection";
 import { SavePlusHero } from "@/components/sections/SavePlusHero";
 import { WhySavePlusSection } from "@/components/sections/WhySavePlusSection";
@@ -26,6 +27,7 @@ export default async function SavePlusPage() {
       <SavePlusHero />
       <WhySavePlusSection />
       <BenefitsSection cards={savePlusBenefitsCards} />
+      <SavePlusCompoundCalculatorSection />
       <FAQSavePlusSection items={faqItems} />
       <Cta6Section />
     </div>

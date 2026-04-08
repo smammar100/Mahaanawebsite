@@ -4,6 +4,7 @@ import { useMemo } from "react";
 import Highcharts from "highcharts";
 import type { Options } from "highcharts";
 import HighchartsReact from "highcharts-react-official";
+import { formatPkrAbbreviated } from "@/lib/formatters";
 
 export interface InvestmentLineSeries {
   name: string;
@@ -16,27 +17,6 @@ export interface HighchartsInvestmentLineChartInnerProps {
   series: InvestmentLineSeries[];
   ariaLabel: string;
 }
-
-const formatPkr = (value: number) => {
-  const absoluteValue = Math.abs(value);
-
-  if (absoluteValue >= 1_000_000_000) {
-    return `PKR ${(value / 1_000_000_000).toFixed(2)}B`;
-  }
-
-  if (absoluteValue >= 1_000_000) {
-    return `PKR ${(value / 1_000_000).toFixed(2)}M`;
-  }
-
-  if (absoluteValue >= 1_000) {
-    return `PKR ${(value / 1_000).toFixed(2)}K`;
-  }
-
-  return `PKR ${value.toLocaleString("en-PK", {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  })}`;
-};
 
 export function HighchartsInvestmentLineChartInner({
   categories,
@@ -77,7 +57,7 @@ export function HighchartsInvestmentLineChartInner({
             fontSize: "12px",
           },
           formatter: function () {
-            return formatPkr(Number(this.value));
+            return formatPkrAbbreviated(Number(this.value));
           },
         },
       },
@@ -101,7 +81,7 @@ export function HighchartsInvestmentLineChartInner({
           const rows = (ctx.points ?? [])
             .map((point) => {
               const value = Number(point.y ?? 0);
-              return `<tr><td style="padding:2px 8px 2px 0"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${point.color ?? "#666"};margin-right:6px"></span>${point.series.name}</td><td style="padding:2px 0;font-weight:600">${formatPkr(value)}</td></tr>`;
+              return `<tr><td style="padding:2px 8px 2px 0"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${point.color ?? "#666"};margin-right:6px"></span>${point.series.name}</td><td style="padding:2px 0;font-weight:600">${formatPkrAbbreviated(value)}</td></tr>`;
             })
             .join("");
           const xLabel = String(ctx.x ?? "");

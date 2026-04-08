@@ -35,6 +35,30 @@ export function formatAxisTick(n: number): string {
 }
 
 /**
+ * PKR with K / M / B / T / Q / … suffix so the mantissa stays compact (avoids e.g. "2000000.00B").
+ * Always 2 decimal places for the scaled value.
+ */
+const PKR_ABBREV_SUFFIXES = ["", "K", "M", "B", "T", "Q", "Sx", "Sp"] as const;
+
+export function formatPkrAbbreviated(value: number): string {
+  if (!Number.isFinite(value)) return "PKR —";
+  const abs = Math.abs(value);
+  if (abs < 1000) {
+    return `PKR ${value.toLocaleString("en-PK", {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 2,
+    })}`;
+  }
+  const exp = Math.min(
+    Math.floor(Math.log10(abs) / 3),
+    PKR_ABBREV_SUFFIXES.length - 1
+  );
+  const scaled = value / 1000 ** exp;
+  const suffix = PKR_ABBREV_SUFFIXES[exp];
+  return `PKR ${scaled.toFixed(2)}${suffix}`;
+}
+
+/**
  * Format time to FIRE as "X years, Y months" or "Goal not reached".
  */
 export function formatYearsMonths(

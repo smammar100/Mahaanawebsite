@@ -111,7 +111,12 @@ function SidebarInput({
   );
 }
 
-export function InvestmentCalculator() {
+export interface InvestmentCalculatorProps {
+  /** When true, renders only the card (no outer Container). Use inside another Container. */
+  embedded?: boolean;
+}
+
+export function InvestmentCalculator({ embedded = false }: InvestmentCalculatorProps) {
   const [initial, setInitial] = useState(500000);
   const [monthly, setMonthly] = useState(25000);
   const [rate, setRate] = useState(12);
@@ -175,11 +180,10 @@ export function InvestmentCalculator() {
     },
   ];
 
-  return (
-    <Container className="px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16">
-      <Card className="overflow-hidden rounded-2xl border border-surface-stroke bg-white shadow-sm">
-        <div className="grid grid-cols-1 lg:grid-cols-[320px_minmax(0,1fr)]">
-          <aside className="border-b border-surface-stroke bg-surface-card/50 p-5 sm:p-6 lg:border-r lg:border-b-0">
+  const card = (
+    <Card className="overflow-hidden rounded-2xl border border-surface-stroke bg-white shadow-sm">
+        <div className="grid grid-cols-1 items-stretch lg:grid-cols-[320px_minmax(0,1fr)]">
+          <aside className="flex flex-col border-b border-surface-stroke bg-surface-card/50 p-5 sm:p-6 lg:border-r lg:border-b-0">
             <div className="space-y-4">
               <SidebarInput
                 label="Current savings"
@@ -219,9 +223,9 @@ export function InvestmentCalculator() {
             </div>
           </aside>
 
-          <section className="p-5 sm:p-6 lg:p-8">
+          <section className="flex min-h-[420px] flex-col p-5 sm:p-6 lg:p-8">
             {!hasResults ? (
-              <div className="flex min-h-[420px] flex-col items-center justify-center text-center">
+              <div className="flex flex-1 flex-col items-center justify-center px-1 text-center">
                 <h2 className="text-h5 text-text-primary">
                   {cleanCopy("Enter your details")}
                 </h2>
@@ -232,20 +236,20 @@ export function InvestmentCalculator() {
                 </p>
               </div>
             ) : (
-              <div className="animate-fadeInUp">
-                <h2 className="text-h4 text-text-primary">
+              <div className="animate-fadeInUp flex flex-1 flex-col">
+                <h2 className="text-h5 text-text-primary sm:text-h4">
                   {cleanCopy("You could have")}{" "}
                   <span className="text-primary-200">
                     {formatCurrency(result.futureValue)}
                   </span>
                 </h2>
-                <p className="mt-2 text-body text-text-tertiary">
+                <p className="mt-1.5 text-body-sm text-text-tertiary sm:mt-2 sm:text-body">
                   {cleanCopy(
                     "This projection is based on your inputs and updates yearly as contributions and returns compound."
                   )}
                 </p>
 
-                <div className="mt-5 h-[430px] w-full">
+                <div className="mt-3 h-[240px] w-full min-h-0 sm:mt-3.5 sm:h-[256px] lg:h-[272px]">
                   <HighchartsInvestmentLineChart
                     categories={chartCategories}
                     series={chartSeries}
@@ -253,7 +257,7 @@ export function InvestmentCalculator() {
                   />
                 </div>
 
-                <div className="mt-3 flex flex-wrap items-start justify-center gap-8 sm:gap-10">
+                <div className="mt-2 flex flex-wrap items-start justify-center gap-6 sm:mt-3 sm:gap-8">
                   <div className="text-center">
                     <p className="text-body-xs font-semibold tracking-[0.12em] text-text-tertiary uppercase">
                       Initial Investment
@@ -285,6 +289,15 @@ export function InvestmentCalculator() {
           </section>
         </div>
       </Card>
+  );
+
+  if (embedded) {
+    return card;
+  }
+
+  return (
+    <Container className="px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16">
+      {card}
     </Container>
   );
 }
