@@ -134,9 +134,7 @@ export function Footer() {
     <footer role="contentinfo" className="mt-auto border-t border-surface-stroke bg-surface-card">
       <Container className="px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16">
         {/* Logo + regulatory badges */}
-        <div
-          className={`flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between lg:gap-12 ${footerSubsectionY}`}
-        >
+        <div className="flex flex-col gap-8 pb-6 pt-12 lg:flex-row lg:items-start lg:justify-between lg:gap-12">
           <div className="flex flex-col gap-5 lg:max-w-xs lg:shrink-0">
             <Link
               href="/"
