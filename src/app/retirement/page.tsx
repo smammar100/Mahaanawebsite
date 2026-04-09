@@ -5,6 +5,7 @@ import { getFaqByProduct } from "@/lib/sanity/fetch";
 import { FAQStructuredData } from "@/components/FAQStructuredData";
 import { BreadcrumbStructuredData } from "@/components/BreadcrumbStructuredData";
 import { RetirementHero } from "@/components/sections/RetirementHero";
+import { RetirementVpsCalculatorSection } from "@/components/sections/RetirementVpsCalculatorSection";
 import { retirementBenefitsCards } from "./benefitsCards";
 
 const WhyRetirementSection = dynamic(
@@ -40,6 +41,7 @@ export default async function RetirementPage() {
       <RetirementHero />
       <WhyRetirementSection />
       <BenefitsSection cards={retirementBenefitsCards} />
+      <RetirementVpsCalculatorSection />
       <FAQSection items={faqItems} />
       <Cta6Section />
     </div>

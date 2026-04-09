@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/accordion";
 import { Container } from "@/components/layout/Container";
 import { Input } from "@/components/ui/Input";
-import { H1, TextMedium, TextRegular } from "@/components/ui/Typography";
+import { H1, H4, TextMedium } from "@/components/ui/Typography";
 import type { HelpCenterFaqItem } from "@/lib/sanity/fetch";
 import { cx } from "@/utils/cx";
 import { cleanCopy } from "@/lib/copy-utils";
@@ -189,7 +189,10 @@ export function HelpCenterSection({ items, className }: HelpCenterSectionProps) 
   if (items.length === 0) {
     return (
       <section
-        className={cx("bg-gradient-brand section-y", className)}
+        className={cx(
+          "bg-gradient-brand pb-8 sm:pb-10 md:pb-12 lg:pb-14 xl:pb-16 pt-32",
+          className
+        )}
         aria-labelledby="help-center-heading"
       >
         <Container>
@@ -207,7 +210,7 @@ export function HelpCenterSection({ items, className }: HelpCenterSectionProps) 
   return (
     <section
       className={cx(
-        "min-h-screen bg-gradient-brand section-y",
+        "h-fit bg-gradient-brand pb-8 sm:pb-10 md:pb-12 lg:pb-14 xl:pb-16 pt-32",
         className
       )}
       aria-labelledby="help-center-heading"
@@ -235,10 +238,11 @@ export function HelpCenterSection({ items, className }: HelpCenterSectionProps) 
                 key={category}
                 type="button"
                 onClick={() => handleCategoryClick(category)}
+                aria-current={activeCategory === category ? "true" : undefined}
                 className={cx(
                   "text-nav-heading text-left transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-system-brand rounded",
                   activeCategory === category
-                    ? "text-white"
+                    ? "text-white font-bold"
                     : "text-white/80 hover:text-white"
                 )}
               >
@@ -293,6 +297,7 @@ export function HelpCenterSection({ items, className }: HelpCenterSectionProps) 
                   style={{ scrollMarginTop: TOP_PADDING }}
                   className="scroll-mt-[200px]"
                 >
+                  <H4 className="mb-4 text-text-primary first:mt-0">{category}</H4>
                   <Accordion type="single" collapsible className="w-full">
                     {categoryItems.map((item, i) => (
                       <AccordionItem

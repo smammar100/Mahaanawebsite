@@ -88,7 +88,7 @@ export function MIIETFFAQSection({
               specialists.
             </TextRegular>
             <Button
-              href="#miietf-faq-heading"
+              href="/help-center"
               size="md"
               color="secondary"
               className="w-fit"

@@ -109,7 +109,7 @@ export function FAQSection({
               {cleanCopy(" specialists.")}
             </TextRegular>
             <Button
-              href="#faq-heading"
+              href="/help-center"
               size="md"
               color="secondary"
               className="w-fit"

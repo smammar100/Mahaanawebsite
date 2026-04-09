@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { buildPageMetadata } from "@/lib/metadata";
-import { FIRECalculator } from "@/components/retirement/FIRECalculator";
+import { RetirementVpsCalculator } from "@/components/retirement/RetirementVpsCalculator";
 import { Cta6Section } from "@/components/sections/Cta6Section";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { Container } from "@/components/layout/Container";
@@ -9,27 +9,28 @@ import { H1, TextMedium } from "@/components/ui/Typography";
 export const metadata: Metadata = buildPageMetadata({
   title: "Retirement Calculator | Mahaana",
   description:
-    "Calculate your path to Financial Independence, Retire Early (FIRE) with our free FIRE calculator. Plan your retirement savings and track your progress.",
+    "Estimate Pakistan income tax, VPS investment limits, and illustrative tax credits on planned contributions. For education only—not tax or legal advice.",
   path: "retirement-calculator",
 });
 
 export default function RetirementCalculatorPage() {
   return (
-    <div className="retirement-calc-light-scope min-w-0 bg-[var(--color-surface-bg)] text-text-primary">
+    <div className="min-w-0 bg-surface-bg text-text-primary">
       <AnimatedSection className="section-y">
         <Container className="px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16">
-          <H1 className="text-center text-xl font-semibold tracking-tight text-text-primary sm:text-2xl md:text-[1.75rem]">
-            FIRE calculator
-          </H1>
-          <TextMedium className="mx-auto mt-2 max-w-[520px] text-center text-text-tertiary">
-            Plan savings and spending to see when you could reach financial
-            independence—illustrative projections only.
-          </TextMedium>
+          <div className="mx-auto max-w-[760px] text-center">
+            <H1 className="text-text-primary">Retirement calculator</H1>
+            <TextMedium className="mx-auto mt-3 max-w-[620px] text-text-tertiary">
+              Enter your income and planned voluntary pension (VPS) amounts to
+              see illustrative tax and rebate-style figures based on simplified
+              slabs.
+            </TextMedium>
+          </div>
         </Container>
       </AnimatedSection>
 
-      <AnimatedSection as="div" className="pt-0 pb-8 sm:pb-10">
-        <FIRECalculator />
+      <AnimatedSection as="div" className="pt-0 pb-10 sm:pb-12">
+        <RetirementVpsCalculator />
       </AnimatedSection>
       <Cta6Section />
     </div>

@@ -68,7 +68,7 @@ export function FAQSavePlusSection({
               {cleanCopy("Everything you need to know about Mahaana Save+")}
             </TextRegular>
             <Button
-              href="#faq-save-plus-heading"
+              href="/help-center"
               size="md"
               color="secondary"
               className="w-fit"

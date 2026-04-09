@@ -79,7 +79,7 @@ export function MICFFAQSection({
               specialists.
             </TextRegular>
             <Button
-              href="#micf-faq-heading"
+              href="/help-center"
               size="md"
               color="secondary"
               className="w-fit"

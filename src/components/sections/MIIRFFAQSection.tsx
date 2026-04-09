@@ -109,7 +109,7 @@ export function MIIRFFAQSection({
               specialists.
             </TextRegular>
             <Button
-              href="#miirf-faq-heading"
+              href="/help-center"
               size="md"
               color="secondary"
               className="w-fit"
