@@ -49,6 +49,8 @@ interface FeatureBlockProps {
   ctaHref: string;
   imageSrc: string;
   imageFirst?: boolean;
+  /** Tailwind object-* classes; use for fine-tuning crop (e.g. family photos). */
+  imageObjectPositionClassName?: string;
 }
 
 function FeatureBlock({
@@ -61,6 +63,7 @@ function FeatureBlock({
   ctaHref,
   imageSrc,
   imageFirst = false,
+  imageObjectPositionClassName = "object-center",
 }: FeatureBlockProps) {
   return (
     <div className="flex flex-col gap-8 sm:gap-12 lg:gap-24 items-center w-full">
@@ -107,7 +110,10 @@ function FeatureBlock({
               fill
               loading="lazy"
               sizes="(max-width: 768px) 100vw, 50vw"
-              className="object-cover object-center rounded-[10px]"
+              className={cx(
+                "object-cover rounded-[10px]",
+                imageObjectPositionClassName
+              )}
             />
           </div>
         </div>
@@ -153,7 +159,8 @@ export function FeaturesSection() {
             features={savePlusFeatures}
             cta="Learn more about Save+"
             ctaHref="/retirement"
-            imageSrc="/images/invest/Save+.webp"
+            imageSrc="/images/invest/Save%2B%20image.png"
+            imageObjectPositionClassName="object-[58%_52%]"
           />
           <FeatureBlock
             badge="MAHAANA RETIREMENT"

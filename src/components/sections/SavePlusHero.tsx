@@ -23,11 +23,11 @@ export function SavePlusHero() {
     >
       {/* Background image */}
       <Image
-        src="/images/invest/Save+.webp"
+        src="/images/invest/Save%2B%20image.png"
         alt="Mahaana Save+ savings and growth"
         fill
         priority
-        className="object-cover object-center"
+        className="object-cover object-[58%_52%]"
         sizes="100vw"
       />
 
