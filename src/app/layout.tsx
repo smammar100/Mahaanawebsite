@@ -47,7 +47,7 @@ export default function RootLayout({
       </head>
       <body className="antialiased flex min-h-screen flex-col">
         <StructuredData />
-        <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
           <LayoutContent>{children}</LayoutContent>
         </ThemeProvider>
       </body>
