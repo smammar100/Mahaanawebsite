@@ -11,9 +11,26 @@ export function LayoutContent({
 }) {
   const pathname = usePathname();
   const isStudio = pathname?.startsWith("/studio");
+  const isGetApp = pathname?.startsWith("/get-app");
 
   if (isStudio) {
     return <>{children}</>;
+  }
+
+  if (isGetApp) {
+    return (
+      <>
+        <a
+          href="#main-content"
+          className="sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[10000002] focus:w-auto focus:h-auto focus:overflow-visible focus:bg-system-brand focus:text-gray-100 focus:px-4 focus:py-2 focus:rounded focus:[clip:auto] focus:whitespace-normal"
+        >
+          Skip to main content
+        </a>
+        <main id="main-content" className="min-h-dvh outline-none" tabIndex={-1}>
+          {children}
+        </main>
+      </>
+    );
   }
 
   return (

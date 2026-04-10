@@ -1,15 +1,17 @@
 "use client";
 
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { motion } from "motion/react";
 import { Container } from "@/components/layout/Container";
 import { H1, TextRegular } from "@/components/ui/Typography";
 import { cleanCopy } from "@/lib/copy-utils";
 import { Button } from "@/components/base/buttons/button";
-import { MAHAANA_APP_STORE_URL } from "@/lib/app-store-urls";
 import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
 
 export function SavePlusHero() {
+  const router = useRouter();
+
   return (
     <motion.section
       initial="hidden"
@@ -56,11 +58,9 @@ export function SavePlusHero() {
 
             <div className="flex flex-col items-start gap-3">
               <Button
-                href={MAHAANA_APP_STORE_URL}
                 color="secondary"
                 size="xl"
-                target="_blank"
-                rel="noopener noreferrer"
+                onPress={() => router.push("/get-app")}
                 className="shrink-0 rounded-xl px-7 py-3.5 font-bold text-text-primary shadow-[0_1px_4px_rgba(15,23,42,0.12)] hover:bg-gray-100"
               >
                 {cleanCopy("Open your Save+ account")}

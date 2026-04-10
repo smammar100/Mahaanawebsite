@@ -69,6 +69,7 @@
     "react-dom": "19.2.3",
     "react-hook-form": "^7.71.2",
     "react-lite-youtube-embed": "^3.5.1",
+    "react-qr-code": "^2.0.18",
     "recharts": "^3.7.0",
     "sanity": "^5.18.0",
     "sanity-plugin-highcharts-editor": "^1.0.2",

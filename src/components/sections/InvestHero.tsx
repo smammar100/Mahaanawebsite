@@ -1,13 +1,15 @@
 "use client";
 
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { Container } from "@/components/layout/Container";
 import { H1, TextRegular, TextSmall } from "@/components/ui/Typography";
 import { Button } from "@/components/base/buttons/button";
-import { MAHAANA_APP_STORE_URL } from "@/lib/app-store-urls";
 import { cleanCopy } from "@/lib/copy-utils";
 
 export function InvestHero() {
+  const router = useRouter();
+
   return (
     <section
       className="relative min-h-dvh overflow-hidden"
@@ -52,11 +54,9 @@ export function InvestHero() {
 
             <div className="flex flex-col gap-3">
               <Button
-                href={MAHAANA_APP_STORE_URL}
                 color="secondary"
                 size="xl"
-                target="_blank"
-                rel="noopener noreferrer"
+                onPress={() => router.push("/get-app")}
                 className="shrink-0 rounded-xl px-7 py-3.5 font-bold text-text-primary shadow-[0_1px_4px_rgba(15,23,42,0.12)] hover:bg-gray-100"
               >
                 {cleanCopy("Open your Mahaana account")}
