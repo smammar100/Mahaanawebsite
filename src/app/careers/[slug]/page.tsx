@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { buildPageMetadata } from "@/lib/metadata";
 import { getJobBySlug, getJobSlugs } from "@/lib/sanity/fetch";
 import { BreadcrumbStructuredData } from "@/components/BreadcrumbStructuredData";
+import { JobPostingStructuredData } from "@/components/JobPostingStructuredData";
 import { JobDetailContent } from "@/components/sections/JobDetailContent";
 import type { SanityJob } from "@/lib/sanity/types";
 
@@ -45,6 +46,7 @@ export default async function CareerJobPage({ params }: Props) {
 
   return (
     <>
+      <JobPostingStructuredData job={job} />
       <BreadcrumbStructuredData
         items={[
           { name: "Careers", path: "careers" },

@@ -130,9 +130,9 @@ export function InvestmentCalculator({ embedded = false }: InvestmentCalculatorP
 
   const validateMandatoryFields = () => {
     const nextErrors: Record<MandatoryField, string> = {
-      initial: initial > 0 ? "" : "Initial investment is required.",
-      rate: rate > 0 ? "" : "Rate of return is required.",
-      years: years > 0 ? "" : "Investment period is required.",
+      initial: initial > 0 ? "" : "Enter a starting amount greater than 0.",
+      rate: rate > 0 ? "" : "Enter an expected annual return greater than 0.",
+      years: years > 0 ? "" : "Enter a contribution period of at least 1 year.",
     };
 
     setErrors(nextErrors);
@@ -218,7 +218,7 @@ export function InvestmentCalculator({ embedded = false }: InvestmentCalculatorP
                 onClick={handleCalculateReturns}
                 className="h-11 w-full rounded-lg bg-primary-200 font-semibold text-gray-100 shadow-sm ring-1 ring-primary-200/50 ring-inset hover:bg-primary-300"
               >
-                Calculate
+                {cleanCopy("Calculate")}
               </Button>
             </div>
           </aside>

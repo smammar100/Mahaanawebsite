@@ -30,10 +30,27 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const item = await getInvestorEducationBySlug(slug);
   if (!item?.title) return {};
+  const imageUrl = item.thumbnail
+    ? urlFor(item.thumbnail).width(1200).height(630).url()
+    : item.thumbnailUrl ?? undefined;
   return buildPageMetadata({
     title: `${item.title} | Mahaana`,
     description: item.excerpt ?? "Investor education article from Mahaana.",
     path: `investor-education/${slug}`,
+    ...(imageUrl
+      ? {
+          openGraph: {
+            images: [
+              {
+                url: imageUrl,
+                width: 1200,
+                height: 630,
+                alt: item.title ?? "Mahaana investor education",
+              },
+            ],
+          },
+        }
+      : {}),
   });
 }
 
@@ -117,7 +134,9 @@ export default async function InvestorEducationSlugPage({ params }: Props) {
         slug={slug}
         author={author}
         publishedAt={publishedAt}
+        modifiedAt={item._updatedAt ?? null}
         imageUrl={imageUrl}
+        category={item.category ?? null}
       />
       <InvestorEducationArticleTemplate
         title={title}

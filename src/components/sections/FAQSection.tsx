@@ -99,14 +99,13 @@ export function FAQSection({
               </H3>
             </div>
             <TextRegular className="mt-4 text-text-tertiary">
-              {cleanCopy("Still have questions? Feel free to contact our friendly ")}
+              {cleanCopy("Still have questions? ")}
               <Link
                 href="/contact"
                 className="text-text-tertiary underline underline-offset-2 hover:text-text-primary"
               >
-                support team
+                {cleanCopy("Contact our support team.")}
               </Link>
-              {cleanCopy(" specialists.")}
             </TextRegular>
             <Button
               href="/help-center"

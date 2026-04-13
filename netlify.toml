@@ -10,6 +10,42 @@
   NEXT_PUBLIC_SANITY_PROJECT_ID = "ctfatnb0"
   NEXT_PUBLIC_SANITY_DATASET = "production"
 
+# Allow next/image remote sources through Netlify Image CDN
+[images]
+  remote_images = [
+    "https://cdn\\.sanity\\.io/.*",
+    "https://cdn\\.prod\\.website-files\\.com/.*",
+    "https://deifkwefumgah\\.cloudfront\\.net/.*",
+    "https://play-lh\\.googleusercontent\\.com/.*"
+  ]
+
+# Long-lived caching for fingerprinted / versioned static assets
+[[headers]]
+  for = "/_next/static/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/fonts/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/.netlify/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# HTML and dynamic routes: CDN may serve stale while revalidating (stripped before browser)
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Netlify-CDN-Cache-Control = "public, max-age=0, stale-while-revalidate=86400"
+
 # CORS for Sanity Dashboard manifest/schema fetch
 [[headers]]
   for = "/studio/static/*"

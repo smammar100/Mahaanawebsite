@@ -279,7 +279,7 @@ export function HelpCenterSection({ items, className }: HelpCenterSectionProps) 
           <div className="space-y-6 rounded-xl bg-surface-card px-4 py-6 sm:px-6 md:py-8 min-w-0">
             {filteredItems.length === 0 && searchQuery.trim() !== "" ? (
               <p className="text-text-tertiary text-center py-8" role="status">
-                No FAQs match your search.
+                No FAQs match your search. Try different keywords or browse the categories.
               </p>
             ) : (
             categories.map((category) => {

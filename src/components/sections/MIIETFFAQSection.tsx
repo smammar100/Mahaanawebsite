@@ -78,14 +78,13 @@ export function MIIETFFAQSection({
               </H3>
             </div>
             <TextRegular className="mt-4 text-text-tertiary">
-              Still have questions? Feel free to contact our friendly{" "}
+              Still have questions?{" "}
               <Link
                 href="/contact"
                 className="font-body text-regular font-normal text-text-tertiary underline underline-offset-2 hover:text-text-primary"
               >
-                support team
-              </Link>{" "}
-              specialists.
+                Contact our support team.
+              </Link>
             </TextRegular>
             <Button
               href="/help-center"

@@ -41,6 +41,7 @@ export const investorEducationBySlugQuery = `
   *[_type in ["investorEducationArticle", "investorEducationNews", "investorEducationVideoPodcast"] && slug.current == $slug][0] {
     _id,
     _type,
+    _updatedAt,
     title,
     slug,
     publishedAt,

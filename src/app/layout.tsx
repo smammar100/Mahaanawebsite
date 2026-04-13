@@ -12,6 +12,17 @@ const outfit = Outfit({
   weight: ["300", "400", "500", "600"],
 });
 
+/** LCP hero raster — matches Netlify Image CDN output in production (layout preload). */
+const heroBgPreloadHref =
+  process.env.NODE_ENV === "production"
+    ? `/.netlify/images?${new URLSearchParams({
+        url: "/images/invest/hero-bg.webp",
+        w: "1200",
+        fm: "avif",
+        q: "80",
+      }).toString()}`
+    : "/images/invest/hero-bg.webp";
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.mahaana.com"),
   title: "Mahaana — Changing the way Pakistanis Invest",
@@ -35,12 +46,10 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://cdn.sanity.io" />
+        <link rel="alternate" type="text/plain" title="LLM site hints" href="/llms.txt" />
         <link rel="preload" href="/images/invest/Logo.svg" as="image" />
-        <link rel="preload" href="/images/invest/hero-bg.webp" as="image" />
-        <script
-          src="https://cdn.visitors.now/v.js"
-          data-token="dcfcb5a6-7e2c-4f1f-be4c-e5007e3521e4"
-        />
+        <link rel="preload" href={heroBgPreloadHref} as="image" />
         {process.env.NODE_ENV === "development" ? (
           <style>{`nextjs-portal { display: none !important; }`}</style>
         ) : null}
@@ -50,6 +59,11 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
           <LayoutContent>{children}</LayoutContent>
         </ThemeProvider>
+        <script
+          defer
+          src="https://cdn.visitors.now/v.js"
+          data-token="dcfcb5a6-7e2c-4f1f-be4c-e5007e3521e4"
+        />
       </body>
     </html>
   );

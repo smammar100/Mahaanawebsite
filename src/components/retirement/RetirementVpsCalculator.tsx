@@ -130,7 +130,7 @@ export function RetirementVpsCalculator({
 
   const handleCalculate = () => {
     if (monthlyIncome <= 0) {
-      setIncomeError("Monthly income is required.");
+      setIncomeError("Enter a monthly income greater than 0.");
       setHasCalculated(false);
       return;
     }

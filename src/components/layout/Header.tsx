@@ -241,7 +241,7 @@ export function Header() {
                   href={MAHAANA_APP_STORE_URL}
                   icon={
                     <Image
-                      src="/images/navbar/Apple-logo.png"
+                      src="/images/navbar/Apple-logo.webp"
                       alt="Download on App Store"
                       width={20}
                       height={20}
@@ -256,7 +256,7 @@ export function Header() {
                   href={MAHAANA_GOOGLE_PLAY_URL}
                   icon={
                     <Image
-                      src="/images/navbar/Playstore-logo.png"
+                      src="/images/navbar/Playstore-logo.webp"
                       alt="Get it on Google Play"
                       width={18}
                       height={20}

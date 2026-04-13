@@ -9,6 +9,8 @@ export type SanityInvestorEducationType =
 export interface SanityInvestorEducation {
   _id: string;
   _type: SanityInvestorEducationType;
+  /** ISO datetime; used for Article schema dateModified when present */
+  _updatedAt?: string | null;
   /** ISO date when the document was created in Sanity (for "latest added" ordering) */
   _createdAt?: string | null;
   /** Optional display category for tabs/filtering; when set, used instead of type-based default */

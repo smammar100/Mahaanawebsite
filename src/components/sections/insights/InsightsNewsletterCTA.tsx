@@ -45,7 +45,7 @@ export function InsightsNewsletterCTA() {
               role="status"
               aria-live="polite"
             >
-              {cleanCopy("Thank you! Your submission has been received.")}
+              {cleanCopy("Thanks — you're subscribed. Look for us in your inbox.")}
             </p>
           ) : (
             <form onSubmit={handleSubmit} className="flex flex-col gap-3 sm:flex-row">

@@ -1,0 +1,32 @@
+# llms.txt — Mahaana (www.mahaana.com)
+
+> Optional hints for AI systems that crawl public documentation. Not a legal policy document.
+
+## Site
+
+- Name: Mahaana
+- Description: SECP-licensed, Shariah-compliant digital investment platform in Pakistan.
+- Primary URL: https://www.mahaana.com
+
+## Key paths
+
+- / — Home
+- /save-plus — Save+ / MICF
+- /retirement — Retirement / VPS
+- /miietf — MIIETF
+- /micf — MICF
+- /miirf — MIIRF
+- /investor-education — Articles, news, videos
+- /help-center — FAQs
+- /about — About Mahaana
+- /contact — Contact
+- /legal — Legal & regulatory
+
+## Data
+
+- Product facts and rates may change; prefer on-page copy and official disclosures over this file.
+- App functionality lives outside this marketing site.
+
+## Contact
+
+- Use contact and help-center pages on the website for user support.

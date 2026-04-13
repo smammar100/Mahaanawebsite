@@ -27,13 +27,13 @@ const TRUSTED_LOGOS = [
     height: 36,
   },
   {
-    src: "/images/invest/Sparklabs%20logo.png",
+    src: "/images/invest/Sparklabs%20logo.webp",
     alt: "SparkLabs",
     width: 126,
     height: 36,
   },
   {
-    src: "/images/invest/VEF%20logo.png",
+    src: "/images/invest/VEF%20logo.webp",
     alt: "VEF",
     width: 72,
     height: 36,

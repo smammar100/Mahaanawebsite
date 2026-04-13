@@ -100,7 +100,7 @@ function NavColumn({
   );
 }
 
-const SECP_BANNER_SRC = "/images/invest/SECP%20banner.jpg";
+const SECP_BANNER_SRC = "/images/invest/SECP%20banner.webp";
 
 /** Vertical rhythm between footer blocks (1.5rem top + bottom) */
 const footerSubsectionY = "py-[1.5rem]";

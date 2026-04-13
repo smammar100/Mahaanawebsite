@@ -6,7 +6,11 @@ interface Props {
   slug: string;
   author?: string | null;
   publishedAt?: string | null;
+  /** Sanity `_updatedAt` — improves Article rich result eligibility when present */
+  modifiedAt?: string | null;
   imageUrl?: string | null;
+  /** Drives schema.org @type: News uses NewsArticle; others use Article */
+  category?: "Video" | "Article" | "News" | null;
 }
 
 export function ArticleStructuredData({
@@ -15,20 +19,51 @@ export function ArticleStructuredData({
   slug,
   author,
   publishedAt,
+  modifiedAt,
   imageUrl,
+  category,
 }: Props) {
-  const jsonLd = {
+  const pageUrl = `${SITE_URL}/investor-education/${slug}`;
+  const schemaType =
+    category === "News" ? "NewsArticle" : "Article";
+
+  const jsonLd: Record<string, unknown> = {
     "@context": "https://schema.org",
-    "@type": "Article",
+    "@type": schemaType,
     headline: title,
     description,
-    url: `${SITE_URL}/investor-education/${slug}`,
-    ...(author && { author: { "@type": "Person", name: author } }),
-    ...(publishedAt && { datePublished: publishedAt }),
-    ...(imageUrl && { image: imageUrl }),
-    publisher: { "@id": `${SITE_URL}/#organization` },
+    url: pageUrl,
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": `${pageUrl}#webpage`,
+      url: pageUrl,
+    },
+    publisher: {
+      "@type": "Organization",
+      "@id": `${SITE_URL}/#organization`,
+      name: "Mahaana",
+      logo: {
+        "@type": "ImageObject",
+        url: `${SITE_URL}/images/invest/Logo.svg`,
+      },
+    },
     isPartOf: { "@id": `${SITE_URL}/#website` },
   };
+
+  if (author) {
+    jsonLd.author = { "@type": "Person", name: author };
+  }
+  if (publishedAt) {
+    jsonLd.datePublished = publishedAt;
+  }
+  if (modifiedAt) {
+    jsonLd.dateModified = modifiedAt;
+  } else if (publishedAt) {
+    jsonLd.dateModified = publishedAt;
+  }
+  if (imageUrl) {
+    jsonLd.image = [imageUrl];
+  }
 
   return (
     <script

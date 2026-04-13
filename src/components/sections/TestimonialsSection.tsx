@@ -91,7 +91,7 @@ export function TestimonialsSection({
             {gridReviews.length === 0 ? (
               <TextRegular className="text-text-tertiary">
                 {cleanCopy(
-                  "No reviews to show here yet — check back once more investor stories are available."
+                  "No reviews yet — check back when more investor stories are available."
                 )}
               </TextRegular>
             ) : (
