@@ -32,6 +32,8 @@ export interface MicfFundDataPriceItem {
   nav: number;
   nav_adjusted: number;
   benchmark: number;
+  /** Some API payloads use this alias for adjusted NAV (same series as `nav_adjusted`). */
+  ad_nav?: number;
 }
 
 export interface MicfFundDataHolding {
@@ -181,21 +183,21 @@ export async function getMicfFundData(): Promise<MicfFundDataResponse | null> {
 // ---------------------------------------------------------------------------
 
 const CHART_COLORS = {
-  micf: "var(--color-info-200)",
+  micf: "var(--color-primary-200)",
   benchmark: "var(--color-teal-200)",
 } as const;
 
 const ASSET_ALLOC_COLORS = [
-  "var(--color-info-200)",
+  "var(--color-primary-200)",
   "var(--color-teal-200)",
   "var(--color-error-200)",
   "var(--color-warning-200)",
-  "var(--color-primary-200)",
+  "var(--color-info-200)",
   "var(--color-info-150)",
 ] as const;
 
 const CREDIT_QUALITY_COLORS: Record<string, string> = {
-  AAA: "var(--color-info-200)",
+  AAA: "var(--color-primary-200)",
   "AA+": "var(--color-teal-200)",
   AA: "var(--color-error-200)",
   A1: "var(--color-warning-200)",
@@ -203,11 +205,11 @@ const CREDIT_QUALITY_COLORS: Record<string, string> = {
 };
 
 const HOLDINGS_COLORS = [
-  "var(--color-info-200)",
+  "var(--color-primary-200)",
   "var(--color-teal-200)",
   "var(--color-error-200)",
   "var(--color-warning-200)",
-  "var(--color-primary-200)",
+  "var(--color-info-200)",
   "var(--color-info-150)",
 ] as const;
 
@@ -226,6 +228,27 @@ function formatMax4Dp(v: number): string {
 
 function infoVal(info: Record<string, string>, key: string): string {
   return info[key] ?? "";
+}
+
+function parseMicfPriceNum(v: unknown): number | null {
+  if (typeof v === "number" && Number.isFinite(v)) return v;
+  if (typeof v === "string") {
+    const n = Number(v);
+    return Number.isFinite(n) ? n : null;
+  }
+  return null;
+}
+
+/**
+ * Adjusted NAV for chart and hero: use dividend-neutral series so the performance line
+ * does not show artificial drops on payout dates. Prefer `ad_nav` when the API sends it.
+ */
+function micfAdjustedNav(p: MicfFundDataPriceItem): number | null {
+  return (
+    parseMicfPriceNum(p.ad_nav) ??
+    parseMicfPriceNum(p.nav_adjusted) ??
+    parseMicfPriceNum(p.nav)
+  );
 }
 
 function normalizeAssetAllocKey(key: string): string {
@@ -252,7 +275,8 @@ function transformHero(raw: MicfFundDataResponse): MicfHeroFundData {
   const latestPrice = sortedByDate[0] ?? null;
   const perfMicf = raw.perf.find((p) => p.name === "MICF");
 
-  const nav = latestPrice ? formatMax4Dp(latestPrice.nav) : "";
+  const navRaw = latestPrice ? micfAdjustedNav(latestPrice) : null;
+  const nav = navRaw != null ? formatMax4Dp(navRaw) : "";
   const navDate = latestPrice ? formatShortDate(latestPrice.date) : "";
   const mtd = perfMicf != null ? pct2FromDecimal(perfMicf.mtd) : "";
   const assetClass = infoVal(info, "Fund Category");
@@ -328,11 +352,14 @@ function transformPerformance(raw: MicfFundDataResponse): MicfPerformanceFundDat
   const sortedPrice = [...raw.price].sort(
     (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
   );
-  const chartPrice = sortedPrice.filter(
-    (p) => new Date(p.date).getTime() >= MICF_INCEPTION_DATE_MS
-  );
+  const chartPrice = sortedPrice
+    .filter((p) => new Date(p.date).getTime() >= MICF_INCEPTION_DATE_MS)
+    .filter((p) => {
+      const adj = micfAdjustedNav(p);
+      return adj != null && Number.isFinite(p.benchmark);
+    });
   const chartCategories = chartPrice.map((p) => formatShortDate(p.date));
-  const micfData = chartPrice.map((p) => p.nav);
+  const micfData = chartPrice.map((p) => micfAdjustedNav(p) as number);
   const benchmarkData = chartPrice.map((p) => p.benchmark);
 
   const chartSeries = [
@@ -369,7 +396,7 @@ function transformPortfolio(raw: MicfFundDataResponse): MicfPortfolioFundData {
   const creditQuality = raw.credit_quality.map((c) => ({
     item: c.key,
     percentage: pct2(c.value),
-    color: CREDIT_QUALITY_COLORS[c.key] ?? "var(--color-info-200)",
+    color: CREDIT_QUALITY_COLORS[c.key] ?? "var(--color-primary-200)",
     value: c.value * 100,
   }));
 
@@ -383,7 +410,7 @@ function transformPortfolio(raw: MicfFundDataResponse): MicfPortfolioFundData {
     .map(([name, value]) => ({ name, value: value * 100 }))
     .sort((a, b) => b.value - a.value);
 
-  const topN = 6;
+  const topN = 10;
   const topHoldings = sortedHoldings.slice(0, topN).map((h, i) => ({
     name: h.name,
     percentage: `${h.value.toFixed(2)}%`,

@@ -7,7 +7,12 @@ import { Container } from "@/components/layout/Container";
 import { H3, H4, TextMedium, TextRegular, TextSmall } from "@/components/ui/Typography";
 import { HighchartsVariablePieChart } from "@/components/ui/HighchartsVariablePieChart";
 import { HighchartsPerformanceChart } from "@/components/ui/HighchartsPerformanceChart";
-import { fundTableCardClass, fundTableFixedClass } from "@/components/ui/fundTableClasses";
+import {
+  fundTableCardClass,
+  fundTableFixedClass,
+  fundTableMetricColWidthPct,
+  fundTableTheadClass,
+} from "@/components/ui/fundTableClasses";
 import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
 import { cx } from "@/utils/cx";
 import { cleanCopy } from "@/lib/copy-utils";
@@ -59,13 +64,13 @@ const SUBFUND_DEBT_DATA: MiirfSubfundData = {
   pieSectionTitle: "Asset allocation",
   pieNameColumnLabel: "Asset class",
   allocationRows: [
-    { name: "Corporate sukuks", percentage: "42.50%", color: "var(--color-info-200)", value: 42.5 },
+    { name: "Corporate sukuks", percentage: "42.50%", color: "var(--color-primary-200)", value: 42.5 },
     { name: "Short term sukuks", percentage: "28.30%", color: "var(--color-teal-200)", value: 28.3 },
     { name: "Govt securities", percentage: "18.20%", color: "var(--color-error-200)", value: 18.2 },
     { name: "Bank deposits / placements", percentage: "11.00%", color: "var(--color-warning-200)", value: 11 },
   ],
   topHoldingsRows: [
-    { name: "Pakistan Energy Sukuk II", percentage: "14.10%", color: "var(--color-info-200)", value: 14.1 },
+    { name: "Pakistan Energy Sukuk II", percentage: "14.10%", color: "var(--color-primary-200)", value: 14.1 },
     { name: "Lucky Electric Sukuk", percentage: "12.85%", color: "var(--color-teal-200)", value: 12.85 },
     { name: "TPL Trakker Sukuk", percentage: "10.72%", color: "var(--color-error-200)", value: 10.72 },
     { name: "Meezan Bank Deposit", percentage: "9.94%", color: "var(--color-warning-200)", value: 9.94 },
@@ -91,7 +96,7 @@ const SUBFUND_DEBT_DATA: MiirfSubfundData = {
   performanceTable: {
     subfundLabel: "MIIRF (Debt)",
     benchmarkLabel: "Benchmark",
-    subfundColor: "var(--color-info-200)",
+    subfundColor: "var(--color-primary-200)",
     benchmarkColor: "var(--color-teal-200)",
     rows: [
       { period: "MTD", subfund: "9.58%", benchmark: "9.54%" },
@@ -144,13 +149,13 @@ const SUBFUND_MONEY_MARKET_DATA: MiirfSubfundData = {
   pieSectionTitle: "Asset allocation",
   pieNameColumnLabel: "Asset class",
   allocationRows: [
-    { name: "Short term sukuks", percentage: "38.00%", color: "var(--color-info-200)", value: 38 },
+    { name: "Short term sukuks", percentage: "38.00%", color: "var(--color-primary-200)", value: 38 },
     { name: "Treasury / govt instruments", percentage: "32.50%", color: "var(--color-teal-200)", value: 32.5 },
     { name: "Corporate sukuks", percentage: "22.00%", color: "var(--color-error-200)", value: 22 },
     { name: "Cash & equivalents", percentage: "7.50%", color: "var(--color-warning-200)", value: 7.5 },
   ],
   topHoldingsRows: [
-    { name: "Govt of Pakistan Ijarah Sukuk", percentage: "16.30%", color: "var(--color-info-200)", value: 16.3 },
+    { name: "Govt of Pakistan Ijarah Sukuk", percentage: "16.30%", color: "var(--color-primary-200)", value: 16.3 },
     { name: "Meezan Bank Deposit", percentage: "13.85%", color: "var(--color-teal-200)", value: 13.85 },
     { name: "UBL Ameen Deposit", percentage: "11.74%", color: "var(--color-error-200)", value: 11.74 },
     { name: "Engro Power Sukuk", percentage: "9.52%", color: "var(--color-warning-200)", value: 9.52 },
@@ -176,7 +181,7 @@ const SUBFUND_MONEY_MARKET_DATA: MiirfSubfundData = {
   performanceTable: {
     subfundLabel: "MIIRF (Money Market)",
     benchmarkLabel: "Benchmark",
-    subfundColor: "var(--color-info-200)",
+    subfundColor: "var(--color-primary-200)",
     benchmarkColor: "var(--color-teal-200)",
     rows: [
       { period: "MTD", subfund: "8.64%", benchmark: "8.67%" },
@@ -225,7 +230,7 @@ const SUBFUND_EQUITY_DATA: MiirfSubfundData = {
   pieSectionTitle: "Sector allocation",
   pieNameColumnLabel: "Sector",
   allocationRows: [
-    { name: "Oil & gas", percentage: "18.20%", color: "var(--color-info-200)", value: 18.2 },
+    { name: "Oil & gas", percentage: "18.20%", color: "var(--color-primary-200)", value: 18.2 },
     { name: "Commercial banks", percentage: "16.40%", color: "var(--color-primary-200)", value: 16.4 },
     { name: "Cement", percentage: "12.80%", color: "var(--color-teal-200)", value: 12.8 },
     { name: "Fertilizers", percentage: "11.50%", color: "var(--color-warning-200)", value: 11.5 },
@@ -235,7 +240,7 @@ const SUBFUND_EQUITY_DATA: MiirfSubfundData = {
     { name: "Other", percentage: "15.20%", color: "var(--color-error-150)", value: 15.2 },
   ],
   topHoldingsRows: [
-    { name: "Mahaana Islamic Index Exchange Traded Fund", percentage: "11.57%", color: "var(--color-info-200)", value: 11.57 },
+    { name: "Mahaana Islamic Index Exchange Traded Fund", percentage: "11.57%", color: "var(--color-primary-200)", value: 11.57 },
     { name: "Engro Holdings Limited", percentage: "9.10%", color: "var(--color-primary-200)", value: 9.1 },
     { name: "Fauji Fertilizers Limited", percentage: "8.90%", color: "var(--color-teal-200)", value: 8.9 },
     { name: "Oil and Gas Development Company", percentage: "7.54%", color: "var(--color-warning-200)", value: 7.54 },
@@ -266,7 +271,7 @@ const SUBFUND_EQUITY_DATA: MiirfSubfundData = {
   performanceTable: {
     subfundLabel: "MIIRF (Equity)",
     benchmarkLabel: "Benchmark",
-    subfundColor: "var(--color-info-200)",
+    subfundColor: "var(--color-primary-200)",
     benchmarkColor: "var(--color-teal-200)",
     rows: [
       { period: "MTD", subfund: "-6.78%", benchmark: "-6.51%" },
@@ -512,16 +517,19 @@ export function MIIRFSubfundsSection({ fundData }: { fundData?: MiirfSubfundsFun
                     <col
                       key={r.period}
                       style={{
-                        width: `${78 / data.performanceTable.rows.length}%`,
+                        width: fundTableMetricColWidthPct(
+                          78,
+                          data.performanceTable.rows.length
+                        ),
                       }}
                     />
                   ))}
                 </colgroup>
-                <thead>
+                <thead className={fundTableTheadClass}>
                   <tr>
                     <th
                       scope="col"
-                      className="min-w-0 bg-surface-stroke px-2 py-3 text-left sm:px-3"
+                      className="min-w-0 px-2 py-3 text-left sm:px-3"
                     >
                       <TextSmall
                         weight="semibold"
@@ -534,7 +542,7 @@ export function MIIRFSubfundsSection({ fundData }: { fundData?: MiirfSubfundsFun
                       <th
                         key={r.period}
                         scope="col"
-                        className="bg-surface-stroke px-1 py-3 text-center sm:px-2"
+                        className="px-1 py-3 text-center sm:px-2"
                       >
                         <TextSmall
                           weight="semibold"
@@ -639,11 +647,11 @@ export function MIIRFSubfundsSection({ fundData }: { fundData?: MiirfSubfundsFun
                       <col className="min-w-0 w-[74%]" />
                       <col className="w-[26%]" />
                     </colgroup>
-                    <thead>
+                    <thead className={fundTableTheadClass}>
                       <tr>
                         <th
                           scope="col"
-                          className="min-w-0 bg-surface-stroke px-3 py-4 text-left sm:px-4"
+                          className="min-w-0 px-3 py-4 text-left sm:px-4"
                         >
                           <TextSmall
                             weight="semibold"
@@ -654,7 +662,7 @@ export function MIIRFSubfundsSection({ fundData }: { fundData?: MiirfSubfundsFun
                         </th>
                         <th
                           scope="col"
-                          className="bg-surface-stroke px-2 py-4 text-center sm:px-3"
+                          className="px-2 py-4 text-center sm:px-3"
                         >
                           <TextSmall
                             weight="semibold"
@@ -727,11 +735,11 @@ export function MIIRFSubfundsSection({ fundData }: { fundData?: MiirfSubfundsFun
                         <col className="min-w-0 w-[74%]" />
                         <col className="w-[26%]" />
                       </colgroup>
-                      <thead>
+                      <thead className={fundTableTheadClass}>
                         <tr>
                           <th
                             scope="col"
-                            className="min-w-0 bg-surface-stroke px-3 py-4 text-left sm:px-4"
+                            className="min-w-0 px-3 py-4 text-left sm:px-4"
                           >
                             <TextSmall
                               weight="semibold"
@@ -742,7 +750,7 @@ export function MIIRFSubfundsSection({ fundData }: { fundData?: MiirfSubfundsFun
                           </th>
                           <th
                             scope="col"
-                            className="bg-surface-stroke px-2 py-4 text-center sm:px-3"
+                            className="px-2 py-4 text-center sm:px-3"
                           >
                             <TextSmall
                               weight="semibold"

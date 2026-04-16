@@ -182,26 +182,26 @@ export async function getMiietfFundData(): Promise<MiietfFundDataResponse | null
 // ---------------------------------------------------------------------------
 
 const CHART_COLORS = {
-  miietf: "var(--color-info-200)",
+  miietf: "var(--color-primary-200)",
   benchmark: "var(--color-teal-200)",
   kmi30: "var(--color-error-200)",
 } as const;
 
 const EXPOSURE_COLORS = [
-  "var(--color-info-200)",
+  "var(--color-primary-200)",
   "var(--color-teal-200)",
   "var(--color-error-200)",
   "var(--color-warning-200)",
-  "var(--color-primary-200)",
+  "var(--color-info-200)",
   "var(--color-info-150)",
 ] as const;
 
 const HOLDINGS_COLORS = [
-  "var(--color-info-200)",
+  "var(--color-primary-200)",
   "var(--color-teal-200)",
   "var(--color-error-200)",
   "var(--color-warning-200)",
-  "var(--color-primary-200)",
+  "var(--color-info-200)",
   "var(--color-info-150)",
   "var(--color-teal-150)",
   "var(--color-error-150)",

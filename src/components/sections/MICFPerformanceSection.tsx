@@ -5,11 +5,16 @@ import { Container } from "@/components/layout/Container";
 import { HighchartsPerformanceChart } from "@/components/ui/HighchartsPerformanceChart";
 import { H3, TextMedium, TextSmall } from "@/components/ui/Typography";
 import type { MicfPerformanceFundData } from "@/lib/micf-fund-api";
-import { fundTableCardClass, fundTableFixedClass } from "@/components/ui/fundTableClasses";
+import {
+  fundTableCardClass,
+  fundTableFixedClass,
+  fundTableMetricColWidthPct,
+  fundTableTheadClass,
+} from "@/components/ui/fundTableClasses";
 import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
 
 const CHART_COLORS = {
-  micf: "var(--color-info-200)",
+  micf: "var(--color-primary-200)",
   benchmark: "var(--color-teal-200)",
 } as const;
 
@@ -123,14 +128,14 @@ export function MICFPerformanceSection({
               <colgroup>
                 <col style={{ width: "20%" }} />
                 {Array.from({ length: 7 }, (_, i) => (
-                  <col key={i} style={{ width: `${80 / 7}%` }} />
+                  <col key={i} style={{ width: fundTableMetricColWidthPct(80, 7) }} />
                 ))}
               </colgroup>
-              <thead>
+              <thead className={fundTableTheadClass}>
                 <tr>
                   <th
                     scope="col"
-                    className="min-w-0 bg-surface-stroke px-2 py-3 text-left sm:px-3 md:px-4"
+                    className="min-w-0 px-2 py-3 text-left sm:px-3 md:px-4"
                   >
                     <TextSmall
                       weight="semibold"
@@ -141,7 +146,7 @@ export function MICFPerformanceSection({
                   </th>
                   <th
                     scope="col"
-                    className="bg-surface-stroke px-1 py-3 text-center sm:px-2 md:px-3"
+                    className="px-1 py-3 text-center sm:px-2 md:px-3"
                   >
                     <TextSmall
                       weight="semibold"
@@ -152,7 +157,7 @@ export function MICFPerformanceSection({
                   </th>
                   <th
                     scope="col"
-                    className="bg-surface-stroke px-1 py-3 text-center sm:px-2 md:px-3"
+                    className="px-1 py-3 text-center sm:px-2 md:px-3"
                   >
                     <TextSmall
                       weight="semibold"
@@ -163,7 +168,7 @@ export function MICFPerformanceSection({
                   </th>
                   <th
                     scope="col"
-                    className="bg-surface-stroke px-1 py-3 text-center sm:px-2 md:px-3"
+                    className="px-1 py-3 text-center sm:px-2 md:px-3"
                   >
                     <TextSmall
                       weight="semibold"
@@ -174,7 +179,7 @@ export function MICFPerformanceSection({
                   </th>
                   <th
                     scope="col"
-                    className="bg-surface-stroke px-1 py-3 text-center sm:px-2 md:px-3"
+                    className="px-1 py-3 text-center sm:px-2 md:px-3"
                   >
                     <TextSmall
                       weight="semibold"
@@ -185,7 +190,7 @@ export function MICFPerformanceSection({
                   </th>
                   <th
                     scope="col"
-                    className="bg-surface-stroke px-1 py-3 text-center sm:px-2 md:px-3"
+                    className="px-1 py-3 text-center sm:px-2 md:px-3"
                   >
                     <TextSmall
                       weight="semibold"
@@ -196,7 +201,7 @@ export function MICFPerformanceSection({
                   </th>
                   <th
                     scope="col"
-                    className="bg-surface-stroke px-1 py-3 text-center sm:px-2 md:px-3"
+                    className="px-1 py-3 text-center sm:px-2 md:px-3"
                   >
                     <TextSmall
                       weight="semibold"

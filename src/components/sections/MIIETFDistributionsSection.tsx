@@ -4,7 +4,11 @@ import { motion } from "motion/react";
 import { Container } from "@/components/layout/Container";
 import { H3, TextMedium, TextSmall } from "@/components/ui/Typography";
 import type { MiietfDistributionsFundData } from "@/lib/miietf-fund-api";
-import { fundTableCardClass, fundTableFixedClass } from "@/components/ui/fundTableClasses";
+import {
+  fundTableCardClass,
+  fundTableFixedClass,
+  fundTableTheadClass,
+} from "@/components/ui/fundTableClasses";
 import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
 
 /** Parse DD/MM/YYYY (with or without spaces) to YYYY-MM-DD for sorting. */
@@ -64,11 +68,11 @@ export function MIIETFDistributionsSection({ fundData }: { fundData?: MiietfDist
               <col className="w-1/4" />
               <col className="w-1/4" />
             </colgroup>
-            <thead>
+            <thead className={fundTableTheadClass}>
               <tr>
                 <th
                   scope="col"
-                  className="bg-surface-stroke px-2 py-4 text-center sm:px-3"
+                  className="px-2 py-4 text-center sm:px-3"
                 >
                   <TextSmall
                     weight="semibold"
@@ -79,7 +83,7 @@ export function MIIETFDistributionsSection({ fundData }: { fundData?: MiietfDist
                 </th>
                 <th
                   scope="col"
-                  className="bg-surface-stroke px-2 py-4 text-center sm:px-3"
+                  className="px-2 py-4 text-center sm:px-3"
                 >
                   <TextSmall
                     weight="semibold"
@@ -90,7 +94,7 @@ export function MIIETFDistributionsSection({ fundData }: { fundData?: MiietfDist
                 </th>
                 <th
                   scope="col"
-                  className="bg-surface-stroke px-2 py-4 text-center sm:px-3"
+                  className="px-2 py-4 text-center sm:px-3"
                 >
                   <TextSmall
                     weight="semibold"
@@ -101,7 +105,7 @@ export function MIIETFDistributionsSection({ fundData }: { fundData?: MiietfDist
                 </th>
                 <th
                   scope="col"
-                  className="bg-surface-stroke px-2 py-4 text-center sm:px-3"
+                  className="px-2 py-4 text-center sm:px-3"
                 >
                   <TextSmall
                     weight="semibold"

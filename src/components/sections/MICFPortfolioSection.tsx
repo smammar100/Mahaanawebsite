@@ -8,15 +8,19 @@ import { H3, H4, TextMedium, TextSmall } from "@/components/ui/Typography";
 import { HighchartsVariablePieChart } from "@/components/ui/HighchartsVariablePieChart";
 import type { MicfPortfolioFundData } from "@/lib/micf-fund-api";
 import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
-import { fundTableCardClass, fundTableFixedClass } from "@/components/ui/fundTableClasses";
+import {
+  fundTableCardClass,
+  fundTableFixedClass,
+  fundTableTheadClass,
+} from "@/components/ui/fundTableClasses";
 import { cx } from "@/utils/cx";
 
 const ASSET_COLORS = {
-  bankDeposits: "var(--color-info-200)",
+  bankDeposits: "var(--color-primary-200)",
   musharaka: "var(--color-teal-200)",
   govtSecurities: "var(--color-error-200)",
   shortTermSukuk: "var(--color-warning-200)",
-  baiMuajjal: "var(--color-primary-200)",
+  baiMuajjal: "var(--color-info-200)",
   otherAssets: "var(--color-info-150)",
 } as const;
 
@@ -146,7 +150,7 @@ const assetAllocationColumnChartOptions: Options = {
     {
       name: "Previous month",
       data: [37.53, 12, 8, 15, 10, 17.47],
-      color: "var(--color-info-200)",
+      color: "var(--color-primary-200)",
     },
     {
       name: "Current month",
@@ -259,7 +263,7 @@ const assetAllocationColumnChartOptions: Options = {
 };
 
 const CREDIT_QUALITY_COLORS = {
-  aaa: "var(--color-info-200)",
+  aaa: "var(--color-primary-200)",
   aaPlus: "var(--color-teal-200)",
   aa: "var(--color-error-200)",
   a1: "var(--color-warning-200)",
@@ -273,11 +277,11 @@ const CREDIT_QUALITY_ROWS = [
 ];
 
 const HOLDINGS_COLORS = {
-  sadaqat: "var(--color-info-200)",
+  sadaqat: "var(--color-primary-200)",
   zarea: "var(--color-teal-200)",
   goPetroleum: "var(--color-error-200)",
   other1: "var(--color-warning-200)",
-  other2: "var(--color-primary-200)",
+  other2: "var(--color-info-200)",
   other3: "var(--color-info-150)",
 } as const;
 
@@ -343,7 +347,7 @@ function AssetAllocationColumnChart({
             categories,
           },
           series: [
-            { name: "Previous month", data: prevData, color: "var(--color-info-200)" },
+            { name: "Previous month", data: prevData, color: "var(--color-primary-200)" },
             { name: "Current month", data: currentData, color: "var(--color-teal-200)" },
           ],
         }
@@ -454,19 +458,19 @@ export function MICFPortfolioSection({
                     <col className="w-[29%]" />
                     <col className="w-[29%]" />
                   </colgroup>
-                  <thead>
+                  <thead className={fundTableTheadClass}>
                     <tr>
-                      <th scope="col" className="min-w-0 bg-surface-stroke px-3 py-4 text-left sm:px-4">
+                      <th scope="col" className="min-w-0 px-3 py-4 text-left sm:px-4">
                         <TextSmall weight="semibold" className="text-text-tertiary">
                           Items
                         </TextSmall>
                       </th>
-                      <th scope="col" className="bg-surface-stroke px-2 py-4 text-center sm:px-3">
+                      <th scope="col" className="px-2 py-4 text-center sm:px-3">
                         <TextSmall weight="semibold" className="text-text-tertiary">
                           Current month
                         </TextSmall>
                       </th>
-                      <th scope="col" className="bg-surface-stroke px-2 py-4 text-center sm:px-3">
+                      <th scope="col" className="px-2 py-4 text-center sm:px-3">
                         <TextSmall weight="semibold" className="text-text-tertiary">
                           Previous month
                         </TextSmall>
@@ -526,14 +530,14 @@ export function MICFPortfolioSection({
                       <col className="min-w-0 w-[74%]" />
                       <col className="w-[26%]" />
                     </colgroup>
-                    <thead>
+                    <thead className={fundTableTheadClass}>
                       <tr>
-                        <th scope="col" className="min-w-0 bg-surface-stroke px-3 py-4 text-left sm:px-4">
+                        <th scope="col" className="min-w-0 px-3 py-4 text-left sm:px-4">
                           <TextSmall weight="semibold" className="text-text-tertiary">
                             Items
                           </TextSmall>
                         </th>
-                        <th scope="col" className="bg-surface-stroke px-2 py-4 text-center sm:px-3">
+                        <th scope="col" className="px-2 py-4 text-center sm:px-3">
                           <TextSmall weight="semibold" className="text-text-tertiary">
                             Percentage
                           </TextSmall>
@@ -609,14 +613,14 @@ export function MICFPortfolioSection({
                       <col className="min-w-0 w-[74%]" />
                       <col className="w-[26%]" />
                     </colgroup>
-                    <thead>
+                    <thead className={fundTableTheadClass}>
                       <tr>
-                        <th scope="col" className="min-w-0 bg-surface-stroke px-3 py-4 text-left sm:px-4">
+                        <th scope="col" className="min-w-0 px-3 py-4 text-left sm:px-4">
                           <TextSmall weight="semibold" className="text-text-tertiary">
                             Instrument
                           </TextSmall>
                         </th>
-                        <th scope="col" className="bg-surface-stroke px-2 py-4 text-center sm:px-3">
+                        <th scope="col" className="px-2 py-4 text-center sm:px-3">
                           <TextSmall weight="semibold" className="text-text-tertiary">
                             Percentage
                           </TextSmall>

@@ -6,15 +6,19 @@ import { Container } from "@/components/layout/Container";
 import { H3, H4, TextMedium, TextSmall } from "@/components/ui/Typography";
 import { HighchartsVariablePieChart } from "@/components/ui/HighchartsVariablePieChart";
 import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
-import { fundTableCardClass, fundTableFixedClass } from "@/components/ui/fundTableClasses";
+import {
+  fundTableCardClass,
+  fundTableFixedClass,
+  fundTableTheadClass,
+} from "@/components/ui/fundTableClasses";
 import { cx } from "@/utils/cx";
 
 const EXPOSURE_COLORS = {
-  fertilizer: "var(--color-info-200)",
+  fertilizer: "var(--color-primary-200)",
   oilGas: "var(--color-teal-200)",
   cements: "var(--color-error-200)",
   commercialBanks: "var(--color-warning-200)",
-  invBanks: "var(--color-primary-200)",
+  invBanks: "var(--color-info-200)",
   others: "var(--color-info-150)",
 } as const;
 
@@ -70,11 +74,11 @@ const WEIGHTED_EXPOSURE_ROWS = [
 ] as const;
 
 const HOLDINGS_COLORS = {
-  fauji: "var(--color-info-200)",
+  fauji: "var(--color-primary-200)",
   engro: "var(--color-teal-200)",
   meezan: "var(--color-error-200)",
   lucky: "var(--color-warning-200)",
-  ppl: "var(--color-primary-200)",
+  ppl: "var(--color-info-200)",
   hub: "var(--color-info-150)",
   ogdcl: "var(--color-teal-150)",
   mari: "var(--color-error-150)",
@@ -159,11 +163,11 @@ export function MIIRFPortfolioSection() {
                       <col className="w-[19.33%]" />
                       <col className="w-[19.34%]" />
                     </colgroup>
-                    <thead>
+                    <thead className={fundTableTheadClass}>
                       <tr>
                         <th
                           scope="col"
-                          className="min-w-0 bg-surface-stroke px-3 py-4 text-left sm:px-4"
+                          className="min-w-0 px-3 py-4 text-left sm:px-4"
                         >
                           <TextSmall
                             weight="semibold"
@@ -174,7 +178,7 @@ export function MIIRFPortfolioSection() {
                         </th>
                         <th
                           scope="col"
-                          className="bg-surface-stroke px-2 py-4 text-center sm:px-3"
+                          className="px-2 py-4 text-center sm:px-3"
                         >
                           <TextSmall
                             weight="semibold"
@@ -185,7 +189,7 @@ export function MIIRFPortfolioSection() {
                         </th>
                         <th
                           scope="col"
-                          className="bg-surface-stroke px-2 py-4 text-center sm:px-3"
+                          className="px-2 py-4 text-center sm:px-3"
                         >
                           <TextSmall
                             weight="semibold"
@@ -196,7 +200,7 @@ export function MIIRFPortfolioSection() {
                         </th>
                         <th
                           scope="col"
-                          className="bg-surface-stroke px-2 py-4 text-center sm:px-3"
+                          className="px-2 py-4 text-center sm:px-3"
                         >
                           <TextSmall
                             weight="semibold"
@@ -295,11 +299,11 @@ export function MIIRFPortfolioSection() {
                       <col className="min-w-0 w-[74%]" />
                       <col className="w-[26%]" />
                     </colgroup>
-                    <thead>
+                    <thead className={fundTableTheadClass}>
                       <tr>
                         <th
                           scope="col"
-                          className="min-w-0 bg-surface-stroke px-3 py-4 text-left sm:px-4"
+                          className="min-w-0 px-3 py-4 text-left sm:px-4"
                         >
                           <TextSmall
                             weight="semibold"
@@ -310,7 +314,7 @@ export function MIIRFPortfolioSection() {
                         </th>
                         <th
                           scope="col"
-                          className="bg-surface-stroke px-2 py-4 text-center sm:px-3"
+                          className="px-2 py-4 text-center sm:px-3"
                         >
                           <TextSmall
                             weight="semibold"

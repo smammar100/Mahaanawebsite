@@ -96,11 +96,11 @@ const CHART_COLORS_MAIN = {
 } as const;
 
 const HOLDINGS_COLORS = [
-  "var(--color-info-200)",
+  "var(--color-primary-200)",
   "var(--color-teal-200)",
   "var(--color-error-200)",
   "var(--color-warning-200)",
-  "var(--color-primary-200)",
+  "var(--color-info-200)",
   "var(--color-info-150)",
   "var(--color-teal-150)",
   "var(--color-error-150)",
@@ -463,7 +463,7 @@ function transformSubfund(
     performanceTable: {
       subfundLabel,
       benchmarkLabel: "Benchmark",
-      subfundColor: "var(--color-info-200)",
+      subfundColor: "var(--color-primary-200)",
       benchmarkColor: "var(--color-teal-200)",
       rows: perfRows,
     },
