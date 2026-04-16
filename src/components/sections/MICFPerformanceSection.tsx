@@ -13,7 +13,7 @@ const CHART_COLORS = {
   benchmark: "var(--color-teal-200)",
 } as const;
 
-/** NAV adjusted price (base 100 at Mar 2023 inception). Sampled quarterly for fallback when API is unavailable. */
+/** NAV price (base 100 at Mar 2023 inception). Sampled quarterly for fallback when API is unavailable. */
 const performanceChartData = [
   { date: "Mar 2023", micf: 100, benchmark: 100 },
   { date: "Jun 2023", micf: 105.03, benchmark: 101.72 },
@@ -74,8 +74,8 @@ export function MICFPerformanceSection({
   const tableRows = fundData?.tableRows ?? [...PERFORMANCE_TABLE_ROWS];
   const chartSubtitle =
     categories.length >= 2
-      ? `NAV adjusted price. ${categories[0]} to ${categories[categories.length - 1]}.`
-      : "NAV adjusted price.";
+      ? `NAV price. ${categories[0]} to ${categories[categories.length - 1]}.`
+      : "NAV price.";
 
   return (
     <motion.section
@@ -101,17 +101,17 @@ export function MICFPerformanceSection({
             <div
               className="h-fit w-full min-w-0 overflow-visible"
               role="img"
-              aria-label="Performance chart: MICF and Benchmark NAV adjusted price"
+              aria-label="Performance chart: MICF and Benchmark NAV price"
             >
               <HighchartsPerformanceChart
                 title="Performance"
                 subtitle={chartSubtitle}
                 categories={categories}
                 series={series}
-                ariaLabel="Performance chart: MICF and Benchmark NAV adjusted price"
+                ariaLabel="Performance chart: MICF and Benchmark NAV price"
                 chartType="line"
                 valueSuffix=""
-                yAxisTitle="NAV adjusted price"
+                yAxisTitle="NAV price"
                 xAxisLabelFormat="monthYear"
               />
             </div>
@@ -121,9 +121,9 @@ export function MICFPerformanceSection({
           <div className={fundTableCardClass}>
             <table className={fundTableFixedClass} role="table" aria-label="Performance metrics by period">
               <colgroup>
-                <col style={{ width: "14%" }} />
+                <col style={{ width: "20%" }} />
                 {Array.from({ length: 7 }, (_, i) => (
-                  <col key={i} style={{ width: `${86 / 7}%` }} />
+                  <col key={i} style={{ width: `${80 / 7}%` }} />
                 ))}
               </colgroup>
               <thead>
@@ -136,7 +136,7 @@ export function MICFPerformanceSection({
                       weight="semibold"
                       className="text-text-tertiary"
                     >
-                      Sectors
+                      Fund
                     </TextSmall>
                   </th>
                   <th
@@ -222,7 +222,7 @@ export function MICFPerformanceSection({
                         />
                         <TextMedium
                           weight="semibold"
-                          className="min-w-0 truncate text-text-primary sm:whitespace-normal"
+                          className="min-w-0 break-words leading-snug text-text-primary"
                         >
                           {row.label}
                         </TextMedium>

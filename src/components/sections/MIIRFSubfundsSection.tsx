@@ -58,11 +58,18 @@ const SUBFUND_DEBT_DATA: MiirfSubfundData = {
   ],
   pieSectionTitle: "Asset allocation",
   pieNameColumnLabel: "Asset class",
-  topHoldings: [
+  allocationRows: [
     { name: "Corporate sukuks", percentage: "42.50%", color: "var(--color-info-200)", value: 42.5 },
     { name: "Short term sukuks", percentage: "28.30%", color: "var(--color-teal-200)", value: 28.3 },
     { name: "Govt securities", percentage: "18.20%", color: "var(--color-error-200)", value: 18.2 },
     { name: "Bank deposits / placements", percentage: "11.00%", color: "var(--color-warning-200)", value: 11 },
+  ],
+  topHoldingsRows: [
+    { name: "Pakistan Energy Sukuk II", percentage: "14.10%", color: "var(--color-info-200)", value: 14.1 },
+    { name: "Lucky Electric Sukuk", percentage: "12.85%", color: "var(--color-teal-200)", value: 12.85 },
+    { name: "TPL Trakker Sukuk", percentage: "10.72%", color: "var(--color-error-200)", value: 10.72 },
+    { name: "Meezan Bank Deposit", percentage: "9.94%", color: "var(--color-warning-200)", value: 9.94 },
+    { name: "HBL Islamic Deposit", percentage: "8.63%", color: "var(--color-primary-200)", value: 8.63 },
   ],
   performanceChartData: [
     { date: "May 26, 2025", subfund: 10.0, benchmark: 10.0 },
@@ -136,11 +143,18 @@ const SUBFUND_MONEY_MARKET_DATA: MiirfSubfundData = {
   ],
   pieSectionTitle: "Asset allocation",
   pieNameColumnLabel: "Asset class",
-  topHoldings: [
+  allocationRows: [
     { name: "Short term sukuks", percentage: "38.00%", color: "var(--color-info-200)", value: 38 },
     { name: "Treasury / govt instruments", percentage: "32.50%", color: "var(--color-teal-200)", value: 32.5 },
     { name: "Corporate sukuks", percentage: "22.00%", color: "var(--color-error-200)", value: 22 },
     { name: "Cash & equivalents", percentage: "7.50%", color: "var(--color-warning-200)", value: 7.5 },
+  ],
+  topHoldingsRows: [
+    { name: "Govt of Pakistan Ijarah Sukuk", percentage: "16.30%", color: "var(--color-info-200)", value: 16.3 },
+    { name: "Meezan Bank Deposit", percentage: "13.85%", color: "var(--color-teal-200)", value: 13.85 },
+    { name: "UBL Ameen Deposit", percentage: "11.74%", color: "var(--color-error-200)", value: 11.74 },
+    { name: "Engro Power Sukuk", percentage: "9.52%", color: "var(--color-warning-200)", value: 9.52 },
+    { name: "Pakistan Energy Sukuk II", percentage: "8.91%", color: "var(--color-primary-200)", value: 8.91 },
   ],
   performanceChartData: [
     { date: "Jun 2025", subfund: 9.9, benchmark: 9.85 },
@@ -210,7 +224,7 @@ const SUBFUND_EQUITY_DATA: MiirfSubfundData = {
   ],
   pieSectionTitle: "Sector allocation",
   pieNameColumnLabel: "Sector",
-  topHoldings: [
+  allocationRows: [
     { name: "Oil & gas", percentage: "18.20%", color: "var(--color-info-200)", value: 18.2 },
     { name: "Commercial banks", percentage: "16.40%", color: "var(--color-primary-200)", value: 16.4 },
     { name: "Cement", percentage: "12.80%", color: "var(--color-teal-200)", value: 12.8 },
@@ -219,6 +233,18 @@ const SUBFUND_EQUITY_DATA: MiirfSubfundData = {
     { name: "Technology", percentage: "8.60%", color: "var(--color-info-150)", value: 8.6 },
     { name: "Textile", percentage: "7.10%", color: "var(--color-teal-150)", value: 7.1 },
     { name: "Other", percentage: "15.20%", color: "var(--color-error-150)", value: 15.2 },
+  ],
+  topHoldingsRows: [
+    { name: "Mahaana Islamic Index Exchange Traded Fund", percentage: "11.57%", color: "var(--color-info-200)", value: 11.57 },
+    { name: "Engro Holdings Limited", percentage: "9.10%", color: "var(--color-primary-200)", value: 9.1 },
+    { name: "Fauji Fertilizers Limited", percentage: "8.90%", color: "var(--color-teal-200)", value: 8.9 },
+    { name: "Oil and Gas Development Company", percentage: "7.54%", color: "var(--color-warning-200)", value: 7.54 },
+    { name: "Meeza Bank limited", percentage: "6.79%", color: "var(--color-error-200)", value: 6.79 },
+    { name: "Hub Power Company Limited", percentage: "6.56%", color: "var(--color-info-150)", value: 6.56 },
+    { name: "Lucky cement", percentage: "6.42%", color: "var(--color-teal-150)", value: 6.42 },
+    { name: "Pakistan Petroleum Limited", percentage: "6.14%", color: "var(--color-error-150)", value: 6.14 },
+    { name: "Mari Energies Limited", percentage: "5.45%", color: "var(--color-coral-150)", value: 5.45 },
+    { name: "Systems Limited", percentage: "5.10%", color: "var(--color-primary-150)", value: 5.1 },
   ],
   performanceChartData: [
     { date: "Jun 2025", subfund: 10.0, benchmark: 10.0 },
@@ -297,6 +323,10 @@ export function MIIRFSubfundsSection({ fundData }: { fundData?: MiirfSubfundsFun
       : activeTab === "equity"
         ? SUBFUND_EQUITY_DATA
         : SUBFUND_DEBT_DATA;
+  const hasTopHoldingsValues = data.topHoldingsRows.some(
+    (row) => row.name.trim() !== "—" && row.percentage.trim() !== "—"
+  );
+  const showTopHoldings = activeTab !== "money-market" || hasTopHoldingsValues;
 
   return (
     <motion.section
@@ -528,7 +558,7 @@ export function MIIRFSubfundsSection({ fundData }: { fundData?: MiirfSubfundsFun
                         />
                         <TextMedium
                           weight="semibold"
-                          className="min-w-0 truncate text-text-primary sm:whitespace-normal"
+                          className="min-w-0 break-words leading-snug text-text-primary"
                         >
                           {data.performanceTable.subfundLabel}
                         </TextMedium>
@@ -560,7 +590,7 @@ export function MIIRFSubfundsSection({ fundData }: { fundData?: MiirfSubfundsFun
                         />
                         <TextMedium
                           weight="semibold"
-                          className="min-w-0 truncate text-text-primary sm:whitespace-normal"
+                          className="min-w-0 break-words leading-snug text-text-primary"
                         >
                           {data.performanceTable.benchmarkLabel}
                         </TextMedium>
@@ -593,7 +623,7 @@ export function MIIRFSubfundsSection({ fundData }: { fundData?: MiirfSubfundsFun
             <div className="flex min-w-0 flex-col gap-6 lg:flex-row lg:gap-6">
               <div className="flex flex-col justify-center items-center min-w-0 flex-1 lg:w-1/2">
                 <SubfundDonutChart
-                  holdings={data.topHoldings}
+                  holdings={data.allocationRows}
                   ariaLabel={`${data.pieSectionTitle} by percentage`}
                 />
               </div>
@@ -635,9 +665,9 @@ export function MIIRFSubfundsSection({ fundData }: { fundData?: MiirfSubfundsFun
                       </tr>
                     </thead>
                     <tbody>
-                      {data.topHoldings.map((row, index) => (
+                      {data.allocationRows.map((row, index) => (
                         <tr
-                          key={`holding-${index}`}
+                          key={`allocation-${index}`}
                           className="border-b border-surface-stroke last:border-b-0"
                         >
                           <td className="min-w-0 px-3 py-5 sm:px-4">
@@ -671,6 +701,95 @@ export function MIIRFSubfundsSection({ fundData }: { fundData?: MiirfSubfundsFun
               </div>
             </div>
           </div>
+
+          {/* Top holdings: chart + table */}
+          {showTopHoldings ? (
+            <div className="flex flex-col gap-6">
+              <H4 className="text-text-primary" weight="semibold">
+                Top holdings
+              </H4>
+              <div className="flex min-w-0 flex-col gap-6 lg:flex-row lg:gap-6">
+                <div className="flex flex-col justify-center items-center min-w-0 flex-1 lg:w-1/2">
+                  <SubfundDonutChart
+                    holdings={data.topHoldingsRows}
+                    ariaLabel="Top holdings by percentage"
+                  />
+                </div>
+                <div className="min-w-0 flex-1 lg:w-1/2">
+                  <div className={fundTableCardClass}>
+                    <table
+                      className={fundTableFixedClass}
+                      role="table"
+                      aria-label="Top holdings by percentage"
+                    >
+                      <colgroup>
+                        <col className="min-w-0 w-[74%]" />
+                        <col className="w-[26%]" />
+                      </colgroup>
+                      <thead>
+                        <tr>
+                          <th
+                            scope="col"
+                            className="min-w-0 bg-surface-stroke px-3 py-4 text-left sm:px-4"
+                          >
+                            <TextSmall
+                              weight="semibold"
+                              className="text-text-tertiary"
+                            >
+                              Holdings
+                            </TextSmall>
+                          </th>
+                          <th
+                            scope="col"
+                            className="bg-surface-stroke px-2 py-4 text-center sm:px-3"
+                          >
+                            <TextSmall
+                              weight="semibold"
+                              className="text-text-tertiary"
+                            >
+                              Percentage
+                            </TextSmall>
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {data.topHoldingsRows.map((row, index) => (
+                          <tr
+                            key={`top-holding-${index}`}
+                            className="border-b border-surface-stroke last:border-b-0"
+                          >
+                            <td className="min-w-0 px-3 py-5 sm:px-4">
+                              <div className="flex min-w-0 items-start gap-2 sm:items-center sm:gap-3">
+                                <span
+                                  className="mt-0.5 h-3.5 w-3.5 shrink-0 rounded sm:mt-0"
+                                  style={{ backgroundColor: row.color }}
+                                  aria-hidden
+                                />
+                                <TextMedium
+                                  weight="semibold"
+                                  className="min-w-0 break-words leading-snug text-text-primary"
+                                >
+                                  {row.name}
+                                </TextMedium>
+                              </div>
+                            </td>
+                            <td className="px-2 py-5 text-center sm:px-3">
+                              <TextMedium
+                                weight="semibold"
+                                className="text-text-primary"
+                              >
+                                {row.percentage}
+                              </TextMedium>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ) : null}
         </div>
       </Container>
     </motion.section>

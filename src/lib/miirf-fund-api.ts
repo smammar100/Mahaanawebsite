@@ -126,8 +126,10 @@ export interface MiirfSubfundData {
   productSummary: string;
   investmentObjective: string;
   keyFacts: Array<{ label: string; value: string }>;
-  /** Pie + table rows (asset allocation, sector allocation, or legacy holdings shape). */
-  topHoldings: MiirfPieSliceRow[];
+  /** Allocation rows for the allocation pie+table block. */
+  allocationRows: MiirfPieSliceRow[];
+  /** Latest top holdings rows from API holdings. */
+  topHoldingsRows: MiirfPieSliceRow[];
   pieSectionTitle: string;
   pieNameColumnLabel: string;
   performanceChartData: Array<{ date: string; subfund: number; benchmark: number }>;
@@ -209,6 +211,14 @@ function parseNum(s: string | number | null | undefined): number {
   if (typeof s === "number" && !Number.isNaN(s)) return s;
   const n = parseFloat(String(s));
   return Number.isNaN(n) ? 0 : n;
+}
+
+/** Format numeric value with up to 4 decimals (trim trailing zeros). */
+function formatMax4Dp(v: string | number | null | undefined): string {
+  if (v == null) return "—";
+  const n = parseNum(v);
+  if (!Number.isFinite(n)) return "—";
+  return n.toFixed(4).replace(/\.?0+$/, "");
 }
 
 /** Net assets: raw is full PKR (e.g. 371672055.75) → "PKR 371.67mn" */
@@ -328,7 +338,9 @@ function transformSubfund(
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
   );
   const latest = sortedPrice[0];
-  const navValue = latest ? (latest.nav || latest.ad_nav || "—") : "—";
+  const navValue = latest
+    ? formatMax4Dp(latest.nav || latest.ad_nav)
+    : "—";
   const navAsOf = latest ? `As of ${formatShortDate(latest.date)}` : "—";
 
   const perfSubfund = raw.perf?.find((p) => p.name.includes("MIIRF"));
@@ -383,7 +395,7 @@ function transformSubfund(
     { label: "Benchmark", value: infoVal(info, "Benchmark") },
   ].map(({ label, value }) => ({ label, value: value || "—" }));
 
-  const topHoldings =
+  const allocationRows =
     pieSource === "asset_alloc"
       ? pieSlicesFromAssetAlloc(raw.asset_alloc ?? [])
       : (() => {
@@ -392,6 +404,7 @@ function transformSubfund(
             ? pieSlicesFromHoldingsLike(sectors)
             : pieSlicesFromHoldingsLike(raw.holdings ?? []);
         })();
+  const topHoldingsRows = pieSlicesFromHoldingsLike(raw.holdings ?? []);
 
   const pieSectionTitle = pieSource === "asset_alloc" ? "Asset allocation" : "Sector allocation";
   const pieNameColumnLabel = pieSource === "asset_alloc" ? "Asset class" : "Sector";
@@ -438,7 +451,8 @@ function transformSubfund(
     productSummary: infoVal(info, "Fund Summary"),
     investmentObjective: infoVal(info, "Investment Objective"),
     keyFacts,
-    topHoldings,
+    allocationRows,
+    topHoldingsRows,
     pieSectionTitle,
     pieNameColumnLabel,
     performanceChartData,

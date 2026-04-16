@@ -219,6 +219,11 @@ function pct2FromDecimal(v: number): string {
   return `${(v * 100).toFixed(2)}%`;
 }
 
+/** Format numeric value with up to 4 decimals (trim trailing zeros). */
+function formatMax4Dp(v: number): string {
+  return v.toFixed(4).replace(/\.?0+$/, "");
+}
+
 function infoVal(info: Record<string, string>, key: string): string {
   return info[key] ?? "";
 }
@@ -247,7 +252,7 @@ function transformHero(raw: MicfFundDataResponse): MicfHeroFundData {
   const latestPrice = sortedByDate[0] ?? null;
   const perfMicf = raw.perf.find((p) => p.name === "MICF");
 
-  const nav = latestPrice ? latestPrice.nav_adjusted.toFixed(2) : "";
+  const nav = latestPrice ? formatMax4Dp(latestPrice.nav) : "";
   const navDate = latestPrice ? formatShortDate(latestPrice.date) : "";
   const mtd = perfMicf != null ? pct2FromDecimal(perfMicf.mtd) : "";
   const assetClass = infoVal(info, "Fund Category");
@@ -327,7 +332,7 @@ function transformPerformance(raw: MicfFundDataResponse): MicfPerformanceFundDat
     (p) => new Date(p.date).getTime() >= MICF_INCEPTION_DATE_MS
   );
   const chartCategories = chartPrice.map((p) => formatShortDate(p.date));
-  const micfData = chartPrice.map((p) => p.nav_adjusted);
+  const micfData = chartPrice.map((p) => p.nav);
   const benchmarkData = chartPrice.map((p) => p.benchmark);
 
   const chartSeries = [
@@ -397,7 +402,7 @@ function transformDistributions(raw: MicfFundDataResponse): MicfDistributionsFun
   return raw.distribution.map((d) => ({
     date: formatDateDdMmYyyy(d.payout_date),
     pkrPerUnit: d.payout_per_unit.toFixed(2),
-    exNav: d.ex_nav.toFixed(2),
+    exNav: formatMax4Dp(d.ex_nav),
     yieldPct: pct2FromDecimal(d.yield),
   }));
 }

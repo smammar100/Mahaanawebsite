@@ -14,7 +14,7 @@ const CHART_COLORS = {
   kmi30: "var(--color-error-200)",
 } as const;
 
-/** NAV adjusted price (base 10 at Mar 2024 inception). Fallback when API is unavailable. */
+/** NAV price (base 10 at Mar 2024 inception). Fallback when API is unavailable. */
 const performanceChartData = [
   { date: "Mar 10, 2024", miietf: 10, benchmark: 10, kmi30: 10 },
   { date: "Jun 30, 2024", miietf: 10.64, benchmark: 10.63, kmi30: 10.41 },
@@ -81,12 +81,12 @@ export function MIIETFPerformanceSection({ fundData }: { fundData?: MiietfPerfor
   ] : fundData.chartSeries;
   const tableRows = fundData == null ? [...PERFORMANCE_TABLE_ROWS] : fundData.tableRows;
   const chartSubtitle = fundData == null
-    ? "NAV adjusted price. March 2024 to March 2026."
+    ? "NAV price. March 2024 to March 2026."
     : fundData.chartSubtitle;
-  const yAxisTitle = fundData == null ? "NAV adjusted price" : fundData.yAxisTitle;
+  const yAxisTitle = fundData == null ? "NAV price" : fundData.yAxisTitle;
   const valueSuffix = fundData == null ? "" : fundData.valueSuffix;
   const ariaLabel =
-    "Performance chart: MIIETF, Benchmark, and KMI30 NAV adjusted price from March 2024 to present.";
+    "Performance chart: MIIETF, Benchmark, and KMI30 NAV price from March 2024 to present.";
   return (
     <motion.section
       initial="hidden"
@@ -131,9 +131,9 @@ export function MIIETFPerformanceSection({ fundData }: { fundData?: MiietfPerfor
           <div className={fundTableCardClass}>
             <table className={fundTableFixedClass} role="table" aria-label="Performance metrics by period">
               <colgroup>
-                <col style={{ width: "14%" }} />
+                <col style={{ width: "20%" }} />
                 {Array.from({ length: 7 }, (_, i) => (
-                  <col key={i} style={{ width: `${86 / 7}%` }} />
+                  <col key={i} style={{ width: `${80 / 7}%` }} />
                 ))}
               </colgroup>
               <thead>
@@ -146,7 +146,7 @@ export function MIIETFPerformanceSection({ fundData }: { fundData?: MiietfPerfor
                       weight="semibold"
                       className="text-text-tertiary"
                     >
-                      Sectors
+                      Fund
                     </TextSmall>
                   </th>
                   <th
@@ -232,7 +232,7 @@ export function MIIETFPerformanceSection({ fundData }: { fundData?: MiietfPerfor
                         />
                         <TextMedium
                           weight="semibold"
-                          className="min-w-0 truncate text-text-primary sm:whitespace-normal"
+                          className="min-w-0 break-words leading-snug text-text-primary"
                         >
                           {row.label}
                         </TextMedium>

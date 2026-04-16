@@ -209,12 +209,12 @@ const HOLDINGS_COLORS = [
   "var(--color-primary-150)",
 ] as const;
 
-/**
- * Single source of truth for MIIETF visualized price basis.
- * Keeping hero and performance on the same field prevents semantic drift.
- */
-const PRICE_BASIS_FIELD = "nav_adjusted" as const;
-const PRICE_BASIS_LABEL = PRICE_BASIS_FIELD === "nav_adjusted" ? "NAV adjusted price" : "NAV price";
+/** Hero card keeps adjusted NAV for continuity with existing display. */
+const HERO_PRICE_BASIS_FIELD = "nav_adjusted" as const;
+
+/** Performance chart should use raw NAV values from API. */
+const PERFORMANCE_PRICE_BASIS_FIELD = "nav" as const;
+const PERFORMANCE_PRICE_BASIS_LABEL = "NAV price";
 
 function pct2FromDecimal(v: number): string {
   return `${(v * 100).toFixed(2)}%`;
@@ -222,6 +222,11 @@ function pct2FromDecimal(v: number): string {
 
 function pct2(v: number): string {
   return `${(v * 100).toFixed(2)}%`;
+}
+
+/** Format numeric value with up to 4 decimals (trim trailing zeros). */
+function formatMax4Dp(v: number): string {
+  return v.toFixed(4).replace(/\.?0+$/, "");
 }
 
 function infoVal(info: Record<string, string>, key: string): string {
@@ -270,8 +275,8 @@ function transformHero(raw: MiietfFundDataResponse): MiietfHeroFundData {
   );
   const latestPrice = sortedByDate[0] ?? null;
 
-  const navRaw = latestPrice ? parseNum(latestPrice[PRICE_BASIS_FIELD]) : null;
-  const nav = navRaw != null ? navRaw.toFixed(2) : "";
+  const navRaw = latestPrice ? parseNum(latestPrice[HERO_PRICE_BASIS_FIELD]) : null;
+  const nav = navRaw != null ? formatMax4Dp(navRaw) : "";
   const navDate = latestPrice ? formatShortDate(latestPrice.date) : "";
   const assetClass = infoVal(info, "Fund Category");
   const riskLabel = deriveRiskLabel(assetClass);
@@ -355,7 +360,7 @@ function transformPerformance(raw: MiietfFundDataResponse): MiietfPerformanceFun
   const chartPrice = sortedPrice
     .filter((p) => new Date(p.date).getTime() >= MIIETF_INCEPTION_DATE_MS)
     .filter((p) => {
-      const miietfVal = parseNum(p[PRICE_BASIS_FIELD]);
+      const miietfVal = parseNum(p[PERFORMANCE_PRICE_BASIS_FIELD]);
       return (
         miietfVal != null &&
         parseNum(p.benchmark) != null &&
@@ -363,7 +368,7 @@ function transformPerformance(raw: MiietfFundDataResponse): MiietfPerformanceFun
       );
     });
   const chartCategories = chartPrice.map((p) => formatShortDate(p.date));
-  const miietfData = chartPrice.map((p) => parseNum(p[PRICE_BASIS_FIELD]) as number);
+  const miietfData = chartPrice.map((p) => parseNum(p[PERFORMANCE_PRICE_BASIS_FIELD]) as number);
   const benchmarkData = chartPrice.map((p) => parseNum(p.benchmark) as number);
   const kmi30Data = chartPrice.map((p) => parseNum(p.kmi30) as number);
 
@@ -392,8 +397,8 @@ function transformPerformance(raw: MiietfFundDataResponse): MiietfPerformanceFun
   return {
     chartCategories,
     chartSeries,
-    chartSubtitle: `${PRICE_BASIS_LABEL}. March 2024 to present.`,
-    yAxisTitle: PRICE_BASIS_LABEL,
+    chartSubtitle: `${PERFORMANCE_PRICE_BASIS_LABEL}. March 2024 to present.`,
+    yAxisTitle: PERFORMANCE_PRICE_BASIS_LABEL,
     valueSuffix: "",
     tableRows,
   };
@@ -431,7 +436,7 @@ function transformDistributions(raw: MiietfFundDataResponse): MiietfDistribution
   return (raw.distribution ?? []).map((d) => ({
     date: formatDateDdMmYyyy(d.payout_date),
     pkrPerUnit: d.payout_per_unit.toFixed(2),
-    exNav: d.ex_nav.toFixed(2),
+    exNav: formatMax4Dp(d.ex_nav),
     yieldPct: pct2FromDecimal(d.yield),
   }));
 }
