@@ -172,7 +172,7 @@ const SUBFUND_MONEY_MARKET_DATA: MiirfSubfundData = {
   performanceYAxisTitle: "iNAV / benchmark",
   performanceValueSuffix: "",
   performanceChartSubtitleLead: "Subfund vs benchmark unit values.",
-  performanceChartFormatter: (v: number | string) => String(Number(v).toFixed(2)),
+  performanceChartFormatter: (v: number | string) => String(Number(v).toFixed(4)),
   performanceTable: {
     subfundLabel: "MIIRF (Money Market)",
     benchmarkLabel: "Benchmark",
@@ -262,7 +262,7 @@ const SUBFUND_EQUITY_DATA: MiirfSubfundData = {
   performanceYAxisTitle: "iNAV / benchmark",
   performanceValueSuffix: "",
   performanceChartSubtitleLead: "Subfund vs benchmark unit values.",
-  performanceChartFormatter: (v: number | string) => String(Number(v).toFixed(2)),
+  performanceChartFormatter: (v: number | string) => String(Number(v).toFixed(4)),
   performanceTable: {
     subfundLabel: "MIIRF (Equity)",
     benchmarkLabel: "Benchmark",
@@ -493,6 +493,7 @@ export function MIIRFSubfundsSection({ fundData }: { fundData?: MiirfSubfundsFun
                   chartType="line"
                   yAxisTitle={data.performanceYAxisTitle}
                   valueSuffix={data.performanceValueSuffix}
+                  valueDecimals={data.navLabel === "iNAV" ? 4 : 2}
                   xAxisLabelFormat="firstLastOnly"
                   compact
                 />

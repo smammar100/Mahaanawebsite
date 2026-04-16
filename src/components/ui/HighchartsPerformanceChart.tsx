@@ -22,6 +22,8 @@ export interface HighchartsPerformanceChartProps {
   compact?: boolean;
   /** When 'monthYear', x-axis shows labels as "Month Year". When 'shortDate', shows daily dates. When 'firstLastOnly', only inception and latest date. */
   xAxisLabelFormat?: "default" | "monthYear" | "shortDate" | "firstLastOnly";
+  /** Decimal places for y-axis labels and tooltips (default 2). Use 4 for unit NAV / iNAV price charts. */
+  valueDecimals?: number;
 }
 
 const defaultYAxisTitle = "Cumulative return (%)";
@@ -63,6 +65,7 @@ function buildOptions(props: HighchartsPerformanceChartProps): Options {
     yAxisTitle = defaultYAxisTitle,
     valueSuffix = defaultValueSuffix,
     xAxisLabelFormat = "default",
+    valueDecimals = 2,
   } = props;
 
   const isShortDate = xAxisLabelFormat === "shortDate";
@@ -150,7 +153,7 @@ function buildOptions(props: HighchartsPerformanceChartProps): Options {
         },
         formatter: function (this: any): string {
           const v = Number(this.value);
-          return (Number.isNaN(v) ? "" : v.toFixed(2)) + (valueSuffix ?? "");
+          return (Number.isNaN(v) ? "" : v.toFixed(valueDecimals)) + (valueSuffix ?? "");
         },
       },
     },
@@ -274,7 +277,7 @@ function buildOptions(props: HighchartsPerformanceChartProps): Options {
       shared: true,
       useHTML: true,
       valueSuffix,
-      valueDecimals: 2,
+      valueDecimals,
       backgroundColor: "var(--color-background-default, #fff)",
       borderColor: "var(--color-surface-stroke)",
       borderWidth: 1,
@@ -287,7 +290,6 @@ function buildOptions(props: HighchartsPerformanceChartProps): Options {
         const date =
           (points[0] && "point" in points[0] && (points[0].point as { category?: string }).category) ??
           "";
-        const valueDecimals = 2;
         const suffix = valueSuffix ?? "";
         // Sort by series index so tooltip order is stable (matches series order: MIIETF, Benchmark, KMI30, etc.)
         const sortedPoints = [...points].sort(
