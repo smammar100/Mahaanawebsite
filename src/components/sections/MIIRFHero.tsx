@@ -10,8 +10,8 @@ import { cx } from "@/utils/cx";
 
 const MIIRF_HERO_TABS = [
   { id: "overview", label: "Overview" },
-  { id: "performance", label: "Performance" },
   { id: "subfunds", label: "Subfunds" },
+  { id: "performance", label: "Performance" },
   { id: "fund-literature", label: "Fund literature" },
 ] as const;
 
