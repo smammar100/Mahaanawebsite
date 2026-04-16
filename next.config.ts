@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { MAHAANA_PORTAL_LOGIN_URL } from "./src/lib/portal-urls";
 
 const withBundleAnalyzer = require("@next/bundle-analyzer")({
   enabled: process.env.ANALYZE === "true",
@@ -43,6 +44,15 @@ const nextConfig: NextConfig = {
         pathname: "/**",
       },
     ],
+  },
+  async redirects() {
+    return [
+      {
+        source: "/login",
+        destination: MAHAANA_PORTAL_LOGIN_URL,
+        permanent: true,
+      },
+    ];
   },
   async headers() {
     const projectId =

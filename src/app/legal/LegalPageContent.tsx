@@ -8,7 +8,7 @@ import {
   DialogTitle,
   DialogClose,
 } from "@/components/ui/dialog";
-import { H1, H2, H3, TextLarge } from "@/components/ui/Typography";
+import { H1, H3, TextLarge } from "@/components/ui/Typography";
 import type { LegalDocumentForSection } from "@/lib/sanity/fetch";
 import { cleanCopy } from "@/lib/copy-utils";
 

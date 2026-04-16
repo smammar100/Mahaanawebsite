@@ -10,7 +10,6 @@ interface SummaryCardProps {
   initial: number;
   futureValue: number;
   totalContribs: number;
-  totalInvested: number;
   interestEarned: number;
   growthPercent: number;
   years: number;
@@ -23,7 +22,6 @@ export function SummaryCard({
   initial,
   futureValue,
   totalContribs,
-  totalInvested,
   interestEarned,
   growthPercent,
   years,

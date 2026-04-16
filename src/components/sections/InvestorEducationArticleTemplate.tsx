@@ -8,7 +8,6 @@ import { cleanCopy } from "@/lib/copy-utils";
 import {
   DEFAULT_ARTICLE_AUTHOR,
   formatArticleReadTime,
-  formatNewsOutletDisplay,
   formatRelativeOrShortDate,
   formatVideoWatchTimeDisplay,
   sanitizeArticleAuthorName,

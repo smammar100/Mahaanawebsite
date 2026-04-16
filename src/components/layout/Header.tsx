@@ -11,6 +11,7 @@ import {
   MAHAANA_APP_STORE_URL,
   MAHAANA_GOOGLE_PLAY_URL,
 } from '@/lib/app-store-urls';
+import { MAHAANA_PORTAL_LOGIN_URL } from '@/lib/portal-urls';
 import { ButtonUtility } from '@/components/base/buttons/button-utility';
 import { navDropdowns } from './navConfig';
 import { ChevronDown } from '@untitledui/icons';
@@ -229,7 +230,7 @@ export function Header() {
 
             <div className="flex flex-1 items-center justify-end gap-2 lg:flex-initial">
               <Button
-                href="/login"
+                href={MAHAANA_PORTAL_LOGIN_URL}
                 color="primary"
                 size="md"
                 className="hidden sm:inline-flex rounded-xl"
@@ -399,7 +400,7 @@ export function Header() {
             {/* 9. Login at bottom (mt-auto) */}
             <div className="menu-stagger-item mt-auto pt-6">
               <Button
-                href="/login"
+                href={MAHAANA_PORTAL_LOGIN_URL}
                 color="primary"
                 size="md"
                 className="w-full !rounded-[10px] !border-0 !py-3.5 text-[15px] font-semibold"

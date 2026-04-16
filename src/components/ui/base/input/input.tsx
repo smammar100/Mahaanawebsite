@@ -53,9 +53,8 @@ export const InputBase = ({
     tooltipClassName,
     inputClassName,
     iconClassName,
-    isRequired: _isRequired,
     ...inputProps
-}: Omit<InputBaseProps, "label" | "hint">) => {
+}: Omit<InputBaseProps, "label" | "hint" | "isRequired">) => {
     const hasTrailingIcon = tooltip || isInvalid;
     const hasLeadingIcon = Icon;
 

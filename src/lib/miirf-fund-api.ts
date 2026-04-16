@@ -1,4 +1,4 @@
-import { formatShortDate, formatMonthYear, formatPctDisplay } from "./formatters";
+import { formatShortDate, formatPctDisplay } from "./formatters";
 
 const FUND_DATA_API_BASE =
   process.env.NEXT_PUBLIC_FUND_DATA_API_BASE_URL ??

@@ -272,12 +272,6 @@ const CREDIT_QUALITY_ROWS = [
   { item: "A1", percentage: "13.29%", color: CREDIT_QUALITY_COLORS.a1, value: 13.29 },
 ];
 
-const creditQualityChartData = CREDIT_QUALITY_ROWS.map((row) => ({
-  name: row.item,
-  value: row.value,
-  fill: row.color,
-}));
-
 const HOLDINGS_COLORS = {
   sadaqat: "var(--color-info-200)",
   zarea: "var(--color-teal-200)",
@@ -295,12 +289,6 @@ const TOP_HOLDINGS_ROWS = [
   { name: "Other instruments", percentage: "15.10%", color: HOLDINGS_COLORS.other2, value: 15.1 },
   { name: "Additional", percentage: "10.00%", color: HOLDINGS_COLORS.other3, value: 10 },
 ] as const;
-
-const holdingsChartData = TOP_HOLDINGS_ROWS.map((row) => ({
-  name: row.name,
-  value: row.value,
-  fill: row.color,
-}));
 
 /** Load Highcharts only on the client to avoid SSR "SeriesRegistry" errors. */
 function useHighchartsColumn() {
