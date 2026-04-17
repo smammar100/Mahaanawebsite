@@ -2,15 +2,15 @@
 
 import { motion } from "motion/react";
 import { Container } from "@/components/layout/Container";
-import {
-  H3,
-  H4,
-  TextRegular,
-  TextSmall,
-  TextMedium,
-} from "@/components/ui/Typography";
+import { H3, H4, TextRegular } from "@/components/ui/Typography";
 import type { MiietfOverviewFundData } from "@/lib/miietf-fund-api";
-import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
+import {
+  fundPageSectionScrollMargin,
+  sectionFadeInUp,
+  sectionViewport,
+} from "@/lib/sectionMotion";
+import { KeyFactsGrid } from "@/components/ui/KeyFactsGrid";
+import { cx } from "@/utils/cx";
 
 const FUND_DETAILS_LEFT = [
   { label: "Net assets", value: "PKR 1191.7 mn" },
@@ -29,26 +29,6 @@ const FUND_DETAILS_RIGHT = [
   { label: "Total expense ratio (with govt. levy)", value: "1.17% (MTD) | 1.14% (YTD)" },
 ] as const;
 
-function DetailRow({ label, value }: { label: string; value: string }) {
-  const displayValue = (value ?? "").trim() || "N/A";
-  return (
-    <div className="flex flex-col gap-1 sm:flex-row sm:gap-6 sm:items-start">
-      <TextSmall
-        weight="medium"
-        className="shrink-0 text-text-tertiary sm:w-[150px]"
-      >
-        {label}
-      </TextSmall>
-      <TextMedium
-        weight="semibold"
-        className="min-w-0 text-text-primary"
-      >
-        {displayValue}
-      </TextMedium>
-    </div>
-  );
-}
-
 const DEFAULT_SUMMARY =
   "MIIETF is a Shariah compliant equity index fund that primarily invests in the top 30, free float weighted Islamic stocks that have an annual average turnover of more than PKR 10 million. MIIETF provides investors the long term benefits of equity markets.";
 const DEFAULT_OBJECTIVE =
@@ -59,6 +39,7 @@ export function MIIETFOverviewSection({ fundData }: { fundData?: MiietfOverviewF
   const investmentObjective = fundData == null ? DEFAULT_OBJECTIVE : fundData.investmentObjective;
   const keyFactsLeft = fundData == null ? [...FUND_DETAILS_LEFT] : fundData.keyFactsLeft;
   const keyFactsRight = fundData == null ? [...FUND_DETAILS_RIGHT] : fundData.keyFactsRight;
+  const keyFactsItems = [...keyFactsLeft, ...keyFactsRight];
 
   return (
     <motion.section
@@ -66,7 +47,10 @@ export function MIIETFOverviewSection({ fundData }: { fundData?: MiietfOverviewF
       whileInView="visible"
       viewport={sectionViewport}
       variants={sectionFadeInUp}
-      className="relative overflow-hidden bg-surface-bg section-y"
+      className={cx(
+        "relative overflow-hidden bg-surface-bg section-y",
+        fundPageSectionScrollMargin
+      )}
       aria-labelledby="overview-section-heading"
     >
       <Container className="flex flex-col gap-10 px-4 sm:px-6 md:px-8 lg:gap-10 lg:px-12 xl:px-16">
@@ -99,19 +83,12 @@ export function MIIETFOverviewSection({ fundData }: { fundData?: MiietfOverviewF
             </div>
           </div>
 
-          {/* Fund details grid — two columns on lg */}
-          <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-20">
-            <div className="flex flex-col gap-6">
-              {keyFactsLeft.map(({ label, value }) => (
-                <DetailRow key={label} label={label} value={value} />
-              ))}
-            </div>
-            <div className="flex flex-col gap-6">
-              {keyFactsRight.map(({ label, value }) => (
-                <DetailRow key={label} label={label} value={value} />
-              ))}
-            </div>
-          </div>
+          {/* Fund details — 2-column grid; long rows span full width */}
+          <KeyFactsGrid
+            items={keyFactsItems}
+            labelWidthClassName="sm:w-[150px]"
+            valueFallback="N/A"
+          />
         </div>
       </Container>
     </motion.section>

@@ -6,10 +6,18 @@ import { Container } from "@/components/layout/Container";
 import { H3, H4, TextMedium, TextSmall } from "@/components/ui/Typography";
 import { HighchartsVariablePieChart } from "@/components/ui/HighchartsVariablePieChart";
 import type { MiietfPortfolioFundData } from "@/lib/miietf-fund-api";
-import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
+import {
+  fundPageSectionScrollMargin,
+  sectionFadeInUp,
+  sectionViewport,
+} from "@/lib/sectionMotion";
 import {
   fundTableCardClass,
   fundTableFixedClass,
+  fundTableMetricCellClass,
+  fundTableMinFourCol,
+  fundTableMinTwoCol,
+  fundTableScrollClass,
   fundTableTheadClass,
 } from "@/components/ui/fundTableClasses";
 import { cx } from "@/utils/cx";
@@ -133,7 +141,10 @@ export function MIIETFPortfolioSection({ fundData }: { fundData?: MiietfPortfoli
       whileInView="visible"
       viewport={sectionViewport}
       variants={sectionFadeInUp}
-      className="relative overflow-hidden bg-surface-bg section-y"
+      className={cx(
+        "relative overflow-hidden bg-surface-bg section-y",
+        fundPageSectionScrollMargin
+      )}
       aria-labelledby="portfolio-section-heading"
     >
       <Container className="flex flex-col gap-10 px-4 sm:px-6 md:px-8 lg:gap-10 lg:px-12 xl:px-16">
@@ -154,8 +165,9 @@ export function MIIETFPortfolioSection({ fundData }: { fundData?: MiietfPortfoli
             <div className="flex min-w-0 flex-col gap-6 lg:flex-row lg:gap-6">
               <div className="min-w-0 flex-1 lg:w-1/2">
                 <div className={fundTableCardClass}>
+                  <div className={fundTableScrollClass}>
                   <table
-                    className={fundTableFixedClass}
+                    className={cx(fundTableFixedClass, fundTableMinFourCol)}
                     role="table"
                     aria-label="Weighted exposure by sector"
                   >
@@ -184,7 +196,7 @@ export function MIIETFPortfolioSection({ fundData }: { fundData?: MiietfPortfoli
                         >
                           <TextSmall
                             weight="semibold"
-                            className="text-text-tertiary"
+                            className={cx("text-text-tertiary", fundTableMetricCellClass)}
                           >
                             MIIETF
                           </TextSmall>
@@ -195,7 +207,7 @@ export function MIIETFPortfolioSection({ fundData }: { fundData?: MiietfPortfoli
                         >
                           <TextSmall
                             weight="semibold"
-                            className="text-text-tertiary"
+                            className={cx("text-text-tertiary", fundTableMetricCellClass)}
                           >
                             KMI30
                           </TextSmall>
@@ -206,7 +218,7 @@ export function MIIETFPortfolioSection({ fundData }: { fundData?: MiietfPortfoli
                         >
                           <TextSmall
                             weight="semibold"
-                            className="text-text-tertiary"
+                            className={cx("text-text-tertiary", fundTableMetricCellClass)}
                           >
                             Weight
                           </TextSmall>
@@ -237,7 +249,7 @@ export function MIIETFPortfolioSection({ fundData }: { fundData?: MiietfPortfoli
                               </TextMedium>
                             </div>
                           </td>
-                          <td className="px-2 py-5 text-center sm:px-3">
+                          <td className={cx("px-2 py-5 sm:px-3", fundTableMetricCellClass)}>
                             <TextMedium
                               weight="semibold"
                               className="text-text-primary"
@@ -245,7 +257,7 @@ export function MIIETFPortfolioSection({ fundData }: { fundData?: MiietfPortfoli
                               {row.miietf}
                             </TextMedium>
                           </td>
-                          <td className="px-2 py-5 text-center sm:px-3">
+                          <td className={cx("px-2 py-5 sm:px-3", fundTableMetricCellClass)}>
                             <TextMedium
                               weight="semibold"
                               className="text-text-primary"
@@ -253,7 +265,7 @@ export function MIIETFPortfolioSection({ fundData }: { fundData?: MiietfPortfoli
                               {row.kmi30}
                             </TextMedium>
                           </td>
-                          <td className="px-2 py-5 text-center sm:px-3">
+                          <td className={cx("px-2 py-5 sm:px-3", fundTableMetricCellClass)}>
                             <TextMedium
                               weight="semibold"
                               className="text-text-primary"
@@ -265,6 +277,7 @@ export function MIIETFPortfolioSection({ fundData }: { fundData?: MiietfPortfoli
                       ))}
                     </tbody>
                   </table>
+                  </div>
                 </div>
               </div>
               <div className="flex flex-col justify-center items-center min-w-0 flex-1 lg:w-1/2">
@@ -292,8 +305,9 @@ export function MIIETFPortfolioSection({ fundData }: { fundData?: MiietfPortfoli
               </div>
               <div className="min-w-0 flex-1 lg:w-1/2">
                 <div className={fundTableCardClass}>
+                  <div className={fundTableScrollClass}>
                   <table
-                    className={fundTableFixedClass}
+                    className={cx(fundTableFixedClass, fundTableMinTwoCol)}
                     role="table"
                     aria-label="Top holdings by percentage"
                   >
@@ -320,7 +334,7 @@ export function MIIETFPortfolioSection({ fundData }: { fundData?: MiietfPortfoli
                         >
                           <TextSmall
                             weight="semibold"
-                            className="text-text-tertiary"
+                            className={cx("text-text-tertiary", fundTableMetricCellClass)}
                           >
                             Percentage
                           </TextSmall>
@@ -351,7 +365,7 @@ export function MIIETFPortfolioSection({ fundData }: { fundData?: MiietfPortfoli
                               </TextMedium>
                             </div>
                           </td>
-                          <td className="px-2 py-5 text-center sm:px-3">
+                          <td className={cx("px-2 py-5 sm:px-3", fundTableMetricCellClass)}>
                             <TextMedium
                               weight="semibold"
                               className="text-text-primary"
@@ -363,6 +377,7 @@ export function MIIETFPortfolioSection({ fundData }: { fundData?: MiietfPortfoli
                       ))}
                     </tbody>
                   </table>
+                  </div>
                 </div>
               </div>
             </div>

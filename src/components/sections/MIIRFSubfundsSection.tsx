@@ -7,13 +7,22 @@ import { Container } from "@/components/layout/Container";
 import { H3, H4, TextMedium, TextRegular, TextSmall } from "@/components/ui/Typography";
 import { HighchartsVariablePieChart } from "@/components/ui/HighchartsVariablePieChart";
 import { HighchartsPerformanceChart } from "@/components/ui/HighchartsPerformanceChart";
+import { KeyFactsGrid } from "@/components/ui/KeyFactsGrid";
 import {
   fundTableCardClass,
   fundTableFixedClass,
+  fundTableMetricCellClass,
   fundTableMetricColWidthPct,
+  fundTableMinSubfundPerformance,
+  fundTableMinTwoCol,
+  fundTableScrollClass,
   fundTableTheadClass,
 } from "@/components/ui/fundTableClasses";
-import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
+import {
+  fundPageSectionScrollMargin,
+  sectionFadeInUp,
+  sectionViewport,
+} from "@/lib/sectionMotion";
 import { cx } from "@/utils/cx";
 import { cleanCopy } from "@/lib/copy-utils";
 
@@ -284,22 +293,6 @@ const SUBFUND_EQUITY_DATA: MiirfSubfundData = {
   },
 };
 
-function DetailRow({ label, value }: { label: string; value: string }) {
-  return (
-    <div className="flex flex-col gap-1 sm:flex-row sm:gap-6 sm:items-start">
-      <TextSmall
-        weight="medium"
-        className="shrink-0 text-text-tertiary sm:w-[180px]"
-      >
-        {label}
-      </TextSmall>
-      <TextMedium weight="semibold" className="min-w-0 text-text-primary">
-        {value}
-      </TextMedium>
-    </div>
-  );
-}
-
 function SubfundDonutChart({
   holdings,
   ariaLabel,
@@ -339,7 +332,10 @@ export function MIIRFSubfundsSection({ fundData }: { fundData?: MiirfSubfundsFun
       whileInView="visible"
       viewport={sectionViewport}
       variants={sectionFadeInUp}
-      className="relative overflow-hidden bg-surface-bg section-y"
+      className={cx(
+        "relative overflow-hidden bg-surface-bg section-y",
+        fundPageSectionScrollMargin
+      )}
       aria-labelledby="miirf-subfunds-section-heading"
     >
       <Container className="flex flex-col gap-10 px-4 sm:px-6 md:px-8 lg:gap-10 lg:px-12 xl:px-16">
@@ -377,8 +373,8 @@ export function MIIRFSubfundsSection({ fundData }: { fundData?: MiirfSubfundsFun
         </div>
 
         <div className="flex flex-col gap-10 lg:gap-6">
-          {/* Metrics: 4 columns, 1 row */}
-          <div className="grid grid-cols-4 grid-rows-1 gap-6 lg:gap-8">
+          {/* Metrics: narrow = stacked rows (MTD + expense each full width); xl = one row × 4 */}
+          <div className="grid grid-cols-2 gap-x-4 gap-y-6 sm:gap-x-6 sm:gap-y-8 xl:grid-cols-4 xl:grid-rows-1 xl:gap-8">
             <div className="min-w-0 flex flex-col gap-1">
               <TextSmall weight="medium" className="text-text-tertiary">
                 {data.navLabel ?? "NAV"}
@@ -398,7 +394,7 @@ export function MIIRFSubfundsSection({ fundData }: { fundData?: MiirfSubfundsFun
                 {data.riskReward}
               </TextMedium>
             </div>
-            <div className="min-w-0 flex flex-col gap-1">
+            <div className="col-span-2 min-w-0 flex flex-col gap-1 xl:col-span-1">
               <TextSmall weight="medium" className="text-text-tertiary">
                 MTD
               </TextSmall>
@@ -409,11 +405,11 @@ export function MIIRFSubfundsSection({ fundData }: { fundData?: MiirfSubfundsFun
                 {data.mtd.asOf}
               </TextSmall>
             </div>
-            <div className="min-w-0 flex flex-col gap-1">
+            <div className="col-span-2 min-w-0 flex flex-col gap-1 xl:col-span-1">
               <TextSmall weight="medium" className="text-text-tertiary">
                 Expense ratio
               </TextSmall>
-              <div className="flex flex-wrap items-center gap-2">
+              <div className="flex flex-wrap items-center gap-x-2 gap-y-1 sm:gap-2">
                 <TextMedium weight="semibold" className="text-stat text-text-primary">
                   {data.expenseRatio.mtd}
                 </TextMedium>
@@ -448,23 +444,15 @@ export function MIIRFSubfundsSection({ fundData }: { fundData?: MiirfSubfundsFun
             </div>
           </div>
 
-          {/* Key facts */}
+          {/* Key facts — 2-column grid; long rows span full width */}
           <div className="flex flex-col gap-6">
             <H4 className="text-stat text-text-primary">
               Key facts
             </H4>
-            <div className="grid grid-cols-1 gap-6 sm:gap-8 lg:grid-cols-2 lg:gap-x-6 lg:gap-y-6">
-              <div className="flex flex-col gap-6">
-                {data.keyFacts.slice(0, 6).map(({ label, value }) => (
-                  <DetailRow key={label} label={label} value={value} />
-                ))}
-              </div>
-              <div className="flex flex-col gap-6">
-                {data.keyFacts.slice(6).map(({ label, value }) => (
-                  <DetailRow key={label} label={label} value={value} />
-                ))}
-              </div>
-            </div>
+            <KeyFactsGrid
+              items={data.keyFacts}
+              labelWidthClassName="sm:w-[180px]"
+            />
           </div>
 
           {/* Historical performance: Highcharts line chart + table */}
@@ -506,8 +494,9 @@ export function MIIRFSubfundsSection({ fundData }: { fundData?: MiirfSubfundsFun
             </div>
 
             <div className={fundTableCardClass}>
+              <div className={fundTableScrollClass}>
               <table
-                className={fundTableFixedClass}
+                className={cx(fundTableFixedClass, fundTableMinSubfundPerformance)}
                 role="table"
                 aria-label="Historical performance by period"
               >
@@ -546,7 +535,7 @@ export function MIIRFSubfundsSection({ fundData }: { fundData?: MiirfSubfundsFun
                       >
                         <TextSmall
                           weight="semibold"
-                          className="text-text-tertiary"
+                          className={cx("text-text-tertiary", fundTableMetricCellClass)}
                         >
                           {r.period}
                         </TextSmall>
@@ -557,7 +546,10 @@ export function MIIRFSubfundsSection({ fundData }: { fundData?: MiirfSubfundsFun
                 <tbody>
                   <tr className="border-b border-surface-stroke">
                     <td className="min-w-0 px-2 py-4 sm:px-3">
-                      <div className="flex min-w-0 items-center gap-2 sm:gap-3">
+                      <div
+                        className="flex min-w-0 items-center gap-2 sm:gap-3"
+                        title={data.performanceTable.subfundLabel}
+                      >
                         <span
                           className="h-3.5 w-3.5 shrink-0 rounded"
                           style={{
@@ -567,7 +559,7 @@ export function MIIRFSubfundsSection({ fundData }: { fundData?: MiirfSubfundsFun
                         />
                         <TextMedium
                           weight="semibold"
-                          className="min-w-0 break-words leading-snug text-text-primary"
+                          className="min-w-0 max-w-[9rem] truncate sm:max-w-[12rem] md:max-w-none text-text-primary"
                         >
                           {data.performanceTable.subfundLabel}
                         </TextMedium>
@@ -576,7 +568,7 @@ export function MIIRFSubfundsSection({ fundData }: { fundData?: MiirfSubfundsFun
                     {data.performanceTable.rows.map((r) => (
                       <td
                         key={r.period}
-                        className="px-1 py-4 text-center sm:px-2"
+                        className={cx("px-1 py-4 sm:px-2", fundTableMetricCellClass)}
                       >
                         <TextMedium
                           weight="semibold"
@@ -589,7 +581,10 @@ export function MIIRFSubfundsSection({ fundData }: { fundData?: MiirfSubfundsFun
                   </tr>
                   <tr className="border-b border-surface-stroke last:border-b-0">
                     <td className="min-w-0 px-2 py-4 sm:px-3">
-                      <div className="flex min-w-0 items-center gap-2 sm:gap-3">
+                      <div
+                        className="flex min-w-0 items-center gap-2 sm:gap-3"
+                        title={data.performanceTable.benchmarkLabel}
+                      >
                         <span
                           className="h-3.5 w-3.5 shrink-0 rounded"
                           style={{
@@ -599,7 +594,7 @@ export function MIIRFSubfundsSection({ fundData }: { fundData?: MiirfSubfundsFun
                         />
                         <TextMedium
                           weight="semibold"
-                          className="min-w-0 break-words leading-snug text-text-primary"
+                          className="min-w-0 max-w-[9rem] truncate sm:max-w-[12rem] md:max-w-none text-text-primary"
                         >
                           {data.performanceTable.benchmarkLabel}
                         </TextMedium>
@@ -608,7 +603,7 @@ export function MIIRFSubfundsSection({ fundData }: { fundData?: MiirfSubfundsFun
                     {data.performanceTable.rows.map((r) => (
                       <td
                         key={r.period}
-                        className="px-1 py-4 text-center sm:px-2"
+                        className={cx("px-1 py-4 sm:px-2", fundTableMetricCellClass)}
                       >
                         <TextMedium
                           weight="semibold"
@@ -621,6 +616,7 @@ export function MIIRFSubfundsSection({ fundData }: { fundData?: MiirfSubfundsFun
                   </tr>
                 </tbody>
               </table>
+              </div>
             </div>
           </div>
 
@@ -638,8 +634,9 @@ export function MIIRFSubfundsSection({ fundData }: { fundData?: MiirfSubfundsFun
               </div>
               <div className="min-w-0 flex-1 lg:w-1/2">
                 <div className={fundTableCardClass}>
+                  <div className={fundTableScrollClass}>
                   <table
-                    className={fundTableFixedClass}
+                    className={cx(fundTableFixedClass, fundTableMinTwoCol)}
                     role="table"
                     aria-label={`${data.pieSectionTitle} by percentage`}
                   >
@@ -666,7 +663,7 @@ export function MIIRFSubfundsSection({ fundData }: { fundData?: MiirfSubfundsFun
                         >
                           <TextSmall
                             weight="semibold"
-                            className="text-text-tertiary"
+                            className={cx("text-text-tertiary", fundTableMetricCellClass)}
                           >
                             Percentage
                           </TextSmall>
@@ -694,7 +691,7 @@ export function MIIRFSubfundsSection({ fundData }: { fundData?: MiirfSubfundsFun
                               </TextMedium>
                             </div>
                           </td>
-                          <td className="px-2 py-5 text-center sm:px-3">
+                          <td className={cx("px-2 py-5 sm:px-3", fundTableMetricCellClass)}>
                             <TextMedium
                               weight="semibold"
                               className="text-text-primary"
@@ -706,6 +703,7 @@ export function MIIRFSubfundsSection({ fundData }: { fundData?: MiirfSubfundsFun
                       ))}
                     </tbody>
                   </table>
+                  </div>
                 </div>
               </div>
             </div>
@@ -726,8 +724,9 @@ export function MIIRFSubfundsSection({ fundData }: { fundData?: MiirfSubfundsFun
                 </div>
                 <div className="min-w-0 flex-1 lg:w-1/2">
                   <div className={fundTableCardClass}>
+                    <div className={fundTableScrollClass}>
                     <table
-                      className={fundTableFixedClass}
+                      className={cx(fundTableFixedClass, fundTableMinTwoCol)}
                       role="table"
                       aria-label="Top holdings by percentage"
                     >
@@ -754,7 +753,7 @@ export function MIIRFSubfundsSection({ fundData }: { fundData?: MiirfSubfundsFun
                           >
                             <TextSmall
                               weight="semibold"
-                              className="text-text-tertiary"
+                              className={cx("text-text-tertiary", fundTableMetricCellClass)}
                             >
                               Percentage
                             </TextSmall>
@@ -782,7 +781,7 @@ export function MIIRFSubfundsSection({ fundData }: { fundData?: MiirfSubfundsFun
                                 </TextMedium>
                               </div>
                             </td>
-                            <td className="px-2 py-5 text-center sm:px-3">
+                            <td className={cx("px-2 py-5 sm:px-3", fundTableMetricCellClass)}>
                               <TextMedium
                                 weight="semibold"
                                 className="text-text-primary"
@@ -794,6 +793,7 @@ export function MIIRFSubfundsSection({ fundData }: { fundData?: MiirfSubfundsFun
                         ))}
                       </tbody>
                     </table>
+                    </div>
                   </div>
                 </div>
               </div>

@@ -16,3 +16,7 @@ export const sectionViewport = {
   once: true,
   amount: 0.15,
 } as const;
+
+/** Clears the fixed header when scrolling to in-page anchors on fund product pages. */
+export const fundPageSectionScrollMargin =
+  "scroll-mt-[calc(4.5rem+env(safe-area-inset-top,0px))]";

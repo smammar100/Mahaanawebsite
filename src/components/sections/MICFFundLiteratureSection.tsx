@@ -4,7 +4,11 @@ import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { Container } from "@/components/layout/Container";
 import { H3, TextMedium } from "@/components/ui/Typography";
-import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
+import {
+  fundPageSectionScrollMargin,
+  sectionFadeInUp,
+  sectionViewport,
+} from "@/lib/sectionMotion";
 import { cx } from "@/utils/cx";
 
 const FUND_LITERATURE_TABS = [
@@ -32,7 +36,7 @@ const FALLBACK_DOCUMENTS: Record<TabId, { title: string; href: string }[]> = {
 const isDocumentUrl = (href: string) => /^https?:\/\//i.test(href);
 
 const downloadReportClassName =
-  "flex items-center justify-end gap-1 text-system-brand hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-system-brand";
+  "flex w-full items-center justify-start gap-1 text-system-brand hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-system-brand sm:w-auto sm:justify-end";
 const listMotionTransition = { type: "spring", stiffness: 240, damping: 26 } as const;
 
 function ArrowUpRightIcon({ className }: { className?: string }) {
@@ -126,7 +130,10 @@ export function MICFFundLiteratureSection({
       whileInView="visible"
       viewport={sectionViewport}
       variants={sectionFadeInUp}
-      className="relative min-w-0 overflow-x-visible overflow-y-clip bg-surface-bg section-y"
+      className={cx(
+        "relative min-w-0 overflow-x-visible overflow-y-clip bg-surface-bg section-y",
+        fundPageSectionScrollMargin
+      )}
       aria-labelledby="micf-fund-literature-section-heading"
     >
       <Container className="flex flex-col gap-10 px-4 sm:px-6 md:px-8 lg:gap-10 lg:px-12 xl:px-16">
@@ -141,7 +148,7 @@ export function MICFFundLiteratureSection({
         <div className="flex flex-col gap-6 sm:gap-6">
           {/* Tab bar */}
           <div
-            className="fund-tab-list flex w-full min-h-[44px] max-w-full flex-nowrap overflow-x-auto snap-x snap-mandatory justify-start gap-1 rounded-full bg-gray-100 p-1.5 sm:justify-between"
+            className="fund-tab-list flex w-full min-h-[44px] max-w-full flex-nowrap overflow-x-auto snap-x snap-mandatory justify-start gap-1 rounded-full bg-gray-100 p-1.5 pb-2 pr-3 sm:justify-between sm:pb-1.5 sm:pr-1.5"
             role="tablist"
             aria-label="Fund literature categories"
           >
@@ -175,7 +182,7 @@ export function MICFFundLiteratureSection({
                       transition={listMotionTransition}
                       key={doc.title + index}
                       className={cx(
-                        "flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between px-4 py-5 sm:px-6",
+                        "flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:justify-between px-4 py-5 sm:px-6",
                         index < visibleDocs.length - 1 || hasOverflowDocs
                           ? "border-b border-surface-stroke"
                           : null
@@ -239,7 +246,7 @@ export function MICFFundLiteratureSection({
                       transition={listMotionTransition}
                       key={doc.title + index}
                       className={cx(
-                        "flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between px-4 py-5 sm:px-6",
+                        "flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:justify-between px-4 py-5 sm:px-6",
                         index < visibleDocs.length - 1 || hasOverflowDocs
                           ? "border-b border-surface-stroke"
                           : null

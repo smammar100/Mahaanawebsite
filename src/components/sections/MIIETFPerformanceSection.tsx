@@ -8,10 +8,18 @@ import type { MiietfPerformanceFundData } from "@/lib/miietf-fund-api";
 import {
   fundTableCardClass,
   fundTableFixedClass,
+  fundTableMetricCellClass,
   fundTableMetricColWidthPct,
+  fundTableMinPerformance,
+  fundTableScrollClass,
   fundTableTheadClass,
 } from "@/components/ui/fundTableClasses";
-import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
+import {
+  fundPageSectionScrollMargin,
+  sectionFadeInUp,
+  sectionViewport,
+} from "@/lib/sectionMotion";
+import { cx } from "@/utils/cx";
 
 const CHART_COLORS = {
   miietf: "var(--color-primary-200)",
@@ -98,7 +106,10 @@ export function MIIETFPerformanceSection({ fundData }: { fundData?: MiietfPerfor
       whileInView="visible"
       viewport={sectionViewport}
       variants={sectionFadeInUp}
-      className="relative overflow-hidden bg-surface-bg section-y"
+      className={cx(
+        "relative overflow-hidden bg-surface-bg section-y",
+        fundPageSectionScrollMargin
+      )}
       aria-labelledby="performance-section-heading"
     >
       <Container className="flex flex-col gap-4 px-4 sm:px-6 md:px-8 lg:gap-4 lg:px-12 xl:px-16">
@@ -112,15 +123,19 @@ export function MIIETFPerformanceSection({ fundData }: { fundData?: MiietfPerfor
 
         <div className="flex flex-col gap-4 lg:gap-4">
           {/* Chart card */}
-          <div className="rounded-2xl border border-surface-stroke bg-surface-card p-4 sm:p-6">
+          <div className="overflow-hidden rounded-2xl border border-surface-stroke bg-surface-card px-3 py-3 sm:px-4 sm:py-4 md:px-5 md:py-5">
+            <TextSmall className="mb-1.5 block leading-snug text-text-tertiary sm:mb-2">
+              {chartSubtitle}
+            </TextSmall>
             <div
-              className="h-64 w-full min-w-0 sm:h-72 lg:h-96"
+              className="h-64 w-full min-h-0 min-w-0 shrink-0 sm:h-72 lg:h-96"
               role="img"
               aria-label={ariaLabel}
             >
               <HighchartsPerformanceChart
-                title="Performance"
-                subtitle={chartSubtitle}
+                omitHeaderChrome
+                legendVerticalAlign="top"
+                title=""
                 categories={categories}
                 series={series}
                 ariaLabel={ariaLabel}
@@ -128,13 +143,19 @@ export function MIIETFPerformanceSection({ fundData }: { fundData?: MiietfPerfor
                 yAxisTitle={yAxisTitle}
                 valueSuffix={valueSuffix}
                 xAxisLabelFormat="monthYear"
+                constrainToParent
               />
             </div>
           </div>
 
           {/* Table card */}
           <div className={fundTableCardClass}>
-            <table className={fundTableFixedClass} role="table" aria-label="Performance metrics by period">
+            <div className={fundTableScrollClass}>
+            <table
+              className={cx(fundTableFixedClass, fundTableMinPerformance)}
+              role="table"
+              aria-label="Performance metrics by period"
+            >
               <colgroup>
                 <col style={{ width: "20%" }} />
                 {Array.from({ length: 7 }, (_, i) => (
@@ -160,7 +181,7 @@ export function MIIETFPerformanceSection({ fundData }: { fundData?: MiietfPerfor
                   >
                     <TextSmall
                       weight="semibold"
-                      className="text-text-tertiary"
+                      className={cx("text-text-tertiary", fundTableMetricCellClass)}
                     >
                       MTD
                     </TextSmall>
@@ -171,7 +192,7 @@ export function MIIETFPerformanceSection({ fundData }: { fundData?: MiietfPerfor
                   >
                     <TextSmall
                       weight="semibold"
-                      className="text-text-tertiary"
+                      className={cx("text-text-tertiary", fundTableMetricCellClass)}
                     >
                       YTD
                     </TextSmall>
@@ -182,7 +203,7 @@ export function MIIETFPerformanceSection({ fundData }: { fundData?: MiietfPerfor
                   >
                     <TextSmall
                       weight="semibold"
-                      className="text-text-tertiary"
+                      className={cx("text-text-tertiary", fundTableMetricCellClass)}
                     >
                       30D
                     </TextSmall>
@@ -193,7 +214,7 @@ export function MIIETFPerformanceSection({ fundData }: { fundData?: MiietfPerfor
                   >
                     <TextSmall
                       weight="semibold"
-                      className="text-text-tertiary"
+                      className={cx("text-text-tertiary", fundTableMetricCellClass)}
                     >
                       90D
                     </TextSmall>
@@ -204,7 +225,7 @@ export function MIIETFPerformanceSection({ fundData }: { fundData?: MiietfPerfor
                   >
                     <TextSmall
                       weight="semibold"
-                      className="text-text-tertiary"
+                      className={cx("text-text-tertiary", fundTableMetricCellClass)}
                     >
                       1Y
                     </TextSmall>
@@ -215,7 +236,7 @@ export function MIIETFPerformanceSection({ fundData }: { fundData?: MiietfPerfor
                   >
                     <TextSmall
                       weight="semibold"
-                      className="whitespace-normal leading-tight text-text-tertiary"
+                      className="whitespace-nowrap leading-tight text-text-tertiary"
                     >
                       Since inception
                     </TextSmall>
@@ -229,7 +250,10 @@ export function MIIETFPerformanceSection({ fundData }: { fundData?: MiietfPerfor
                     className="border-b border-surface-stroke last:border-b-0"
                   >
                     <td className="min-w-0 px-2 py-4 sm:px-3 md:px-4">
-                      <div className="flex min-w-0 items-center gap-2 sm:gap-3">
+                      <div
+                        className="flex min-w-0 items-center gap-2 sm:gap-3"
+                        title={row.label}
+                      >
                         <span
                           className="h-3.5 w-3.5 shrink-0 rounded"
                           style={{ backgroundColor: row.color }}
@@ -237,57 +261,39 @@ export function MIIETFPerformanceSection({ fundData }: { fundData?: MiietfPerfor
                         />
                         <TextMedium
                           weight="semibold"
-                          className="min-w-0 break-words leading-snug text-text-primary"
+                          className="min-w-0 max-w-[9rem] truncate sm:max-w-[12rem] md:max-w-none text-text-primary"
                         >
                           {row.label}
                         </TextMedium>
                       </div>
                     </td>
-                    <td className="px-1 py-4 text-center sm:px-2 md:px-3">
-                      <TextMedium
-                        weight="semibold"
-                        className="text-text-primary"
-                      >
+                    <td className={cx("px-1 py-4 sm:px-2 md:px-3", fundTableMetricCellClass)}>
+                      <TextMedium weight="semibold" className="text-text-primary">
                         {row.mtd}
                       </TextMedium>
                     </td>
-                    <td className="px-1 py-4 text-center sm:px-2 md:px-3">
-                      <TextMedium
-                        weight="semibold"
-                        className="text-text-primary"
-                      >
+                    <td className={cx("px-1 py-4 sm:px-2 md:px-3", fundTableMetricCellClass)}>
+                      <TextMedium weight="semibold" className="text-text-primary">
                         {row.ytd}
                       </TextMedium>
                     </td>
-                    <td className="px-1 py-4 text-center sm:px-2 md:px-3">
-                      <TextMedium
-                        weight="semibold"
-                        className="text-text-primary"
-                      >
+                    <td className={cx("px-1 py-4 sm:px-2 md:px-3", fundTableMetricCellClass)}>
+                      <TextMedium weight="semibold" className="text-text-primary">
                         {row.d30}
                       </TextMedium>
                     </td>
-                    <td className="px-1 py-4 text-center sm:px-2 md:px-3">
-                      <TextMedium
-                        weight="semibold"
-                        className="text-text-primary"
-                      >
+                    <td className={cx("px-1 py-4 sm:px-2 md:px-3", fundTableMetricCellClass)}>
+                      <TextMedium weight="semibold" className="text-text-primary">
                         {row.d90}
                       </TextMedium>
                     </td>
-                    <td className="px-1 py-4 text-center sm:px-2 md:px-3">
-                      <TextMedium
-                        weight="semibold"
-                        className="text-text-primary"
-                      >
+                    <td className={cx("px-1 py-4 sm:px-2 md:px-3", fundTableMetricCellClass)}>
+                      <TextMedium weight="semibold" className="text-text-primary">
                         {row.y1}
                       </TextMedium>
                     </td>
-                    <td className="px-1 py-4 text-center sm:px-2 md:px-3">
-                      <TextMedium
-                        weight="semibold"
-                        className="text-text-primary"
-                      >
+                    <td className={cx("px-1 py-4 sm:px-2 md:px-3", fundTableMetricCellClass)}>
+                      <TextMedium weight="semibold" className="text-text-primary">
                         {row.sinceInception}
                       </TextMedium>
                     </td>
@@ -295,6 +301,7 @@ export function MIIETFPerformanceSection({ fundData }: { fundData?: MiietfPerfor
                 ))}
               </tbody>
             </table>
+            </div>
           </div>
         </div>
       </Container>

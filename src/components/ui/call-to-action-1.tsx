@@ -82,7 +82,7 @@ export function CallToAction1({
             </Button>
           </div>
         ) : (
-          <div className="mt-6 flex flex-col justify-center gap-3 sm:mt-8 sm:flex-row sm:gap-4">
+          <div className="mt-6 flex flex-row flex-nowrap items-center justify-center gap-2 sm:mt-8 sm:gap-4">
             <AppStoreButton size="lg" className="shrink-0" />
             <GooglePlayButton size="lg" className="shrink-0" />
           </div>

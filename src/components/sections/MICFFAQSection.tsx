@@ -6,7 +6,12 @@ import { ChevronDown } from "@untitledui/icons";
 import { Container } from "@/components/layout/Container";
 import { H3, TextRegular } from "@/components/ui/Typography";
 import { Button } from "@/components/base/buttons/button";
-import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
+import {
+  fundPageSectionScrollMargin,
+  sectionFadeInUp,
+  sectionViewport,
+} from "@/lib/sectionMotion";
+import { cx } from "@/utils/cx";
 import { cleanCopy } from "@/lib/copy-utils";
 
 const MICF_FAQ_ITEMS: { question: string; answer: string }[] = [
@@ -50,7 +55,7 @@ export function MICFFAQSection({
       whileInView="visible"
       viewport={sectionViewport}
       variants={sectionFadeInUp}
-      className="section-y"
+      className={cx("section-y", fundPageSectionScrollMargin)}
       aria-labelledby="micf-faq-heading"
     >
       <Container className="flex flex-col gap-10 px-4 sm:px-6 md:px-8 lg:px-16 sm:gap-6">

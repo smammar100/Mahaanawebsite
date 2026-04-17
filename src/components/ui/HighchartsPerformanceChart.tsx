@@ -1,7 +1,7 @@
 "use client";
 
 import type { Options } from "highcharts";
-import { useId, useState, useEffect } from "react";
+import { useId, useState, useEffect, useLayoutEffect, useMemo, useRef } from "react";
 
 export interface PerformanceSeries {
   name: string;
@@ -20,10 +20,27 @@ export interface HighchartsPerformanceChartProps {
   valueSuffix?: string;
   /** When true, chart fills parent height only (no min-height). Use inside a card with fixed height so legend stays inside. */
   compact?: boolean;
+  /**
+   * When true, chart `height` tracks the parent box via ResizeObserver.
+   * Parent must give this wrapper a fixed height (e.g. `h-64`) so Highcharts does not overflow into content below.
+   */
+  constrainToParent?: boolean;
+  /**
+   * When true, no Highcharts title or subtitle (put the section heading + caption in HTML above the chart).
+   * Frees the full box height for plot, axes, and legend so constrained layouts are not cropped.
+   */
+  omitHeaderChrome?: boolean;
   /** When 'monthYear', x-axis shows labels as "Month Year". When 'shortDate', shows daily dates. When 'firstLastOnly', only inception and latest date. */
   xAxisLabelFormat?: "default" | "monthYear" | "shortDate" | "firstLastOnly";
   /** Decimal places for y-axis labels and tooltips (default 2). Use 4 for unit NAV / iNAV price charts. */
   valueDecimals?: number;
+  /**
+   * `top`: legend above the plot so rotated x-axis labels do not collide with it (narrow / constrained charts).
+   * `bottom`: default Highcharts placement.
+   */
+  legendVerticalAlign?: "top" | "bottom";
+  /** When true (e.g. MIIRF 5 risk lines), narrow viewports use tighter legend item width so items wrap instead of crowding the plot. */
+  manySeries?: boolean;
 }
 
 const defaultYAxisTitle = "Cumulative return (%)";
@@ -55,10 +72,33 @@ function useHighcharts() {
   return libs;
 }
 
+function legendIsTop(base: Options): boolean {
+  const leg = base.legend;
+  if (!leg || typeof leg !== "object") return false;
+  return (leg as { verticalAlign?: string }).verticalAlign === "top";
+}
+
+function chartOptionsIncludeHeader(base: Options): boolean {
+  const tit = base.title;
+  if (tit && typeof tit === "object") {
+    const t = tit as { enabled?: boolean; text?: string | null };
+    if (t.enabled !== false && t.text != null && String(t.text).length > 0) return true;
+  }
+  const sub = base.subtitle;
+  if (sub && typeof sub === "object" && "text" in sub) {
+    const sx = (sub as { text?: string | null }).text;
+    if (sx != null && String(sx).length > 0) return true;
+  }
+  return false;
+}
+
 function buildOptions(props: HighchartsPerformanceChartProps): Options {
   const {
     title,
     subtitle,
+    omitHeaderChrome,
+    legendVerticalAlign = "bottom",
+    manySeries = false,
     categories,
     series,
     chartType = "line",
@@ -67,6 +107,10 @@ function buildOptions(props: HighchartsPerformanceChartProps): Options {
     xAxisLabelFormat = "default",
     valueDecimals = 2,
   } = props;
+
+  const showTitle = !omitHeaderChrome && title.trim().length > 0;
+  const showSubtitle = !omitHeaderChrome && Boolean(subtitle?.trim());
+  const legendOnTop = legendVerticalAlign === "top";
 
   const isShortDate = xAxisLabelFormat === "shortDate";
   const isFirstLastOnly = xAxisLabelFormat === "firstLastOnly";
@@ -91,14 +135,33 @@ function buildOptions(props: HighchartsPerformanceChartProps): Options {
     ...(chartType === "area" ? { fillOpacity: 0.4 } : {}),
   }));
 
-  const chartMargins = isFirstLastOnly
-    ? { marginTop: 64, marginRight: 56, marginLeft: 100, marginBottom: 72 }
-    : { marginTop: 64, marginRight: 32, marginLeft: 88, marginBottom: 64 };
+  const chartMargins =
+    isFirstLastOnly && omitHeaderChrome && legendOnTop
+      ? {
+          /** Room for top legend + plot + first/last date labels (no duplicate HTML title). */
+          marginTop: 38,
+          marginRight: 12,
+          marginLeft: 60,
+          marginBottom: 58,
+        }
+    : isFirstLastOnly
+      ? { marginTop: 64, marginRight: 56, marginLeft: 100, marginBottom: 72 }
+    : showTitle && showSubtitle
+      ? { marginTop: 64, marginRight: 32, marginLeft: 88, marginBottom: 64 }
+      : showTitle || showSubtitle
+        ? { marginTop: 48, marginRight: 32, marginLeft: 88, marginBottom: 64 }
+        : legendOnTop
+          ? { marginTop: 40, marginRight: 14, marginLeft: 54, marginBottom: 52 }
+          : { marginTop: 10, marginRight: 18, marginLeft: 58, marginBottom: 64 };
+
+  const chartSpacing: [number, number, number, number] = legendOnTop
+    ? [6, 8, 10, 6]
+    : [10, 12, 12, 10];
 
   return {
     chart: {
       backgroundColor: "transparent",
-      spacing: [16, 16, 16, 16],
+      spacing: chartSpacing,
       ...chartMargins,
       reflow: true,
       animation: false,
@@ -107,17 +170,22 @@ function buildOptions(props: HighchartsPerformanceChartProps): Options {
         fontFamily: "inherit",
       },
     },
-    title: {
-      text: title,
-      align: "left",
-      margin: 4,
-      style: {
-        fontSize: "18px",
-        fontWeight: "600",
-        color: "var(--color-text-primary)",
-      },
-    },
-    subtitle: subtitle
+    title: showTitle
+      ? {
+          text: title,
+          align: "left",
+          margin: 4,
+          style: {
+            fontSize: "18px",
+            fontWeight: "600",
+            color: "var(--color-text-primary)",
+          },
+        }
+      : ({
+          /** Highcharts omits the title SVG when `text` is `null` (runtime accepts; TS types are narrow). */
+          text: null,
+        } as unknown as Options["title"]),
+    subtitle: showSubtitle
       ? {
           text: subtitle,
           align: "left",
@@ -219,12 +287,13 @@ function buildOptions(props: HighchartsPerformanceChartProps): Options {
     legend: {
       enabled: true,
       align: "center",
-      verticalAlign: "bottom",
+      verticalAlign: legendOnTop ? "top" : "bottom",
       layout: "horizontal",
-      itemDistance: 32,
-      margin: 20,
-      padding: 8,
-      y: 0,
+      itemDistance: manySeries ? 12 : 32,
+      ...(manySeries ? { itemWidth: 100 } : {}),
+      margin: legendOnTop ? 6 : 20,
+      padding: legendOnTop ? 4 : 8,
+      y: legendOnTop ? 2 : 0,
       itemStyle: {
         fontSize: "13px",
         fontWeight: "500",
@@ -318,70 +387,178 @@ function buildOptions(props: HighchartsPerformanceChartProps): Options {
     accessibility: {
       enabled: true,
     },
-    responsive: {
-      rules: [
-        {
-          condition: {
-            maxWidth: 640,
-          },
-          chartOptions: {
-            chart: {
-              marginLeft: 56,
-              marginBottom: 64,
-            },
-            yAxis: {
-              title: {
-                text: undefined,
+    responsive: legendOnTop
+      ? {
+          rules: [
+            {
+              condition: { maxWidth: 768 },
+              chartOptions: {
+                chart: {
+                  marginLeft: 58,
+                  marginRight: 6,
+                  marginBottom: 54,
+                  marginTop: 36,
+                },
+                title: { text: null } as unknown as Options["title"],
+                yAxis: {
+                  title: { text: undefined },
+                  labels: { style: { fontSize: "11px" } },
+                },
+                xAxis: {
+                  labels: {
+                    style: { fontSize: "11px" },
+                    rotation: -35,
+                    y: 14,
+                    x: 0,
+                  },
+                },
+                legend: {
+                  itemStyle: { fontSize: "10px" },
+                  itemDistance: 6,
+                  margin: 4,
+                  padding: 2,
+                  ...(manySeries
+                    ? { itemWidth: 72, width: "100%", maxHeight: 72 }
+                    : {}),
+                },
               },
-              labels: {
-                style: { fontSize: "11px" },
+            },
+          ],
+        }
+      : {
+          rules: [
+            {
+              condition: { maxWidth: 640 },
+              chartOptions: {
+                chart: {
+                  marginLeft: 50,
+                  marginBottom: 96,
+                  marginRight: 8,
+                },
+                yAxis: {
+                  title: {
+                    text: undefined,
+                  },
+                  labels: {
+                    style: { fontSize: "11px" },
+                  },
+                },
+                xAxis: {
+                  labels: {
+                    style: { fontSize: "11px" },
+                    rotation: -30,
+                    y: 18,
+                  },
+                },
+                legend: {
+                  itemStyle: { fontSize: "11px" },
+                  itemDistance: 16,
+                },
               },
             },
-            xAxis: {
-              labels: {
-                style: { fontSize: "11px" },
-                rotation: -30,
+            {
+              condition: { maxWidth: 768, minWidth: 641 },
+              chartOptions: {
+                chart: {
+                  marginLeft: 76,
+                },
+                yAxis: {
+                  labels: {
+                    style: { fontSize: "12px" },
+                  },
+                },
               },
             },
-            legend: {
-              itemStyle: { fontSize: "11px" },
-              itemDistance: 16,
-            },
-          },
+          ],
         },
-        {
-          condition: {
-            maxWidth: 768,
-          },
-          chartOptions: {
-            chart: {
-              marginLeft: 80,
-            },
-            yAxis: {
-              labels: {
-                style: { fontSize: "12px" },
-              },
-            },
-          },
-        },
-      ],
+  };
+}
+
+function mergeChartHeightForConstraint(
+  base: Options,
+  boxHeight: number
+): Options {
+  const h = Math.max(120, Math.floor(boxHeight));
+  const tight = h < 300;
+  const medium = h < 380;
+  const hasHeader = chartOptionsIncludeHeader(base);
+  const topLegend = legendIsTop(base);
+  /** Keep ~52px+ left so two-decimal y labels (e.g. "25.00") are not ellipsized. */
+  const chartMargins = tight
+    ? {
+        marginTop: topLegend ? 24 : hasHeader ? 36 : 6,
+        marginRight: topLegend ? 6 : 10,
+        marginLeft: topLegend ? 54 : 48,
+        marginBottom: topLegend ? 52 : hasHeader ? 44 : 58,
+      }
+    : medium
+      ? {
+          marginTop: topLegend ? 28 : hasHeader ? 44 : 10,
+          marginRight: topLegend ? 8 : 14,
+          marginLeft: topLegend ? 56 : 54,
+          marginBottom: topLegend ? 44 : hasHeader ? 48 : 52,
+        }
+      : {};
+
+  const legendPatch = tight
+    ? { margin: 8, padding: 4, itemDistance: 12 }
+    : medium
+      ? { margin: 12, padding: 6, itemDistance: 18 }
+      : {};
+
+  return {
+    ...base,
+    chart: {
+      ...base.chart,
+      ...chartMargins,
+      height: h,
     },
+    legend: base.legend
+      ? { ...base.legend, ...legendPatch }
+      : base.legend,
   };
 }
 
 export function HighchartsPerformanceChart(props: HighchartsPerformanceChartProps) {
   const id = useId().replace(/:/g, "");
   const containerId = `performance-chart-${id}`;
-  const options = buildOptions(props);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { constrainToParent } = props;
+  const [boxHeight, setBoxHeight] = useState<number>(() => (constrainToParent ? 280 : 0));
+
+  useLayoutEffect(() => {
+    if (!constrainToParent) return;
+    const el = containerRef.current;
+    if (!el) return;
+    const measure = () => {
+      const next = Math.floor(el.getBoundingClientRect().height);
+      if (next > 0) setBoxHeight(next);
+    };
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [constrainToParent]);
+
+  const options = useMemo(() => {
+    const base = buildOptions(props);
+    if (constrainToParent && boxHeight > 0) {
+      return mergeChartHeightForConstraint(base, boxHeight);
+    }
+    return base;
+  }, [props, boxHeight, constrainToParent]);
+
   const libs = useHighcharts();
-  const wrapperClass = props.compact
-    ? "h-fit w-full"
-    : "h-fit w-full";
+  const wrapperClass = props.compact ? "h-fit w-full" : "h-fit w-full";
+  const outerClass = constrainToParent
+    ? "h-full w-full min-h-0 min-w-0"
+    : wrapperClass;
 
   if (!libs) {
     return (
       <div
-        className={wrapperClass}
+        ref={constrainToParent ? containerRef : undefined}
+        className={outerClass}
         role="img"
         aria-label={props.ariaLabel}
         aria-busy="true"
@@ -393,14 +570,21 @@ export function HighchartsPerformanceChart(props: HighchartsPerformanceChartProp
 
   return (
     <div
-      className={wrapperClass}
+      ref={containerRef}
+      className={outerClass}
       role="img"
       aria-label={props.ariaLabel}
     >
       <HighchartsReact
         highcharts={Highcharts}
         options={options}
-        containerProps={{ id: containerId, style: { width: "100%", height: "fit-content" } }}
+        containerProps={{
+          id: containerId,
+          style: {
+            width: "100%",
+            height: constrainToParent ? "100%" : "fit-content",
+          },
+        }}
       />
     </div>
   );

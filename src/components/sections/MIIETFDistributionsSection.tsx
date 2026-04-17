@@ -7,9 +7,17 @@ import type { MiietfDistributionsFundData } from "@/lib/miietf-fund-api";
 import {
   fundTableCardClass,
   fundTableFixedClass,
+  fundTableMetricCellClass,
+  fundTableMinDistributions,
+  fundTableScrollClass,
   fundTableTheadClass,
 } from "@/components/ui/fundTableClasses";
-import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
+import {
+  fundPageSectionScrollMargin,
+  sectionFadeInUp,
+  sectionViewport,
+} from "@/lib/sectionMotion";
+import { cx } from "@/utils/cx";
 
 /** Parse DD/MM/YYYY (with or without spaces) to YYYY-MM-DD for sorting. */
 function toSortableDate(dateStr: string): string {
@@ -44,7 +52,10 @@ export function MIIETFDistributionsSection({ fundData }: { fundData?: MiietfDist
       whileInView="visible"
       viewport={sectionViewport}
       variants={sectionFadeInUp}
-      className="relative overflow-hidden bg-surface-bg section-y"
+      className={cx(
+        "relative overflow-hidden bg-surface-bg section-y",
+        fundPageSectionScrollMargin
+      )}
       aria-labelledby="distributions-section-heading"
     >
       <Container className="flex flex-col gap-10 px-4 sm:px-6 md:px-8 lg:gap-10 lg:px-12 xl:px-16">
@@ -57,8 +68,9 @@ export function MIIETFDistributionsSection({ fundData }: { fundData?: MiietfDist
         </H3>
 
         <div className={fundTableCardClass}>
+          <div className={fundTableScrollClass}>
           <table
-            className={fundTableFixedClass}
+            className={cx(fundTableFixedClass, fundTableMinDistributions)}
             role="table"
             aria-label="Distributions"
           >
@@ -76,7 +88,7 @@ export function MIIETFDistributionsSection({ fundData }: { fundData?: MiietfDist
                 >
                   <TextSmall
                     weight="semibold"
-                    className="text-text-tertiary"
+                    className={cx("text-text-tertiary", fundTableMetricCellClass)}
                   >
                     Date
                   </TextSmall>
@@ -87,7 +99,7 @@ export function MIIETFDistributionsSection({ fundData }: { fundData?: MiietfDist
                 >
                   <TextSmall
                     weight="semibold"
-                    className="text-text-tertiary"
+                    className={cx("text-text-tertiary", fundTableMetricCellClass)}
                   >
                     PKR / Unit
                   </TextSmall>
@@ -98,7 +110,7 @@ export function MIIETFDistributionsSection({ fundData }: { fundData?: MiietfDist
                 >
                   <TextSmall
                     weight="semibold"
-                    className="text-text-tertiary"
+                    className={cx("text-text-tertiary", fundTableMetricCellClass)}
                   >
                     Ex-NAV
                   </TextSmall>
@@ -109,7 +121,7 @@ export function MIIETFDistributionsSection({ fundData }: { fundData?: MiietfDist
                 >
                   <TextSmall
                     weight="semibold"
-                    className="text-text-tertiary"
+                    className={cx("text-text-tertiary", fundTableMetricCellClass)}
                   >
                     Yield (%)
                   </TextSmall>
@@ -122,35 +134,23 @@ export function MIIETFDistributionsSection({ fundData }: { fundData?: MiietfDist
                   key={row.date}
                   className="border-b border-surface-stroke last:border-b-0"
                 >
-                  <td className="min-w-0 px-2 py-5 text-center sm:px-3">
-                    <TextMedium
-                      weight="semibold"
-                      className="text-text-primary"
-                    >
+                  <td className={cx("min-w-0 px-2 py-5 sm:px-3", fundTableMetricCellClass)}>
+                    <TextMedium weight="semibold" className="text-text-primary">
                       {row.date}
                     </TextMedium>
                   </td>
-                  <td className="min-w-0 px-2 py-5 text-center sm:px-3">
-                    <TextMedium
-                      weight="semibold"
-                      className="text-text-primary"
-                    >
+                  <td className={cx("min-w-0 px-2 py-5 sm:px-3", fundTableMetricCellClass)}>
+                    <TextMedium weight="semibold" className="text-text-primary">
                       {row.pkrPerUnit}
                     </TextMedium>
                   </td>
-                  <td className="min-w-0 px-2 py-5 text-center sm:px-3">
-                    <TextMedium
-                      weight="semibold"
-                      className="text-text-primary"
-                    >
+                  <td className={cx("min-w-0 px-2 py-5 sm:px-3", fundTableMetricCellClass)}>
+                    <TextMedium weight="semibold" className="text-text-primary">
                       {row.exNav}
                     </TextMedium>
                   </td>
-                  <td className="min-w-0 px-2 py-5 text-center sm:px-3">
-                    <TextMedium
-                      weight="semibold"
-                      className="text-text-primary"
-                    >
+                  <td className={cx("min-w-0 px-2 py-5 sm:px-3", fundTableMetricCellClass)}>
+                    <TextMedium weight="semibold" className="text-text-primary">
                       {row.yieldPct}
                     </TextMedium>
                   </td>
@@ -158,6 +158,7 @@ export function MIIETFDistributionsSection({ fundData }: { fundData?: MiietfDist
               ))}
             </tbody>
           </table>
+          </div>
         </div>
       </Container>
     </motion.section>

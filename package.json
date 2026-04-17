@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "all-servers": "concurrently -n next,sanity -c cyan,magenta \"npm run dev\" \"npx sanity dev\"",
     "dev": "next dev",
     "build": "next build --webpack",
     "start": "next start",
@@ -98,7 +99,8 @@
     "tailwindcss": "^4",
     "tsx": "^4.21.0",
     "typescript": "^5",
-    "vite": "6.3.5"
+    "vite": "6.3.5",
+    "concurrently": "^9.2.0"
   },
   "overrides": {
     "vite": "6.3.5"

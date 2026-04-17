@@ -8,10 +8,18 @@ import type { MicfPerformanceFundData } from "@/lib/micf-fund-api";
 import {
   fundTableCardClass,
   fundTableFixedClass,
+  fundTableMetricCellClass,
   fundTableMetricColWidthPct,
+  fundTableMinPerformance,
+  fundTableScrollClass,
   fundTableTheadClass,
 } from "@/components/ui/fundTableClasses";
-import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
+import {
+  fundPageSectionScrollMargin,
+  sectionFadeInUp,
+  sectionViewport,
+} from "@/lib/sectionMotion";
+import { cx } from "@/utils/cx";
 
 const CHART_COLORS = {
   micf: "var(--color-primary-200)",
@@ -88,7 +96,10 @@ export function MICFPerformanceSection({
       whileInView="visible"
       viewport={sectionViewport}
       variants={sectionFadeInUp}
-      className="relative overflow-hidden bg-surface-bg section-y"
+      className={cx(
+        "relative overflow-hidden bg-surface-bg section-y",
+        fundPageSectionScrollMargin
+      )}
       aria-labelledby="micf-performance-section-heading"
     >
       <Container className="flex flex-col gap-4 px-4 sm:px-6 md:px-8 lg:gap-4 lg:px-12 xl:px-16">
@@ -103,14 +114,17 @@ export function MICFPerformanceSection({
         <div className="flex flex-col gap-4 lg:gap-4">
           {/* Chart card */}
           <div className="h-fit rounded-2xl border border-surface-stroke bg-surface-card p-4 sm:p-6">
+            <TextSmall className="mb-2 block leading-snug text-text-tertiary sm:mb-3">
+              {chartSubtitle}
+            </TextSmall>
             <div
               className="h-fit w-full min-w-0 overflow-visible"
               role="img"
               aria-label="Performance chart: MICF and Benchmark NAV price"
             >
               <HighchartsPerformanceChart
-                title="Performance"
-                subtitle={chartSubtitle}
+                omitHeaderChrome
+                title=""
                 categories={categories}
                 series={series}
                 ariaLabel="Performance chart: MICF and Benchmark NAV price"
@@ -124,7 +138,12 @@ export function MICFPerformanceSection({
 
           {/* Table card */}
           <div className={fundTableCardClass}>
-            <table className={fundTableFixedClass} role="table" aria-label="Performance metrics by period">
+            <div className={fundTableScrollClass}>
+            <table
+              className={cx(fundTableFixedClass, fundTableMinPerformance)}
+              role="table"
+              aria-label="Performance metrics by period"
+            >
               <colgroup>
                 <col style={{ width: "20%" }} />
                 {Array.from({ length: 7 }, (_, i) => (
@@ -150,7 +169,7 @@ export function MICFPerformanceSection({
                   >
                     <TextSmall
                       weight="semibold"
-                      className="text-text-tertiary"
+                      className={cx("text-text-tertiary", fundTableMetricCellClass)}
                     >
                       MTD
                     </TextSmall>
@@ -161,7 +180,7 @@ export function MICFPerformanceSection({
                   >
                     <TextSmall
                       weight="semibold"
-                      className="text-text-tertiary"
+                      className={cx("text-text-tertiary", fundTableMetricCellClass)}
                     >
                       YTD
                     </TextSmall>
@@ -172,7 +191,7 @@ export function MICFPerformanceSection({
                   >
                     <TextSmall
                       weight="semibold"
-                      className="text-text-tertiary"
+                      className={cx("text-text-tertiary", fundTableMetricCellClass)}
                     >
                       30D
                     </TextSmall>
@@ -183,7 +202,7 @@ export function MICFPerformanceSection({
                   >
                     <TextSmall
                       weight="semibold"
-                      className="text-text-tertiary"
+                      className={cx("text-text-tertiary", fundTableMetricCellClass)}
                     >
                       90D
                     </TextSmall>
@@ -194,7 +213,7 @@ export function MICFPerformanceSection({
                   >
                     <TextSmall
                       weight="semibold"
-                      className="text-text-tertiary"
+                      className={cx("text-text-tertiary", fundTableMetricCellClass)}
                     >
                       1Y
                     </TextSmall>
@@ -205,7 +224,7 @@ export function MICFPerformanceSection({
                   >
                     <TextSmall
                       weight="semibold"
-                      className="whitespace-normal leading-tight text-text-tertiary"
+                      className="whitespace-nowrap leading-tight text-text-tertiary"
                     >
                       Since inception
                     </TextSmall>
@@ -219,7 +238,10 @@ export function MICFPerformanceSection({
                     className="border-b border-surface-stroke last:border-b-0"
                   >
                     <td className="min-w-0 px-2 py-4 sm:px-3 md:px-4">
-                      <div className="flex min-w-0 items-center gap-2 sm:gap-3">
+                      <div
+                        className="flex min-w-0 items-center gap-2 sm:gap-3"
+                        title={row.label}
+                      >
                         <span
                           className="h-3.5 w-3.5 shrink-0 rounded"
                           style={{ backgroundColor: row.color }}
@@ -227,57 +249,39 @@ export function MICFPerformanceSection({
                         />
                         <TextMedium
                           weight="semibold"
-                          className="min-w-0 break-words leading-snug text-text-primary"
+                          className="min-w-0 max-w-[9rem] truncate sm:max-w-[12rem] md:max-w-none text-text-primary"
                         >
                           {row.label}
                         </TextMedium>
                       </div>
                     </td>
-                    <td className="px-1 py-4 text-center sm:px-2 md:px-3">
-                      <TextMedium
-                        weight="semibold"
-                        className="text-text-primary"
-                      >
+                    <td className={cx("px-1 py-4 sm:px-2 md:px-3", fundTableMetricCellClass)}>
+                      <TextMedium weight="semibold" className="text-text-primary">
                         {row.mtd}
                       </TextMedium>
                     </td>
-                    <td className="px-1 py-4 text-center sm:px-2 md:px-3">
-                      <TextMedium
-                        weight="semibold"
-                        className="text-text-primary"
-                      >
+                    <td className={cx("px-1 py-4 sm:px-2 md:px-3", fundTableMetricCellClass)}>
+                      <TextMedium weight="semibold" className="text-text-primary">
                         {row.ytd}
                       </TextMedium>
                     </td>
-                    <td className="px-1 py-4 text-center sm:px-2 md:px-3">
-                      <TextMedium
-                        weight="semibold"
-                        className="text-text-primary"
-                      >
+                    <td className={cx("px-1 py-4 sm:px-2 md:px-3", fundTableMetricCellClass)}>
+                      <TextMedium weight="semibold" className="text-text-primary">
                         {row.d30}
                       </TextMedium>
                     </td>
-                    <td className="px-1 py-4 text-center sm:px-2 md:px-3">
-                      <TextMedium
-                        weight="semibold"
-                        className="text-text-primary"
-                      >
+                    <td className={cx("px-1 py-4 sm:px-2 md:px-3", fundTableMetricCellClass)}>
+                      <TextMedium weight="semibold" className="text-text-primary">
                         {row.d90}
                       </TextMedium>
                     </td>
-                    <td className="px-1 py-4 text-center sm:px-2 md:px-3">
-                      <TextMedium
-                        weight="semibold"
-                        className="text-text-primary"
-                      >
+                    <td className={cx("px-1 py-4 sm:px-2 md:px-3", fundTableMetricCellClass)}>
+                      <TextMedium weight="semibold" className="text-text-primary">
                         {row.y1}
                       </TextMedium>
                     </td>
-                    <td className="px-1 py-4 text-center sm:px-2 md:px-3">
-                      <TextMedium
-                        weight="semibold"
-                        className="text-text-primary"
-                      >
+                    <td className={cx("px-1 py-4 sm:px-2 md:px-3", fundTableMetricCellClass)}>
+                      <TextMedium weight="semibold" className="text-text-primary">
                         {row.sinceInception}
                       </TextMedium>
                     </td>
@@ -285,6 +289,7 @@ export function MICFPerformanceSection({
                 ))}
               </tbody>
             </table>
+            </div>
           </div>
         </div>
       </Container>

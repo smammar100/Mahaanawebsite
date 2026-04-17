@@ -4,9 +4,14 @@ import { motion } from "motion/react";
 import type { MiirfPerformanceFundData } from "@/lib/miirf-fund-api";
 import { Container } from "@/components/layout/Container";
 import { HighchartsPerformanceChart } from "@/components/ui/HighchartsPerformanceChart";
-import { H3 } from "@/components/ui/Typography";
-import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
+import { H3, TextSmall } from "@/components/ui/Typography";
+import {
+  fundPageSectionScrollMargin,
+  sectionFadeInUp,
+  sectionViewport,
+} from "@/lib/sectionMotion";
 import { cleanCopy } from "@/lib/copy-utils";
+import { cx } from "@/utils/cx";
 
 const CHART_COLORS = {
   conservative: "var(--color-info-200)",
@@ -58,7 +63,10 @@ export function MIIRFPerformanceSection({ fundData }: { fundData?: MiirfPerforma
       whileInView="visible"
       viewport={sectionViewport}
       variants={sectionFadeInUp}
-      className="relative overflow-hidden bg-surface-bg section-y"
+      className={cx(
+        "relative overflow-hidden bg-surface-bg section-y",
+        fundPageSectionScrollMargin
+      )}
       aria-labelledby="miirf-performance-section-heading"
     >
       <Container className="flex flex-col gap-10 px-4 sm:px-6 md:px-8 lg:gap-10 lg:px-12 xl:px-16">
@@ -70,18 +78,25 @@ export function MIIRFPerformanceSection({ fundData }: { fundData?: MiirfPerforma
           {cleanCopy("Performance")}
         </H3>
 
-        <div className="relative rounded-2xl border border-surface-stroke bg-surface-card p-4 sm:p-6">
-          <p className="absolute top-4 right-4 z-10 text-xs text-text-tertiary sm:top-6 sm:right-6">
-            {cleanCopy("*assuming you have invested PKR 1,000")}
-          </p>
+        <div className="overflow-hidden rounded-2xl border border-surface-stroke bg-surface-card px-3 py-3 sm:px-4 sm:py-4 md:px-5 md:py-5">
+          <div className="mb-2 flex flex-col gap-1.5 sm:mb-3 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
+            <TextSmall className="leading-snug text-text-tertiary">
+              {cleanCopy("Risk profile returns")}
+            </TextSmall>
+            <TextSmall className="max-w-full text-xs leading-snug text-text-tertiary sm:max-w-[min(280px,55%)] sm:text-right">
+              {cleanCopy("*assuming you have invested PKR 1,000")}
+            </TextSmall>
+          </div>
           <div
-            className="h-64 w-full min-w-0 sm:h-72 lg:h-96"
+            className="h-64 w-full min-h-0 min-w-0 shrink-0 sm:h-72 lg:h-96"
             role="img"
             aria-label="Performance chart: Risk profile returns assuming PKR 1,000 invested. Conservative, Low Risk, Balanced, Medium Risk, Aggressive."
           >
             <HighchartsPerformanceChart
-              title={cleanCopy("Performance")}
-              subtitle={cleanCopy("Risk profile returns")}
+              omitHeaderChrome
+              legendVerticalAlign="top"
+              manySeries
+              title=""
               categories={categories}
               series={series}
               ariaLabel={cleanCopy("Performance chart: Risk profile returns assuming PKR 1,000 invested. Conservative, Low Risk, Balanced, Medium Risk, Aggressive.")}
@@ -89,6 +104,7 @@ export function MIIRFPerformanceSection({ fundData }: { fundData?: MiirfPerforma
               valueSuffix=""
               yAxisTitle={cleanCopy("Value (PKR)")}
               xAxisLabelFormat="firstLastOnly"
+              constrainToParent
             />
           </div>
         </div>

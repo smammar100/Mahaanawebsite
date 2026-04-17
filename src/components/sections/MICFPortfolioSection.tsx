@@ -7,10 +7,18 @@ import { Container } from "@/components/layout/Container";
 import { H3, H4, TextMedium, TextSmall } from "@/components/ui/Typography";
 import { HighchartsVariablePieChart } from "@/components/ui/HighchartsVariablePieChart";
 import type { MicfPortfolioFundData } from "@/lib/micf-fund-api";
-import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
+import {
+  fundPageSectionScrollMargin,
+  sectionFadeInUp,
+  sectionViewport,
+} from "@/lib/sectionMotion";
 import {
   fundTableCardClass,
   fundTableFixedClass,
+  fundTableMetricCellClass,
+  fundTableMinThreeCol,
+  fundTableMinTwoCol,
+  fundTableScrollClass,
   fundTableTheadClass,
 } from "@/components/ui/fundTableClasses";
 import { cx } from "@/utils/cx";
@@ -33,33 +41,26 @@ const ASSET_ALLOCATION_ROWS = [
   { item: "Other Assets", currentMonth: "13.39%", previousMonth: "17.47%", color: ASSET_COLORS.otherAssets },
 ];
 
-/** Highcharts column chart options — margins tuned for visible axis labels and legend */
+/** Highcharts column chart options — page `<H4>` is the title; legend at bottom to avoid overlap */
 const assetAllocationColumnChartOptions: Options = {
   chart: {
     type: "column",
     backgroundColor: "transparent",
-    spacing: [16, 16, 16, 20],
-    marginTop: 60,
-    marginRight: 24,
-    marginLeft: 88,
-    marginBottom: 100,
+    spacing: [12, 16, 12, 16],
+    marginTop: 4,
+    marginRight: 12,
+    marginLeft: 72,
+    marginBottom: 112,
     reflow: true,
     animation: { duration: 600 },
     height: null,
     style: { fontFamily: "inherit" },
   },
-  title: {
-    text: "Asset Allocation",
-    align: "left",
-    style: {
-      fontSize: "18px",
-      fontWeight: "600",
-      color: "var(--color-text-primary)",
-    },
-  },
+  title: { text: "" },
   subtitle: {
     text: "Current month vs previous month by category",
     align: "left",
+    y: 12,
     style: {
       fontSize: "13px",
       color: "var(--color-text-tertiary)",
@@ -81,7 +82,7 @@ const assetAllocationColumnChartOptions: Options = {
     minPadding: 0.02,
     maxPadding: 0.02,
     labels: {
-      overflow: "justify",
+      overflow: "allow",
       rotation: -45,
       align: "right",
       style: {
@@ -119,6 +120,7 @@ const assetAllocationColumnChartOptions: Options = {
   tooltip: {
     valueSuffix: "%",
     valueDecimals: 2,
+    outside: true,
     backgroundColor: "var(--color-surface-bg)",
     borderColor: "var(--color-surface-stroke)",
     borderRadius: 8,
@@ -160,16 +162,16 @@ const assetAllocationColumnChartOptions: Options = {
   ],
   legend: {
     enabled: true,
-    align: "right",
-    verticalAlign: "top",
+    align: "center",
+    verticalAlign: "bottom",
     layout: "horizontal",
-    floating: true,
-    x: -16,
-    y: 8,
-    margin: 0,
+    floating: false,
+    x: 0,
+    y: 4,
+    margin: 12,
     padding: 8,
-    itemDistance: 24,
-    backgroundColor: "var(--color-surface-card)",
+    itemDistance: 20,
+    backgroundColor: "transparent",
     borderWidth: 0,
     shadow: false,
     itemStyle: {
@@ -193,23 +195,30 @@ const assetAllocationColumnChartOptions: Options = {
         condition: { maxWidth: 480 },
         chartOptions: {
           chart: {
-            marginBottom: 110,
-            marginTop: 50,
+            marginBottom: 128,
+            marginTop: 2,
+            marginLeft: 52,
+          },
+          subtitle: {
+            style: { fontSize: "12px" },
           },
           xAxis: {
             labels: {
-              rotation: -45,
+              rotation: -35,
               style: { fontSize: "10px" },
+              staggerLines: 2,
             },
           },
           legend: {
-            align: "right",
-            verticalAlign: "top",
-            floating: true,
-            x: -8,
-            y: 6,
+            align: "center",
+            verticalAlign: "bottom",
+            floating: false,
             itemStyle: { fontSize: "10px" },
             itemDistance: 8,
+            margin: 8,
+          },
+          tooltip: {
+            style: { fontSize: "11px" },
           },
         },
       },
@@ -217,12 +226,12 @@ const assetAllocationColumnChartOptions: Options = {
         condition: { maxWidth: 640 },
         chartOptions: {
           chart: {
-            marginLeft: 64,
-            marginBottom: 105,
+            marginLeft: 56,
+            marginBottom: 120,
           },
           xAxis: {
             labels: {
-              rotation: -45,
+              rotation: -38,
               style: { fontSize: "11px" },
             },
           },
@@ -231,13 +240,11 @@ const assetAllocationColumnChartOptions: Options = {
             labels: { style: { fontSize: "10px" } },
           },
           legend: {
-            align: "right",
-            verticalAlign: "top",
-            floating: true,
-            x: -12,
-            y: 8,
             itemStyle: { fontSize: "11px" },
             itemDistance: 10,
+          },
+          tooltip: {
+            style: { fontSize: "12px" },
           },
         },
       },
@@ -245,15 +252,8 @@ const assetAllocationColumnChartOptions: Options = {
         condition: { maxWidth: 768 },
         chartOptions: {
           chart: {
-            marginLeft: 72,
-            marginBottom: 100,
-          },
-          legend: {
-            align: "right",
-            verticalAlign: "top",
-            floating: true,
-            x: -14,
-            y: 8,
+            marginLeft: 60,
+            marginBottom: 116,
           },
         },
       },
@@ -417,7 +417,10 @@ export function MICFPortfolioSection({
       whileInView="visible"
       viewport={sectionViewport}
       variants={sectionFadeInUp}
-      className="relative overflow-hidden bg-surface-bg section-y"
+      className={cx(
+        "relative overflow-hidden bg-surface-bg section-y",
+        fundPageSectionScrollMargin
+      )}
       aria-labelledby="micf-portfolio-section-heading"
     >
       <Container className="flex flex-col gap-10 px-4 sm:px-6 md:px-8 lg:gap-10 lg:px-12 xl:px-16">
@@ -448,8 +451,9 @@ export function MICFPortfolioSection({
                 />
               </div>
               <div className={fundTableCardClass}>
+                <div className={fundTableScrollClass}>
                 <table
-                  className={fundTableFixedClass}
+                  className={cx(fundTableFixedClass, fundTableMinThreeCol)}
                   role="table"
                   aria-label="Asset allocation by category"
                 >
@@ -466,12 +470,18 @@ export function MICFPortfolioSection({
                         </TextSmall>
                       </th>
                       <th scope="col" className="px-2 py-4 text-center sm:px-3">
-                        <TextSmall weight="semibold" className="text-text-tertiary">
+                        <TextSmall
+                          weight="semibold"
+                          className={cx("text-text-tertiary", fundTableMetricCellClass)}
+                        >
                           Current month
                         </TextSmall>
                       </th>
                       <th scope="col" className="px-2 py-4 text-center sm:px-3">
-                        <TextSmall weight="semibold" className="text-text-tertiary">
+                        <TextSmall
+                          weight="semibold"
+                          className={cx("text-text-tertiary", fundTableMetricCellClass)}
+                        >
                           Previous month
                         </TextSmall>
                       </th>
@@ -495,12 +505,12 @@ export function MICFPortfolioSection({
                             </TextMedium>
                           </div>
                         </td>
-                        <td className="px-2 py-5 text-center sm:px-3">
+                        <td className={cx("px-2 py-5 sm:px-3", fundTableMetricCellClass)}>
                           <TextMedium weight="semibold" className="text-text-primary">
                             {row.currentMonth}
                           </TextMedium>
                         </td>
-                        <td className="px-2 py-5 text-center sm:px-3">
+                        <td className={cx("px-2 py-5 sm:px-3", fundTableMetricCellClass)}>
                           <TextMedium weight="semibold" className="text-text-primary">
                             {row.previousMonth}
                           </TextMedium>
@@ -509,6 +519,7 @@ export function MICFPortfolioSection({
                     ))}
                   </tbody>
                 </table>
+                </div>
               </div>
             </div>
           </div>
@@ -521,8 +532,9 @@ export function MICFPortfolioSection({
             <div className="flex min-w-0 w-full flex-col gap-6 lg:flex-row lg:gap-6">
               <div className="min-w-0 flex-1 lg:w-1/2">
                 <div className={fundTableCardClass}>
+                  <div className={fundTableScrollClass}>
                   <table
-                    className={fundTableFixedClass}
+                    className={cx(fundTableFixedClass, fundTableMinTwoCol)}
                     role="table"
                     aria-label="Credit quality by rating"
                   >
@@ -538,7 +550,10 @@ export function MICFPortfolioSection({
                           </TextSmall>
                         </th>
                         <th scope="col" className="px-2 py-4 text-center sm:px-3">
-                          <TextSmall weight="semibold" className="text-text-tertiary">
+                          <TextSmall
+                            weight="semibold"
+                            className={cx("text-text-tertiary", fundTableMetricCellClass)}
+                          >
                             Percentage
                           </TextSmall>
                         </th>
@@ -568,7 +583,7 @@ export function MICFPortfolioSection({
                               </TextMedium>
                             </div>
                           </td>
-                          <td className="px-2 py-5 text-center sm:px-3">
+                          <td className={cx("px-2 py-5 sm:px-3", fundTableMetricCellClass)}>
                             <TextMedium weight="semibold" className="text-text-primary">
                               {row.percentage}
                             </TextMedium>
@@ -577,6 +592,7 @@ export function MICFPortfolioSection({
                       ))}
                     </tbody>
                   </table>
+                  </div>
                 </div>
               </div>
               <div className="flex flex-col justify-center items-center min-w-0 flex-1 lg:w-1/2">
@@ -604,8 +620,9 @@ export function MICFPortfolioSection({
               </div>
               <div className="min-w-0 flex-1 lg:w-1/2">
                 <div className={fundTableCardClass}>
+                  <div className={fundTableScrollClass}>
                   <table
-                    className={fundTableFixedClass}
+                    className={cx(fundTableFixedClass, fundTableMinTwoCol)}
                     role="table"
                     aria-label="Top holdings by percentage"
                   >
@@ -621,7 +638,10 @@ export function MICFPortfolioSection({
                           </TextSmall>
                         </th>
                         <th scope="col" className="px-2 py-4 text-center sm:px-3">
-                          <TextSmall weight="semibold" className="text-text-tertiary">
+                          <TextSmall
+                            weight="semibold"
+                            className={cx("text-text-tertiary", fundTableMetricCellClass)}
+                          >
                             Percentage
                           </TextSmall>
                         </th>
@@ -651,7 +671,7 @@ export function MICFPortfolioSection({
                               </TextMedium>
                             </div>
                           </td>
-                          <td className="px-2 py-5 text-center sm:px-3">
+                          <td className={cx("px-2 py-5 sm:px-3", fundTableMetricCellClass)}>
                             <TextMedium weight="semibold" className="text-text-primary">
                               {row.percentage}
                             </TextMedium>
@@ -660,6 +680,7 @@ export function MICFPortfolioSection({
                       ))}
                     </tbody>
                   </table>
+                  </div>
                 </div>
               </div>
             </div>

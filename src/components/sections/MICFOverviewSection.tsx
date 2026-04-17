@@ -2,15 +2,15 @@
 
 import { motion } from "motion/react";
 import { Container } from "@/components/layout/Container";
-import {
-  H3,
-  H4,
-  TextRegular,
-  TextSmall,
-  TextMedium,
-} from "@/components/ui/Typography";
+import { H3, H4, TextRegular } from "@/components/ui/Typography";
 import type { MicfOverviewFundData } from "@/lib/micf-fund-api";
-import { sectionFadeInUp, sectionViewport } from "@/lib/sectionMotion";
+import {
+  fundPageSectionScrollMargin,
+  sectionFadeInUp,
+  sectionViewport,
+} from "@/lib/sectionMotion";
+import { KeyFactsGrid } from "@/components/ui/KeyFactsGrid";
+import { cx } from "@/utils/cx";
 
 const KEY_FACTS_LEFT = [
   { label: "Net Assets", value: "PKR 3504.4 mn" },
@@ -42,25 +42,6 @@ const KEY_FACTS_RIGHT = [
   { label: "Sales Load", value: "Upto 1.5%" },
 ] as const;
 
-function DetailRow({ label, value }: { label: string; value: string }) {
-  return (
-    <div className="flex flex-col gap-1 sm:flex-row sm:gap-6 sm:items-start">
-      <TextSmall
-        weight="medium"
-        className="shrink-0 text-text-tertiary sm:w-[150px]"
-      >
-        {label}
-      </TextSmall>
-      <TextMedium
-        weight="semibold"
-        className="min-w-0 text-text-primary"
-      >
-        {value}
-      </TextMedium>
-    </div>
-  );
-}
-
 const DEFAULT_SUMMARY =
   "MICF is a Shariah compliant fund that primarily invests in cash and cash equivalents, such as short term government bonds and money market instruments. Cash funds are often used as a short term investment vehicle or as a way to preserve capital while earning a low return. They are typically considered low risk investments, as they are invested in highly liquid assets, such as islamic sukuks, that are not subject to significant price fluctuations. Through MICF, our clients gain direct exposure to government Sukuks at a fraction of the cost compared to banks.";
 
@@ -76,6 +57,7 @@ export function MICFOverviewSection({
   const investmentObjective = fundData?.investmentObjective ?? DEFAULT_OBJECTIVE;
   const keyFactsLeft = fundData?.keyFactsLeft ?? [...KEY_FACTS_LEFT];
   const keyFactsRight = fundData?.keyFactsRight ?? [...KEY_FACTS_RIGHT];
+  const keyFactsItems = [...keyFactsLeft, ...keyFactsRight];
 
   return (
     <motion.section
@@ -83,7 +65,10 @@ export function MICFOverviewSection({
       whileInView="visible"
       viewport={sectionViewport}
       variants={sectionFadeInUp}
-      className="relative overflow-hidden bg-surface-bg py-8 sm:py-10"
+      className={cx(
+        "relative overflow-hidden bg-surface-bg py-8 sm:py-10",
+        fundPageSectionScrollMargin
+      )}
       aria-labelledby="micf-overview-section-heading"
     >
       <Container className="flex flex-col gap-10 px-4 sm:px-6 md:px-8 lg:gap-10 lg:px-12 xl:px-16">
@@ -116,19 +101,11 @@ export function MICFOverviewSection({
             </div>
           </div>
 
-          {/* Fund details grid — two columns on lg */}
-          <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-20">
-            <div className="flex flex-col gap-6">
-              {keyFactsLeft.map(({ label, value }) => (
-                <DetailRow key={label} label={label} value={value} />
-              ))}
-            </div>
-            <div className="flex flex-col gap-6">
-              {keyFactsRight.map(({ label, value }) => (
-                <DetailRow key={label} label={label} value={value} />
-              ))}
-            </div>
-          </div>
+          {/* Fund details — 2-column grid; long rows span full width */}
+          <KeyFactsGrid
+            items={keyFactsItems}
+            labelWidthClassName="sm:w-[150px]"
+          />
         </div>
       </Container>
     </motion.section>
