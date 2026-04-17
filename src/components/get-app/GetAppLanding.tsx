@@ -72,7 +72,7 @@ export function GetAppLanding({ storeRedirectQrUrl }: GetAppLandingProps) {
           >
             <div className="absolute left-1/2 top-2 z-10 h-5 w-24 -translate-x-1/2 rounded-full bg-gray-900" aria-hidden />
             <Image
-              src="/images/invest/IMG_0252.png"
+              src="/images/invest/Home%202.png"
               alt="Mahaana app dashboard with portfolio balance and performance chart"
               fill
               className="object-cover object-center"
