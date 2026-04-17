@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import {
   computeVpsSummary,
   type EmploymentClass,
@@ -103,6 +103,25 @@ function ResultRow({
       <p className="font-mono text-body font-semibold text-text-primary tabular-nums">
         {value}
       </p>
+    </div>
+  );
+}
+
+function EstimateSection({
+  title,
+  children,
+  className,
+}: {
+  title: string;
+  children: ReactNode;
+  className?: string;
+}) {
+  return (
+    <div className={cx("flex flex-col", className)}>
+      <p className="text-body-sm font-semibold text-text-primary">
+        {cleanCopy(title)}
+      </p>
+      <div className="mt-2 flex flex-col">{children}</div>
     </div>
   );
 }
@@ -230,41 +249,45 @@ export function RetirementVpsCalculator({
                 )}
               </p>
 
-              <div className="mt-4 flex flex-col">
-                <ResultRow
-                  label="Monthly income"
-                  value={formatPkr(summary.monthlyIncome)}
-                />
-                <ResultRow
-                  label="Annual income"
-                  value={formatPkr(summary.annualIncome)}
-                />
-                <ResultRow
-                  label="Annual income tax"
-                  value={formatPkr(summary.annualIncomeTax)}
-                />
-                <ResultRow
-                  label="Effective tax rate"
-                  value={formatPercent(summary.effectiveTaxRate)}
-                />
-                <ResultRow
-                  label="VPS investment permissible for tax credit"
-                  value={formatPkr(summary.vpsInvestmentPermissible)}
-                />
-                <ResultRow
-                  label="Maximum tax credit amount"
-                  value={formatPkr(summary.maximumTaxCreditAmount)}
-                />
-                <ResultRow
-                  label="Planned annual VPS (initial + 12 × monthly)"
-                  value={formatPkr(summary.plannedAnnualVpsContribution)}
-                />
-                <ResultRow
-                  label="Estimated tax credit on planned contribution"
-                  value={formatPkr(
-                    summary.estimatedTaxCreditOnPlannedContribution
-                  )}
-                />
+              <div className="mt-4 flex flex-col gap-6">
+                <EstimateSection title="Monthly">
+                  <ResultRow
+                    label="Income"
+                    value={formatPkr(summary.monthlyIncome)}
+                  />
+                </EstimateSection>
+                <EstimateSection title="Annual">
+                  <ResultRow
+                    label="Income"
+                    value={formatPkr(summary.annualIncome)}
+                  />
+                  <ResultRow
+                    label="Income tax"
+                    value={formatPkr(summary.annualIncomeTax)}
+                  />
+                  <ResultRow
+                    label="Effective tax rate"
+                    value={formatPercent(summary.effectiveTaxRate)}
+                  />
+                  <ResultRow
+                    label="VPS investment permissible for tax credit"
+                    value={formatPkr(summary.vpsInvestmentPermissible)}
+                  />
+                  <ResultRow
+                    label="Maximum tax credit amount"
+                    value={formatPkr(summary.maximumTaxCreditAmount)}
+                  />
+                  <ResultRow
+                    label="Planned VPS contribution (initial + 12 × monthly)"
+                    value={formatPkr(summary.plannedAnnualVpsContribution)}
+                  />
+                  <ResultRow
+                    label="Estimated tax credit on planned contribution"
+                    value={formatPkr(
+                      summary.estimatedTaxCreditOnPlannedContribution
+                    )}
+                  />
+                </EstimateSection>
               </div>
             </div>
           )}

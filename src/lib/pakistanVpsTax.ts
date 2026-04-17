@@ -30,8 +30,11 @@ export function annualIncomeFromMonthly(monthlyIncome: number): number {
   return Math.round(raw / 1000) * 1000;
 }
 
-/** Progressive tax: salaried individuals (PKR annual taxable income). */
-export function computeAnnualTaxSalaried(annualIncome: number): number {
+const SALARIED_SURCHARGE_THRESHOLD = 10_000_000;
+const SALARIED_SURCHARGE_RATE = 0.09;
+
+/** Progressive slab tax only (PKR annual taxable income), before 9% surcharge above PKR 10M. */
+export function computeAnnualTaxSalariedBase(annualIncome: number): number {
   const x = Math.max(0, annualIncome);
 
   if (x <= 600_000) return 0;
@@ -53,6 +56,15 @@ export function computeAnnualTaxSalaried(annualIncome: number): number {
     return roundTax(7_721_000 + 0.35 * (x - 24_000_000));
   }
   return roundTax(14_021_000 + 0.35 * (x - 42_000_000));
+}
+
+/** Salaried tax: slab base plus 9% surcharge on that base when annual income exceeds PKR 10M. */
+export function computeAnnualTaxSalaried(annualIncome: number): number {
+  const base = computeAnnualTaxSalariedBase(annualIncome);
+  if (annualIncome > SALARIED_SURCHARGE_THRESHOLD) {
+    return roundTax(base + SALARIED_SURCHARGE_RATE * base);
+  }
+  return base;
 }
 
 /** Progressive tax: non-salaried individuals (PKR annual taxable income). */
@@ -141,10 +153,12 @@ export function assertPakistanVpsTaxFixtures(): void {
     [500_000, 1_281_000],
     [600_000, 1_701_000],
     [833_333, 2_681_000],
-    [1_200_000, 4_221_000],
-    [2_000_000, 7_721_000],
-    [3_500_000, 14_021_000],
-    [5_000_000, 20_321_000],
+    /* annual 10_001_000 — surcharge applies (strictly above PKR 10M). */
+    [833_417, 2_922_672],
+    [1_200_000, 4_600_890],
+    [2_000_000, 8_415_890],
+    [3_500_000, 15_282_890],
+    [5_000_000, 22_149_890],
   ];
 
   const nonSalaried: [number, number][] = [
