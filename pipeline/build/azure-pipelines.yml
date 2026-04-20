@@ -11,7 +11,7 @@ variables:
   directory: 'Mahaana WebApp'
 
 pool:
-  name: 'ubuntu-latest'
+  vmImage: 'ubuntu-latest'
 
 steps:
   - task: NodeTool@0
