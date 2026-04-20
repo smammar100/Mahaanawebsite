@@ -22,7 +22,7 @@ steps:
   - script: |
       npm ci --legacy-peer-deps
     displayName: 'npm ci'
-    workingDirectory: $(directory)
+    workingDirectory: '$(Build.SourcesDirectory)/$(directory)'
 
   - script: |
       npm run build
