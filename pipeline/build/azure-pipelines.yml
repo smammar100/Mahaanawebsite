@@ -32,6 +32,9 @@ steps:
       # Required for Sanity + app routes that read these at build time (see src/lib/sanity/client.ts)
       NEXT_PUBLIC_SANITY_PROJECT_ID: ctfatnb0
       NEXT_PUBLIC_SANITY_DATASET: production
+      SANITY_API_READ_TOKEN: $(SANITY_API_READ_TOKEN)
+      SANITY_IMPORT_TOKEN: $(SANITY_IMPORT_TOKEN)
+      SANITY_AUTH_TOKEN: $(SANITY_AUTH_TOKEN)
 
 
   - task: ArchiveFiles@2
