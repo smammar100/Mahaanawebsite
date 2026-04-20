@@ -8,7 +8,7 @@ trigger:
       - master
 
 variables:
-  directory: 'Mahaana WebApp'
+  directory: '.'
 
 pool:
   name: 'Mahaana_Agent'
@@ -22,7 +22,7 @@ steps:
   - script: |
       npm ci --legacy-peer-deps
     displayName: 'npm ci'
-    workingDirectory: '$(Build.SourcesDirectory)/$(directory)'
+    workingDirectory: $(directory)
 
   - script: |
       npm run build
