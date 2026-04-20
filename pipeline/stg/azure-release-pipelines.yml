@@ -24,7 +24,7 @@ jobs:
         inputs:
           provider: 'azurerm'
           command: 'init'
-          workingDirectory: '$(System.DefaultWorkingDirectory)terraform/stg'
+          workingDirectory: $(System.DefaultWorkingDirectory)/terraform/stg
           backendServiceArm: 'SP_Mahaana_Dev'
           backendAzureRmResourceGroupName: 'mahaana-common-stg'
           backendAzureRmStorageAccountName: 'stagingmahaanastatefiles'
@@ -36,14 +36,14 @@ jobs:
         inputs:
           provider: 'azurerm'
           command: 'validate'
-          workingDirectory: '$(System.DefaultWorkingDirectory)Mahaana WebApp/terraform/stg'
+          workingDirectory: $(System.DefaultWorkingDirectory)/terraform/stg
 
       - task: TerraformTaskV3@3
         displayName: Terraform plan
         inputs:
           provider: 'azurerm'
           command: 'plan'
-          workingDirectory: '$(System.DefaultWorkingDirectory)terraform/stg'
+          workingDirectory: $(System.DefaultWorkingDirectory)/terraform/stg
           commandOptions: '-out=tfplan'
           environmentServiceNameAzureRM: 'SP_Mahaana_Dev'
 
@@ -52,7 +52,7 @@ jobs:
         inputs:
           provider: 'azurerm'
           command: 'apply'
-          workingDirectory: '$(System.DefaultWorkingDirectory)terraform/stg'
+          workingDirectory: $(System.DefaultWorkingDirectory)/terraform/stg
           commandOptions: '-auto-approve tfplan'
           environmentServiceNameAzureRM: 'SP_Mahaana_Dev'
 
