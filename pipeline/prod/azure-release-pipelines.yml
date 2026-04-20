@@ -1,0 +1,82 @@
+# Production release — Terraform (terraform/prod), then deploy drop/webapp.zip.
+# Update backend + web app name variables to match your prod subscription/storage.
+
+trigger:
+  - none
+
+pool:
+  name: 'Mahaana_Agent'
+
+variables:
+  azureSubscription: 'SP_Mahaana_Dev'
+  adoProjectId: '24e8efe7-1703-4a24-9c1b-fe90fe88cd6b'
+  buildPipelineId: '274'
+  prodWebAppName: 'prod-mahaana-dfa-frontend'
+  tfBackendRg: 'mahaana-common-prod'
+  tfBackendStorageAccount: 'prodmahaanastatefiles'
+  tfBackendContainer: 'mahaana-prod-statefiles'
+
+jobs:
+  - job: Deployment
+    displayName: Production — Terraform + deploy Next.js zip
+    steps:
+      - task: TerraformInstaller@0
+        inputs:
+          terraformVersion: 'latest'
+
+      - task: TerraformTaskV3@3
+        displayName: Terraform init
+        inputs:
+          provider: 'azurerm'
+          command: 'init'
+          workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/prod'
+          backendServiceArm: 'SP_Mahaana_Dev'
+          backendAzureRmResourceGroupName: '$(tfBackendRg)'
+          backendAzureRmStorageAccountName: '$(tfBackendStorageAccount)'
+          backendAzureRmContainerName: '$(tfBackendContainer)'
+          backendAzureRmKey: 'mahaana-website-prod.tfstate'
+
+      - task: TerraformTaskV3@3
+        displayName: Terraform validate
+        inputs:
+          provider: 'azurerm'
+          command: 'validate'
+          workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/prod'
+
+      - task: TerraformTaskV3@3
+        displayName: Terraform plan
+        inputs:
+          provider: 'azurerm'
+          command: 'plan'
+          workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/prod'
+          commandOptions: '-out=tfplan'
+          environmentServiceNameAzureRM: 'SP_Mahaana_Dev'
+
+      - task: TerraformTaskV3@3
+        displayName: Terraform apply
+        inputs:
+          provider: 'azurerm'
+          command: 'apply'
+          workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/prod'
+          commandOptions: '-auto-approve tfplan'
+          environmentServiceNameAzureRM: 'SP_Mahaana_Dev'
+
+      - task: DownloadBuildArtifacts@1
+        displayName: Download build artifact drop
+        inputs:
+          buildType: 'specific'
+          project: '$(adoProjectId)'
+          definition: '$(buildPipelineId)'
+          buildVersionToDownload: 'latest'
+          downloadType: 'single'
+          artifactName: 'drop'
+          downloadPath: '$(System.ArtifactsDirectory)'
+
+      - task: AzureRmWebAppDeployment@4
+        displayName: Deploy webapp.zip to Linux Web App
+        inputs:
+          ConnectionType: 'AzureRM'
+          azureSubscription: '$(azureSubscription)'
+          appType: 'webAppLinux'
+          WebAppName: '$(prodWebAppName)'
+          packageForLinux: '$(System.ArtifactsDirectory)/drop/webapp.zip'

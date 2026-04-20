@@ -1,0 +1,58 @@
+# CI build — mahaana-website (Next.js 16 + Sanity) in folder Mahaana WebApp.
+# NEXT_PUBLIC_* are inlined at `next build` — map below from ADO variables / variable groups.
+# SANITY_API_READ_TOKEN, REVALIDATION_SECRET: set on App Service only (runtime), not here.
+
+trigger:
+  branches:
+    include:
+      - master
+
+variables:
+  directory: 'Mahaana WebApp'
+
+pool:
+  name: 'Mahaana_Agent'
+
+steps:
+  - task: NodeTool@0
+    inputs:
+      versionSpec: '20.x'
+    displayName: 'Install Node.js 20.x'
+
+  - script: |
+      npm ci --legacy-peer-deps
+    displayName: 'npm ci'
+    workingDirectory: $(directory)
+
+  - script: |
+      npm run build
+    displayName: 'npm run build'
+    workingDirectory: $(directory)
+    env:
+      # Required for Sanity + app routes that read these at build time (see src/lib/sanity/client.ts)
+      NEXT_PUBLIC_SANITY_PROJECT_ID: ctfatnb0
+      NEXT_PUBLIC_SANITY_DATASET: production
+
+
+  - task: ArchiveFiles@2
+    displayName: 'Zip app for Linux App Service'
+    inputs:
+      rootFolderOrFile: '$(Build.SourcesDirectory)/$(directory)'
+      includeRootFolder: false
+      archiveType: zip
+      archiveFile: '$(Build.ArtifactStagingDirectory)/webapp.zip'
+      replaceExistingArchive: true
+
+  - task: CopyFiles@2
+    displayName: 'Copy package-lock.json'
+    inputs:
+      sourceFolder: '$(Build.SourcesDirectory)/$(directory)'
+      Contents: 'package-lock.json'
+      TargetFolder: '$(Build.ArtifactStagingDirectory)'
+      cleanTargetFolder: false
+
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish drop'
+    inputs:
+      pathtoPublish: '$(Build.ArtifactStagingDirectory)'
+      ArtifactName: 'drop'
