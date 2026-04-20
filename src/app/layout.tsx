@@ -1,15 +1,15 @@
 import type { Metadata, Viewport } from "next";
-import { Outfit } from "next/font/google";
+import localFont from "next/font/local";
 import { ThemeProvider } from "next-themes";
 import "./globals.css";
 import { LayoutContent } from "@/components/layout/LayoutContent";
 import StructuredData from "@/components/StructuredData";
 
-const outfit = Outfit({
-  subsets: ["latin"],
+const outfit = localFont({
+  src: "../../node_modules/@fontsource-variable/outfit/files/outfit-latin-wght-normal.woff2",
   display: "swap",
   variable: "--font-outfit",
-  weight: ["300", "400", "500", "600"],
+  weight: "100 900",
 });
 
 /** LCP hero raster — matches Netlify Image CDN output in production (layout preload). */
@@ -44,8 +44,6 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning className={outfit.variable}>
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://cdn.sanity.io" />
         <link rel="alternate" type="text/plain" title="LLM site hints" href="/llms.txt" />
         <link rel="preload" href="/images/invest/Logo.svg" as="image" />
