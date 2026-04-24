@@ -9,7 +9,7 @@ pool:
 
 variables:
   azureSubscription: 'SP_Mahaana_Dev'
-  stgWebAppName: 'stg-mahaana-dfa-mahaanaweb'
+  stgWebAppName: 'stg-mahaana-common-mahaanaweb'
 
 jobs:
   - job: Deployment
