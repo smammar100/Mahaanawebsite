@@ -8,29 +8,29 @@ trigger:
       - master
 
 variables:
-  directory: '.'
+  directory: "."
 
 pool:
-  name: 'Mahaana_Agent'
+  name: "Mahaana_Agent"
 
 steps:
   - task: NodeTool@0
     inputs:
-      versionSpec: '20.x'
-    displayName: 'Install Node.js 20.x'
+      versionSpec: "20.x"
+    displayName: "Install Node.js 20.x"
 
   - script: |
       npm install -g pnpm
-    displayName: 'Install pnpm'
+    displayName: "Install pnpm"
 
   - script: |
       pnpm install --frozen-lockfile
-    displayName: 'pnpm install'
+    displayName: "pnpm install"
     workingDirectory: $(directory)
 
   - script: |
       pnpm run build
-    displayName: 'pnpm run build'
+    displayName: "pnpm run build"
     workingDirectory: $(directory)
     env:
       # Required for Sanity + app routes that read these at build time (see src/lib/sanity/client.ts)
@@ -40,18 +40,17 @@ steps:
       SANITY_IMPORT_TOKEN: $(SANITY_IMPORT_TOKEN)
       SANITY_AUTH_TOKEN: $(SANITY_AUTH_TOKEN)
 
-
   - task: ArchiveFiles@2
-    displayName: 'Zip app for Linux App Service'
+    displayName: "Zip app for Linux App Service"
     inputs:
-      rootFolderOrFile: '$(Build.SourcesDirectory)/$(directory)'
+      rootFolderOrFile: "$(Build.SourcesDirectory)/$(directory)"
       includeRootFolder: false
       archiveType: zip
-      archiveFile: '$(Build.ArtifactStagingDirectory)/webapp.zip'
+      archiveFile: "$(Build.ArtifactStagingDirectory)/webapp.zip"
       replaceExistingArchive: true
 
   - task: PublishBuildArtifacts@1
-    displayName: 'Publish drop'
+    displayName: "Publish drop"
     inputs:
-      pathtoPublish: '$(Build.ArtifactStagingDirectory)'
-      ArtifactName: 'drop'
+      pathtoPublish: "$(Build.ArtifactStagingDirectory)"
+      ArtifactName: "drop"

@@ -49,16 +49,16 @@ resource "azurerm_linux_web_app" "webapp" {
   name                          = "${var.name_prefix}-mahaanaweb"
   location                      = var.location
   resource_group_name           = data.azurerm_resource_group.webapp.name
-  service_plan_id             = data.azurerm_service_plan.linux.id
-  virtual_network_subnet_id   = data.azurerm_subnet.app.id
+  service_plan_id               = data.azurerm_service_plan.linux.id
+  virtual_network_subnet_id     = data.azurerm_subnet.app.id
   https_only                    = true
   public_network_access_enabled = true
 
   site_config {
-    always_on                 = true
-    vnet_route_all_enabled    = true
-    minimum_tls_version       = "1.2"
-    app_command_line          = "npm --prefix /home/site/wwwroot run start"
+    always_on              = true
+    vnet_route_all_enabled = true
+    minimum_tls_version    = "1.2"
+    app_command_line       = "npm --prefix /home/site/wwwroot run start"
 
 
     application_stack {
