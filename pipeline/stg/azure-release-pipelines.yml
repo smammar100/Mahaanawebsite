@@ -2,7 +2,7 @@
 # Terraform state file name is unique to this app (not shared with other Mahaana repos).
 
 trigger:
-  - none
+- none
 
 pool:
   name: 'Mahaana_Agent'
@@ -12,89 +12,98 @@ variables:
   stgWebAppName: 'stg-mahaana-common-mahaanaweb'
 
 jobs:
-  - job: Deployment
-    displayName: Staging — Terraform + deploy Next.js zip
-    steps:
-      - task: TerraformInstaller@0
-        inputs:
-          terraformVersion: 'latest'
+- job: Deployment
+  displayName: Staging — Terraform + deploy Next.js zip
+  steps:
+  - task: TerraformInstaller@0
+    inputs:
+      terraformVersion: 'latest'
 
-      - task: TerraformTaskV3@3
-        displayName: Terraform init
-        inputs:
-          provider: 'azurerm'
-          command: 'init'
-          workingDirectory: $(System.DefaultWorkingDirectory)/terraform/stg
-          backendServiceArm: 'SP_Mahaana_Dev'
-          backendAzureRmResourceGroupName: 'mahaana-common-stg'
-          backendAzureRmStorageAccountName: 'stagingmahaanastatefiles'
-          backendAzureRmContainerName: 'mahaana-staging-statefiles'
-          backendAzureRmKey: 'mahaana-website-stg.tfstate'
+  - task: TerraformTaskV3@3
+    displayName: Terraform init
+    inputs:
+      provider: 'azurerm'
+      command: 'init'
+      workingDirectory: $(System.DefaultWorkingDirectory)/terraform/stg
+      backendServiceArm: 'SP_Mahaana_Dev'
+      backendAzureRmResourceGroupName: 'mahaana-common-stg'
+      backendAzureRmStorageAccountName: 'stagingmahaanastatefiles'
+      backendAzureRmContainerName: 'mahaana-staging-statefiles'
+      backendAzureRmKey: 'mahaana-website-stg.tfstate'
 
-      - task: TerraformTaskV3@3
-        displayName: Terraform validate
-        inputs:
-          provider: 'azurerm'
-          command: 'validate'
-          workingDirectory: $(System.DefaultWorkingDirectory)/terraform/stg
+  - task: TerraformTaskV3@3
+    displayName: Terraform validate
+    inputs:
+      provider: 'azurerm'
+      command: 'validate'
+      workingDirectory: $(System.DefaultWorkingDirectory)/terraform/stg
 
-      - task: TerraformTaskV3@3
-        displayName: Terraform plan
-        inputs:
-          provider: 'azurerm'
-          command: 'plan'
-          workingDirectory: $(System.DefaultWorkingDirectory)/terraform/stg
-          commandOptions: '-out=tfplan'
-          environmentServiceNameAzureRM: 'SP_Mahaana_Dev'
+  - task: TerraformTaskV3@3
+    displayName: Terraform plan
+    inputs:
+      provider: 'azurerm'
+      command: 'plan'
+      workingDirectory: $(System.DefaultWorkingDirectory)/terraform/stg
+      commandOptions: '-out=tfplan'
+      environmentServiceNameAzureRM: 'SP_Mahaana_Dev'
 
-      - task: TerraformTaskV3@3
-        displayName: Terraform apply
-        inputs:
-          provider: 'azurerm'
-          command: 'apply'
-          workingDirectory: $(System.DefaultWorkingDirectory)/terraform/stg
-          commandOptions: '-auto-approve tfplan'
-          environmentServiceNameAzureRM: 'SP_Mahaana_Dev'
+  - task: TerraformTaskV3@3
+    displayName: Terraform apply
+    inputs:
+      provider: 'azurerm'
+      command: 'apply'
+      workingDirectory: $(System.DefaultWorkingDirectory)/terraform/stg
+      commandOptions: '-auto-approve tfplan'
+      environmentServiceNameAzureRM: 'SP_Mahaana_Dev'
 
+<<<<<<< HEAD
       - task: DownloadBuildArtifacts@1
         displayName: Download build artifact drop
         inputs:
           buildType: 'specific'
-          project: '275f80c4-a96e-4246-bbf5-7a2040f5263b'
-          pipeline: '381'
+          project: '$(adoProjectId)'
+          definition: '$(buildPipelineId)'
           buildVersionToDownload: 'latest'
           downloadType: 'single'
           artifactName: 'drop'
           downloadPath: '$(System.ArtifactsDirectory)'
 
-      - task: PowerShell@2
+      - task: Bash@3
         displayName: Validate downloaded webapp.zip structure
         inputs:
           targetType: 'inline'
           script: |
-            $zipPath = "$(System.ArtifactsDirectory)/drop/webapp.zip"
-            if (!(Test-Path $zipPath)) {
-              throw "Artifact not found at $zipPath"
-            }
+            zipPath="$(System.ArtifactsDirectory)/drop/webapp.zip"
+            if [ ! -f "$zipPath" ]; then
+              echo "Artifact not found at $zipPath"
+              exit 1
+            fi
 
-            Add-Type -AssemblyName System.IO.Compression.FileSystem
-            $zip = [System.IO.Compression.ZipFile]::OpenRead($zipPath)
-            try {
-              $hasRootPackageJson = $zip.Entries | Where-Object { $_.FullName -eq "package.json" }
-              if (-not $hasRootPackageJson) {
-                $sampleEntries = ($zip.Entries | Select-Object -First 20 | ForEach-Object { $_.FullName }) -join "`n"
-                throw "webapp.zip does not contain package.json at root. App Service startup expects /home/site/wwwroot/package.json. Sample entries:`n$sampleEntries"
-              }
-            }
-            finally {
-              $zip.Dispose()
-            }
+            if ! command -v unzip >/dev/null 2>&1; then
+              echo "unzip command not found"
+              exit 1
+            fi
 
-      - task: AzureRmWebAppDeployment@4
-        displayName: Deploy webapp.zip to Linux Web App
-        inputs:
-          ConnectionType: 'AzureRM'
-          azureSubscription: '$(azureSubscription)'
-          appType: 'webAppLinux'
-          WebAppName: '$(stgWebAppName)'
-          packageForLinux: '$(System.ArtifactsDirectory)/drop/webapp.zip'
+            # List contents and check for package.json
+            if unzip -l "$zipPath" | grep -q "^.*package\.json$"; then
+              echo "package.json found at root of webapp.zip"
+            else
+              echo "webapp.zip does not contain package.json at root. App Service startup expects /home/site/wwwroot/package.json."
+              unzip -l "$zipPath" | head -20
+              exit 1
+            fi
+          echo "package.json found at root of webapp.zip"
+        else
+          echo "webapp.zip does not contain package.json at root. App Service startup expects /home/site/wwwroot/package.json."
+          unzip -l "$zipPath" | head -20
+          exit 1
+        fi
+
+  - task: AzureRmWebAppDeployment@4
+    displayName: Deploy webapp.zip to Linux Web App
+    inputs:
+      ConnectionType: 'AzureRM'
+      azureSubscription: '$(azureSubscription)'
+      appType: 'webAppLinux'
+      WebAppName: '$(stgWebAppName)'
+      packageForLinux: '$(System.ArtifactsDirectory)/drop/webapp.zip'
