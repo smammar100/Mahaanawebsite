@@ -73,5 +73,7 @@ variable "app_settings" {
     "WEBSITE_NODE_DEFAULT_VERSION"        = "~20"
     "SCM_DO_BUILD_DURING_DEPLOYMENT"      = "false"
     "WEBSITES_ENABLE_APP_SERVICE_STORAGE" = "false"
+    "PORT"                                = "8080"
+    "NEXT_TELEMETRY_DISABLED"             = "1"
   }
 }

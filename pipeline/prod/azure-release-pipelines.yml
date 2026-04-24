@@ -2,7 +2,7 @@
 # Update backend + web app name variables to match your prod subscription/storage.
 
 trigger:
-  - none
+- none
 
 pool:
   name: 'Mahaana_Agent'
@@ -17,66 +17,91 @@ variables:
   tfBackendContainer: 'mahaana-prod-statefiles'
 
 jobs:
-  - job: Deployment
-    displayName: Production — Terraform + deploy Next.js zip
-    steps:
-      - task: TerraformInstaller@0
-        inputs:
-          terraformVersion: 'latest'
+- job: Deployment
+  displayName: Production — Terraform + deploy Next.js zip
+  steps:
+  - task: TerraformInstaller@0
+    inputs:
+      terraformVersion: 'latest'
 
-      - task: TerraformTaskV3@3
-        displayName: Terraform init
-        inputs:
-          provider: 'azurerm'
-          command: 'init'
-          workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/prod'
-          backendServiceArm: 'SP_Mahaana_Dev'
-          backendAzureRmResourceGroupName: '$(tfBackendRg)'
-          backendAzureRmStorageAccountName: '$(tfBackendStorageAccount)'
-          backendAzureRmContainerName: '$(tfBackendContainer)'
-          backendAzureRmKey: 'mahaana-website-prod.tfstate'
+  - task: TerraformTaskV3@3
+    displayName: Terraform init
+    inputs:
+      provider: 'azurerm'
+      command: 'init'
+      workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/prod'
+      backendServiceArm: 'SP_Mahaana_Dev'
+      backendAzureRmResourceGroupName: '$(tfBackendRg)'
+      backendAzureRmStorageAccountName: '$(tfBackendStorageAccount)'
+      backendAzureRmContainerName: '$(tfBackendContainer)'
+      backendAzureRmKey: 'mahaana-website-prod.tfstate'
 
-      - task: TerraformTaskV3@3
-        displayName: Terraform validate
-        inputs:
-          provider: 'azurerm'
-          command: 'validate'
-          workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/prod'
+  - task: TerraformTaskV3@3
+    displayName: Terraform validate
+    inputs:
+      provider: 'azurerm'
+      command: 'validate'
+      workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/prod'
 
-      - task: TerraformTaskV3@3
-        displayName: Terraform plan
-        inputs:
-          provider: 'azurerm'
-          command: 'plan'
-          workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/prod'
-          commandOptions: '-out=tfplan'
-          environmentServiceNameAzureRM: 'SP_Mahaana_Dev'
+  - task: TerraformTaskV3@3
+    displayName: Terraform plan
+    inputs:
+      provider: 'azurerm'
+      command: 'plan'
+      workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/prod'
+      commandOptions: '-out=tfplan'
+      environmentServiceNameAzureRM: 'SP_Mahaana_Dev'
 
-      - task: TerraformTaskV3@3
-        displayName: Terraform apply
-        inputs:
-          provider: 'azurerm'
-          command: 'apply'
-          workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/prod'
-          commandOptions: '-auto-approve tfplan'
-          environmentServiceNameAzureRM: 'SP_Mahaana_Dev'
+  - task: TerraformTaskV3@3
+    displayName: Terraform apply
+    inputs:
+      provider: 'azurerm'
+      command: 'apply'
+      workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/prod'
+      commandOptions: '-auto-approve tfplan'
+      environmentServiceNameAzureRM: 'SP_Mahaana_Dev'
 
-      - task: DownloadBuildArtifacts@1
-        displayName: Download build artifact drop
-        inputs:
-          buildType: 'specific'
-          project: '$(adoProjectId)'
-          definition: '$(buildPipelineId)'
-          buildVersionToDownload: 'latest'
-          downloadType: 'single'
-          artifactName: 'drop'
-          downloadPath: '$(System.ArtifactsDirectory)'
+  - task: DownloadBuildArtifacts@1
+    displayName: Download build artifact drop
+    inputs:
+      buildType: 'specific'
+      project: '$(adoProjectId)'
+      definition: '$(buildPipelineId)'
+      buildVersionToDownload: 'latest'
+      downloadType: 'single'
+      artifactName: 'drop'
+      downloadPath: '$(System.ArtifactsDirectory)'
 
-      - task: AzureRmWebAppDeployment@4
-        displayName: Deploy webapp.zip to Linux Web App
-        inputs:
-          ConnectionType: 'AzureRM'
-          azureSubscription: '$(azureSubscription)'
-          appType: 'webAppLinux'
-          WebAppName: '$(prodWebAppName)'
-          packageForLinux: '$(System.ArtifactsDirectory)/drop/webapp.zip'
+  - task: Bash@3
+    displayName: Validate downloaded webapp.zip structure
+    inputs:
+      targetType: 'inline'
+      script: |
+        zipPath="$(System.ArtifactsDirectory)/drop/webapp.zip"
+        if [ ! -f "$zipPath" ]; then
+          echo "Artifact not found at $zipPath"
+          exit 1
+        fi
+
+        if ! command -v unzip >/dev/null 2>&1; then
+          echo "unzip command not found"
+          exit 1
+        fi
+
+        # Check for server.js (standalone Next.js output)
+        if unzip -l "$zipPath" | grep -q "^.*server\.js$"; then
+          echo "server.js found in webapp.zip (standalone output detected)"
+        else
+          echo "webapp.zip does not contain server.js. Expected standalone Next.js output."
+          unzip -l "$zipPath" | head -20
+          exit 1
+        fi
+
+  - task: AzureRmWebAppDeployment@4
+    displayName: Deploy webapp.zip to Linux Web App
+    inputs:
+      ConnectionType: 'AzureRM'
+      azureSubscription: '$(azureSubscription)'
+      appType: 'webAppLinux'
+      WebAppName: '$(prodWebAppName)'
+      packageForLinux: '$(System.ArtifactsDirectory)/drop/webapp.zip'
