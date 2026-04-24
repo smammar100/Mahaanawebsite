@@ -1,7 +1,7 @@
 variable "name_prefix" {
   type        = string
   description = "Prefix for the Linux Web App name (<prefix>-frontend)."
-  default     = "stg-mahaana-dfa"
+  default     = "stg-mahaana-common"
 }
 
 variable "location" {
@@ -12,13 +12,13 @@ variable "location" {
 variable "resource_group_name" {
   type        = string
   description = "Existing resource group that holds the App Service plan and where the Web App is created."
-  default     = "mahaana-dfa-stg"
+  default     = "mahaana-common-stg"
 }
 
 variable "service_plan_name" {
   type        = string
   description = "Existing Linux App Service plan name."
-  default     = "stg-mahaana-dfa-linux-serviceplan"
+  default     = "stg-mahaana-common-linux-serviceplan"
 }
 
 variable "subnet_name" {
