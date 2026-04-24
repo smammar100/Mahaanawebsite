@@ -24,7 +24,7 @@ steps:
     displayName: "Install pnpm"
 
   - script: |
-      pnpm install
+      pnpm install --no-frozen-lockfile
     displayName: "pnpm install"
     workingDirectory: $(directory)
 
