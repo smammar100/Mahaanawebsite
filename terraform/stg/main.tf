@@ -59,7 +59,7 @@ resource "azurerm_linux_web_app" "webapp" {
     vnet_route_all_enabled    = true
     app_command_line          = "npm run start"
     minimum_tls_version       = "1.2"
-    ip_restriction_default_action = "Deny"
+
 
     application_stack {
       node_version = var.node_version
