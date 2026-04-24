@@ -56,42 +56,36 @@ jobs:
       commandOptions: '-auto-approve tfplan'
       environmentServiceNameAzureRM: 'SP_Mahaana_Dev'
 
-<<<<<<< HEAD
-      - task: DownloadBuildArtifacts@1
-        displayName: Download build artifact drop
-        inputs:
-          buildType: 'specific'
-          project: '$(adoProjectId)'
-          definition: '$(buildPipelineId)'
-          buildVersionToDownload: 'latest'
-          downloadType: 'single'
-          artifactName: 'drop'
-          downloadPath: '$(System.ArtifactsDirectory)'
 
-      - task: Bash@3
-        displayName: Validate downloaded webapp.zip structure
-        inputs:
-          targetType: 'inline'
-          script: |
-            zipPath="$(System.ArtifactsDirectory)/drop/webapp.zip"
-            if [ ! -f "$zipPath" ]; then
-              echo "Artifact not found at $zipPath"
-              exit 1
-            fi
+  - task: DownloadBuildArtifacts@1
+    displayName: Download build artifact drop
+    inputs:
+      buildType: 'specific'
+      project: '$(adoProjectId)'
+      definition: '$(buildPipelineId)'
+      buildVersionToDownload: 'latest'
+      downloadType: 'single'
+      artifactName: 'drop'
+      downloadPath: '$(System.ArtifactsDirectory)'
 
-            if ! command -v unzip >/dev/null 2>&1; then
-              echo "unzip command not found"
-              exit 1
-            fi
+  - task: Bash@3
+    displayName: Validate downloaded webapp.zip structure
+    inputs:
+      targetType: 'inline'
+      script: |
+        zipPath="$(System.ArtifactsDirectory)/drop/webapp.zip"
+        if [ ! -f "$zipPath" ]; then
+          echo "Artifact not found at $zipPath"
+          exit 1
+        fi
 
-            # List contents and check for package.json
-            if unzip -l "$zipPath" | grep -q "^.*package\.json$"; then
-              echo "package.json found at root of webapp.zip"
-            else
-              echo "webapp.zip does not contain package.json at root. App Service startup expects /home/site/wwwroot/package.json."
-              unzip -l "$zipPath" | head -20
-              exit 1
-            fi
+        if ! command -v unzip >/dev/null 2>&1; then
+          echo "unzip command not found"
+          exit 1
+        fi
+
+        # List contents and check for package.json
+        if unzip -l "$zipPath" | grep -q "^.*package\.json$"; then
           echo "package.json found at root of webapp.zip"
         else
           echo "webapp.zip does not contain package.json at root. App Service startup expects /home/site/wwwroot/package.json."
