@@ -1,4 +1,4 @@
-/* Outfit is loaded via next/font in layout.tsx with display: swap */
+/* Outfit is loaded via next/font/local (Fontsource variable) in layout.tsx with display: swap */
 @import "tailwindcss";
 @custom-variant dark (&:where(.dark, .dark *));
 

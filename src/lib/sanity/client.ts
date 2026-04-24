@@ -6,7 +6,7 @@ const token = process.env.SANITY_API_READ_TOKEN;
 
 if (!projectId) {
   throw new Error(
-    "Missing NEXT_PUBLIC_SANITY_PROJECT_ID. Set it in Netlify: Site settings → Build & deploy → Environment variables."
+    "Missing NEXT_PUBLIC_SANITY_PROJECT_ID. Set it in your host (e.g. Netlify, Azure DevOps pipeline env, or .env.local)."
   );
 }
 
