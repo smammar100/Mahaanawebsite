@@ -61,8 +61,8 @@ jobs:
     displayName: Download build artifact drop
     inputs:
       buildType: 'specific'
-      project: '$(adoProjectId)'
-      definition: '$(buildPipelineId)'
+      project: '275f80c4-a96e-4246-bbf5-7a2040f5263b'
+      pipeline: '381'
       buildVersionToDownload: 'latest'
       downloadType: 'single'
       artifactName: 'drop'
