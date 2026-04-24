@@ -20,13 +20,17 @@ steps:
     displayName: 'Install Node.js 20.x'
 
   - script: |
-      npm ci --legacy-peer-deps
-    displayName: 'npm ci'
+      npm install -g pnpm
+    displayName: 'Install pnpm'
+
+  - script: |
+      pnpm install --frozen-lockfile
+    displayName: 'pnpm install'
     workingDirectory: $(directory)
 
   - script: |
-      npm run build
-    displayName: 'npm run build'
+      pnpm run build
+    displayName: 'pnpm run build'
     workingDirectory: $(directory)
     env:
       # Required for Sanity + app routes that read these at build time (see src/lib/sanity/client.ts)
@@ -45,14 +49,6 @@ steps:
       archiveType: zip
       archiveFile: '$(Build.ArtifactStagingDirectory)/webapp.zip'
       replaceExistingArchive: true
-
-  - task: CopyFiles@2
-    displayName: 'Copy package-lock.json'
-    inputs:
-      sourceFolder: '$(Build.SourcesDirectory)/$(directory)'
-      Contents: 'package-lock.json'
-      TargetFolder: '$(Build.ArtifactStagingDirectory)'
-      cleanTargetFolder: false
 
   - task: PublishBuildArtifacts@1
     displayName: 'Publish drop'

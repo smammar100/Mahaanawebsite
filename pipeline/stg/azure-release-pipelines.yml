@@ -9,6 +9,8 @@ pool:
 
 variables:
   azureSubscription: 'SP_Mahaana_Dev'
+  adoProjectId: '24e8efe7-1703-4a24-9c1b-fe90fe88cd6b'
+  buildPipelineId: '274'
   stgWebAppName: 'stg-mahaana-common-mahaanaweb'
 
 jobs:
@@ -60,12 +62,35 @@ jobs:
         displayName: Download build artifact drop
         inputs:
           buildType: 'specific'
-          project: '275f80c4-a96e-4246-bbf5-7a2040f5263b'
-          pipeline: '381'
+          project: '$(adoProjectId)'
+          definition: '$(buildPipelineId)'
           buildVersionToDownload: 'latest'
           downloadType: 'single'
           artifactName: 'drop'
           downloadPath: '$(System.ArtifactsDirectory)'
+
+      - task: PowerShell@2
+        displayName: Validate downloaded webapp.zip structure
+        inputs:
+          targetType: 'inline'
+          script: |
+            $zipPath = "$(System.ArtifactsDirectory)/drop/webapp.zip"
+            if (!(Test-Path $zipPath)) {
+              throw "Artifact not found at $zipPath"
+            }
+
+            Add-Type -AssemblyName System.IO.Compression.FileSystem
+            $zip = [System.IO.Compression.ZipFile]::OpenRead($zipPath)
+            try {
+              $hasRootPackageJson = $zip.Entries | Where-Object { $_.FullName -eq "package.json" }
+              if (-not $hasRootPackageJson) {
+                $sampleEntries = ($zip.Entries | Select-Object -First 20 | ForEach-Object { $_.FullName }) -join "`n"
+                throw "webapp.zip does not contain package.json at root. App Service startup expects /home/site/wwwroot/package.json. Sample entries:`n$sampleEntries"
+              }
+            }
+            finally {
+              $zip.Dispose()
+            }
 
       - task: AzureRmWebAppDeployment@4
         displayName: Deploy webapp.zip to Linux Web App
