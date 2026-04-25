@@ -30,7 +30,7 @@ steps:
 
   - script: |
       pnpm run build
-    displayName: "pnpm run build"
+    displayName: "Build standalone Next.js (includes static copy)"
     workingDirectory: $(directory)
     env:
       # Required for Sanity + app routes that read these at build time (see src/lib/sanity/client.ts)
@@ -39,12 +39,6 @@ steps:
       SANITY_API_READ_TOKEN: $(SANITY_API_READ_TOKEN)
       SANITY_IMPORT_TOKEN: $(SANITY_IMPORT_TOKEN)
       SANITY_AUTH_TOKEN: $(SANITY_AUTH_TOKEN)
-
-  - script: |
-      cp -r .next/static .next/standalone/.next/static
-      cp -r public .next/standalone/public
-    displayName: "Prepare standalone output"
-    workingDirectory: $(directory)
 
   - task: ArchiveFiles@2
     displayName: "Zip standalone output for Linux App Service"

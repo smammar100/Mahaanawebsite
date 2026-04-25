@@ -72,11 +72,10 @@ variable "app_settings" {
   type        = map(string)
   description = "App Service application settings (merge runtime env, SCM flags, etc.)."
   default = {
-    "WEBSITE_NODE_DEFAULT_VERSION"              = "~20"
-    "SCM_DO_BUILD_DURING_DEPLOYMENT"            = "false"
-    "WEBSITES_ENABLE_APP_SERVICE_STORAGE"       = "false"
-    "WEBSITE_SKIP_NODE_MODULES_TAR_COMPRESSION" = "1"
-    "PORT"                                      = "8080"
-    "NEXT_TELEMETRY_DISABLED"                   = "1"
+    "WEBSITE_NODE_DEFAULT_VERSION"  = "~20"
+    "SCM_DO_BUILD_DURING_DEPLOYMENT" = "false"
+    "WEBSITE_RUN_FROM_PACKAGE"      = "1"
+    "PORT"                          = "8080"
+    "NEXT_TELEMETRY_DISABLED"       = "1"
   }
 }

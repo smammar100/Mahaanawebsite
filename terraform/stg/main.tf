@@ -57,7 +57,7 @@ resource "azurerm_linux_web_app" "webapp" {
   site_config {
     always_on              = true
     vnet_route_all_enabled = true
-    app_command_line       = "node /home/site/wwwroot/server.js"
+    app_command_line       = "node server.js"
     minimum_tls_version    = "1.2"
 
 
