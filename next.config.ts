@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import path from "path";
 import { MAHAANA_PORTAL_LOGIN_URL } from "./src/lib/portal-urls";
 
 const withBundleAnalyzer = require("@next/bundle-analyzer")({
@@ -7,6 +8,7 @@ const withBundleAnalyzer = require("@next/bundle-analyzer")({
 
 const nextConfig: NextConfig = {
   output: 'standalone',
+  outputFileTracingRoot: path.resolve(__dirname),
   trailingSlash: false,
   experimental: {
     optimizePackageImports: [
