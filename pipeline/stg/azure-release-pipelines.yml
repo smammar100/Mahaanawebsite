@@ -68,27 +68,6 @@ jobs:
       artifactName: 'drop'
       downloadPath: '$(System.ArtifactsDirectory)'
 
-  - task: DownloadBuildArtifacts@1
-    displayName: Download build artifact drop
-    inputs:
-      buildType: 'specific'
-      project: '275f80c4-a96e-4246-bbf5-7a2040f5263b'
-      pipeline: '381'
-      buildVersionToDownload: 'latest'
-      downloadType: 'single'
-      artifactName: 'drop'
-      downloadPath: '$(System.ArtifactsDirectory)'
-
-  - task: Bash@3
-    displayName: Validate downloaded webapp.zip structure
-    inputs:
-      targetType: 'inline'
-      script: |
-        zipPath="$(System.ArtifactsDirectory)/drop/webapp.zip"
-        if [ ! -f "$zipPath" ]; then
-          echo "Artifact not found at $zipPath"
-          exit 1
-        fi
   - task: Bash@3
     displayName: Validate downloaded webapp.zip structure
     inputs:
@@ -100,10 +79,6 @@ jobs:
           exit 1
         fi
 
-        if ! command -v unzip >/dev/null 2>&1; then
-          echo "unzip command not found"
-          exit 1
-        fi
         if ! command -v unzip >/dev/null 2>&1; then
           echo "unzip command not found"
           exit 1
