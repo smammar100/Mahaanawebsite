@@ -40,14 +40,11 @@ steps:
       SANITY_IMPORT_TOKEN: $(SANITY_IMPORT_TOKEN)
       SANITY_AUTH_TOKEN: $(SANITY_AUTH_TOKEN)
 
-  - task: ArchiveFiles@2
-    displayName: "Zip standalone output for Linux App Service"
-    inputs:
-      rootFolderOrFile: "$(Build.SourcesDirectory)/$(directory)/.next/standalone"
-      includeRootFolder: false
-      archiveType: zip
-      archiveFile: "$(Build.ArtifactStagingDirectory)/webapp.zip"
-      replaceExistingArchive: true
+  - script: |
+      cd .next/standalone
+      zip -r "$(Build.ArtifactStagingDirectory)/webapp.zip" .
+    displayName: "Zip standalone output (including dotfiles)"
+    workingDirectory: $(directory)
 
   - task: PublishBuildArtifacts@1
     displayName: "Publish drop"
