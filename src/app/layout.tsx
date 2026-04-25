@@ -12,16 +12,8 @@ const outfit = localFont({
   weight: "100 900",
 });
 
-/** LCP hero raster — matches Netlify Image CDN output in production (layout preload). */
-const heroBgPreloadHref =
-  process.env.NODE_ENV === "production"
-    ? `/.netlify/images?${new URLSearchParams({
-        url: "/images/invest/hero-bg.webp",
-        w: "1200",
-        fm: "avif",
-        q: "80",
-      }).toString()}`
-    : "/images/invest/hero-bg.webp";
+/** LCP hero raster preload path served from public assets. */
+const heroBgPreloadHref = "/images/invest/hero-bg.webp";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.mahaana.com"),
@@ -47,7 +39,7 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://cdn.sanity.io" />
         <link rel="alternate" type="text/plain" title="LLM site hints" href="/llms.txt" />
         <link rel="preload" href="/images/invest/Logo.svg" as="image" />
-        <link rel="preload" href={heroBgPreloadHref} as="image" />
+        <link rel="preload" href={heroBgPreloadHref} as="image" type="image/webp" />
         {process.env.NODE_ENV === "development" ? (
           <style>{`nextjs-portal { display: none !important; }`}</style>
         ) : null}

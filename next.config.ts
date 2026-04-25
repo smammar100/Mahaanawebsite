@@ -18,9 +18,7 @@ const nextConfig: NextConfig = {
     ],
   },
   images: {
-    loader: "custom",
-    loaderFile: "./src/lib/netlify-image-loader.ts",
-    /** Responsive srcset widths aligned with Netlify Image CDN (see netlify-image-loader). */
+    /** Responsive srcset widths for Next.js image optimization. */
     deviceSizes: [400, 800, 1200, 1920],
     remotePatterns: [
       {

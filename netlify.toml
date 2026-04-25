@@ -1,3 +1,5 @@
+# DEPRECATED: This file is retained for legacy Netlify deployments/reference only.
+# Azure App Service runtime does not use this configuration.
 # Ensure Next.js handles all routes (including /studio)
 # https://docs.netlify.com/integrations/frameworks/next-js/
 
