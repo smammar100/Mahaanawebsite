@@ -57,7 +57,7 @@ resource "azurerm_linux_web_app" "webapp" {
   site_config {
     always_on              = true
     vnet_route_all_enabled = true
-    app_command_line       = "rm -f /home/site/wwwroot/node_modules.tar.gz /home/site/wwwroot/oryx-manifest.toml 2>/dev/null; cd /home/site/wwwroot && node server.js"
+    app_command_line       = "node /home/site/wwwroot/server.js"
     minimum_tls_version    = "1.2"
 
 
