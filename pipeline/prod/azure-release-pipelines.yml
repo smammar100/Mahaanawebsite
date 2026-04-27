@@ -97,11 +97,17 @@ jobs:
           exit 1
         fi
 
-  - task: AzureRmWebAppDeployment@4
-    displayName: Deploy webapp.zip to Linux Web App
+  - task: AzureCLI@2
+    displayName: Clean-deploy webapp.zip to Linux Web App
     inputs:
-      ConnectionType: 'AzureRM'
       azureSubscription: '$(azureSubscription)'
-      appType: 'webAppLinux'
-      WebAppName: '$(prodWebAppName)'
-      packageForLinux: '$(System.ArtifactsDirectory)/drop/webapp.zip'
+      scriptType: 'bash'
+      scriptLocation: 'inlineScript'
+      inlineScript: |
+        az webapp deploy \
+          --resource-group mahaana-dfa-prod \
+          --name $(prodWebAppName) \
+          --src-path "$(System.ArtifactsDirectory)/drop/webapp.zip" \
+          --type zip \
+          --clean true \
+          --restart true

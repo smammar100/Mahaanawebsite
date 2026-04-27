@@ -72,6 +72,8 @@ variable "app_settings" {
   default = {
     "WEBSITE_NODE_DEFAULT_VERSION"        = "~20"
     "SCM_DO_BUILD_DURING_DEPLOYMENT"      = "false"
+    "ENABLE_ORYX_BUILD"                   = "false"
+    "WEBSITE_SKIP_NODE_MODULES_TAR_COMPRESSION" = "1"
     "WEBSITES_ENABLE_APP_SERVICE_STORAGE" = "false"
     "PORT"                                = "8080"
     "NEXT_TELEMETRY_DISABLED"             = "1"
