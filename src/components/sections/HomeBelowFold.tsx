@@ -44,7 +44,7 @@ export function HomeBelowFold({ posts, reviews }: HomeBelowFoldProps) {
       <FeatureCards />
       <FeaturesSection />
       <TestimonialsSection reviews={reviews} />
-      <ComplianceSection />
+      <ComplianceSection showCards={false} />
       <BlogSection posts={posts} />
       <Cta6Section />
     </>

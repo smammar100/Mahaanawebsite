@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { Container } from "@/components/layout/Container";
-import { cn } from "@/lib/utils";
+import { Section, type SectionPosition } from "@/components/layout/Section";
 
 export const INVESTOR_LOGOS = [
   { src: "/images/invest/VEF%20logo.webp", alt: "VEF" },
@@ -10,19 +10,16 @@ export const INVESTOR_LOGOS = [
 ];
 
 type LogoStripProps = {
-  /** When true, no top padding — use when the section above already ends with the same gap (e.g. About hero). */
-  compactTop?: boolean;
+  /** Pass "first" to drop top padding when stacked directly under a hero. */
+  position?: SectionPosition;
 };
 
-export function LogoStrip({ compactTop = false }: LogoStripProps) {
+export function LogoStrip({ position = "middle" }: LogoStripProps) {
   return (
-    <section
-      className={cn(
-        "flex min-h-[120px] flex-col items-center justify-center bg-surface-bg sm:min-h-[100px]",
-        compactTop
-          ? "section-y pt-0"
-          : "section-y"
-      )}
+    <Section
+      size="compact"
+      position={position}
+      className="flex min-h-[120px] flex-col items-center justify-center bg-surface-bg sm:min-h-[100px]"
       aria-label="Investor and partner logos"
     >
       <Container className="flex flex-col items-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16">
@@ -44,6 +41,6 @@ export function LogoStrip({ compactTop = false }: LogoStripProps) {
           ))}
         </div>
       </Container>
-    </section>
+    </Section>
   );
 }

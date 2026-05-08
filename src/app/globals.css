@@ -339,9 +339,24 @@
     font-weight: 600;
   }
 
-  /** Stacked page sections: symmetric vertical rhythm (compose with section-fade-in-up, bg-*, etc.) */
+  /** Stacked page sections: moderate symmetric vertical rhythm.
+      Compose with section-y-first / section-y-last for adjacency resets,
+      section-fade-in-up for entrance animation, bg-* for background. */
   .section-y {
-    @apply py-8 sm:py-10 md:py-12 lg:py-14 xl:py-16;
+    @apply py-10 sm:py-12 md:py-14 lg:py-16;
+  }
+  .section-y-compact {
+    @apply py-6 sm:py-8 md:py-10 lg:py-12 xl:py-14;
+  }
+  .section-y-generous {
+    @apply py-14 sm:py-20 md:py-24 lg:py-28 xl:py-32;
+  }
+  /** Adjacency resets: collapse padding when a section sits next to a hero or footer/CTA that owns its own spacing. */
+  .section-y-first {
+    padding-top: 0;
+  }
+  .section-y-last {
+    padding-bottom: 0;
   }
 }
 

@@ -2,6 +2,7 @@
 
 import { ArrowRight, ShieldTick, Wallet01 } from "@untitledui/icons";
 import Image from "next/image";
+import { motion } from "motion/react";
 import { Button } from "@/components/base/buttons/button";
 import { Container } from "@/components/layout/Container";
 import { H3, TextLarge, TextRegular } from "@/components/ui/Typography";
@@ -13,6 +14,8 @@ interface ComplianceSectionProps {
   className?: string;
   /** When false, hides the "Security" eyebrow and "Learn more about security" CTA (e.g. on the security page). Default true for homepage. */
   showEyebrowAndCta?: boolean;
+  /** When false, hides the supporting cards grid (SECP/CDC/Secure transactions/etc.). Default true. */
+  showCards?: boolean;
 }
 
 type IconCard = {
@@ -53,7 +56,11 @@ const securityCards: (IconCard | LogoCard)[] = [
   },
 ];
 
-export function ComplianceSection({ className, showEyebrowAndCta = true }: ComplianceSectionProps) {
+export function ComplianceSection({
+  className,
+  showEyebrowAndCta = true,
+  showCards = true,
+}: ComplianceSectionProps) {
   const { ref, isVisible } = useInView(0.15);
   return (
     <section
@@ -67,76 +74,105 @@ export function ComplianceSection({ className, showEyebrowAndCta = true }: Compl
       aria-labelledby="compliance-heading"
     >
       <Container className="flex flex-col gap-8 px-4 sm:gap-10 sm:px-6 md:px-8 lg:gap-14 lg:px-12 xl:px-16">
-        <div className="flex flex-col items-start">
-          <div className="flex flex-col items-start gap-2">
+        {/* Spotlight header: text left, illustration right */}
+        <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-2 lg:gap-12">
+          <div className="flex flex-col items-start">
+            <div className="flex flex-col items-start gap-2">
+              {showEyebrowAndCta && (
+                <p className="text-label text-system-brand">
+                  {cleanCopy("Security")}
+                </p>
+              )}
+              <H3
+                id="compliance-heading"
+                className="text-text-primary w-full max-w-3xl"
+              >
+                How we keep your
+                <br />
+                money safe
+              </H3>
+            </div>
+            <TextRegular className="mt-4 max-w-2xl text-text-tertiary">
+              {cleanCopy(
+                "Your financial security is our top priority. By partnering with CDC, we provide a secure environment for your investments. With CDC's robust security protocols and Mahaana's transparent processes, you can be confident that your money is in safe hands."
+              )}
+            </TextRegular>
             {showEyebrowAndCta && (
-              <p className="text-label text-system-brand">
-                {cleanCopy("Security")}
-              </p>
+              <Button
+                href="/security"
+                color="secondary"
+                size="md"
+                iconTrailing={ArrowRight}
+                className="mt-6 w-fit"
+              >
+                Learn more about security
+              </Button>
             )}
-            <H3
-              id="compliance-heading"
-              className="text-text-primary w-full max-w-3xl"
-            >
-              How we keep your
-              <br />
-              money safe
-            </H3>
           </div>
-          <TextRegular className="mt-4 max-w-2xl text-text-tertiary">
-            {cleanCopy(
-              "Your financial security is our top priority. By partnering with CDC, we provide a secure environment for your investments. With CDC's robust security protocols and Mahaana's transparent processes, you can be confident that your money is in safe hands."
-            )}
-          </TextRegular>
-          {showEyebrowAndCta && (
-            <Button
-              href="/security"
-              color="secondary"
-              size="md"
-              iconTrailing={ArrowRight}
-              className="mt-6 w-fit"
+
+          <motion.div
+            className="relative flex min-h-[240px] w-full items-center justify-center sm:min-h-[300px] lg:min-h-[360px]"
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            aria-hidden
+          >
+            <motion.div
+              className="flex w-full max-w-[390px] items-center justify-center"
+              animate={{ y: [0, -10, 0] }}
+              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
             >
-              Learn more about security
-            </Button>
-          )}
+              <Image
+                src="/images/security/vault.webp"
+                alt=""
+                width={1000}
+                height={991}
+                className="h-fit w-full object-contain"
+                sizes="(max-width: 1023px) 60vw, 390px"
+              />
+            </motion.div>
+          </motion.div>
         </div>
 
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-          {securityCards.map((card) => {
-            const Icon = "icon" in card ? card.icon : null;
-            return (
-              <div
-                key={card.title}
-                className="flex flex-col gap-6 rounded-2xl border border-surface-stroke bg-surface-card p-6 dark:bg-surface-card"
-              >
-                <div className="flex size-12 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-primary-100 p-2">
-                  {"logo" in card ? (
-                    <Image
-                      src={card.logo.src}
-                      alt={card.logo.alt}
-                      width={48}
-                      height={48}
-                      className="size-8 object-contain"
-                    />
-                  ) : Icon ? (
-                    <Icon className="size-6 text-primary-200" aria-hidden />
-                  ) : null}
+        {showCards && (
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+            {securityCards.map((card) => {
+              const Icon = "icon" in card ? card.icon : null;
+              return (
+                <div
+                  key={card.title}
+                  className="flex flex-col gap-6 rounded-2xl border border-surface-stroke bg-surface-card p-6 dark:bg-surface-card"
+                >
+                  <div className="flex size-12 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-primary-100 p-2">
+                    {"logo" in card ? (
+                      <Image
+                        src={card.logo.src}
+                        alt={card.logo.alt}
+                        width={48}
+                        height={48}
+                        className="size-8 object-contain"
+                      />
+                    ) : Icon ? (
+                      <Icon className="size-6 text-primary-200" aria-hidden />
+                    ) : null}
+                  </div>
+                  <div className="flex min-w-0 flex-col gap-2">
+                    <TextLarge
+                      weight="semibold"
+                      className="text-text-primary"
+                    >
+                      {card.title}
+                    </TextLarge>
+                    <TextRegular className="text-text-tertiary">
+                      {cleanCopy(card.description)}
+                    </TextRegular>
+                  </div>
                 </div>
-                <div className="flex min-w-0 flex-col gap-2">
-                  <TextLarge
-                    weight="semibold"
-                    className="text-text-primary"
-                  >
-                    {card.title}
-                  </TextLarge>
-                  <TextRegular className="text-text-tertiary">
-                    {cleanCopy(card.description)}
-                  </TextRegular>
-                </div>
-              </div>
-            );
-          })}
-        </div>
+              );
+            })}
+          </div>
+        )}
       </Container>
     </section>
   );

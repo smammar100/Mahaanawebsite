@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import { Container } from "@/components/layout/Container";
+import { Section } from "@/components/layout/Section";
 import { H2, TextLarge, TextRegular } from "@/components/ui/Typography";
 import { Button } from "@/components/base/buttons/button";
 import { cleanCopy } from "@/lib/copy-utils";
@@ -45,13 +46,9 @@ const features = [
 export function FeatureCards() {
   const { ref, isVisible } = useInView(0.15);
   return (
-    <section
+    <Section
       ref={ref}
-      className={cx(
-        /* pb-32: reserve space for overlapping illustration; top matches .section-y */
-        "section-fade-in-up pt-8 sm:pt-10 md:pt-12 lg:pt-14 xl:pt-16 pb-32",
-        isVisible && "visible"
-      )}
+      className={cx("section-fade-in-up", isVisible && "visible")}
       aria-labelledby="feature-cards-heading"
     >
       <Container className="flex flex-col gap-12 sm:gap-16 lg:gap-20">
@@ -74,7 +71,7 @@ export function FeatureCards() {
         </div>
 
         {/* Cards grid: min height so grid doesn't collapse; rows size to content */}
-        <div className="grid h-fit min-h-[380px] grid-cols-1 grid-auto-rows-[minmax(380px,auto)] gap-4 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3 pb-16">
+        <div className="grid h-fit min-h-[380px] grid-cols-1 grid-auto-rows-[minmax(380px,auto)] gap-4 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3">
           {features.map((feature, index) => (
             <div key={index} className="min-h-[380px] w-full">
               <PinContainer
@@ -114,7 +111,7 @@ export function FeatureCards() {
           ))}
         </div>
       </Container>
-    </section>
+    </Section>
   );
 }
 

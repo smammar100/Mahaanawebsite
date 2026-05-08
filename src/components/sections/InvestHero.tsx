@@ -22,7 +22,7 @@ export function InvestHero() {
         fill
         priority
         fetchPriority="high"
-        className="object-cover object-[center_30%] sm:object-[center_35%]"
+        className="object-cover object-[center_5%] sm:object-[center_10%]"
         sizes="100vw"
       />
 
