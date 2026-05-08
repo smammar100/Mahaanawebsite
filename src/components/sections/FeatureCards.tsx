@@ -16,7 +16,7 @@ const features = [
     title: "Answer few questions",
     description:
       "Fill out your details in less than 10 minutes and get onboarded",
-    image: "/images/invest/Step%201.webp",
+    image: "/images/illustrations/step-1.webp",
     imageOrder: "order-1",
     contentOrder: "order-2",
     href: "#open-account",
@@ -26,7 +26,7 @@ const features = [
     title: "Fund your account",
     description:
       "Invest as low as PKR5,000 to open your Mahaana account.",
-    image: "/images/invest/Step%202.webp",
+    image: "/images/illustrations/step-2.webp",
     imageOrder: "order-2",
     contentOrder: "order-1",
     href: "#open-account",
@@ -36,7 +36,7 @@ const features = [
     title: "Watch your savings grow",
     description:
       "Watch your investments work for you while we do the heavy lifting",
-    image: "/images/invest/Step%203.webp",
+    image: "/images/illustrations/step-3.webp",
     imageOrder: "order-1",
     contentOrder: "order-2",
     href: "#open-account",
@@ -51,7 +51,7 @@ export function FeatureCards() {
       className={cx("section-fade-in-up", isVisible && "visible")}
       aria-labelledby="feature-cards-heading"
     >
-      <Container className="flex flex-col gap-12 sm:gap-16 lg:gap-20">
+      <Container className="flex flex-col gap-6 sm:gap-8 lg:gap-10">
         {/* Header */}
         <div className="flex flex-col items-start gap-0">
           <div className="flex flex-col items-start gap-2">
